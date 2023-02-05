@@ -32,6 +32,7 @@ namespace FirstWinFormsApp1
         int analogIndex = 0;
         int digitalIndex = 0;
         int fieldbusIndex = 0;
+      
 
         //Font boldFont = new Font("Calibri", 10, FontStyle.Bold);
         //Font regularFont = new Font("Calibri"), 10, FontStyle.Regular);
@@ -61,113 +62,6 @@ namespace FirstWinFormsApp1
                 }
             }
         }
-
-        public class Instrument
-        {
-            //Classe body
-            //Propertties definition
-
-            public DateTime RegisterDate { get; }  //internally set date
-
-            //Full declaration of field and property;
-            private string sensorName;  //field
-
-            public string SensorName   //property 
-            {
-                get { return sensorName; }
-                set { sensorName = value; }
-            }
-
-            //Shortland property and field definition:
-
-            public string SerialNumber { get; set; }
-            public string SignalType { get; set; }
-            public string MeasuremntType { get; set; }
-            public string Options { get; set; }
-            public string Comments { get; set; }
-            public string LRV { get; set; }
-            public string URV { get; set; }
-            public string Unit { get; set; }
-
-
-        }
-        /*
-                //Constructor 1 - not Analog
-                public Instrument(string SensorName,
-                                    string SerialNumber,
-                                    string SignalType,
-                                    string MeasurementType,
-                                    string Options,
-                                    string Comments
-                                )
-                {
-                    this.dateTimePicker1Label = DateTime.Now;
-                    this.SensorNameTextLabel = SensorName;
-                    this.SerialNumberLabel = SerialNumber;
-                    this.SignalTypeLabel = SignalType;
-                    this.MeasureTypeLabel = MeasurementType;
-                    this.TextBoxOptions = Options,
-                    this.CommentsTextLabel = Comments;
-
-                }
-                //Constructor 2 - Analog
-                public Instrument(string SensorName,
-                                    string SerialNumber,
-                                    string SignalType,
-                                    string MeasurementType,
-                                    string Options,
-                                    string Comments,
-                                    double LRV,
-                                    double URV,
-                                    string Unit
-                                )
-                {
-                    this.dateTimePicker1Label = DateTime.Now;
-                    this.SensorNameTextLabel = SensorName;
-                    this.SerialNumberLabel = SerialNumber;
-                    this.SignalTypeLabel = SignalType;
-                    this.MeasureTypeLabel = MeasurementType;
-                    this.TextBoxOptions = Options,
-                    this.CommentsTextLabel = Comments;
-                    this.lrvValue = LRV;
-                    this.urvValue = URV;
-                    this.textBoxUnit = Unit
-                }
-        */
-        /*
-                //method declaration
-                public double Span()
-                {
-                    return urvValue - lrvValue;
-                }
-                public override string ToString()
-                {
-                    return dateTimePicker1Label.ToString() + ";" + SensorNameTextLabel
-                                                            + ";" + SerialNumberLabel
-                                                            + ";" + SignalTypeLabel
-                                                            + ";" + MeasureTypeLabel
-                                                            + ";" + TextBoxOptions
-                                                            + ";" + CommentsTextLabel + ";";
-                }
-
-                public List<Instrument> InstrumentList = new List<Instrument>();
-
-        */
-        /*
-                switch (RegSaveDel.Text) 
-                {
-                    case "Register New":
-                        Instrument instrument = new Instrument(textBoxSensorName.Text,
-                                                                maskedTexBox1.Text,
-                                                                comboBoxSignalType.Text,
-                                                                comboBoxMeasureType.Text,
-                                                                listBoxOptions.SelectedIndex.ToString(),
-                                                                textBoxComment.Text
-                                                                );
-                    textBoxRegister.AppendText(in)
-                    }
-        */
-
 
         /*
                     private void Form1_Mouse_Enter(object sender, EventArgs e)
@@ -337,10 +231,6 @@ namespace FirstWinFormsApp1
             else { return false; }
         }
 
-
-
-
-
         private void button1_Click(object sender, EventArgs e)
         {
             //Compare two inputs
@@ -411,7 +301,6 @@ namespace FirstWinFormsApp1
         }
 
 
-
         private void tabControl2_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (tabControl2.SelectedIndex == 2)
@@ -422,158 +311,27 @@ namespace FirstWinFormsApp1
             }
         }
 
-
-
-        private void textbox1SensorName_MouseHoover(object sender, EventArgs e)
-        {
-            toolStripStatusLabel1.Text = "Enter Sensor Name";
-        }
-
-        private void Sensor_Data_MouseHoover(object sender, EventArgs e)
-        {
-            toolStripStatusLabel1.Text = "";
-        }
-
-        private void MaskedSerialNumberLabel_MouseHoover(object sender, EventArgs e)
-        {
-            toolStripStatusLabel1.Text = "Enter Serial Number";
-        }
-
-        private void checkBox1Registerd_MouseHoover(object sender, EventArgs e)
-        {
-            toolStripStatusLabel1.Text = "Registerd";
-        }
-
-        private void dateTiimePicker1Label_MouseHoover(object sender, EventArgs e)
-        {
-            toolStripStatusLabel1.Text = "Pick Date";
-        }
-
-        private void comboSignalTypeLabel_MouseHoover(object sender, EventArgs e)
-        {
-            toolStripStatusLabel1.Text = "Pick Signal Type";
-        }
-
-        private void listBox1_Mouse_Hoover(object sender, EventArgs e)
-        {
-            toolStripStatusLabel1.Text = "Options";
-        }
-
-
-
-        private void CommentsLabel_MouseHoover(object sender, EventArgs e)
-        {
-            toolStripStatusLabel1.Text = "Write Comments";
-        }
-
-        private void RegisterNewButton_MouseHoover(object sender, EventArgs e)
-        {
-            toolStripStatusLabel1.Text = "Register New";
-        }
-
-        private void SaveChangesButton_Mouse_Hoover(object sender, EventArgs e)
-        {
-            toolStripStatusLabel1.Text = "Save Changes";
-        }
-
-        private void DeleteButton_MouseHoover(object sender, EventArgs e)
-        {
-            toolStripStatusLabel1.Text = "Delete";
-        }
-
-        private void RegSaveDel_MouseHoover(object sender, EventArgs e)
-        {
-            toolStripStatusLabel1.Text = "Register New";
-        }
-
-        private void DeleteButton_MouseLeave(object sender, EventArgs e)
-        {
-            toolStripStatusLabel1.Text = "";
-        }
-
-        private void SaveChangesButton_MouseLeave(object sender, EventArgs e)
-        {
-            toolStripStatusLabel1.Text = "";
-        }
-
-        private void RegisterNewButton_MouseLeave(object sender, EventArgs e)
-        {
-            toolStripStatusLabel1.Text = "";
-        }
-
-        private void RegSaveDel_MouseLeave(object sender, EventArgs e)
-        {
-            toolStripStatusLabel1.Text = "";
-        }
-
-        private void CommentsLabel_MouseLeave(object sender, EventArgs e)
-        {
-            toolStripStatusLabel1.Text = "";
-        }
-
-        private void listBox1_MouseLeave(object sender, EventArgs e)
-        {
-            toolStripStatusLabel1.Text = "";
-        }
-
-        private void comboSignalTypeLabel_MouseLeave(object sender, EventArgs e)
-        {
-            toolStripStatusLabel1.Text = "";
-        }
-
-        private void comboSignalTypeLabel_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            MeasureTypeLabel.Items.Clear();
-            switch (SignalTypeLabel.Text)
-            {
-                case "Analog":
-                    MeasureTypeLabel.Items.AddRange(analogSignals);
-                    panelRange.Visible = true;
-                    break;
-                case "Digital":
-                    MeasureTypeLabel.Items.AddRange(digitalSignals);
-                    panelRange.Visible = false;
-                    break;
-                case "Fieldbus":
-                    panelRange.Visible = false;
-
-                    break;
-                default:
-                    break;
-
-            }
-
-        }
-
-        private void dateTimePicker1Label_MouseLeav(object sender, EventArgs e)
-        {
-            toolStripStatusLabel1.Text = "";
-        }
-
-        private void checkBox1Registerd_MouseLeave(object sender, EventArgs e)
-        {
-            toolStripStatusLabel1.Text = "";
-        }
-
-        private void MaskedSerialNumberLabel_MouseLeave(object sender, EventArgs e)
-        {
-            toolStripStatusLabel1.Text = "";
-        }
-
-        private void texbox1SensorName_MouseLeave(object sender, EventArgs e)
-        {
-            toolStripStatusLabel1.Text = "";
-        }
-
-
-        private void SensorNameTextLabel_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
         private void RegSaveDel_Click_1(object sender, EventArgs e)
         {
+            if (RegisterNewButton.Checked)
+            {
+                RegisterNewSensor();
+
+            }
+            if (SaveChangesButton.Checked) 
+            {
+                RegisterNewSensor();
+            }
+            else 
+            {
+                ClearForm();            
+            }
+        }
+
+        private void RegisterNewSensor()
+        {
             toolStripStatusLabel1.Text = "OK";
+            RegisterIndex++;
             textBoxRegister.AppendText("([" + RegisterIndex + "]\r\n");
 
             textBoxRegister.AppendText("Sensor Name: " + SensorNameTextLabel.Text + "\r\n");
@@ -598,7 +356,7 @@ namespace FirstWinFormsApp1
                 }
                 else
                 {
-                    MessageBox.Show("Range nor correct!");
+                    MessageBox.Show("Range not correct!");
 
                 }
             }
@@ -614,6 +372,85 @@ namespace FirstWinFormsApp1
             textBoxSummary.AppendText("Number og digital sensor: " + digitalIndex + "\r\n");
             textBoxSummary.AppendText("Number of analog sensors: " + analogIndex + "\r\n");
             textBoxSummary.AppendText("Number of fieldbus sensors: " + fieldbusIndex + "\r\n");
+        }
+
+        private void SignalTypeLabel_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            MeasureTypeLabel.Items.Clear();
+            switch (SignalTypeLabel.Text)
+            {
+                case "Analog":
+                    MeasureTypeLabel.Items.AddRange(analogSignals);
+                    panelRange.Visible = true;
+                    break;
+                case "Digital":
+                    MeasureTypeLabel.Items.AddRange(digitalSignals);
+                    panelRange.Visible = false;
+                    break;
+                case "Fieldbus":
+                    panelRange.Visible = false;
+
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        private void button1_Click_1(object sender, EventArgs e)
+        {
+            //Compare two inputs
+
+            bool textEqual = false;
+
+            if (checkBoxCaseSensetive.Checked)
+            {
+                textBoxResult.Text = textBox1input1.Text.Equals(textBox2input2.Text) ? "Strings are Equal" : "Strings are not equal";
+
+            }
+            else
+            {
+                textEqual = textBox1input1.Text.Equals(textBox2input2.Text, StringComparison.InvariantCultureIgnoreCase);
+            }
+
+
+
+            int stringCompareResult;
+
+            stringCompareResult = string.Compare(textBox1input1.Text, textBox2input2.Text, checkBoxCaseSensetive.Checked);
+
+            if (stringCompareResult > 0)
+            {
+                textBoxResult.AppendText(string.Format("{0} is after {1}", textBox1input1.Text, textBox2input2.Text));
+
+            }
+            else if (stringCompareResult < 0)
+            {
+                textBoxResult.AppendText(string.Format("{0} is before {1}", textBox1input1.Text, textBox2input2.Text));
+            }
+            else
+            {
+                textBoxResult.AppendText(string.Format("{0} is equal to {1}", textBox1input1.Text, textBox2input2.Text));
+            }
+
+            if (textBox1input1.Text.IndexOf(":") > 0)
+            {
+                string[] textSeperatePart = textBox1input1.Text.Split(";");
+
+                foreach (String part in textSeperatePart)
+                {
+                    textBoxResult.AppendText(part + "\r+n");
+                }
+            }
+        }
+
+        private void tabControl2_SelectedIndexChanged_1(object sender, EventArgs e)
+        {
+
+        }
+
+        private void listBox_IpAddresses_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }

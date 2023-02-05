@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.printDialog1 = new System.Windows.Forms.PrintDialog();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
@@ -136,10 +135,11 @@
             // 
             this.listBox_IpAddresses.FormattingEnabled = true;
             this.listBox_IpAddresses.ItemHeight = 41;
-            this.listBox_IpAddresses.Location = new System.Drawing.Point(29, 39);
+            this.listBox_IpAddresses.Location = new System.Drawing.Point(20, 22);
             this.listBox_IpAddresses.Name = "listBox_IpAddresses";
             this.listBox_IpAddresses.Size = new System.Drawing.Size(557, 701);
             this.listBox_IpAddresses.TabIndex = 1;
+            this.listBox_IpAddresses.SelectedIndexChanged += new System.EventHandler(this.listBox_IpAddresses_SelectedIndexChanged);
             // 
             // tabPage2
             // 
@@ -221,9 +221,11 @@
             this.button1.TabIndex = 0;
             this.button1.Text = "Connect";
             this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click_1);
             // 
             // Sensor_Data
             // 
+            this.Sensor_Data.BackColor = System.Drawing.Color.WhiteSmoke;
             this.Sensor_Data.Controls.Add(this.panelRange);
             this.Sensor_Data.Controls.Add(this.buttonSummary);
             this.Sensor_Data.Controls.Add(this.vScrollBar3);
@@ -255,7 +257,6 @@
             this.Sensor_Data.Size = new System.Drawing.Size(2301, 916);
             this.Sensor_Data.TabIndex = 0;
             this.Sensor_Data.Text = "Sensor Data";
-            this.Sensor_Data.UseVisualStyleBackColor = true;
             // 
             // panelRange
             // 
@@ -387,7 +388,6 @@
             this.SensorNameTextLabel.Name = "SensorNameTextLabel";
             this.SensorNameTextLabel.Size = new System.Drawing.Size(546, 47);
             this.SensorNameTextLabel.TabIndex = 1;
-            this.SensorNameTextLabel.TextChanged += new System.EventHandler(this.SensorNameTextLabel_TextChanged);
             // 
             // label8
             // 
@@ -511,6 +511,7 @@
             this.SignalTypeLabel.Name = "SignalTypeLabel";
             this.SignalTypeLabel.Size = new System.Drawing.Size(546, 49);
             this.SignalTypeLabel.TabIndex = 5;
+            this.SignalTypeLabel.SelectedIndexChanged += new System.EventHandler(this.SignalTypeLabel_SelectedIndexChanged);
             // 
             // dateTimePicker1Label
             // 
@@ -621,6 +622,7 @@
             this.tabControl2.SelectedIndex = 0;
             this.tabControl2.Size = new System.Drawing.Size(2321, 984);
             this.tabControl2.TabIndex = 0;
+            this.tabControl2.SelectedIndexChanged += new System.EventHandler(this.tabControl2_SelectedIndexChanged_1);
             // 
             // Form1
             // 
@@ -630,7 +632,6 @@
             this.Controls.Add(this.tabControl2);
             this.Controls.Add(this.toolStrip1);
             this.Controls.Add(this.statusStrip1);
-            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.KeyPreview = true;
             this.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.MaximizeBox = false;
