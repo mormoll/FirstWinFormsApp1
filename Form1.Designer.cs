@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.printDialog1 = new System.Windows.Forms.PrintDialog();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
@@ -511,6 +510,7 @@
             this.SignalTypeLabel.Name = "SignalTypeLabel";
             this.SignalTypeLabel.Size = new System.Drawing.Size(546, 49);
             this.SignalTypeLabel.TabIndex = 5;
+            this.SignalTypeLabel.SelectedIndexChanged += new System.EventHandler(this.SignalTypeLabel_SelectedIndexChanged);
             // 
             // dateTimePicker1Label
             // 
@@ -630,7 +630,6 @@
             this.Controls.Add(this.tabControl2);
             this.Controls.Add(this.toolStrip1);
             this.Controls.Add(this.statusStrip1);
-            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.KeyPreview = true;
             this.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.MaximizeBox = false;

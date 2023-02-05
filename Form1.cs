@@ -62,111 +62,15 @@ namespace FirstWinFormsApp1
             }
         }
 
-        public class Instrument
-        {
-            //Classe body
-            //Propertties definition
-
-            public DateTime RegisterDate { get; }  //internally set date
-
-            //Full declaration of field and property;
-            private string sensorName;  //field
-
-            public string SensorName   //property 
-            {
-                get { return sensorName; }
-                set { sensorName = value; }
-            }
-
-            //Shortland property and field definition:
-
-            public string SerialNumber { get; set; }
-            public string SignalType { get; set; }
-            public string MeasuremntType { get; set; }
-            public string Options { get; set; }
-            public string Comments { get; set; }
-            public string LRV { get; set; }
-            public string URV { get; set; }
-            public string Unit { get; set; }
+        
 
 
-        }
-        /*
-                //Constructor 1 - not Analog
-                public Instrument(string SensorName,
-                                    string SerialNumber,
-                                    string SignalType,
-                                    string MeasurementType,
-                                    string Options,
-                                    string Comments
-                                )
-                {
-                    this.dateTimePicker1Label = DateTime.Now;
-                    this.SensorNameTextLabel = SensorName;
-                    this.SerialNumberLabel = SerialNumber;
-                    this.SignalTypeLabel = SignalType;
-                    this.MeasureTypeLabel = MeasurementType;
-                    this.TextBoxOptions = Options,
-                    this.CommentsTextLabel = Comments;
 
-                }
-                //Constructor 2 - Analog
-                public Instrument(string SensorName,
-                                    string SerialNumber,
-                                    string SignalType,
-                                    string MeasurementType,
-                                    string Options,
-                                    string Comments,
-                                    double LRV,
-                                    double URV,
-                                    string Unit
-                                )
-                {
-                    this.dateTimePicker1Label = DateTime.Now;
-                    this.SensorNameTextLabel = SensorName;
-                    this.SerialNumberLabel = SerialNumber;
-                    this.SignalTypeLabel = SignalType;
-                    this.MeasureTypeLabel = MeasurementType;
-                    this.TextBoxOptions = Options,
-                    this.CommentsTextLabel = Comments;
-                    this.lrvValue = LRV;
-                    this.urvValue = URV;
-                    this.textBoxUnit = Unit
-                }
-        */
-        /*
-                //method declaration
-                public double Span()
-                {
-                    return urvValue - lrvValue;
-                }
-                public override string ToString()
-                {
-                    return dateTimePicker1Label.ToString() + ";" + SensorNameTextLabel
-                                                            + ";" + SerialNumberLabel
-                                                            + ";" + SignalTypeLabel
-                                                            + ";" + MeasureTypeLabel
-                                                            + ";" + TextBoxOptions
-                                                            + ";" + CommentsTextLabel + ";";
-                }
+        
+        
 
-                public List<Instrument> InstrumentList = new List<Instrument>();
-
-        */
-        /*
-                switch (RegSaveDel.Text) 
-                {
-                    case "Register New":
-                        Instrument instrument = new Instrument(textBoxSensorName.Text,
-                                                                maskedTexBox1.Text,
-                                                                comboBoxSignalType.Text,
-                                                                comboBoxMeasureType.Text,
-                                                                listBoxOptions.SelectedIndex.ToString(),
-                                                                textBoxComment.Text
-                                                                );
-                    textBoxRegister.AppendText(in)
-                    }
-        */
+        
+   
 
 
         /*
@@ -614,6 +518,28 @@ namespace FirstWinFormsApp1
             textBoxSummary.AppendText("Number og digital sensor: " + digitalIndex + "\r\n");
             textBoxSummary.AppendText("Number of analog sensors: " + analogIndex + "\r\n");
             textBoxSummary.AppendText("Number of fieldbus sensors: " + fieldbusIndex + "\r\n");
+        }
+
+        private void SignalTypeLabel_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            MeasureTypeLabel.Items.Clear();
+            switch (SignalTypeLabel.Text)
+            {
+                case "Analog":
+                    MeasureTypeLabel.Items.AddRange(analogSignals);
+                    panelRange.Visible = true;
+                    break;
+                case "Digital":
+                    MeasureTypeLabel.Items.AddRange(digitalSignals);
+                    panelRange.Visible = false;
+                    break;
+                case "Fieldbus":
+                    panelRange.Visible = false;
+
+                    break;
+                default:
+                    break;
+            }
         }
     }
 }
