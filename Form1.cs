@@ -63,6 +63,19 @@ namespace FirstWinFormsApp1
             }
         }
 
+
+        
+
+
+
+        
+        
+
+        
+   
+
+
+
         /*
                     private void Form1_Mouse_Enter(object sender, EventArgs e)
 
@@ -396,6 +409,7 @@ namespace FirstWinFormsApp1
             }
         }
 
+
         private void button1_Click_1(object sender, EventArgs e)
         {
             //Compare two inputs
@@ -452,5 +466,45 @@ namespace FirstWinFormsApp1
         {
 
         }
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            if (textBoxRegister.TextLength > 0) 
+            {
+                StreamWriter outputFile = new StreamWriter("register.csv");
+                outputFile.Write(textBoxRegister.Text);
+                outputFile.Close();
+            }
+        }
+
+        /*       private void buttonOpenFile_Click(object sender, EventArgs e)
+               {
+                   string filename;
+                   OpenFileDialog.InitialDirectory = "c:\\";
+                   OpenFileDialog.Filter = "CSV (*.txt")|*.txt|AllowDrop files(*.')')
+
+                   if (openFileDialog1.ShowDialog() == DialogResult.OK) 
+                    {
+                    fileName = openFileDialog1.FileName;
+                    
+                    string messagen= "Are you sure want to open this file";
+                    string message = "Confirm filename";
+                    MessageBoxButtons button= MessagrBoxButton.YesNo;
+                    MessageBox Icon = MessageBoxIcon.Question;
+                    DialogResult result;
+                    
+                    result = MessageBox.Show(this, message, caption, buttons, icon);
+                    if (result == DialogResult.Yes)
+                    {
+                        MessageBox.Show("Filename = " + Filename);
+                    }
+                    }
+               }
+        */
     }
 }

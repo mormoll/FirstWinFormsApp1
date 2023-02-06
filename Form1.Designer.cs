@@ -43,6 +43,8 @@
             this.textBox1input1 = new System.Windows.Forms.TextBox();
             this.button1 = new System.Windows.Forms.Button();
             this.Sensor_Data = new System.Windows.Forms.TabPage();
+            this.saveFileButton = new System.Windows.Forms.Button();
+            this.buttonOpenFile = new System.Windows.Forms.Button();
             this.panelRange = new System.Windows.Forms.Panel();
             this.textBoxURV = new System.Windows.Forms.MaskedTextBox();
             this.textBoxLRV = new System.Windows.Forms.MaskedTextBox();
@@ -79,6 +81,7 @@
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.tabControl2 = new System.Windows.Forms.TabControl();
+            this.label14 = new System.Windows.Forms.Label();
             this.statusStrip1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
@@ -226,6 +229,8 @@
             // Sensor_Data
             // 
             this.Sensor_Data.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.Sensor_Data.Controls.Add(this.saveFileButton);
+            this.Sensor_Data.Controls.Add(this.buttonOpenFile);
             this.Sensor_Data.Controls.Add(this.panelRange);
             this.Sensor_Data.Controls.Add(this.buttonSummary);
             this.Sensor_Data.Controls.Add(this.vScrollBar3);
@@ -254,9 +259,30 @@
             this.Sensor_Data.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.Sensor_Data.Name = "Sensor_Data";
             this.Sensor_Data.Padding = new System.Windows.Forms.Padding(2, 3, 2, 3);
-            this.Sensor_Data.Size = new System.Drawing.Size(2301, 916);
+            this.Sensor_Data.Size = new System.Drawing.Size(2301, 974);
             this.Sensor_Data.TabIndex = 0;
             this.Sensor_Data.Text = "Sensor Data";
+            // 
+            // saveFileButton
+            // 
+            this.saveFileButton.Location = new System.Drawing.Point(1387, 720);
+            this.saveFileButton.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
+            this.saveFileButton.Name = "saveFileButton";
+            this.saveFileButton.Size = new System.Drawing.Size(335, 57);
+            this.saveFileButton.TabIndex = 24;
+            this.saveFileButton.Text = "Save File";
+            this.saveFileButton.UseVisualStyleBackColor = true;
+            this.saveFileButton.Click += new System.EventHandler(this.button2_Click);
+            // 
+            // buttonOpenFile
+            // 
+            this.buttonOpenFile.Location = new System.Drawing.Point(1387, 805);
+            this.buttonOpenFile.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
+            this.buttonOpenFile.Name = "buttonOpenFile";
+            this.buttonOpenFile.Size = new System.Drawing.Size(335, 57);
+            this.buttonOpenFile.TabIndex = 23;
+            this.buttonOpenFile.Text = "Open File";
+            this.buttonOpenFile.UseVisualStyleBackColor = true;
             // 
             // panelRange
             // 
@@ -321,7 +347,7 @@
             // 
             // buttonSummary
             // 
-            this.buttonSummary.Location = new System.Drawing.Point(1367, 819);
+            this.buttonSummary.Location = new System.Drawing.Point(1794, 805);
             this.buttonSummary.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.buttonSummary.Name = "buttonSummary";
             this.buttonSummary.Size = new System.Drawing.Size(380, 57);
@@ -341,7 +367,7 @@
             // 
             this.vScrollBar2.Location = new System.Drawing.Point(1704, 22);
             this.vScrollBar2.Name = "vScrollBar2";
-            this.vScrollBar2.Size = new System.Drawing.Size(43, 755);
+            this.vScrollBar2.Size = new System.Drawing.Size(43, 665);
             this.vScrollBar2.TabIndex = 20;
             // 
             // vScrollBar1
@@ -369,7 +395,7 @@
             this.textBoxRegister.Multiline = true;
             this.textBoxRegister.Name = "textBoxRegister";
             this.textBoxRegister.ReadOnly = true;
-            this.textBoxRegister.Size = new System.Drawing.Size(380, 755);
+            this.textBoxRegister.Size = new System.Drawing.Size(380, 665);
             this.textBoxRegister.TabIndex = 9;
             // 
             // CommentsTextLabel
@@ -616,19 +642,29 @@
             this.tabControl2.Controls.Add(this.Sensor_Data);
             this.tabControl2.Controls.Add(this.tabPage2);
             this.tabControl2.Controls.Add(this.tabPage1);
-            this.tabControl2.Location = new System.Drawing.Point(0, 57);
+            this.tabControl2.Location = new System.Drawing.Point(0, 53);
             this.tabControl2.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.tabControl2.Name = "tabControl2";
             this.tabControl2.SelectedIndex = 0;
-            this.tabControl2.Size = new System.Drawing.Size(2321, 984);
+            this.tabControl2.Size = new System.Drawing.Size(2321, 1042);
             this.tabControl2.TabIndex = 0;
             this.tabControl2.SelectedIndexChanged += new System.EventHandler(this.tabControl2_SelectedIndexChanged_1);
+            // 
+            // label14
+            // 
+            this.label14.AutoSize = true;
+            this.label14.Location = new System.Drawing.Point(21, 9);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(63, 41);
+            this.label14.TabIndex = 5;
+            this.label14.Text = "File";
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(17F, 41F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(2370, 1214);
+            this.Controls.Add(this.label14);
             this.Controls.Add(this.tabControl2);
             this.Controls.Add(this.toolStrip1);
             this.Controls.Add(this.statusStrip1);
@@ -638,6 +674,7 @@
             this.Name = "Form1";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Form1";
+            this.Load += new System.EventHandler(this.Form1_Load);
             this.statusStrip1.ResumeLayout(false);
             this.statusStrip1.PerformLayout();
             this.tabPage1.ResumeLayout(false);
@@ -709,5 +746,8 @@
         private ListBox listBox_IpAddresses;
         private Label label13;
         private Label label12;
+        private Button buttonOpenFile;
+        private Label label14;
+        private Button saveFileButton;
     }
 }

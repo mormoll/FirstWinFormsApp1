@@ -6,6 +6,10 @@
     <Nullable>enable</Nullable>
     <UseWindowsForms>true</UseWindowsForms>
     <ImplicitUsings>enable</ImplicitUsings>
+    <Title>My First Windows App</Title>
+    <Company>Mt Company Ltd.</Company>
+    <Description>This is my first application for windows form</Description>
+    <Copyright>This is mine!</Copyright>
   </PropertyGroup>
 
   <ItemGroup>
