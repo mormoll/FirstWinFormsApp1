@@ -129,7 +129,7 @@
             this.tabPage1.Location = new System.Drawing.Point(10, 58);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(2301, 916);
+            this.tabPage1.Size = new System.Drawing.Size(2301, 974);
             this.tabPage1.TabIndex = 2;
             this.tabPage1.Text = "Lists";
             this.tabPage1.UseVisualStyleBackColor = true;
@@ -157,7 +157,7 @@
             this.tabPage2.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(2, 3, 2, 3);
-            this.tabPage2.Size = new System.Drawing.Size(2301, 916);
+            this.tabPage2.Size = new System.Drawing.Size(2301, 974);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Connection";
             this.tabPage2.UseVisualStyleBackColor = true;
@@ -473,7 +473,7 @@
             this.RegSaveDel.Name = "RegSaveDel";
             this.RegSaveDel.Size = new System.Drawing.Size(335, 57);
             this.RegSaveDel.TabIndex = 3;
-            this.RegSaveDel.Text = "REGISTER NEW";
+            this.RegSaveDel.Text = "Rregister New";
             this.RegSaveDel.UseVisualStyleBackColor = true;
             this.RegSaveDel.Click += new System.EventHandler(this.RegSaveDel_Click_1);
             // 

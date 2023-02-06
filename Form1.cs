@@ -111,8 +111,11 @@ namespace FirstWinFormsApp1
 
 
         }
-
-
+        public class Instrument 
+        {
+            //Classe body
+            //properties
+        }
 
         private void RegSaveDel_Click(object sender, EventArgs e)
         {
@@ -342,7 +345,7 @@ namespace FirstWinFormsApp1
         }
 
         private void RegisterNewSensor()
-        {
+        {   
             toolStripStatusLabel1.Text = "OK";
             RegisterIndex++;
             textBoxRegister.AppendText("([" + RegisterIndex + "]\r\n");
@@ -372,6 +375,21 @@ namespace FirstWinFormsApp1
                     MessageBox.Show("Range not correct!");
 
                 }
+ /*               {
+                    Instrument instruments = new Instrument(textBoxSensorName.Text,
+                                                        maskedTextBoxSerialNumber.Text,
+                                                        comboBoxSignalType.Text,
+                                                        comboBoxMeasureType.Text,
+                                                        listBoxMeasureTyype.Text,
+                                                        textBoxComment.Text,
+                                                        Convert.ToDouble(textBoxLRV.Text, CultureInfo.InvariantCulture,
+                                                        Convert.ToDouble(textBoxURV.Text, CultureInfo.InvariantCulture,
+                                                        textBoxUnit.Text
+                                                        );
+                    textBoxRegister.AppendText(instruments.ToString());
+                    instrumentsList.Add(instrument);
+                }*/
+                
             }
         }
 
@@ -480,6 +498,21 @@ namespace FirstWinFormsApp1
                 outputFile.Write(textBoxRegister.Text);
                 outputFile.Close();
             }
+        }
+        private bool NewSensorName()
+        {
+            bool newSensorName = true;
+            //check to see if instrument already is in the list.
+            instrumentList.ForEach(delegate (Instrument instr)
+            {
+                if (Instrument.SensorName == SensorNameTextLabel.Text)
+                {
+                    MessageBox.Show("Sensor Name already exist!");
+                    newSensorName = false;
+                    SensorNameTextLabel.Focus();
+                }
+            });
+            return newSensorName;
         }
 
         /*       private void buttonOpenFile_Click(object sender, EventArgs e)
