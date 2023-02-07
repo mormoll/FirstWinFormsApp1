@@ -82,7 +82,6 @@
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.tabControl2 = new System.Windows.Forms.TabControl();
-            this.label14 = new System.Windows.Forms.Label();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -148,7 +147,6 @@
             this.listBox_IpAddresses.Name = "listBox_IpAddresses";
             this.listBox_IpAddresses.Size = new System.Drawing.Size(557, 701);
             this.listBox_IpAddresses.TabIndex = 1;
-            this.listBox_IpAddresses.SelectedIndexChanged += new System.EventHandler(this.listBox_IpAddresses_SelectedIndexChanged);
             // 
             // tabPage2
             // 
@@ -439,7 +437,6 @@
             this.label8.Size = new System.Drawing.Size(203, 41);
             this.label8.TabIndex = 11;
             this.label8.Text = "Measure Type";
-            this.label8.Click += new System.EventHandler(this.label8_Click);
             // 
             // MeasureTypeLabel
             // 
@@ -624,7 +621,6 @@
             this.label3.Size = new System.Drawing.Size(143, 41);
             this.label3.TabIndex = 4;
             this.label3.Text = "Registerd";
-            this.label3.Click += new System.EventHandler(this.label3_Click);
             // 
             // SerialNumberLabel
             // 
@@ -644,7 +640,6 @@
             this.label2.Size = new System.Drawing.Size(206, 41);
             this.label2.TabIndex = 1;
             this.label2.Text = "Serial Number";
-            this.label2.Click += new System.EventHandler(this.label2_Click);
             // 
             // label1
             // 
@@ -667,16 +662,6 @@
             this.tabControl2.SelectedIndex = 0;
             this.tabControl2.Size = new System.Drawing.Size(2321, 1042);
             this.tabControl2.TabIndex = 0;
-            this.tabControl2.SelectedIndexChanged += new System.EventHandler(this.tabControl2_SelectedIndexChanged_1);
-            // 
-            // label14
-            // 
-            this.label14.AutoSize = true;
-            this.label14.Location = new System.Drawing.Point(1669, 25);
-            this.label14.Name = "label14";
-            this.label14.Size = new System.Drawing.Size(63, 41);
-            this.label14.TabIndex = 5;
-            this.label14.Text = "File";
             // 
             // menuStrip1
             // 
@@ -707,7 +692,7 @@
             // aboutToolStripMenuItem
             // 
             this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
-            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(448, 54);
+            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(266, 54);
             this.aboutToolStripMenuItem.Text = "&About";
             this.aboutToolStripMenuItem.Click += new System.EventHandler(this.aboutToolStripMenuItem_Click);
             // 
@@ -716,7 +701,6 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(17F, 41F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(2370, 1214);
-            this.Controls.Add(this.label14);
             this.Controls.Add(this.tabControl2);
             this.Controls.Add(this.toolStrip1);
             this.Controls.Add(this.statusStrip1);
@@ -728,7 +712,6 @@
             this.Name = "Form1";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Form1";
-            this.Load += new System.EventHandler(this.Form1_Load);
             this.statusStrip1.ResumeLayout(false);
             this.statusStrip1.PerformLayout();
             this.tabPage1.ResumeLayout(false);
@@ -803,7 +786,6 @@
         private Label label13;
         private Label label12;
         private Button buttonOpenFile;
-        private Label label14;
         private Button saveFileButton;
         private MenuStrip menuStrip1;
         private ToolStripMenuItem fileToolStripMenuItem;

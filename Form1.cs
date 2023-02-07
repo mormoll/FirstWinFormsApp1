@@ -55,11 +55,11 @@ namespace FirstWinFormsApp1
             IPAddress[] addresslist = Dns.GetHostAddresses(Dns.GetHostName());
             foreach (IPAddress address in addresslist)
             {
-                servers.Add(address.ToString());
+                listBox_IpAddresses.Items.Add(address.ToString());
 
                 if (address.AddressFamily == AddressFamily.InterNetwork)
                 {
-                    servers.Add(address.ToString());
+                    listBox_IpAddresses.Items.Add(address.ToString());
                 }
             }
         }
@@ -100,7 +100,7 @@ namespace FirstWinFormsApp1
 
         }
         
-
+/*
         private void RegSaveDel_Click(object sender, EventArgs e)
         {
 
@@ -150,7 +150,7 @@ namespace FirstWinFormsApp1
 
 
         }
-
+*/
         private void ClearForm()
         {
             //Reset from initial state
@@ -300,17 +300,6 @@ namespace FirstWinFormsApp1
             //textBoxResult.AppendText("" + testInt);
         }
 
-
-        private void tabControl2_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            if (tabControl2.SelectedIndex == 2)
-
-            {
-                listBox_IpAddresses.Items.Clear();
-                listBox_IpAddresses.Items.AddRange(servers.ToArray());
-            }
-        }
-
         private void RegSaveDel_Click_1(object sender, EventArgs e)
         {
             if (RegisterNewButton.Checked)
@@ -350,7 +339,7 @@ namespace FirstWinFormsApp1
                                                 Convert.ToDouble(textBoxLRV.Text, CultureInfo.InvariantCulture),
                                                 Convert.ToDouble(textBoxURV.Text, CultureInfo. InvariantCulture),
                                                 textBoxUnit.Text
-                                                );
+                                              );
 
             
             textBoxRegister.AppendText(instrument.ToString());
@@ -382,7 +371,7 @@ namespace FirstWinFormsApp1
             //DateTime sessionTime;
 
             System.TimeSpan sessionTime = DateTime.Now.Subtract(sessionStartTime);
-            textBoxSummary.AppendText("Session tome; " + sessionTime.TotalSeconds.ToString() + "s \r\n");
+            textBoxSummary.AppendText("Session time; " + sessionTime.TotalSeconds.ToString() + "s \r\n");
             textBoxSummary.AppendText("Number of sensors regirsterd:" + RegisterIndex + "\r\n");
             textBoxSummary.AppendText("Number og digital sensor: " + digitalIndex + "\r\n");
             textBoxSummary.AppendText("Number of analog sensors: " + analogIndex + "\r\n");
@@ -459,20 +448,16 @@ namespace FirstWinFormsApp1
             }
         }
 
-        private void tabControl2_SelectedIndexChanged_1(object sender, EventArgs e)
+      /*  private void SensorData_SelectedIndexChanged_1(object sender, EventArgs e)
         {
+            if (SensorData.SelectedIndex ==2) 
+            {
+                listBox_IpAddresses.Items.Clear();  
+                listBox_IpAddresses.Items.AddRange(servers.ToArray());
+            }
 
         }
-
-        private void listBox_IpAddresses_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void Form1_Load(object sender, EventArgs e)
-        {
-
-        }
+        */
 
         private void button2_Click(object sender, EventArgs e)
         {
@@ -503,50 +488,55 @@ namespace FirstWinFormsApp1
           return newSensorName;
        }
 
-        private void label8_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label3_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label2_Click(object sender, EventArgs e)
-        {
-
-        }
-
         private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
         {
             AboutBox aboutBox = new AboutBox();
             aboutBox.ShowDialog();
         }
+        public bool NewInstrument(string sensorName) 
+        {
+            bool newInstrument = true;
+            instrumentList.ForEach(delegate (Instrument instrument) 
+            {
+                if (instrument.SensorName == sensorName) 
+                {
+                    newInstrument = false;
+                }
+            });
+            return newInstrument;
+        }
 
-/*        private void buttonOpenFile_Click(object sender, EventArgs e)
+ /*       private void buttonOpenFile_Click(object sender, EventArgs e)
         {
             string filename;
-            OpenFileDialog.InitialDirectory = "c:\\";
-            OpenFileDialog.Filter = "CSV (*.txt")|*.txt|AllowDrop files(*.')')
 
-            if (openFileDialog1.ShowDialog() == DialogResult.OK) 
-               {
-                    fileName = openFileDialog1.FileName;
-                    
-                    string messagen= "Are you sure want to open this file";
-                    string message = "Confirm filename";
-                    MessageBoxButtons button= MessagrBoxButton.YesNo;
-                    MessageBox Icon = MessageBoxIcon.Question;
-                    DialogResult result;
-                    
-                    result = MessageBox.Show(this, message, caption, buttons, icon);
-            if (result == DialogResult.Yes)
+            openFileDialog1.InitialDirectory = "c;\\";
+            openFileDilaog1.Filter = "text files("CSV(*.txt")|*.txt|AllowDrop files(*.')');
+            openFileDialog1.FilerIndex = 2;
+            openFileDialog1.RestoreDirectory = true;
+            openFileDIalog1.Filename = "";
+
+            if (openFiledialg1.ShowDialog() == DialogResult.OK) 
             {
-                   MessageBox.Show("Filename = " + Filename);
+                filename = openFileDialog1.FileName;
+
+                string message = "Are you sure you want to open this file?";
+                string caption = "Confirm filename";
+                MessageBoxButtons buttons= MessageBoxButtons.YesNo;
+                MessageBoxIcon icon = MessageBoxIcon.Question;
+                DialogResult result;
+
+                result = MessageBox.Show(this, message, caption, buttons, icon);
+                if (result == DialogResult.Yes) 
+                {
+                    var inputFile = new StreamReader(filename);
+                    textBoxRegister.Text = inputFile.ReadToEnd();
+                    //MessageBox.Show("Filename ="+filename+)
+                }
             }
-                    }
-               }
-     */   
+        }
+*/
+
+
     }
 }
