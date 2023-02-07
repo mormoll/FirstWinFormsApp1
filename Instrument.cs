@@ -9,6 +9,8 @@ namespace FirstWinFormsApp1
 {
     internal class Instrument
     {
+        public List<Instrument> instrumentList = new List<Instrument>();
+
         //Class body
 
         public DateTime RegisterDate { get; }
@@ -77,6 +79,8 @@ namespace FirstWinFormsApp1
                                           + ";" + Unit;
 
         }
+        
+
 
 
 

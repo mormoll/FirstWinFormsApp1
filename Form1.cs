@@ -32,7 +32,8 @@ namespace FirstWinFormsApp1
         int analogIndex = 0;
         int digitalIndex = 0;
         int fieldbusIndex = 0;
-      
+
+        string fileNameInstrumentList = "instrumentlist.csv";
 
         //Font boldFont = new Font("Calibri", 10, FontStyle.Bold);
         //Font regularFont = new Font("Calibri"), 10, FontStyle.Regular);
@@ -40,9 +41,9 @@ namespace FirstWinFormsApp1
 
         DateTime sessionStartTime;
 
-
-
         List<string> servers = new List<string>();
+
+        List<Instrument> instrumentList = new List<Instrument>();
 
 
         public Form1()
@@ -62,19 +63,6 @@ namespace FirstWinFormsApp1
                 }
             }
         }
-
-
-        
-
-
-
-        
-        
-
-        
-   
-
-
 
         /*
                     private void Form1_Mouse_Enter(object sender, EventArgs e)
@@ -111,11 +99,7 @@ namespace FirstWinFormsApp1
 
 
         }
-        public class Instrument 
-        {
-            //Classe body
-            //properties
-        }
+        
 
         private void RegSaveDel_Click(object sender, EventArgs e)
         {
@@ -348,15 +332,29 @@ namespace FirstWinFormsApp1
         {   
             toolStripStatusLabel1.Text = "OK";
             RegisterIndex++;
-            textBoxRegister.AppendText("([" + RegisterIndex + "]\r\n");
-
+          /*textBoxRegister.AppendText("([" + RegisterIndex + "]\r\n");
             textBoxRegister.AppendText("Sensor Name: " + SensorNameTextLabel.Text + "\r\n");
             textBoxRegister.AppendText("Serial Number: " + SerialNumberLabel.Text + "\r\n");
             textBoxRegister.AppendText("Registered: " + checkBox1Registerd.CheckState + "\r\n");
             textBoxRegister.AppendText("Date: " + dateTimePicker1Label.Text + "\r\n");
             textBoxRegister.AppendText("Signal Type: " + SignalTypeLabel.Text + "\r\n");
             textBoxRegister.AppendText("Options: " + TextBoxOptions.Text + "\r\n");
-            textBoxRegister.AppendText("Comments: " + SignalTypeLabel.Text + "\r\n");
+            textBoxRegister.AppendText("Comments: " + SignalTypeLabel.Text + "\r\n")
+          */
+            Instrument instrument = new Instrument(SensorNameTextLabel.Text,
+                                                SerialNumberLabel.Text,
+                                                SignalTypeLabel.Text,
+                                                MeasureTypeLabel.Text,
+                                                TextBoxOptions.Text,
+                                                CommentsTextLabel.Text,
+                                                Convert.ToDouble(textBoxLRV.Text, CultureInfo.InvariantCulture),
+                                                Convert.ToDouble(textBoxURV.Text, CultureInfo. InvariantCulture),
+                                                textBoxUnit.Text
+                                                );
+
+            
+            textBoxRegister.AppendText(instrument.ToString());
+            instrumentList.Add(instrument);
 
             if (SignalTypeLabel.Text == "Analog")
             {
@@ -373,22 +371,8 @@ namespace FirstWinFormsApp1
                 else
                 {
                     MessageBox.Show("Range not correct!");
-
                 }
- /*               {
-                    Instrument instruments = new Instrument(textBoxSensorName.Text,
-                                                        maskedTextBoxSerialNumber.Text,
-                                                        comboBoxSignalType.Text,
-                                                        comboBoxMeasureType.Text,
-                                                        listBoxMeasureTyype.Text,
-                                                        textBoxComment.Text,
-                                                        Convert.ToDouble(textBoxLRV.Text, CultureInfo.InvariantCulture,
-                                                        Convert.ToDouble(textBoxURV.Text, CultureInfo.InvariantCulture,
-                                                        textBoxUnit.Text
-                                                        );
-                    textBoxRegister.AppendText(instruments.ToString());
-                    instrumentsList.Add(instrument);
-                }*/
+                
                 
             }
         }
@@ -499,30 +483,55 @@ namespace FirstWinFormsApp1
                 outputFile.Close();
             }
         }
-        private bool NewSensorName()
+
+       
+
+
+       private bool NewSensorName()
+       {
+          bool newSensorName = true;
+          //check to see if instrument already is in the list.
+          instrumentList.ForEach(delegate (Instrument instr)
+          {
+              if (instr.SensorName == SensorNameTextLabel.Text)
+              {
+                  MessageBox.Show("Sensor Name already exist!");
+                  newSensorName = false;
+                  SensorNameTextLabel.Focus();
+              }
+          });
+          return newSensorName;
+       }
+
+        private void label8_Click(object sender, EventArgs e)
         {
-            bool newSensorName = true;
-            //check to see if instrument already is in the list.
-            instrumentList.ForEach(delegate (Instrument instr)
-            {
-                if (Instrument.SensorName == SensorNameTextLabel.Text)
-                {
-                    MessageBox.Show("Sensor Name already exist!");
-                    newSensorName = false;
-                    SensorNameTextLabel.Focus();
-                }
-            });
-            return newSensorName;
+
         }
 
-        /*       private void buttonOpenFile_Click(object sender, EventArgs e)
-               {
-                   string filename;
-                   OpenFileDialog.InitialDirectory = "c:\\";
-                   OpenFileDialog.Filter = "CSV (*.txt")|*.txt|AllowDrop files(*.')')
+        private void label3_Click(object sender, EventArgs e)
+        {
 
-                   if (openFileDialog1.ShowDialog() == DialogResult.OK) 
-                    {
+        }
+
+        private void label2_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            AboutBox aboutBox = new AboutBox();
+            aboutBox.ShowDialog();
+        }
+
+/*        private void buttonOpenFile_Click(object sender, EventArgs e)
+        {
+            string filename;
+            OpenFileDialog.InitialDirectory = "c:\\";
+            OpenFileDialog.Filter = "CSV (*.txt")|*.txt|AllowDrop files(*.')')
+
+            if (openFileDialog1.ShowDialog() == DialogResult.OK) 
+               {
                     fileName = openFileDialog1.FileName;
                     
                     string messagen= "Are you sure want to open this file";
@@ -532,12 +541,12 @@ namespace FirstWinFormsApp1
                     DialogResult result;
                     
                     result = MessageBox.Show(this, message, caption, buttons, icon);
-                    if (result == DialogResult.Yes)
-                    {
-                        MessageBox.Show("Filename = " + Filename);
-                    }
+            if (result == DialogResult.Yes)
+            {
+                   MessageBox.Show("Filename = " + Filename);
+            }
                     }
                }
-        */
+     */   
     }
 }

@@ -43,6 +43,7 @@
             this.textBox1input1 = new System.Windows.Forms.TextBox();
             this.button1 = new System.Windows.Forms.Button();
             this.Sensor_Data = new System.Windows.Forms.TabPage();
+            this.SensorNameTextLabe2 = new System.Windows.Forms.ComboBox();
             this.saveFileButton = new System.Windows.Forms.Button();
             this.buttonOpenFile = new System.Windows.Forms.Button();
             this.panelRange = new System.Windows.Forms.Panel();
@@ -82,6 +83,10 @@
             this.label1 = new System.Windows.Forms.Label();
             this.tabControl2 = new System.Windows.Forms.TabControl();
             this.label14 = new System.Windows.Forms.Label();
+            this.menuStrip1 = new System.Windows.Forms.MenuStrip();
+            this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.statusStrip1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
@@ -89,6 +94,7 @@
             this.panelRange.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.tabControl2.SuspendLayout();
+            this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // printDialog1
@@ -116,7 +122,7 @@
             // toolStrip1
             // 
             this.toolStrip1.ImageScalingSize = new System.Drawing.Size(40, 40);
-            this.toolStrip1.Location = new System.Drawing.Point(0, 0);
+            this.toolStrip1.Location = new System.Drawing.Point(0, 49);
             this.toolStrip1.Name = "toolStrip1";
             this.toolStrip1.Padding = new System.Windows.Forms.Padding(0);
             this.toolStrip1.Size = new System.Drawing.Size(2370, 25);
@@ -229,6 +235,7 @@
             // Sensor_Data
             // 
             this.Sensor_Data.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.Sensor_Data.Controls.Add(this.SensorNameTextLabe2);
             this.Sensor_Data.Controls.Add(this.saveFileButton);
             this.Sensor_Data.Controls.Add(this.buttonOpenFile);
             this.Sensor_Data.Controls.Add(this.panelRange);
@@ -262,6 +269,15 @@
             this.Sensor_Data.Size = new System.Drawing.Size(2301, 974);
             this.Sensor_Data.TabIndex = 0;
             this.Sensor_Data.Text = "Sensor Data";
+            // 
+            // SensorNameTextLabe2
+            // 
+            this.SensorNameTextLabe2.FormattingEnabled = true;
+            this.SensorNameTextLabe2.Location = new System.Drawing.Point(223, 99);
+            this.SensorNameTextLabe2.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
+            this.SensorNameTextLabe2.Name = "SensorNameTextLabe2";
+            this.SensorNameTextLabe2.Size = new System.Drawing.Size(546, 49);
+            this.SensorNameTextLabe2.TabIndex = 25;
             // 
             // saveFileButton
             // 
@@ -372,7 +388,7 @@
             // 
             // vScrollBar1
             // 
-            this.vScrollBar1.Location = new System.Drawing.Point(715, 471);
+            this.vScrollBar1.Location = new System.Drawing.Point(715, 530);
             this.vScrollBar1.Name = "vScrollBar1";
             this.vScrollBar1.Size = new System.Drawing.Size(41, 171);
             this.vScrollBar1.TabIndex = 19;
@@ -400,7 +416,7 @@
             // 
             // CommentsTextLabel
             // 
-            this.CommentsTextLabel.Location = new System.Drawing.Point(223, 645);
+            this.CommentsTextLabel.Location = new System.Drawing.Point(223, 720);
             this.CommentsTextLabel.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.CommentsTextLabel.Multiline = true;
             this.CommentsTextLabel.Name = "CommentsTextLabel";
@@ -418,11 +434,12 @@
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(-7, 381);
+            this.label8.Location = new System.Drawing.Point(5, 463);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(203, 41);
             this.label8.TabIndex = 11;
             this.label8.Text = "Measure Type";
+            this.label8.Click += new System.EventHandler(this.label8_Click);
             // 
             // MeasureTypeLabel
             // 
@@ -431,7 +448,7 @@
             "4-20ma",
             "0-10VDC",
             "0.5DC"});
-            this.MeasureTypeLabel.Location = new System.Drawing.Point(223, 381);
+            this.MeasureTypeLabel.Location = new System.Drawing.Point(223, 463);
             this.MeasureTypeLabel.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.MeasureTypeLabel.Name = "MeasureTypeLabel";
             this.MeasureTypeLabel.Size = new System.Drawing.Size(546, 49);
@@ -445,7 +462,7 @@
             "None",
             "Display",
             "HART Protocol"});
-            this.TextBoxOptions.Location = new System.Drawing.Point(223, 471);
+            this.TextBoxOptions.Location = new System.Drawing.Point(223, 530);
             this.TextBoxOptions.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.TextBoxOptions.Name = "TextBoxOptions";
             this.TextBoxOptions.Size = new System.Drawing.Size(533, 168);
@@ -532,7 +549,7 @@
             "Analog",
             "Digital",
             "Fieldbus"});
-            this.SignalTypeLabel.Location = new System.Drawing.Point(223, 298);
+            this.SignalTypeLabel.Location = new System.Drawing.Point(223, 396);
             this.SignalTypeLabel.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.SignalTypeLabel.Name = "SignalTypeLabel";
             this.SignalTypeLabel.Size = new System.Drawing.Size(546, 49);
@@ -541,7 +558,7 @@
             // 
             // dateTimePicker1Label
             // 
-            this.dateTimePicker1Label.Location = new System.Drawing.Point(223, 210);
+            this.dateTimePicker1Label.Location = new System.Drawing.Point(223, 327);
             this.dateTimePicker1Label.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.dateTimePicker1Label.Name = "dateTimePicker1Label";
             this.dateTimePicker1Label.Size = new System.Drawing.Size(546, 47);
@@ -551,7 +568,7 @@
             // 
             this.checkBox1Registerd.AutoSize = true;
             this.checkBox1Registerd.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.checkBox1Registerd.Location = new System.Drawing.Point(223, 145);
+            this.checkBox1Registerd.Location = new System.Drawing.Point(223, 274);
             this.checkBox1Registerd.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.checkBox1Registerd.Name = "checkBox1Registerd";
             this.checkBox1Registerd.Size = new System.Drawing.Size(34, 33);
@@ -561,7 +578,7 @@
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(22, 623);
+            this.label7.Location = new System.Drawing.Point(22, 720);
             this.label7.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(163, 41);
@@ -571,7 +588,7 @@
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(22, 471);
+            this.label6.Location = new System.Drawing.Point(22, 530);
             this.label6.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(124, 41);
@@ -581,7 +598,7 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(27, 306);
+            this.label5.Location = new System.Drawing.Point(5, 396);
             this.label5.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(169, 41);
@@ -591,7 +608,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(27, 210);
+            this.label4.Location = new System.Drawing.Point(9, 327);
             this.label4.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(139, 41);
@@ -601,16 +618,17 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(22, 142);
+            this.label3.Location = new System.Drawing.Point(5, 266);
             this.label3.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(143, 41);
             this.label3.TabIndex = 4;
             this.label3.Text = "Registerd";
+            this.label3.Click += new System.EventHandler(this.label3_Click);
             // 
             // SerialNumberLabel
             // 
-            this.SerialNumberLabel.Location = new System.Drawing.Point(223, 79);
+            this.SerialNumberLabel.Location = new System.Drawing.Point(210, 212);
             this.SerialNumberLabel.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.SerialNumberLabel.Mask = "000-00-0000";
             this.SerialNumberLabel.Name = "SerialNumberLabel";
@@ -620,17 +638,18 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(22, 82);
+            this.label2.Location = new System.Drawing.Point(0, 212);
             this.label2.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(206, 41);
             this.label2.TabIndex = 1;
             this.label2.Text = "Serial Number";
+            this.label2.Click += new System.EventHandler(this.label2_Click);
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(22, 22);
+            this.label1.Location = new System.Drawing.Point(13, 102);
             this.label1.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(195, 41);
@@ -653,11 +672,44 @@
             // label14
             // 
             this.label14.AutoSize = true;
-            this.label14.Location = new System.Drawing.Point(21, 9);
+            this.label14.Location = new System.Drawing.Point(1669, 25);
             this.label14.Name = "label14";
             this.label14.Size = new System.Drawing.Size(63, 41);
             this.label14.TabIndex = 5;
             this.label14.Text = "File";
+            // 
+            // menuStrip1
+            // 
+            this.menuStrip1.ImageScalingSize = new System.Drawing.Size(40, 40);
+            this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.fileToolStripMenuItem,
+            this.helpToolStripMenuItem});
+            this.menuStrip1.Location = new System.Drawing.Point(0, 0);
+            this.menuStrip1.Name = "menuStrip1";
+            this.menuStrip1.Size = new System.Drawing.Size(2370, 49);
+            this.menuStrip1.TabIndex = 6;
+            this.menuStrip1.Text = "menuStrip1";
+            // 
+            // fileToolStripMenuItem
+            // 
+            this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
+            this.fileToolStripMenuItem.Size = new System.Drawing.Size(87, 45);
+            this.fileToolStripMenuItem.Text = "&File";
+            // 
+            // helpToolStripMenuItem
+            // 
+            this.helpToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.aboutToolStripMenuItem});
+            this.helpToolStripMenuItem.Name = "helpToolStripMenuItem";
+            this.helpToolStripMenuItem.Size = new System.Drawing.Size(104, 45);
+            this.helpToolStripMenuItem.Text = "&Help";
+            // 
+            // aboutToolStripMenuItem
+            // 
+            this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
+            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(448, 54);
+            this.aboutToolStripMenuItem.Text = "&About";
+            this.aboutToolStripMenuItem.Click += new System.EventHandler(this.aboutToolStripMenuItem_Click);
             // 
             // Form1
             // 
@@ -668,7 +720,9 @@
             this.Controls.Add(this.tabControl2);
             this.Controls.Add(this.toolStrip1);
             this.Controls.Add(this.statusStrip1);
+            this.Controls.Add(this.menuStrip1);
             this.KeyPreview = true;
+            this.MainMenuStrip = this.menuStrip1;
             this.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.MaximizeBox = false;
             this.Name = "Form1";
@@ -687,6 +741,8 @@
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.tabControl2.ResumeLayout(false);
+            this.menuStrip1.ResumeLayout(false);
+            this.menuStrip1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -749,5 +805,10 @@
         private Button buttonOpenFile;
         private Label label14;
         private Button saveFileButton;
+        private MenuStrip menuStrip1;
+        private ToolStripMenuItem fileToolStripMenuItem;
+        private ToolStripMenuItem helpToolStripMenuItem;
+        private ToolStripMenuItem aboutToolStripMenuItem;
+        private ComboBox SensorNameTextLabe2;
     }
 }
