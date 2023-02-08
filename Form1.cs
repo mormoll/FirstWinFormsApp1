@@ -1,9 +1,11 @@
 using System.Diagnostics;
 using System.Diagnostics.Metrics;
+using System.DirectoryServices;
 using System.Globalization;
 using System.Net;
 using System.Net.Sockets;
 using System.Windows.Forms;
+using static System.Net.Mime.MediaTypeNames;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 
@@ -13,7 +15,7 @@ namespace FirstWinFormsApp1
 
 
     {
-        //Contents
+        //Constans
 
         readonly int[] numbers = new int[7] { 5, 3, 7, 25, 65, 32, 43 };
         string[] analogSignals = new string[] { "0-5DC", "0-10VDC", "0-20mA", "4-20mA", "RTD" };
@@ -44,7 +46,52 @@ namespace FirstWinFormsApp1
         List<string> servers = new List<string>();
 
         List<Instrument> instrumentList = new List<Instrument>();
+        private void Form_Load(object sender, EventArgs e)
+        {
+            sessionStartTime = DateTime.Now;
+            toolStripStatusLabel1.Text = "Ready";
+            panelRange.Visible = false;
+            SignalTypeLabel.SelectedIndex = 0;
 
+            //Load instrument.csv file
+            string instrumentLine = "";
+            string[] instrumentLineParts;
+            var inputFile = new StreamReader(File.OpenRead(fileNameInstrumentList));
+
+            if (inputFile != null)
+            {
+                while (inputFile.EndOfStream)
+                {
+                    instrumentLine = inputFile.ReadLine();
+                    instrumentLineParts = instrumentLine.Split(';');
+
+                    Instrument instrument = new Instrument(instrumentLineParts[0],
+                                                           instrumentLineParts[1],
+                                                           instrumentLineParts[2],
+                                                           instrumentLineParts[3],
+                                                           instrumentLineParts[4],
+                                                           instrumentLineParts[5],
+                                                           instrumentLineParts[6],
+                                                           Convert.ToDouble(instrumentLineParts[7], CultureInfo.InvariantCulture),
+                                                           Convert.ToDouble(instrumentLineParts[8], CultureInfo.InvariantCulture),
+                                                           instrumentLineParts[9]);
+
+                    instrumentList.Add(instrument);
+                    comboBoxInstrumentName.Items.Add(instrumentLineParts[1]);
+
+                    textBoxRegister.Text = instrument.ToString();
+
+
+                }
+            }
+            inputFile.Close();
+
+        }
+    
+
+        
+        
+                
 
         public Form1()
         {
@@ -321,26 +368,29 @@ namespace FirstWinFormsApp1
         {   
             toolStripStatusLabel1.Text = "OK";
             RegisterIndex++;
-          /*textBoxRegister.AppendText("([" + RegisterIndex + "]\r\n");
-            textBoxRegister.AppendText("Sensor Name: " + SensorNameTextLabel.Text + "\r\n");
-            textBoxRegister.AppendText("Serial Number: " + SerialNumberLabel.Text + "\r\n");
-            textBoxRegister.AppendText("Registered: " + checkBox1Registerd.CheckState + "\r\n");
-            textBoxRegister.AppendText("Date: " + dateTimePicker1Label.Text + "\r\n");
-            textBoxRegister.AppendText("Signal Type: " + SignalTypeLabel.Text + "\r\n");
-            textBoxRegister.AppendText("Options: " + TextBoxOptions.Text + "\r\n");
-            textBoxRegister.AppendText("Comments: " + SignalTypeLabel.Text + "\r\n")
-          */
-            Instrument instrument = new Instrument(SensorNameTextLabel.Text,
-                                                SerialNumberLabel.Text,
-                                                SignalTypeLabel.Text,
-                                                MeasureTypeLabel.Text,
-                                                TextBoxOptions.Text,
-                                                CommentsTextLabel.Text,
-                                                Convert.ToDouble(textBoxLRV.Text, CultureInfo.InvariantCulture),
-                                                Convert.ToDouble(textBoxURV.Text, CultureInfo. InvariantCulture),
-                                                textBoxUnit.Text
-                                              );
-
+            /*textBoxRegister.AppendText("([" + RegisterIndex + "]\r\n");
+              textBoxRegister.AppendText("Sensor Name: " + SensorNameTextLabel.Text + "\r\n");
+              textBoxRegister.AppendText("Serial Number: " + SerialNumberLabel.Text + "\r\n");
+              textBoxRegister.AppendText("Registered: " + checkBox1Registerd.CheckState + "\r\n");
+              textBoxRegister.AppendText("Date: " + dateTimePicker1Label.Text + "\r\n");
+              textBoxRegister.AppendText("Signal Type: " + SignalTypeLabel.Text + "\r\n");
+              textBoxRegister.AppendText("Options: " + TextBoxOptions.Text + "\r\n");
+              textBoxRegister.AppendText("Comments: " + SignalTypeLabel.Text + "\r\n")
+            */
+            /*
+            comboBoxInstrumentName.Text
+            Instrument instrument = new Instrument(Convert.ToString(DateTime.Now)),
+                                                    comboBoxInstrumentName.Text,
+                                                    SerialNumberLabel.Text,
+                                                    SignalTypeLabel.Text,
+                                                    MeasureTypeLabel.Text,
+                                                    TextBoxOptions.Text,
+                                                    CommentsTextLabel.Text,
+                                                    Convert.ToDouble(textBoxLRV.Text, CultureInfo.InvariantCulture),
+                                                    Convert.ToDouble(textBoxURV.Text, CultureInfo.InvariantCulture),
+                                                    textBoxUnit.Text
+                                                  );*/
+            Instrument instrument = new Instrument("RegisterDate", "SensorName", "serialNumber", "signalType", "measureType", "options", "comment", 0.0, 0.0, "unit");
             
             textBoxRegister.AppendText(instrument.ToString());
             instrumentList.Add(instrument);
@@ -496,9 +546,9 @@ namespace FirstWinFormsApp1
         public bool NewInstrument(string sensorName) 
         {
             bool newInstrument = true;
-            instrumentList.ForEach(delegate (Instrument instrument) 
+            instrumentList.ForEach(delegate (Instrument instrument)
             {
-                if (instrument.SensorName == sensorName) 
+                if (instrument.SensorName == sensorName)
                 {
                     newInstrument = false;
                 }
@@ -506,37 +556,44 @@ namespace FirstWinFormsApp1
             return newInstrument;
         }
 
- /*       private void buttonOpenFile_Click(object sender, EventArgs e)
+        private void buttonOpenFile_Click(object sender, EventArgs e)
         {
-            string filename;
+            var inputFile = new StreamReader(@"C:\tmp\Test.txt");
+            textBoxRegister.Text = inputFile.ReadToEnd();
+            inputFile.Close();
+        }
 
-            openFileDialog1.InitialDirectory = "c;\\";
-            openFileDilaog1.Filter = "text files("CSV(*.txt")|*.txt|AllowDrop files(*.')');
-            openFileDialog1.FilerIndex = 2;
-            openFileDialog1.RestoreDirectory = true;
-            openFileDIalog1.Filename = "";
-
-            if (openFiledialg1.ShowDialog() == DialogResult.OK) 
+        private void button2_Click_1(object sender, EventArgs e)
+        {
+            if (textBoxRegister.TextLength > 0)
             {
-                filename = openFileDialog1.FileName;
+                StreamWriter outputFile = new StreamWriter("register.csv");
+                outputFile.Write(textBoxRegister.Text);
+                outputFile.Close();
+            }
 
-                string message = "Are you sure you want to open this file?";
-                string caption = "Confirm filename";
-                MessageBoxButtons buttons= MessageBoxButtons.YesNo;
-                MessageBoxIcon icon = MessageBoxIcon.Question;
-                DialogResult result;
+        }
 
-                result = MessageBox.Show(this, message, caption, buttons, icon);
-                if (result == DialogResult.Yes) 
+        private void Form1_FormClosing(object sender, FormClosingEventArgs e) 
+        {
+            StreamWriter outputFile = new StreamWriter(fileNameInstrumentList);
+            instrumentList.ForEach(delegate (Instrument instrument)
+            {
+                outputFile.Write(instrument.ToString);
+            });
+            outputFile.Close();
+        }
+
+        private void comboBoxInstrumentName_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (comboBoxInstrumentName.SelectedIndex > -1) 
+            {
+                bool fountInstrumet = false;
+                instrumentList.ForEach(delegate (Instrument instrument)
                 {
-                    var inputFile = new StreamReader(filename);
-                    textBoxRegister.Text = inputFile.ReadToEnd();
-                    //MessageBox.Show("Filename ="+filename+)
-                }
+                    
+                });
             }
         }
-*/
-
-
     }
 }

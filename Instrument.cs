@@ -36,7 +36,8 @@ namespace FirstWinFormsApp1
         public double URV { get; set; }
         public string Unit { get; set; }
 
-        public Instrument(string sensorName,
+        public Instrument(string registerDate,
+                            string sensorName,
                           string serialNumber,
                           string signalType,
                           string measureType,
@@ -46,7 +47,7 @@ namespace FirstWinFormsApp1
                           double urv = 0.0,
                           string unit = null)
         {
-            this.RegisterDate = DateTime.Now;
+            this.RegisterDate = Convert.ToDateTime(registerDate);
             this.SensorName = sensorName;
             this.SerialNumber = serialNumber;
             this.SignalType = signalType;

@@ -43,8 +43,8 @@
             this.textBox1input1 = new System.Windows.Forms.TextBox();
             this.button1 = new System.Windows.Forms.Button();
             this.Sensor_Data = new System.Windows.Forms.TabPage();
-            this.SensorNameTextLabe2 = new System.Windows.Forms.ComboBox();
             this.saveFileButton = new System.Windows.Forms.Button();
+            this.comboBoxInstrumentName = new System.Windows.Forms.ComboBox();
             this.buttonOpenFile = new System.Windows.Forms.Button();
             this.panelRange = new System.Windows.Forms.Panel();
             this.textBoxURV = new System.Windows.Forms.MaskedTextBox();
@@ -86,6 +86,7 @@
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.statusStrip1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
@@ -233,8 +234,8 @@
             // Sensor_Data
             // 
             this.Sensor_Data.BackColor = System.Drawing.Color.WhiteSmoke;
-            this.Sensor_Data.Controls.Add(this.SensorNameTextLabe2);
             this.Sensor_Data.Controls.Add(this.saveFileButton);
+            this.Sensor_Data.Controls.Add(this.comboBoxInstrumentName);
             this.Sensor_Data.Controls.Add(this.buttonOpenFile);
             this.Sensor_Data.Controls.Add(this.panelRange);
             this.Sensor_Data.Controls.Add(this.buttonSummary);
@@ -268,35 +269,36 @@
             this.Sensor_Data.TabIndex = 0;
             this.Sensor_Data.Text = "Sensor Data";
             // 
-            // SensorNameTextLabe2
-            // 
-            this.SensorNameTextLabe2.FormattingEnabled = true;
-            this.SensorNameTextLabe2.Location = new System.Drawing.Point(223, 99);
-            this.SensorNameTextLabe2.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
-            this.SensorNameTextLabe2.Name = "SensorNameTextLabe2";
-            this.SensorNameTextLabe2.Size = new System.Drawing.Size(546, 49);
-            this.SensorNameTextLabe2.TabIndex = 25;
-            // 
             // saveFileButton
             // 
-            this.saveFileButton.Location = new System.Drawing.Point(1387, 720);
-            this.saveFileButton.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
+            this.saveFileButton.Location = new System.Drawing.Point(1377, 723);
             this.saveFileButton.Name = "saveFileButton";
-            this.saveFileButton.Size = new System.Drawing.Size(335, 57);
-            this.saveFileButton.TabIndex = 24;
+            this.saveFileButton.Size = new System.Drawing.Size(335, 58);
+            this.saveFileButton.TabIndex = 26;
             this.saveFileButton.Text = "Save File";
             this.saveFileButton.UseVisualStyleBackColor = true;
-            this.saveFileButton.Click += new System.EventHandler(this.button2_Click);
+            this.saveFileButton.Click += new System.EventHandler(this.button2_Click_1);
+            // 
+            // comboBoxInstrumentName
+            // 
+            this.comboBoxInstrumentName.FormattingEnabled = true;
+            this.comboBoxInstrumentName.Location = new System.Drawing.Point(266, 99);
+            this.comboBoxInstrumentName.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
+            this.comboBoxInstrumentName.Name = "comboBoxInstrumentName";
+            this.comboBoxInstrumentName.Size = new System.Drawing.Size(503, 49);
+            this.comboBoxInstrumentName.TabIndex = 25;
+            this.comboBoxInstrumentName.SelectedIndexChanged += new System.EventHandler(this.comboBoxInstrumentName_SelectedIndexChanged);
             // 
             // buttonOpenFile
             // 
-            this.buttonOpenFile.Location = new System.Drawing.Point(1387, 805);
+            this.buttonOpenFile.Location = new System.Drawing.Point(1377, 819);
             this.buttonOpenFile.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.buttonOpenFile.Name = "buttonOpenFile";
             this.buttonOpenFile.Size = new System.Drawing.Size(335, 57);
             this.buttonOpenFile.TabIndex = 23;
             this.buttonOpenFile.Text = "Open File";
             this.buttonOpenFile.UseVisualStyleBackColor = true;
+            this.buttonOpenFile.Click += new System.EventHandler(this.buttonOpenFile_Click);
             // 
             // panelRange
             // 
@@ -414,19 +416,19 @@
             // 
             // CommentsTextLabel
             // 
-            this.CommentsTextLabel.Location = new System.Drawing.Point(223, 720);
+            this.CommentsTextLabel.Location = new System.Drawing.Point(264, 720);
             this.CommentsTextLabel.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.CommentsTextLabel.Multiline = true;
             this.CommentsTextLabel.Name = "CommentsTextLabel";
-            this.CommentsTextLabel.Size = new System.Drawing.Size(533, 247);
+            this.CommentsTextLabel.Size = new System.Drawing.Size(492, 247);
             this.CommentsTextLabel.TabIndex = 7;
             // 
             // SensorNameTextLabel
             // 
-            this.SensorNameTextLabel.Location = new System.Drawing.Point(223, 22);
+            this.SensorNameTextLabel.Location = new System.Drawing.Point(266, 22);
             this.SensorNameTextLabel.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.SensorNameTextLabel.Name = "SensorNameTextLabel";
-            this.SensorNameTextLabel.Size = new System.Drawing.Size(546, 47);
+            this.SensorNameTextLabel.Size = new System.Drawing.Size(503, 47);
             this.SensorNameTextLabel.TabIndex = 1;
             // 
             // label8
@@ -445,10 +447,10 @@
             "4-20ma",
             "0-10VDC",
             "0.5DC"});
-            this.MeasureTypeLabel.Location = new System.Drawing.Point(223, 463);
+            this.MeasureTypeLabel.Location = new System.Drawing.Point(266, 463);
             this.MeasureTypeLabel.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.MeasureTypeLabel.Name = "MeasureTypeLabel";
-            this.MeasureTypeLabel.Size = new System.Drawing.Size(546, 49);
+            this.MeasureTypeLabel.Size = new System.Drawing.Size(503, 49);
             this.MeasureTypeLabel.TabIndex = 10;
             // 
             // TextBoxOptions
@@ -459,10 +461,10 @@
             "None",
             "Display",
             "HART Protocol"});
-            this.TextBoxOptions.Location = new System.Drawing.Point(223, 530);
+            this.TextBoxOptions.Location = new System.Drawing.Point(264, 530);
             this.TextBoxOptions.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.TextBoxOptions.Name = "TextBoxOptions";
-            this.TextBoxOptions.Size = new System.Drawing.Size(533, 168);
+            this.TextBoxOptions.Size = new System.Drawing.Size(492, 168);
             this.TextBoxOptions.TabIndex = 6;
             // 
             // groupBox1
@@ -546,26 +548,26 @@
             "Analog",
             "Digital",
             "Fieldbus"});
-            this.SignalTypeLabel.Location = new System.Drawing.Point(223, 396);
+            this.SignalTypeLabel.Location = new System.Drawing.Point(266, 396);
             this.SignalTypeLabel.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.SignalTypeLabel.Name = "SignalTypeLabel";
-            this.SignalTypeLabel.Size = new System.Drawing.Size(546, 49);
+            this.SignalTypeLabel.Size = new System.Drawing.Size(503, 49);
             this.SignalTypeLabel.TabIndex = 5;
             this.SignalTypeLabel.SelectedIndexChanged += new System.EventHandler(this.SignalTypeLabel_SelectedIndexChanged);
             // 
             // dateTimePicker1Label
             // 
-            this.dateTimePicker1Label.Location = new System.Drawing.Point(223, 327);
+            this.dateTimePicker1Label.Location = new System.Drawing.Point(266, 327);
             this.dateTimePicker1Label.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.dateTimePicker1Label.Name = "dateTimePicker1Label";
-            this.dateTimePicker1Label.Size = new System.Drawing.Size(546, 47);
+            this.dateTimePicker1Label.Size = new System.Drawing.Size(503, 47);
             this.dateTimePicker1Label.TabIndex = 4;
             // 
             // checkBox1Registerd
             // 
             this.checkBox1Registerd.AutoSize = true;
             this.checkBox1Registerd.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.checkBox1Registerd.Location = new System.Drawing.Point(223, 274);
+            this.checkBox1Registerd.Location = new System.Drawing.Point(266, 271);
             this.checkBox1Registerd.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.checkBox1Registerd.Name = "checkBox1Registerd";
             this.checkBox1Registerd.Size = new System.Drawing.Size(34, 33);
@@ -624,11 +626,11 @@
             // 
             // SerialNumberLabel
             // 
-            this.SerialNumberLabel.Location = new System.Drawing.Point(210, 212);
+            this.SerialNumberLabel.Location = new System.Drawing.Point(266, 212);
             this.SerialNumberLabel.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.SerialNumberLabel.Mask = "000-00-0000";
             this.SerialNumberLabel.Name = "SerialNumberLabel";
-            this.SerialNumberLabel.Size = new System.Drawing.Size(546, 47);
+            this.SerialNumberLabel.Size = new System.Drawing.Size(490, 47);
             this.SerialNumberLabel.TabIndex = 2;
             // 
             // label2
@@ -647,9 +649,9 @@
             this.label1.Location = new System.Drawing.Point(13, 102);
             this.label1.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(195, 41);
+            this.label1.Size = new System.Drawing.Size(249, 41);
             this.label1.TabIndex = 0;
-            this.label1.Text = "Sensor Name";
+            this.label1.Text = "Instrument Name";
             // 
             // tabControl2
             // 
@@ -696,6 +698,10 @@
             this.aboutToolStripMenuItem.Text = "&About";
             this.aboutToolStripMenuItem.Click += new System.EventHandler(this.aboutToolStripMenuItem_Click);
             // 
+            // openFileDialog1
+            // 
+            this.openFileDialog1.FileName = "openFileDialog1";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(17F, 41F);
@@ -712,6 +718,7 @@
             this.Name = "Form1";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Form1";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_FormClosing);
             this.statusStrip1.ResumeLayout(false);
             this.statusStrip1.PerformLayout();
             this.tabPage1.ResumeLayout(false);
@@ -786,11 +793,12 @@
         private Label label13;
         private Label label12;
         private Button buttonOpenFile;
-        private Button saveFileButton;
         private MenuStrip menuStrip1;
         private ToolStripMenuItem fileToolStripMenuItem;
         private ToolStripMenuItem helpToolStripMenuItem;
         private ToolStripMenuItem aboutToolStripMenuItem;
-        private ComboBox SensorNameTextLabe2;
+        private ComboBox comboBoxInstrumentName;
+        private OpenFileDialog openFileDialog1;
+        private Button saveFileButton;
     }
 }
