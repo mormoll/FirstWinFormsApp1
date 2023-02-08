@@ -35,12 +35,13 @@
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.listBox_IpAddresses = new System.Windows.Forms.ListBox();
             this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.textBoxSend = new System.Windows.Forms.TextBox();
             this.label13 = new System.Windows.Forms.Label();
             this.label12 = new System.Windows.Forms.Label();
             this.checkBoxCaseSensetive = new System.Windows.Forms.CheckBox();
-            this.textBoxResult = new System.Windows.Forms.TextBox();
-            this.textBox2input2 = new System.Windows.Forms.TextBox();
-            this.textBox1input1 = new System.Windows.Forms.TextBox();
+            this.textBoxCommunication = new System.Windows.Forms.TextBox();
+            this.textBoxPort = new System.Windows.Forms.TextBox();
+            this.textBoxIP = new System.Windows.Forms.TextBox();
             this.button1 = new System.Windows.Forms.Button();
             this.Sensor_Data = new System.Windows.Forms.TabPage();
             this.saveFileButton = new System.Windows.Forms.Button();
@@ -87,6 +88,7 @@
             this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
+            this.textBoxSend = new System.Windows.Forms.TextBox();
             this.statusStrip1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
@@ -151,12 +153,13 @@
             // 
             // tabPage2
             // 
+            this.tabPage2.Controls.Add(this.textBoxSend);
             this.tabPage2.Controls.Add(this.label13);
             this.tabPage2.Controls.Add(this.label12);
             this.tabPage2.Controls.Add(this.checkBoxCaseSensetive);
-            this.tabPage2.Controls.Add(this.textBoxResult);
-            this.tabPage2.Controls.Add(this.textBox2input2);
-            this.tabPage2.Controls.Add(this.textBox1input1);
+            this.tabPage2.Controls.Add(this.textBoxCommunication);
+            this.tabPage2.Controls.Add(this.textBoxPort);
+            this.tabPage2.Controls.Add(this.textBoxIP);
             this.tabPage2.Controls.Add(this.button1);
             this.tabPage2.Location = new System.Drawing.Point(10, 58);
             this.tabPage2.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
@@ -166,6 +169,13 @@
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Connection";
             this.tabPage2.UseVisualStyleBackColor = true;
+            // 
+            // textBoxSend
+            // 
+            this.textBoxSend.Location = new System.Drawing.Point(66, 297);
+            this.textBoxSend.Name = "textBoxSend";
+            this.textBoxSend.Size = new System.Drawing.Size(494, 47);
+            this.textBoxSend.TabIndex = 8;
             // 
             // label13
             // 
@@ -195,30 +205,30 @@
             this.checkBoxCaseSensetive.Text = "Stay Connected";
             this.checkBoxCaseSensetive.UseVisualStyleBackColor = true;
             // 
-            // textBoxResult
+            // textBoxCommunication
             // 
-            this.textBoxResult.Location = new System.Drawing.Point(622, 36);
-            this.textBoxResult.Margin = new System.Windows.Forms.Padding(7, 8, 7, 8);
-            this.textBoxResult.Multiline = true;
-            this.textBoxResult.Name = "textBoxResult";
-            this.textBoxResult.Size = new System.Drawing.Size(310, 518);
-            this.textBoxResult.TabIndex = 3;
+            this.textBoxCommunication.Location = new System.Drawing.Point(622, 36);
+            this.textBoxCommunication.Margin = new System.Windows.Forms.Padding(7, 8, 7, 8);
+            this.textBoxCommunication.Multiline = true;
+            this.textBoxCommunication.Name = "textBoxCommunication";
+            this.textBoxCommunication.Size = new System.Drawing.Size(310, 518);
+            this.textBoxCommunication.TabIndex = 3;
             // 
-            // textBox2input2
+            // textBoxPort
             // 
-            this.textBox2input2.Location = new System.Drawing.Point(187, 115);
-            this.textBox2input2.Margin = new System.Windows.Forms.Padding(7, 8, 7, 8);
-            this.textBox2input2.Name = "textBox2input2";
-            this.textBox2input2.Size = new System.Drawing.Size(373, 47);
-            this.textBox2input2.TabIndex = 2;
+            this.textBoxPort.Location = new System.Drawing.Point(187, 115);
+            this.textBoxPort.Margin = new System.Windows.Forms.Padding(7, 8, 7, 8);
+            this.textBoxPort.Name = "textBoxPort";
+            this.textBoxPort.Size = new System.Drawing.Size(373, 47);
+            this.textBoxPort.TabIndex = 2;
             // 
-            // textBox1input1
+            // textBoxIP
             // 
-            this.textBox1input1.Location = new System.Drawing.Point(187, 36);
-            this.textBox1input1.Margin = new System.Windows.Forms.Padding(7, 8, 7, 8);
-            this.textBox1input1.Name = "textBox1input1";
-            this.textBox1input1.Size = new System.Drawing.Size(378, 47);
-            this.textBox1input1.TabIndex = 1;
+            this.textBoxIP.Location = new System.Drawing.Point(187, 36);
+            this.textBoxIP.Margin = new System.Windows.Forms.Padding(7, 8, 7, 8);
+            this.textBoxIP.Name = "textBoxIP";
+            this.textBoxIP.Size = new System.Drawing.Size(378, 47);
+            this.textBoxIP.TabIndex = 1;
             // 
             // button1
             // 
@@ -702,6 +712,13 @@
             // 
             this.openFileDialog1.FileName = "openFileDialog1";
             // 
+            // textBoxSend
+            // 
+            this.textBoxSend.Location = new System.Drawing.Point(66, 297);
+            this.textBoxSend.Name = "textBoxSend";
+            this.textBoxSend.Size = new System.Drawing.Size(494, 47);
+            this.textBoxSend.TabIndex = 8;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(17F, 41F);
@@ -748,9 +765,9 @@
         private TabPage tabPage1;
         private TabPage tabPage2;
         private CheckBox checkBoxCaseSensetive;
-        private TextBox textBoxResult;
-        private TextBox textBox2input2;
-        private TextBox textBox1input1;
+        private TextBox textBoxCommunication;
+        private TextBox textBoxPort;
+        private TextBox textBoxIP;
         private Button button1;
         private TabPage Sensor_Data;
         private Panel panelRange;
@@ -800,5 +817,6 @@
         private ComboBox comboBoxInstrumentName;
         private OpenFileDialog openFileDialog1;
         private Button saveFileButton;
+        private TextBox textBoxSend;
     }
 }

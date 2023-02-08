@@ -36,8 +36,32 @@ namespace FirstWinFormsApp1
         public double URV { get; set; }
         public string Unit { get; set; }
 
-        public Instrument(string registerDate,
+       /* public Instrument(  string registerDate,
                             string sensorName,
+                            string serialNumber,
+                            string signalType,
+                            string measureType,
+                            string options = null,
+                            string comment = null,
+                            double lrv = 0.0,
+                            double urv = 0.0,
+                            string unit = null)
+        {
+            this.RegisterDate = DateTime.Now;
+            this.SensorName = sensorName;
+            this.SerialNumber = serialNumber;
+            this.SignalType = signalType;
+            this.MeasureType = measureType;
+            this.Options = options;
+            this.Comment = comment;
+            this.LRV = lrv;
+            this.URV = urv;
+            this.Unit = unit;
+        }
+       */
+
+        public Instrument(string registerDate,
+                          string sensorName,
                           string serialNumber,
                           string signalType,
                           string measureType,
@@ -57,7 +81,6 @@ namespace FirstWinFormsApp1
             this.LRV = lrv;
             this.URV = urv;
             this.Unit = unit;
-
 
         }
 
