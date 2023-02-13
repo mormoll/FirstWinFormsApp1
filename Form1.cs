@@ -471,6 +471,24 @@ namespace FirstWinFormsApp1
 
 
             }
+            Instrument instrument = new Instrument(Convert.ToString(DateTime.Now),
+                                                    comboBoxInstrumentName.Text,
+                                                    SerialNumberLabel.Text,
+                                                    SignalTypeLabel.Text,
+                                                    MeasureTypeLabel.Text,
+                                                    TextBoxOptions.Text,
+                                                    CommentsTextLabel.Text,
+                                                    lrvValue,
+                                                    urvValue,
+                                                    textBoxUnit.Text );
+
+            //Instrument instrument = new Instrument("RegisterDate", "SensorName", "serialNumber", "signalType", "measureType", "options", "comment", 0.0, 0.0, "unit");
+
+
+            instrumentList.Add(instrument);
+            textBoxRegister.AppendText(instrument.ToString());
+    
+            
         }
 
         private void buttonSummary_Click_1(object sender, EventArgs e)
