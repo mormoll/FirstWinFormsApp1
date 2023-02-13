@@ -272,7 +272,7 @@
             this.button1.TabIndex = 0;
             this.button1.Text = "Connect";
             this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click_1);
+
             // 
             // Sensor_Data
             // 
@@ -408,7 +408,7 @@
             this.buttonSummary.TabIndex = 22;
             this.buttonSummary.Text = "SUMMARY";
             this.buttonSummary.UseVisualStyleBackColor = true;
-            this.buttonSummary.Click += new System.EventHandler(this.buttonSummary_Click_1);
+
             // 
             // vScrollBar3
             // 
@@ -592,7 +592,7 @@
             this.SignalTypeLabel.Name = "SignalTypeLabel";
             this.SignalTypeLabel.Size = new System.Drawing.Size(503, 49);
             this.SignalTypeLabel.TabIndex = 5;
-            this.SignalTypeLabel.SelectedIndexChanged += new System.EventHandler(this.SignalTypeLabel_SelectedIndexChanged);
+            
             // 
             // dateTimePicker1Label
             // 
