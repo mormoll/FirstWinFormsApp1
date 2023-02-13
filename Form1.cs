@@ -755,6 +755,9 @@ namespace FirstWinFormsApp1
             return recived;
         }
 
-       
+        private void textBoxRegister_TextChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }

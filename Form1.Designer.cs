@@ -28,6 +28,9 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea2 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend2 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series2 = new System.Windows.Forms.DataVisualization.Charting.Series();
             this.printDialog1 = new System.Windows.Forms.PrintDialog();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
@@ -37,6 +40,10 @@
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.listBox_IpAddresses = new System.Windows.Forms.ListBox();
             this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.button6 = new System.Windows.Forms.Button();
+            this.button5 = new System.Windows.Forms.Button();
+            this.button4 = new System.Windows.Forms.Button();
+            this.button3 = new System.Windows.Forms.Button();
             this.textBoxSend = new System.Windows.Forms.TextBox();
             this.label13 = new System.Windows.Forms.Label();
             this.label12 = new System.Windows.Forms.Label();
@@ -46,13 +53,21 @@
             this.textBoxIP = new System.Windows.Forms.TextBox();
             this.button1 = new System.Windows.Forms.Button();
             this.Sensor_Data = new System.Windows.Forms.TabPage();
+            this.button9 = new System.Windows.Forms.Button();
+            this.button8 = new System.Windows.Forms.Button();
+            this.button7 = new System.Windows.Forms.Button();
             this.saveFileButton = new System.Windows.Forms.Button();
             this.comboBoxInstrumentName = new System.Windows.Forms.ComboBox();
             this.buttonOpenFile = new System.Windows.Forms.Button();
             this.panelRange = new System.Windows.Forms.Panel();
+            this.label15 = new System.Windows.Forms.Label();
+            this.label14 = new System.Windows.Forms.Label();
+            this.textBox3 = new System.Windows.Forms.TextBox();
+            this.textBox2 = new System.Windows.Forms.TextBox();
             this.textBoxURV = new System.Windows.Forms.MaskedTextBox();
             this.textBoxLRV = new System.Windows.Forms.MaskedTextBox();
             this.textBoxUnit = new System.Windows.Forms.TextBox();
+            this.label11 = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
             this.label10 = new System.Windows.Forms.Label();
             this.buttonSummary = new System.Windows.Forms.Button();
@@ -84,20 +99,19 @@
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.tabControl2 = new System.Windows.Forms.TabControl();
+            this.tabPage3 = new System.Windows.Forms.TabPage();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
-            this.textBox2 = new System.Windows.Forms.TextBox();
-            this.textBox3 = new System.Windows.Forms.TextBox();
-            this.label11 = new System.Windows.Forms.Label();
-            this.label14 = new System.Windows.Forms.Label();
-            this.label15 = new System.Windows.Forms.Label();
-            this.button3 = new System.Windows.Forms.Button();
-            this.button4 = new System.Windows.Forms.Button();
-            this.button5 = new System.Windows.Forms.Button();
-            this.button6 = new System.Windows.Forms.Button();
+            this.chart1 = new System.Windows.Forms.DataVisualization.Charting.Chart();
+            this.button10 = new System.Windows.Forms.Button();
+            this.label16 = new System.Windows.Forms.Label();
+            this.label17 = new System.Windows.Forms.Label();
+            this.textBox4 = new System.Windows.Forms.TextBox();
+            this.textBox5 = new System.Windows.Forms.TextBox();
+            this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.statusStrip1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
@@ -105,7 +119,10 @@
             this.panelRange.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.tabControl2.SuspendLayout();
+            this.tabPage3.SuspendLayout();
             this.menuStrip1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.chart1)).BeginInit();
+            this.groupBox2.SuspendLayout();
             this.SuspendLayout();
             // 
             // printDialog1
@@ -148,7 +165,7 @@
             this.tabPage1.Location = new System.Drawing.Point(10, 58);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(2301, 974);
+            this.tabPage1.Size = new System.Drawing.Size(2328, 997);
             this.tabPage1.TabIndex = 2;
             this.tabPage1.Text = "Lists";
             this.tabPage1.UseVisualStyleBackColor = true;
@@ -161,7 +178,6 @@
             this.button2.TabIndex = 3;
             this.button2.Text = "button2";
             this.button2.UseVisualStyleBackColor = true;
-            
             // 
             // textBox1
             // 
@@ -202,6 +218,46 @@
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Connection";
             this.tabPage2.UseVisualStyleBackColor = true;
+            // 
+            // button6
+            // 
+            this.button6.Location = new System.Drawing.Point(66, 676);
+            this.button6.Margin = new System.Windows.Forms.Padding(7, 8, 7, 8);
+            this.button6.Name = "button6";
+            this.button6.Size = new System.Drawing.Size(546, 82);
+            this.button6.TabIndex = 12;
+            this.button6.Text = "Connect";
+            this.button6.UseVisualStyleBackColor = true;
+            // 
+            // button5
+            // 
+            this.button5.Location = new System.Drawing.Point(66, 569);
+            this.button5.Margin = new System.Windows.Forms.Padding(7, 8, 7, 8);
+            this.button5.Name = "button5";
+            this.button5.Size = new System.Drawing.Size(546, 82);
+            this.button5.TabIndex = 11;
+            this.button5.Text = "Connect";
+            this.button5.UseVisualStyleBackColor = true;
+            // 
+            // button4
+            // 
+            this.button4.Location = new System.Drawing.Point(66, 471);
+            this.button4.Margin = new System.Windows.Forms.Padding(7, 8, 7, 8);
+            this.button4.Name = "button4";
+            this.button4.Size = new System.Drawing.Size(546, 82);
+            this.button4.TabIndex = 10;
+            this.button4.Text = "Connect";
+            this.button4.UseVisualStyleBackColor = true;
+            // 
+            // button3
+            // 
+            this.button3.Location = new System.Drawing.Point(66, 373);
+            this.button3.Margin = new System.Windows.Forms.Padding(7, 8, 7, 8);
+            this.button3.Name = "button3";
+            this.button3.Size = new System.Drawing.Size(546, 82);
+            this.button3.TabIndex = 9;
+            this.button3.Text = "Read Configuration";
+            this.button3.UseVisualStyleBackColor = true;
             // 
             // textBoxSend
             // 
@@ -272,11 +328,13 @@
             this.button1.TabIndex = 0;
             this.button1.Text = "Connect";
             this.button1.UseVisualStyleBackColor = true;
-
             // 
             // Sensor_Data
             // 
             this.Sensor_Data.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.Sensor_Data.Controls.Add(this.button9);
+            this.Sensor_Data.Controls.Add(this.button8);
+            this.Sensor_Data.Controls.Add(this.button7);
             this.Sensor_Data.Controls.Add(this.saveFileButton);
             this.Sensor_Data.Controls.Add(this.comboBoxInstrumentName);
             this.Sensor_Data.Controls.Add(this.buttonOpenFile);
@@ -308,9 +366,36 @@
             this.Sensor_Data.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.Sensor_Data.Name = "Sensor_Data";
             this.Sensor_Data.Padding = new System.Windows.Forms.Padding(2, 3, 2, 3);
-            this.Sensor_Data.Size = new System.Drawing.Size(2328, 997);
+            this.Sensor_Data.Size = new System.Drawing.Size(1875, 997);
             this.Sensor_Data.TabIndex = 0;
             this.Sensor_Data.Text = "Sensor Data";
+            // 
+            // button9
+            // 
+            this.button9.Location = new System.Drawing.Point(1385, 940);
+            this.button9.Name = "button9";
+            this.button9.Size = new System.Drawing.Size(188, 58);
+            this.button9.TabIndex = 29;
+            this.button9.Text = "button9";
+            this.button9.UseVisualStyleBackColor = true;
+            // 
+            // button8
+            // 
+            this.button8.Location = new System.Drawing.Point(1136, 920);
+            this.button8.Name = "button8";
+            this.button8.Size = new System.Drawing.Size(188, 58);
+            this.button8.TabIndex = 28;
+            this.button8.Text = "button8";
+            this.button8.UseVisualStyleBackColor = true;
+            // 
+            // button7
+            // 
+            this.button7.Location = new System.Drawing.Point(836, 904);
+            this.button7.Name = "button7";
+            this.button7.Size = new System.Drawing.Size(188, 58);
+            this.button7.TabIndex = 27;
+            this.button7.Text = "button7";
+            this.button7.UseVisualStyleBackColor = true;
             // 
             // saveFileButton
             // 
@@ -357,8 +442,40 @@
             this.panelRange.Controls.Add(this.label10);
             this.panelRange.Location = new System.Drawing.Point(815, 22);
             this.panelRange.Name = "panelRange";
-            this.panelRange.Size = new System.Drawing.Size(500, 490);
+            this.panelRange.Size = new System.Drawing.Size(500, 385);
             this.panelRange.TabIndex = 4;
+            // 
+            // label15
+            // 
+            this.label15.AutoSize = true;
+            this.label15.Location = new System.Drawing.Point(26, 305);
+            this.label15.Name = "label15";
+            this.label15.Size = new System.Drawing.Size(117, 41);
+            this.label15.TabIndex = 24;
+            this.label15.Text = "Alarm L";
+            // 
+            // label14
+            // 
+            this.label14.AutoSize = true;
+            this.label14.Location = new System.Drawing.Point(36, 241);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(124, 41);
+            this.label14.TabIndex = 23;
+            this.label14.Text = "Alarm H";
+            // 
+            // textBox3
+            // 
+            this.textBox3.Location = new System.Drawing.Point(189, 305);
+            this.textBox3.Name = "textBox3";
+            this.textBox3.Size = new System.Drawing.Size(250, 47);
+            this.textBox3.TabIndex = 22;
+            // 
+            // textBox2
+            // 
+            this.textBox2.Location = new System.Drawing.Point(189, 235);
+            this.textBox2.Name = "textBox2";
+            this.textBox2.Size = new System.Drawing.Size(250, 47);
+            this.textBox2.TabIndex = 21;
             // 
             // textBoxURV
             // 
@@ -380,6 +497,15 @@
             this.textBoxUnit.Name = "textBoxUnit";
             this.textBoxUnit.Size = new System.Drawing.Size(250, 47);
             this.textBoxUnit.TabIndex = 18;
+            // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.Location = new System.Drawing.Point(36, 169);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(73, 41);
+            this.label11.TabIndex = 15;
+            this.label11.Text = "Unit";
             // 
             // label9
             // 
@@ -408,7 +534,6 @@
             this.buttonSummary.TabIndex = 22;
             this.buttonSummary.Text = "SUMMARY";
             this.buttonSummary.UseVisualStyleBackColor = true;
-
             // 
             // vScrollBar3
             // 
@@ -451,6 +576,7 @@
             this.textBoxRegister.ReadOnly = true;
             this.textBoxRegister.Size = new System.Drawing.Size(380, 665);
             this.textBoxRegister.TabIndex = 9;
+            this.textBoxRegister.TextChanged += new System.EventHandler(this.textBoxRegister_TextChanged);
             // 
             // CommentsTextLabel
             // 
@@ -512,14 +638,13 @@
             this.groupBox1.Controls.Add(this.radioButton3);
             this.groupBox1.Controls.Add(this.SaveChangesButton);
             this.groupBox1.Controls.Add(this.RegisterNewButton);
-            this.groupBox1.Location = new System.Drawing.Point(815, 544);
+            this.groupBox1.Location = new System.Drawing.Point(815, 429);
             this.groupBox1.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Padding = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.groupBox1.Size = new System.Drawing.Size(488, 423);
             this.groupBox1.TabIndex = 8;
             this.groupBox1.TabStop = false;
-            
             // 
             // RegSaveDel
             // 
@@ -535,7 +660,7 @@
             // DeleteButton
             // 
             this.DeleteButton.AutoSize = true;
-            this.DeleteButton.Location = new System.Drawing.Point(44, 216);
+            this.DeleteButton.Location = new System.Drawing.Point(44, 213);
             this.DeleteButton.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.DeleteButton.Name = "DeleteButton";
             this.DeleteButton.Size = new System.Drawing.Size(141, 45);
@@ -571,7 +696,7 @@
             // RegisterNewButton
             // 
             this.RegisterNewButton.AutoSize = true;
-            this.RegisterNewButton.Location = new System.Drawing.Point(44, 70);
+            this.RegisterNewButton.Location = new System.Drawing.Point(44, 79);
             this.RegisterNewButton.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.RegisterNewButton.Name = "RegisterNewButton";
             this.RegisterNewButton.Size = new System.Drawing.Size(230, 45);
@@ -592,7 +717,6 @@
             this.SignalTypeLabel.Name = "SignalTypeLabel";
             this.SignalTypeLabel.Size = new System.Drawing.Size(503, 49);
             this.SignalTypeLabel.TabIndex = 5;
-            
             // 
             // dateTimePicker1Label
             // 
@@ -697,12 +821,25 @@
             this.tabControl2.Controls.Add(this.Sensor_Data);
             this.tabControl2.Controls.Add(this.tabPage2);
             this.tabControl2.Controls.Add(this.tabPage1);
+            this.tabControl2.Controls.Add(this.tabPage3);
             this.tabControl2.Location = new System.Drawing.Point(0, 53);
             this.tabControl2.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.tabControl2.Name = "tabControl2";
             this.tabControl2.SelectedIndex = 0;
-            this.tabControl2.Size = new System.Drawing.Size(2348, 1065);
+            this.tabControl2.Size = new System.Drawing.Size(2349, 1065);
             this.tabControl2.TabIndex = 0;
+            // 
+            // tabPage3
+            // 
+            this.tabPage3.Controls.Add(this.groupBox2);
+            this.tabPage3.Controls.Add(this.chart1);
+            this.tabPage3.Location = new System.Drawing.Point(10, 58);
+            this.tabPage3.Name = "tabPage3";
+            this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage3.Size = new System.Drawing.Size(2329, 997);
+            this.tabPage3.TabIndex = 3;
+            this.tabPage3.Text = "Chart";
+            this.tabPage3.UseVisualStyleBackColor = true;
             // 
             // menuStrip1
             // 
@@ -741,87 +878,78 @@
             // 
             this.openFileDialog1.FileName = "openFileDialog1";
             // 
-            // textBox2
+            // chart1
             // 
-            this.textBox2.Location = new System.Drawing.Point(189, 235);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(250, 47);
-            this.textBox2.TabIndex = 21;
+            chartArea2.Name = "ChartArea1";
+            this.chart1.ChartAreas.Add(chartArea2);
+            this.chart1.Dock = System.Windows.Forms.DockStyle.Fill;
+            legend2.Name = "Legend1";
+            this.chart1.Legends.Add(legend2);
+            this.chart1.Location = new System.Drawing.Point(3, 3);
+            this.chart1.Name = "chart1";
+            series2.ChartArea = "ChartArea1";
+            series2.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
+            series2.Legend = "Legend1";
+            series2.Name = "Series1";
+            this.chart1.Series.Add(series2);
+            this.chart1.Size = new System.Drawing.Size(2323, 991);
+            this.chart1.TabIndex = 0;
+            this.chart1.Text = "chart1";
             // 
-            // textBox3
+            // button10
             // 
-            this.textBox3.Location = new System.Drawing.Point(189, 305);
-            this.textBox3.Name = "textBox3";
-            this.textBox3.Size = new System.Drawing.Size(250, 47);
-            this.textBox3.TabIndex = 22;
+            this.button10.Location = new System.Drawing.Point(64, 186);
+            this.button10.Name = "button10";
+            this.button10.Size = new System.Drawing.Size(188, 58);
+            this.button10.TabIndex = 7;
+            this.button10.Text = "Add Point";
+            this.button10.UseVisualStyleBackColor = true;
             // 
-            // label11
+            // label16
             // 
-            this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(36, 169);
-            this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(73, 41);
-            this.label11.TabIndex = 15;
-            this.label11.Text = "Unit";
+            this.label16.AutoSize = true;
+            this.label16.Location = new System.Drawing.Point(6, 39);
+            this.label16.Name = "label16";
+            this.label16.Size = new System.Drawing.Size(32, 41);
+            this.label16.TabIndex = 9;
+            this.label16.Text = "x";
             // 
-            // label14
+            // label17
             // 
-            this.label14.AutoSize = true;
-            this.label14.Location = new System.Drawing.Point(36, 241);
-            this.label14.Name = "label14";
-            this.label14.Size = new System.Drawing.Size(124, 41);
-            this.label14.TabIndex = 23;
-            this.label14.Text = "Alarm H";
+            this.label17.AutoSize = true;
+            this.label17.Location = new System.Drawing.Point(6, 89);
+            this.label17.Name = "label17";
+            this.label17.Size = new System.Drawing.Size(33, 41);
+            this.label17.TabIndex = 10;
+            this.label17.Text = "y";
             // 
-            // label15
+            // textBox4
             // 
-            this.label15.AutoSize = true;
-            this.label15.Location = new System.Drawing.Point(26, 305);
-            this.label15.Name = "label15";
-            this.label15.Size = new System.Drawing.Size(117, 41);
-            this.label15.TabIndex = 24;
-            this.label15.Text = "Alarm L";
+            this.textBox4.Location = new System.Drawing.Point(44, 36);
+            this.textBox4.Name = "textBox4";
+            this.textBox4.Size = new System.Drawing.Size(250, 47);
+            this.textBox4.TabIndex = 11;
             // 
-            // button3
+            // textBox5
             // 
-            this.button3.Location = new System.Drawing.Point(66, 373);
-            this.button3.Margin = new System.Windows.Forms.Padding(7, 8, 7, 8);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(546, 82);
-            this.button3.TabIndex = 9;
-            this.button3.Text = "Read Configuration";
-            this.button3.UseVisualStyleBackColor = true;
-            
+            this.textBox5.Location = new System.Drawing.Point(45, 86);
+            this.textBox5.Name = "textBox5";
+            this.textBox5.Size = new System.Drawing.Size(250, 47);
+            this.textBox5.TabIndex = 12;
             // 
-            // button4
+            // groupBox2
             // 
-            this.button4.Location = new System.Drawing.Point(66, 471);
-            this.button4.Margin = new System.Windows.Forms.Padding(7, 8, 7, 8);
-            this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(546, 82);
-            this.button4.TabIndex = 10;
-            this.button4.Text = "Connect";
-            this.button4.UseVisualStyleBackColor = true;
-            // 
-            // button5
-            // 
-            this.button5.Location = new System.Drawing.Point(66, 569);
-            this.button5.Margin = new System.Windows.Forms.Padding(7, 8, 7, 8);
-            this.button5.Name = "button5";
-            this.button5.Size = new System.Drawing.Size(546, 82);
-            this.button5.TabIndex = 11;
-            this.button5.Text = "Connect";
-            this.button5.UseVisualStyleBackColor = true;
-            // 
-            // button6
-            // 
-            this.button6.Location = new System.Drawing.Point(66, 676);
-            this.button6.Margin = new System.Windows.Forms.Padding(7, 8, 7, 8);
-            this.button6.Name = "button6";
-            this.button6.Size = new System.Drawing.Size(546, 82);
-            this.button6.TabIndex = 12;
-            this.button6.Text = "Connect";
-            this.button6.UseVisualStyleBackColor = true;
+            this.groupBox2.Controls.Add(this.textBox5);
+            this.groupBox2.Controls.Add(this.button10);
+            this.groupBox2.Controls.Add(this.label16);
+            this.groupBox2.Controls.Add(this.textBox4);
+            this.groupBox2.Controls.Add(this.label17);
+            this.groupBox2.Location = new System.Drawing.Point(1982, 156);
+            this.groupBox2.Name = "groupBox2";
+            this.groupBox2.Size = new System.Drawing.Size(330, 250);
+            this.groupBox2.TabIndex = 13;
+            this.groupBox2.TabStop = false;
+            this.groupBox2.Text = "groupBox2";
             // 
             // Form1
             // 
@@ -853,8 +981,12 @@
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.tabControl2.ResumeLayout(false);
+            this.tabPage3.ResumeLayout(false);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.chart1)).EndInit();
+            this.groupBox2.ResumeLayout(false);
+            this.groupBox2.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -933,5 +1065,16 @@
         private Button button5;
         private Button button4;
         private Button button3;
+        private Button button9;
+        private Button button8;
+        private Button button7;
+        private TabPage tabPage3;
+        private System.Windows.Forms.DataVisualization.Charting.Chart chart1;
+        private Button button10;
+        private Label label16;
+        private Label label17;
+        private TextBox textBox4;
+        private TextBox textBox5;
+        private GroupBox groupBox2;
     }
 }
