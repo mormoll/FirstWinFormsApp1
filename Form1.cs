@@ -23,6 +23,7 @@ namespace FirstWinFormsApp1
         string[] digitalSignals = new string[] { "5VDC", "10VDC0", "24VDC", "Relay" };
         string[] fieldbusSigals = new string[] { "Modbus RTU", "ModbusTCP", "Profibus", "ProfiNet", "CANBus", "ErherCat", "RS48" };
 
+        string[] daysOfWeek = { "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday" };
 
         //Variables
         char ch = 'a';
@@ -343,6 +344,11 @@ namespace FirstWinFormsApp1
         {   
             toolStripStatusLabel1.Text = "OK";
             RegisterIndex++;
+
+
+
+
+
             /*textBoxRegister.AppendText("([" + RegisterIndex + "]\r\n");
               textBoxRegister.AppendText("Sensor Name: " + SensorNameTextLabel.Text + "\r\n");
               textBoxRegister.AppendText("Serial Number: " + SerialNumberLabel.Text + "\r\n");
@@ -387,7 +393,7 @@ namespace FirstWinFormsApp1
 
 
             }
-<<<<<<< HEAD
+
             if (SignalTypeLabel.Text == "Digital")
             {
                 digitalIndex++;
@@ -433,8 +439,8 @@ namespace FirstWinFormsApp1
             }
 
 
-=======
-            Instrument instrument = new Instrument(Convert.ToString(DateTime.Now),
+
+          /*  Instrument instrument = new Instrument(Convert.ToString(DateTime.Now),
                                                     comboBoxInstrumentName.Text,
                                                     SerialNumberLabel.Text,
                                                     SignalTypeLabel.Text,
@@ -445,14 +451,46 @@ namespace FirstWinFormsApp1
                                                     urvValue,
                                                     textBoxUnit.Text );
 
+
+         /*   if (SignalTypeLabel.Text == "Analog")
+            {
+                lrvValue = Convert.ToDouble(textBoxLRV.Text);
+                urvValue = Convert.ToDouble(textBoxURV.Text);
+                spanValue = urvValue - lrvValue;
+                if (spanValue > 0.0)
+                {
+                    textBoxRegister.AppendText("LRV: " + textBoxLRV.Text + "\r\n");
+                    textBoxRegister.AppendText("URV: " + textBoxURV.Text + "\r\n");
+                    textBoxRegister.AppendText("SPAN: " + spanValue + "\r\n");
+                    textBoxRegister.AppendText("LRV: " + textBoxUnit.Text + "\r\n");
+                }
+                else
+                {
+                    MessageBox.Show("Range not correct!");
+                }
+
+
+            }
+            Instrument instrument = new Instrument(Convert.ToString(DateTime.Now),
+                                                    comboBoxInstrumentName.Text,
+                                                    SerialNumberLabel.Text,
+                                                    SignalTypeLabel.Text,
+                                                    MeasureTypeLabel.Text,
+                                                    TextBoxOptions.Text,
+                                                    CommentsTextLabel.Text,
+                                                    lrvValue,
+                                                    urvValue,
+                                                    textBoxUnit.Text );
+           
+
             //Instrument instrument = new Instrument("RegisterDate", "SensorName", "serialNumber", "signalType", "measureType", "options", "comment", 0.0, 0.0, "unit");
 
 
             instrumentList.Add(instrument);
             textBoxRegister.AppendText(instrument.ToString());
     
-            
->>>>>>> 1955850ccc5c57ebca191b81d62d62c6b37ea452
+         */   
+
         }
 
         private void buttonSummary_Click_1(object sender, EventArgs e)
@@ -653,6 +691,70 @@ namespace FirstWinFormsApp1
             }
         }
 
-       
+        private void button2_Click_2(object sender, EventArgs e)
+        {
+            string[] weekEnd = new string[2];
+
+            Array.Copy(daysOfWeek, 5, weekEnd, 0, 2);
+            foreach (string day in weekEnd) 
+            {
+                textBox1.AppendText(day+"\r\n");
+            }
+            Array.Sort(daysOfWeek);
+            foreach (string day in daysOfWeek) ;
+            {
+                textBox1.AppendText(day+ "\r\n");
+            }
+            textBox1.AppendText(daysOfWeek.ToString());
+                
+                    
+                
+           
+        }
+
+        private void groupBox1_Enter(object sender, EventArgs e)
+        {
+
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            string[] sensorConf;
+            string recived;
+            recived = sendToBackEnd("readconf");
+            sensorConf = recived.Split(',');
+            textBoxCommunication.AppendText(recived + "\r\n");
+            string caption ="";
+            foreach (string conf in sensorConf) 
+            {
+                caption = conf+"\r\n";
+            }
+            MessageBox.Show(caption, "Sensor Configuration", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+        }
+
+        private string sendToBackEnd(string command) 
+        {
+            IPEndPoint endpoint = new IPEndPoint(IPAddress.Parse(textBoxIP.Text),
+            Convert.ToInt32(textBoxPort.Text));
+            Socket client = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
+            client.Connect(endpoint);
+            textBoxCommunication.AppendText("Connected to server.");
+            if (textBoxSend.Text.Length <= 0)
+            {
+                client.Send(Encoding.ASCII.GetBytes("Test"));
+            }
+            else
+            {
+                client.Send(Encoding.ASCII.GetBytes(textBoxSend.Text));
+            }
+
+            byte[] buffer = new byte[1024];
+            int bytesReceived = client.Receive(buffer);
+            string recived = Encoding.ASCII.GetString(buffer, 0, bytesReceived);
+            textBoxCommunication.AppendText("Received: " + Encoding.ASCII.GetString(buffer, 0, bytesReceived));
+            client.Close();
+            textBoxCommunication.AppendText("Disconnected from server.");
+            return serial.received;
+        }
     }
 }

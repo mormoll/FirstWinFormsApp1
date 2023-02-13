@@ -33,6 +33,8 @@
             this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.button2 = new System.Windows.Forms.Button();
+            this.textBox1 = new System.Windows.Forms.TextBox();
             this.listBox_IpAddresses = new System.Windows.Forms.ListBox();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.textBoxSend = new System.Windows.Forms.TextBox();
@@ -51,7 +53,6 @@
             this.textBoxURV = new System.Windows.Forms.MaskedTextBox();
             this.textBoxLRV = new System.Windows.Forms.MaskedTextBox();
             this.textBoxUnit = new System.Windows.Forms.TextBox();
-            this.label11 = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
             this.label10 = new System.Windows.Forms.Label();
             this.buttonSummary = new System.Windows.Forms.Button();
@@ -88,7 +89,15 @@
             this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
-            this.textBoxSend = new System.Windows.Forms.TextBox();
+            this.textBox2 = new System.Windows.Forms.TextBox();
+            this.textBox3 = new System.Windows.Forms.TextBox();
+            this.label11 = new System.Windows.Forms.Label();
+            this.label14 = new System.Windows.Forms.Label();
+            this.label15 = new System.Windows.Forms.Label();
+            this.button3 = new System.Windows.Forms.Button();
+            this.button4 = new System.Windows.Forms.Button();
+            this.button5 = new System.Windows.Forms.Button();
+            this.button6 = new System.Windows.Forms.Button();
             this.statusStrip1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
@@ -133,6 +142,8 @@
             // 
             // tabPage1
             // 
+            this.tabPage1.Controls.Add(this.button2);
+            this.tabPage1.Controls.Add(this.textBox1);
             this.tabPage1.Controls.Add(this.listBox_IpAddresses);
             this.tabPage1.Location = new System.Drawing.Point(10, 58);
             this.tabPage1.Name = "tabPage1";
@@ -141,6 +152,24 @@
             this.tabPage1.TabIndex = 2;
             this.tabPage1.Text = "Lists";
             this.tabPage1.UseVisualStyleBackColor = true;
+            // 
+            // button2
+            // 
+            this.button2.Location = new System.Drawing.Point(751, 127);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(188, 58);
+            this.button2.TabIndex = 3;
+            this.button2.Text = "button2";
+            this.button2.UseVisualStyleBackColor = true;
+            
+            // 
+            // textBox1
+            // 
+            this.textBox1.Location = new System.Drawing.Point(975, 138);
+            this.textBox1.Multiline = true;
+            this.textBox1.Name = "textBox1";
+            this.textBox1.Size = new System.Drawing.Size(250, 118);
+            this.textBox1.TabIndex = 2;
             // 
             // listBox_IpAddresses
             // 
@@ -153,6 +182,10 @@
             // 
             // tabPage2
             // 
+            this.tabPage2.Controls.Add(this.button6);
+            this.tabPage2.Controls.Add(this.button5);
+            this.tabPage2.Controls.Add(this.button4);
+            this.tabPage2.Controls.Add(this.button3);
             this.tabPage2.Controls.Add(this.textBoxSend);
             this.tabPage2.Controls.Add(this.label13);
             this.tabPage2.Controls.Add(this.label12);
@@ -165,7 +198,7 @@
             this.tabPage2.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(2, 3, 2, 3);
-            this.tabPage2.Size = new System.Drawing.Size(2301, 974);
+            this.tabPage2.Size = new System.Drawing.Size(2328, 997);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Connection";
             this.tabPage2.UseVisualStyleBackColor = true;
@@ -198,7 +231,7 @@
             // checkBoxCaseSensetive
             // 
             this.checkBoxCaseSensetive.AutoSize = true;
-            this.checkBoxCaseSensetive.Location = new System.Drawing.Point(19, 228);
+            this.checkBoxCaseSensetive.Location = new System.Drawing.Point(19, 920);
             this.checkBoxCaseSensetive.Name = "checkBoxCaseSensetive";
             this.checkBoxCaseSensetive.Size = new System.Drawing.Size(264, 45);
             this.checkBoxCaseSensetive.TabIndex = 5;
@@ -207,11 +240,11 @@
             // 
             // textBoxCommunication
             // 
-            this.textBoxCommunication.Location = new System.Drawing.Point(622, 36);
+            this.textBoxCommunication.Location = new System.Drawing.Point(1327, 36);
             this.textBoxCommunication.Margin = new System.Windows.Forms.Padding(7, 8, 7, 8);
             this.textBoxCommunication.Multiline = true;
             this.textBoxCommunication.Name = "textBoxCommunication";
-            this.textBoxCommunication.Size = new System.Drawing.Size(310, 518);
+            this.textBoxCommunication.Size = new System.Drawing.Size(793, 518);
             this.textBoxCommunication.TabIndex = 3;
             // 
             // textBoxPort
@@ -232,10 +265,10 @@
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(19, 385);
+            this.button1.Location = new System.Drawing.Point(582, 268);
             this.button1.Margin = new System.Windows.Forms.Padding(7, 8, 7, 8);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(546, 175);
+            this.button1.Size = new System.Drawing.Size(173, 76);
             this.button1.TabIndex = 0;
             this.button1.Text = "Connect";
             this.button1.UseVisualStyleBackColor = true;
@@ -275,7 +308,7 @@
             this.Sensor_Data.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.Sensor_Data.Name = "Sensor_Data";
             this.Sensor_Data.Padding = new System.Windows.Forms.Padding(2, 3, 2, 3);
-            this.Sensor_Data.Size = new System.Drawing.Size(2301, 974);
+            this.Sensor_Data.Size = new System.Drawing.Size(2328, 997);
             this.Sensor_Data.TabIndex = 0;
             this.Sensor_Data.Text = "Sensor Data";
             // 
@@ -312,6 +345,10 @@
             // 
             // panelRange
             // 
+            this.panelRange.Controls.Add(this.label15);
+            this.panelRange.Controls.Add(this.label14);
+            this.panelRange.Controls.Add(this.textBox3);
+            this.panelRange.Controls.Add(this.textBox2);
             this.panelRange.Controls.Add(this.textBoxURV);
             this.panelRange.Controls.Add(this.textBoxLRV);
             this.panelRange.Controls.Add(this.textBoxUnit);
@@ -320,7 +357,7 @@
             this.panelRange.Controls.Add(this.label10);
             this.panelRange.Location = new System.Drawing.Point(815, 22);
             this.panelRange.Name = "panelRange";
-            this.panelRange.Size = new System.Drawing.Size(500, 250);
+            this.panelRange.Size = new System.Drawing.Size(500, 490);
             this.panelRange.TabIndex = 4;
             // 
             // textBoxURV
@@ -343,15 +380,6 @@
             this.textBoxUnit.Name = "textBoxUnit";
             this.textBoxUnit.Size = new System.Drawing.Size(250, 47);
             this.textBoxUnit.TabIndex = 18;
-            // 
-            // label11
-            // 
-            this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(36, 169);
-            this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(73, 41);
-            this.label11.TabIndex = 15;
-            this.label11.Text = "Unit";
             // 
             // label9
             // 
@@ -484,13 +512,14 @@
             this.groupBox1.Controls.Add(this.radioButton3);
             this.groupBox1.Controls.Add(this.SaveChangesButton);
             this.groupBox1.Controls.Add(this.RegisterNewButton);
-            this.groupBox1.Location = new System.Drawing.Point(827, 463);
+            this.groupBox1.Location = new System.Drawing.Point(815, 544);
             this.groupBox1.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Padding = new System.Windows.Forms.Padding(2, 3, 2, 3);
-            this.groupBox1.Size = new System.Drawing.Size(488, 429);
+            this.groupBox1.Size = new System.Drawing.Size(488, 423);
             this.groupBox1.TabIndex = 8;
             this.groupBox1.TabStop = false;
+            
             // 
             // RegSaveDel
             // 
@@ -542,7 +571,7 @@
             // RegisterNewButton
             // 
             this.RegisterNewButton.AutoSize = true;
-            this.RegisterNewButton.Location = new System.Drawing.Point(44, 82);
+            this.RegisterNewButton.Location = new System.Drawing.Point(44, 70);
             this.RegisterNewButton.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.RegisterNewButton.Name = "RegisterNewButton";
             this.RegisterNewButton.Size = new System.Drawing.Size(230, 45);
@@ -672,7 +701,7 @@
             this.tabControl2.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.tabControl2.Name = "tabControl2";
             this.tabControl2.SelectedIndex = 0;
-            this.tabControl2.Size = new System.Drawing.Size(2321, 1042);
+            this.tabControl2.Size = new System.Drawing.Size(2348, 1065);
             this.tabControl2.TabIndex = 0;
             // 
             // menuStrip1
@@ -712,12 +741,87 @@
             // 
             this.openFileDialog1.FileName = "openFileDialog1";
             // 
-            // textBoxSend
+            // textBox2
             // 
-            this.textBoxSend.Location = new System.Drawing.Point(66, 297);
-            this.textBoxSend.Name = "textBoxSend";
-            this.textBoxSend.Size = new System.Drawing.Size(494, 47);
-            this.textBoxSend.TabIndex = 8;
+            this.textBox2.Location = new System.Drawing.Point(189, 235);
+            this.textBox2.Name = "textBox2";
+            this.textBox2.Size = new System.Drawing.Size(250, 47);
+            this.textBox2.TabIndex = 21;
+            // 
+            // textBox3
+            // 
+            this.textBox3.Location = new System.Drawing.Point(189, 305);
+            this.textBox3.Name = "textBox3";
+            this.textBox3.Size = new System.Drawing.Size(250, 47);
+            this.textBox3.TabIndex = 22;
+            // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.Location = new System.Drawing.Point(36, 169);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(73, 41);
+            this.label11.TabIndex = 15;
+            this.label11.Text = "Unit";
+            // 
+            // label14
+            // 
+            this.label14.AutoSize = true;
+            this.label14.Location = new System.Drawing.Point(36, 241);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(124, 41);
+            this.label14.TabIndex = 23;
+            this.label14.Text = "Alarm H";
+            // 
+            // label15
+            // 
+            this.label15.AutoSize = true;
+            this.label15.Location = new System.Drawing.Point(26, 305);
+            this.label15.Name = "label15";
+            this.label15.Size = new System.Drawing.Size(117, 41);
+            this.label15.TabIndex = 24;
+            this.label15.Text = "Alarm L";
+            // 
+            // button3
+            // 
+            this.button3.Location = new System.Drawing.Point(66, 373);
+            this.button3.Margin = new System.Windows.Forms.Padding(7, 8, 7, 8);
+            this.button3.Name = "button3";
+            this.button3.Size = new System.Drawing.Size(546, 82);
+            this.button3.TabIndex = 9;
+            this.button3.Text = "Read Configuration";
+            this.button3.UseVisualStyleBackColor = true;
+            
+            // 
+            // button4
+            // 
+            this.button4.Location = new System.Drawing.Point(66, 471);
+            this.button4.Margin = new System.Windows.Forms.Padding(7, 8, 7, 8);
+            this.button4.Name = "button4";
+            this.button4.Size = new System.Drawing.Size(546, 82);
+            this.button4.TabIndex = 10;
+            this.button4.Text = "Connect";
+            this.button4.UseVisualStyleBackColor = true;
+            // 
+            // button5
+            // 
+            this.button5.Location = new System.Drawing.Point(66, 569);
+            this.button5.Margin = new System.Windows.Forms.Padding(7, 8, 7, 8);
+            this.button5.Name = "button5";
+            this.button5.Size = new System.Drawing.Size(546, 82);
+            this.button5.TabIndex = 11;
+            this.button5.Text = "Connect";
+            this.button5.UseVisualStyleBackColor = true;
+            // 
+            // button6
+            // 
+            this.button6.Location = new System.Drawing.Point(66, 676);
+            this.button6.Margin = new System.Windows.Forms.Padding(7, 8, 7, 8);
+            this.button6.Name = "button6";
+            this.button6.Size = new System.Drawing.Size(546, 82);
+            this.button6.TabIndex = 12;
+            this.button6.Text = "Connect";
+            this.button6.UseVisualStyleBackColor = true;
             // 
             // Form1
             // 
@@ -739,6 +843,7 @@
             this.statusStrip1.ResumeLayout(false);
             this.statusStrip1.PerformLayout();
             this.tabPage1.ResumeLayout(false);
+            this.tabPage1.PerformLayout();
             this.tabPage2.ResumeLayout(false);
             this.tabPage2.PerformLayout();
             this.Sensor_Data.ResumeLayout(false);
@@ -772,7 +877,6 @@
         private TabPage Sensor_Data;
         private Panel panelRange;
         private TextBox textBoxUnit;
-        private Label label11;
         private Label label9;
         private Label label10;
         private Button buttonSummary;
@@ -818,5 +922,16 @@
         private OpenFileDialog openFileDialog1;
         private Button saveFileButton;
         private TextBox textBoxSend;
+        private Button button2;
+        private TextBox textBox1;
+        private Label label15;
+        private Label label14;
+        private TextBox textBox3;
+        private TextBox textBox2;
+        private Label label11;
+        private Button button6;
+        private Button button5;
+        private Button button4;
+        private Button button3;
     }
 }
