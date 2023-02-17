@@ -28,9 +28,14 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea2 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend2 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series2 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            this.components = new System.ComponentModel.Container();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.DataPoint dataPoint1 = new System.Windows.Forms.DataVisualization.Charting.DataPoint(0D, 0D);
+            System.Windows.Forms.DataVisualization.Charting.DataPoint dataPoint2 = new System.Windows.Forms.DataVisualization.Charting.DataPoint(1D, 122D);
+            System.Windows.Forms.DataVisualization.Charting.DataPoint dataPoint3 = new System.Windows.Forms.DataVisualization.Charting.DataPoint(2D, 500D);
+            System.Windows.Forms.DataVisualization.Charting.DataPoint dataPoint4 = new System.Windows.Forms.DataVisualization.Charting.DataPoint(3D, 1000D);
             this.printDialog1 = new System.Windows.Forms.PrintDialog();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
@@ -41,9 +46,9 @@
             this.listBox_IpAddresses = new System.Windows.Forms.ListBox();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.button6 = new System.Windows.Forms.Button();
-            this.button5 = new System.Windows.Forms.Button();
-            this.button4 = new System.Windows.Forms.Button();
-            this.button3 = new System.Windows.Forms.Button();
+            this.buttonReadScaled = new System.Windows.Forms.Button();
+            this.buttonReadState = new System.Windows.Forms.Button();
+            this.buttonReadConfiguration = new System.Windows.Forms.Button();
             this.textBoxSend = new System.Windows.Forms.TextBox();
             this.label13 = new System.Windows.Forms.Label();
             this.label12 = new System.Windows.Forms.Label();
@@ -51,7 +56,7 @@
             this.textBoxCommunication = new System.Windows.Forms.TextBox();
             this.textBoxPort = new System.Windows.Forms.TextBox();
             this.textBoxIP = new System.Windows.Forms.TextBox();
-            this.button1 = new System.Windows.Forms.Button();
+            this.buttonConnect = new System.Windows.Forms.Button();
             this.Sensor_Data = new System.Windows.Forms.TabPage();
             this.button9 = new System.Windows.Forms.Button();
             this.button8 = new System.Windows.Forms.Button();
@@ -100,18 +105,19 @@
             this.label1 = new System.Windows.Forms.Label();
             this.tabControl2 = new System.Windows.Forms.TabControl();
             this.tabPage3 = new System.Windows.Forms.TabPage();
+            this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.textBoxYValue = new System.Windows.Forms.TextBox();
+            this.buttonAddXY = new System.Windows.Forms.Button();
+            this.label16 = new System.Windows.Forms.Label();
+            this.textBoxXValue = new System.Windows.Forms.TextBox();
+            this.label17 = new System.Windows.Forms.Label();
+            this.chart1 = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
-            this.chart1 = new System.Windows.Forms.DataVisualization.Charting.Chart();
-            this.button10 = new System.Windows.Forms.Button();
-            this.label16 = new System.Windows.Forms.Label();
-            this.label17 = new System.Windows.Forms.Label();
-            this.textBox4 = new System.Windows.Forms.TextBox();
-            this.textBox5 = new System.Windows.Forms.TextBox();
-            this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.timerRedaScaled = new System.Windows.Forms.Timer(this.components);
             this.statusStrip1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
@@ -120,9 +126,9 @@
             this.groupBox1.SuspendLayout();
             this.tabControl2.SuspendLayout();
             this.tabPage3.SuspendLayout();
-            this.menuStrip1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.chart1)).BeginInit();
             this.groupBox2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.chart1)).BeginInit();
+            this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // printDialog1
@@ -165,7 +171,7 @@
             this.tabPage1.Location = new System.Drawing.Point(10, 58);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(2328, 997);
+            this.tabPage1.Size = new System.Drawing.Size(2329, 997);
             this.tabPage1.TabIndex = 2;
             this.tabPage1.Text = "Lists";
             this.tabPage1.UseVisualStyleBackColor = true;
@@ -199,9 +205,9 @@
             // tabPage2
             // 
             this.tabPage2.Controls.Add(this.button6);
-            this.tabPage2.Controls.Add(this.button5);
-            this.tabPage2.Controls.Add(this.button4);
-            this.tabPage2.Controls.Add(this.button3);
+            this.tabPage2.Controls.Add(this.buttonReadScaled);
+            this.tabPage2.Controls.Add(this.buttonReadState);
+            this.tabPage2.Controls.Add(this.buttonReadConfiguration);
             this.tabPage2.Controls.Add(this.textBoxSend);
             this.tabPage2.Controls.Add(this.label13);
             this.tabPage2.Controls.Add(this.label12);
@@ -209,12 +215,12 @@
             this.tabPage2.Controls.Add(this.textBoxCommunication);
             this.tabPage2.Controls.Add(this.textBoxPort);
             this.tabPage2.Controls.Add(this.textBoxIP);
-            this.tabPage2.Controls.Add(this.button1);
+            this.tabPage2.Controls.Add(this.buttonConnect);
             this.tabPage2.Location = new System.Drawing.Point(10, 58);
             this.tabPage2.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(2, 3, 2, 3);
-            this.tabPage2.Size = new System.Drawing.Size(2328, 997);
+            this.tabPage2.Size = new System.Drawing.Size(2329, 997);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Connection";
             this.tabPage2.UseVisualStyleBackColor = true;
@@ -228,36 +234,40 @@
             this.button6.TabIndex = 12;
             this.button6.Text = "Connect";
             this.button6.UseVisualStyleBackColor = true;
+            this.button6.Click += new System.EventHandler(this.button6_Click);
             // 
-            // button5
+            // buttonReadScaled
             // 
-            this.button5.Location = new System.Drawing.Point(66, 569);
-            this.button5.Margin = new System.Windows.Forms.Padding(7, 8, 7, 8);
-            this.button5.Name = "button5";
-            this.button5.Size = new System.Drawing.Size(546, 82);
-            this.button5.TabIndex = 11;
-            this.button5.Text = "Connect";
-            this.button5.UseVisualStyleBackColor = true;
+            this.buttonReadScaled.Location = new System.Drawing.Point(66, 569);
+            this.buttonReadScaled.Margin = new System.Windows.Forms.Padding(7, 8, 7, 8);
+            this.buttonReadScaled.Name = "buttonReadScaled";
+            this.buttonReadScaled.Size = new System.Drawing.Size(546, 82);
+            this.buttonReadScaled.TabIndex = 11;
+            this.buttonReadScaled.Text = "Read Scaled";
+            this.buttonReadScaled.UseVisualStyleBackColor = true;
+            this.buttonReadScaled.Click += new System.EventHandler(this.buttonReadScaled_Click);
             // 
-            // button4
+            // buttonReadState
             // 
-            this.button4.Location = new System.Drawing.Point(66, 471);
-            this.button4.Margin = new System.Windows.Forms.Padding(7, 8, 7, 8);
-            this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(546, 82);
-            this.button4.TabIndex = 10;
-            this.button4.Text = "Connect";
-            this.button4.UseVisualStyleBackColor = true;
+            this.buttonReadState.Location = new System.Drawing.Point(66, 471);
+            this.buttonReadState.Margin = new System.Windows.Forms.Padding(7, 8, 7, 8);
+            this.buttonReadState.Name = "buttonReadState";
+            this.buttonReadState.Size = new System.Drawing.Size(546, 82);
+            this.buttonReadState.TabIndex = 10;
+            this.buttonReadState.Text = "Read State";
+            this.buttonReadState.UseVisualStyleBackColor = true;
+            this.buttonReadState.Click += new System.EventHandler(this.buttonReadState_Click);
             // 
-            // button3
+            // buttonReadConfiguration
             // 
-            this.button3.Location = new System.Drawing.Point(66, 373);
-            this.button3.Margin = new System.Windows.Forms.Padding(7, 8, 7, 8);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(546, 82);
-            this.button3.TabIndex = 9;
-            this.button3.Text = "Read Configuration";
-            this.button3.UseVisualStyleBackColor = true;
+            this.buttonReadConfiguration.Location = new System.Drawing.Point(66, 373);
+            this.buttonReadConfiguration.Margin = new System.Windows.Forms.Padding(7, 8, 7, 8);
+            this.buttonReadConfiguration.Name = "buttonReadConfiguration";
+            this.buttonReadConfiguration.Size = new System.Drawing.Size(546, 82);
+            this.buttonReadConfiguration.TabIndex = 9;
+            this.buttonReadConfiguration.Text = "Read Configuration";
+            this.buttonReadConfiguration.UseVisualStyleBackColor = true;
+            this.buttonReadConfiguration.Click += new System.EventHandler(this.buttonReadConfiguration_Click);
             // 
             // textBoxSend
             // 
@@ -319,15 +329,15 @@
             this.textBoxIP.Size = new System.Drawing.Size(378, 47);
             this.textBoxIP.TabIndex = 1;
             // 
-            // button1
+            // buttonConnect
             // 
-            this.button1.Location = new System.Drawing.Point(582, 268);
-            this.button1.Margin = new System.Windows.Forms.Padding(7, 8, 7, 8);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(173, 76);
-            this.button1.TabIndex = 0;
-            this.button1.Text = "Connect";
-            this.button1.UseVisualStyleBackColor = true;
+            this.buttonConnect.Location = new System.Drawing.Point(582, 268);
+            this.buttonConnect.Margin = new System.Windows.Forms.Padding(7, 8, 7, 8);
+            this.buttonConnect.Name = "buttonConnect";
+            this.buttonConnect.Size = new System.Drawing.Size(173, 76);
+            this.buttonConnect.TabIndex = 0;
+            this.buttonConnect.Text = "Connect";
+            this.buttonConnect.UseVisualStyleBackColor = true;
             // 
             // Sensor_Data
             // 
@@ -366,7 +376,7 @@
             this.Sensor_Data.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.Sensor_Data.Name = "Sensor_Data";
             this.Sensor_Data.Padding = new System.Windows.Forms.Padding(2, 3, 2, 3);
-            this.Sensor_Data.Size = new System.Drawing.Size(1875, 997);
+            this.Sensor_Data.Size = new System.Drawing.Size(2329, 997);
             this.Sensor_Data.TabIndex = 0;
             this.Sensor_Data.Text = "Sensor Data";
             // 
@@ -841,6 +851,88 @@
             this.tabPage3.Text = "Chart";
             this.tabPage3.UseVisualStyleBackColor = true;
             // 
+            // groupBox2
+            // 
+            this.groupBox2.Controls.Add(this.textBoxYValue);
+            this.groupBox2.Controls.Add(this.buttonAddXY);
+            this.groupBox2.Controls.Add(this.label16);
+            this.groupBox2.Controls.Add(this.textBoxXValue);
+            this.groupBox2.Controls.Add(this.label17);
+            this.groupBox2.Location = new System.Drawing.Point(1982, 156);
+            this.groupBox2.Name = "groupBox2";
+            this.groupBox2.Size = new System.Drawing.Size(330, 250);
+            this.groupBox2.TabIndex = 13;
+            this.groupBox2.TabStop = false;
+            this.groupBox2.Text = "groupBox2";
+            // 
+            // textBoxYValue
+            // 
+            this.textBoxYValue.Location = new System.Drawing.Point(45, 86);
+            this.textBoxYValue.Name = "textBoxYValue";
+            this.textBoxYValue.Size = new System.Drawing.Size(250, 47);
+            this.textBoxYValue.TabIndex = 12;
+            this.textBoxYValue.TextChanged += new System.EventHandler(this.textBoxYValue_TextChanged);
+            // 
+            // buttonAddXY
+            // 
+            this.buttonAddXY.Location = new System.Drawing.Point(64, 186);
+            this.buttonAddXY.Name = "buttonAddXY";
+            this.buttonAddXY.Size = new System.Drawing.Size(188, 58);
+            this.buttonAddXY.TabIndex = 7;
+            this.buttonAddXY.Text = "Add Point";
+            this.buttonAddXY.UseVisualStyleBackColor = true;
+            this.buttonAddXY.Click += new System.EventHandler(this.button10_Click);
+            // 
+            // label16
+            // 
+            this.label16.AutoSize = true;
+            this.label16.Location = new System.Drawing.Point(6, 39);
+            this.label16.Name = "label16";
+            this.label16.Size = new System.Drawing.Size(32, 41);
+            this.label16.TabIndex = 9;
+            this.label16.Text = "x";
+            // 
+            // textBoxXValue
+            // 
+            this.textBoxXValue.Location = new System.Drawing.Point(44, 36);
+            this.textBoxXValue.Name = "textBoxXValue";
+            this.textBoxXValue.Size = new System.Drawing.Size(250, 47);
+            this.textBoxXValue.TabIndex = 11;
+            this.textBoxXValue.Text = "2";
+            this.textBoxXValue.TextChanged += new System.EventHandler(this.textBoxXValue_TextChanged);
+            // 
+            // label17
+            // 
+            this.label17.AutoSize = true;
+            this.label17.Location = new System.Drawing.Point(6, 89);
+            this.label17.Name = "label17";
+            this.label17.Size = new System.Drawing.Size(33, 41);
+            this.label17.TabIndex = 10;
+            this.label17.Text = "y";
+            // 
+            // chart1
+            // 
+            chartArea1.Name = "ChartArea1";
+            this.chart1.ChartAreas.Add(chartArea1);
+            this.chart1.Dock = System.Windows.Forms.DockStyle.Fill;
+            legend1.Name = "Legend1";
+            this.chart1.Legends.Add(legend1);
+            this.chart1.Location = new System.Drawing.Point(3, 3);
+            this.chart1.Name = "chart1";
+            series1.ChartArea = "ChartArea1";
+            series1.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
+            series1.Legend = "Legend1";
+            series1.Name = "Series1";
+            series1.Points.Add(dataPoint1);
+            series1.Points.Add(dataPoint2);
+            series1.Points.Add(dataPoint3);
+            series1.Points.Add(dataPoint4);
+            this.chart1.Series.Add(series1);
+            this.chart1.Size = new System.Drawing.Size(2323, 991);
+            this.chart1.TabIndex = 0;
+            this.chart1.Text = "chart1";
+            this.chart1.Click += new System.EventHandler(this.chart1_Click);
+            // 
             // menuStrip1
             // 
             this.menuStrip1.ImageScalingSize = new System.Drawing.Size(40, 40);
@@ -878,78 +970,9 @@
             // 
             this.openFileDialog1.FileName = "openFileDialog1";
             // 
-            // chart1
+            // timerRedaScaled
             // 
-            chartArea2.Name = "ChartArea1";
-            this.chart1.ChartAreas.Add(chartArea2);
-            this.chart1.Dock = System.Windows.Forms.DockStyle.Fill;
-            legend2.Name = "Legend1";
-            this.chart1.Legends.Add(legend2);
-            this.chart1.Location = new System.Drawing.Point(3, 3);
-            this.chart1.Name = "chart1";
-            series2.ChartArea = "ChartArea1";
-            series2.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
-            series2.Legend = "Legend1";
-            series2.Name = "Series1";
-            this.chart1.Series.Add(series2);
-            this.chart1.Size = new System.Drawing.Size(2323, 991);
-            this.chart1.TabIndex = 0;
-            this.chart1.Text = "chart1";
-            // 
-            // button10
-            // 
-            this.button10.Location = new System.Drawing.Point(64, 186);
-            this.button10.Name = "button10";
-            this.button10.Size = new System.Drawing.Size(188, 58);
-            this.button10.TabIndex = 7;
-            this.button10.Text = "Add Point";
-            this.button10.UseVisualStyleBackColor = true;
-            // 
-            // label16
-            // 
-            this.label16.AutoSize = true;
-            this.label16.Location = new System.Drawing.Point(6, 39);
-            this.label16.Name = "label16";
-            this.label16.Size = new System.Drawing.Size(32, 41);
-            this.label16.TabIndex = 9;
-            this.label16.Text = "x";
-            // 
-            // label17
-            // 
-            this.label17.AutoSize = true;
-            this.label17.Location = new System.Drawing.Point(6, 89);
-            this.label17.Name = "label17";
-            this.label17.Size = new System.Drawing.Size(33, 41);
-            this.label17.TabIndex = 10;
-            this.label17.Text = "y";
-            // 
-            // textBox4
-            // 
-            this.textBox4.Location = new System.Drawing.Point(44, 36);
-            this.textBox4.Name = "textBox4";
-            this.textBox4.Size = new System.Drawing.Size(250, 47);
-            this.textBox4.TabIndex = 11;
-            // 
-            // textBox5
-            // 
-            this.textBox5.Location = new System.Drawing.Point(45, 86);
-            this.textBox5.Name = "textBox5";
-            this.textBox5.Size = new System.Drawing.Size(250, 47);
-            this.textBox5.TabIndex = 12;
-            // 
-            // groupBox2
-            // 
-            this.groupBox2.Controls.Add(this.textBox5);
-            this.groupBox2.Controls.Add(this.button10);
-            this.groupBox2.Controls.Add(this.label16);
-            this.groupBox2.Controls.Add(this.textBox4);
-            this.groupBox2.Controls.Add(this.label17);
-            this.groupBox2.Location = new System.Drawing.Point(1982, 156);
-            this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(330, 250);
-            this.groupBox2.TabIndex = 13;
-            this.groupBox2.TabStop = false;
-            this.groupBox2.Text = "groupBox2";
+            this.timerRedaScaled.Tick += new System.EventHandler(this.timer1_Tick);
             // 
             // Form1
             // 
@@ -982,11 +1005,11 @@
             this.groupBox1.PerformLayout();
             this.tabControl2.ResumeLayout(false);
             this.tabPage3.ResumeLayout(false);
-            this.menuStrip1.ResumeLayout(false);
-            this.menuStrip1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.chart1)).EndInit();
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.chart1)).EndInit();
+            this.menuStrip1.ResumeLayout(false);
+            this.menuStrip1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1005,7 +1028,7 @@
         private TextBox textBoxCommunication;
         private TextBox textBoxPort;
         private TextBox textBoxIP;
-        private Button button1;
+        private Button buttonConnect;
         private TabPage Sensor_Data;
         private Panel panelRange;
         private TextBox textBoxUnit;
@@ -1062,19 +1085,20 @@
         private TextBox textBox2;
         private Label label11;
         private Button button6;
-        private Button button5;
-        private Button button4;
-        private Button button3;
+        private Button buttonReadScaled;
+        private Button buttonReadState;
+        private Button buttonReadConfiguration;
         private Button button9;
         private Button button8;
         private Button button7;
         private TabPage tabPage3;
         private System.Windows.Forms.DataVisualization.Charting.Chart chart1;
-        private Button button10;
+        private Button buttonAddXY;
         private Label label16;
         private Label label17;
-        private TextBox textBox4;
-        private TextBox textBox5;
+        private TextBox textBoxXValue;
+        private TextBox textBoxYValue;
         private GroupBox groupBox2;
+        private System.Windows.Forms.Timer timerRedaScaled;
     }
 }

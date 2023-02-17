@@ -45,6 +45,8 @@ namespace FirstWinFormsApp1
 
         DateTime sessionStartTime;
 
+        int xTimeValue = 0;
+
         List<string> servers = new List<string>();
 
         List<Instrument> instrumentList = new List<Instrument>();
@@ -732,8 +734,7 @@ namespace FirstWinFormsApp1
 
         private string sendToBackEnd(string command) 
         {
-            IPEndPoint endpoint = new IPEndPoint(IPAddress.Parse(textBoxIP.Text),
-            Convert.ToInt32(textBoxPort.Text));
+            IPEndPoint endpoint = new IPEndPoint(IPAddress.Parse(textBoxIP.Text), Convert.ToInt32(textBoxPort.Text));
             Socket client = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
             client.Connect(endpoint);
             textBoxCommunication.AppendText("Connected to server.");
@@ -759,5 +760,82 @@ namespace FirstWinFormsApp1
         {
 
         }
+
+        private void button10_Click(object sender, EventArgs e)
+        {
+            if (timerRedaScaled.Enabled)
+            { timerRedaScaled.Stop(); }
+            else 
+            {
+                timerRedaScaled.Start();
+            }
+            
+
+
+
+            //chart1.Series[0].Points.AddXY(Convert.ToDouble(textBoxXValue.Text), Convert.ToDouble(textBoxYValue.Text));
+            //textBoxXValue.Text = textBoxYValue.Text = "";
+        }
+
+        private void textBoxYValue_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void buttonReadConfiguration_Click(object sender, EventArgs e)
+        {
+            string[] sensorConf;
+            string received;
+            received = sendToBackEnd("readconf");
+            sensorConf = received.Split(',');
+            textBoxCommunication.AppendText(received + "\r\n");
+        }
+
+        private void buttonReadState_Click(object sender, EventArgs e)
+        {
+            string received;
+            received = sendToBackEnd("Redstatus");
+            textBoxCommunication.AppendText(received + "\r\n");
+        }
+
+        private void buttonReadScaled_Click(object sender, EventArgs e)
+        {
+            string received;
+            received = sendToBackEnd("Redstatus");
+            textBoxCommunication.AppendText(received + "\r\n");
+        }
+
+        private void button6_Click(object sender, EventArgs e)
+        {
+            string received;
+            received = sendToBackEnd("Redstatus");
+            textBoxCommunication.AppendText(received + "\r\n");
+        }
+
+        private void timer1_Tick(object sender, EventArgs e)
+        {
+            xTimeValue++;
+            double yValue = 0.0;
+            string received;
+
+            received = sendToBackEnd("readscaled");
+            string[] receivedParts = received.Split(",");
+
+            yValue = Convert.ToDouble(receivedParts[1]);
+
+            chart1.Series[0].Points.AddXY(xTimeValue, yValue);
+
+        }
+
+        private void chart1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void textBoxXValue_TextChanged(object sender, EventArgs e)
+        {
+
+        }
     }
+    
 }
