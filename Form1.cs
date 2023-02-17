@@ -262,7 +262,7 @@ namespace FirstWinFormsApp1
 
             bool textEqual = false;
 
-            if (checkBoxCaseSensetive.Checked)
+            if (checkBoxStayConnected.Checked)
             {
                 textBoxCommunication.Text = textBoxIP.Text.Equals(textBoxPort.Text) ? "Strings are Equal" : "Strings are not equal";
 
@@ -276,7 +276,7 @@ namespace FirstWinFormsApp1
 
             int stringCompareResult;
 
-            stringCompareResult = string.Compare(textBoxIP.Text, textBoxPort.Text, checkBoxCaseSensetive.Checked);
+            stringCompareResult = string.Compare(textBoxIP.Text, textBoxPort.Text, checkBoxStayConnected.Checked);
 
             if (stringCompareResult > 0)
             {
@@ -764,12 +764,13 @@ namespace FirstWinFormsApp1
         private void button10_Click(object sender, EventArgs e)
         {
             if (timerRedaScaled.Enabled)
-            { timerRedaScaled.Stop(); }
-            else 
+            {
+                timerRedaScaled.Stop();
+            }
+            else
             {
                 timerRedaScaled.Start();
             }
-            
 
 
 
@@ -796,6 +797,7 @@ namespace FirstWinFormsApp1
             string received;
             received = sendToBackEnd("Redstatus");
             textBoxCommunication.AppendText(received + "\r\n");
+            
         }
 
         private void buttonReadScaled_Click(object sender, EventArgs e)
@@ -833,6 +835,37 @@ namespace FirstWinFormsApp1
         }
 
         private void textBoxXValue_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void buttonConnect_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void checkBoxStayConnected_CheckedChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void buttonSummary_Click(object sender, EventArgs e)
+        {
+            //DateTime sessionTime;
+            System.TimeSpan sessionTime = DateTime.Now.Subtract(sessionStartTime);
+            textBoxSummary.AppendText("Session time; " + sessionTime.TotalSeconds.ToString() + "s \r\n");
+            textBoxSummary.AppendText("Number of sensors regirsterd:" + RegisterIndex + "\r\n");
+            textBoxSummary.AppendText("Number og digital sensor: " + digitalIndex + "\r\n");
+            textBoxSummary.AppendText("Number of analog sensors: " + analogIndex + "\r\n");
+            textBoxSummary.AppendText("Number of fieldbus sensors: " + fieldbusIndex + "\r\n");
+        }
+
+        private void SignalTypeLabel_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void RegisterNewButton_CheckedChanged(object sender, EventArgs e)
         {
 
         }

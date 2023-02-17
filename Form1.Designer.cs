@@ -29,13 +29,13 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.DataPoint dataPoint1 = new System.Windows.Forms.DataVisualization.Charting.DataPoint(0D, 0D);
-            System.Windows.Forms.DataVisualization.Charting.DataPoint dataPoint2 = new System.Windows.Forms.DataVisualization.Charting.DataPoint(1D, 122D);
-            System.Windows.Forms.DataVisualization.Charting.DataPoint dataPoint3 = new System.Windows.Forms.DataVisualization.Charting.DataPoint(2D, 500D);
-            System.Windows.Forms.DataVisualization.Charting.DataPoint dataPoint4 = new System.Windows.Forms.DataVisualization.Charting.DataPoint(3D, 1000D);
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea2 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend2 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series2 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.DataPoint dataPoint5 = new System.Windows.Forms.DataVisualization.Charting.DataPoint(0D, 0D);
+            System.Windows.Forms.DataVisualization.Charting.DataPoint dataPoint6 = new System.Windows.Forms.DataVisualization.Charting.DataPoint(1D, 122D);
+            System.Windows.Forms.DataVisualization.Charting.DataPoint dataPoint7 = new System.Windows.Forms.DataVisualization.Charting.DataPoint(2D, 500D);
+            System.Windows.Forms.DataVisualization.Charting.DataPoint dataPoint8 = new System.Windows.Forms.DataVisualization.Charting.DataPoint(3D, 1000D);
             this.printDialog1 = new System.Windows.Forms.PrintDialog();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
@@ -45,22 +45,19 @@
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.listBox_IpAddresses = new System.Windows.Forms.ListBox();
             this.tabPage2 = new System.Windows.Forms.TabPage();
-            this.button6 = new System.Windows.Forms.Button();
+            this.buttonWriteConf = new System.Windows.Forms.Button();
             this.buttonReadScaled = new System.Windows.Forms.Button();
             this.buttonReadState = new System.Windows.Forms.Button();
             this.buttonReadConfiguration = new System.Windows.Forms.Button();
             this.textBoxSend = new System.Windows.Forms.TextBox();
             this.label13 = new System.Windows.Forms.Label();
             this.label12 = new System.Windows.Forms.Label();
-            this.checkBoxCaseSensetive = new System.Windows.Forms.CheckBox();
+            this.checkBoxStayConnected = new System.Windows.Forms.CheckBox();
             this.textBoxCommunication = new System.Windows.Forms.TextBox();
             this.textBoxPort = new System.Windows.Forms.TextBox();
             this.textBoxIP = new System.Windows.Forms.TextBox();
             this.buttonConnect = new System.Windows.Forms.Button();
             this.Sensor_Data = new System.Windows.Forms.TabPage();
-            this.button9 = new System.Windows.Forms.Button();
-            this.button8 = new System.Windows.Forms.Button();
-            this.button7 = new System.Windows.Forms.Button();
             this.saveFileButton = new System.Windows.Forms.Button();
             this.comboBoxInstrumentName = new System.Windows.Forms.ComboBox();
             this.buttonOpenFile = new System.Windows.Forms.Button();
@@ -204,14 +201,14 @@
             // 
             // tabPage2
             // 
-            this.tabPage2.Controls.Add(this.button6);
+            this.tabPage2.Controls.Add(this.buttonWriteConf);
             this.tabPage2.Controls.Add(this.buttonReadScaled);
             this.tabPage2.Controls.Add(this.buttonReadState);
             this.tabPage2.Controls.Add(this.buttonReadConfiguration);
             this.tabPage2.Controls.Add(this.textBoxSend);
             this.tabPage2.Controls.Add(this.label13);
             this.tabPage2.Controls.Add(this.label12);
-            this.tabPage2.Controls.Add(this.checkBoxCaseSensetive);
+            this.tabPage2.Controls.Add(this.checkBoxStayConnected);
             this.tabPage2.Controls.Add(this.textBoxCommunication);
             this.tabPage2.Controls.Add(this.textBoxPort);
             this.tabPage2.Controls.Add(this.textBoxIP);
@@ -225,20 +222,20 @@
             this.tabPage2.Text = "Connection";
             this.tabPage2.UseVisualStyleBackColor = true;
             // 
-            // button6
+            // buttonWriteConf
             // 
-            this.button6.Location = new System.Drawing.Point(66, 676);
-            this.button6.Margin = new System.Windows.Forms.Padding(7, 8, 7, 8);
-            this.button6.Name = "button6";
-            this.button6.Size = new System.Drawing.Size(546, 82);
-            this.button6.TabIndex = 12;
-            this.button6.Text = "Connect";
-            this.button6.UseVisualStyleBackColor = true;
-            this.button6.Click += new System.EventHandler(this.button6_Click);
+            this.buttonWriteConf.Location = new System.Drawing.Point(66, 472);
+            this.buttonWriteConf.Margin = new System.Windows.Forms.Padding(7, 8, 7, 8);
+            this.buttonWriteConf.Name = "buttonWriteConf";
+            this.buttonWriteConf.Size = new System.Drawing.Size(546, 82);
+            this.buttonWriteConf.TabIndex = 12;
+            this.buttonWriteConf.Text = "Write Configuration";
+            this.buttonWriteConf.UseVisualStyleBackColor = true;
+            this.buttonWriteConf.Click += new System.EventHandler(this.button6_Click);
             // 
             // buttonReadScaled
             // 
-            this.buttonReadScaled.Location = new System.Drawing.Point(66, 569);
+            this.buttonReadScaled.Location = new System.Drawing.Point(66, 668);
             this.buttonReadScaled.Margin = new System.Windows.Forms.Padding(7, 8, 7, 8);
             this.buttonReadScaled.Name = "buttonReadScaled";
             this.buttonReadScaled.Size = new System.Drawing.Size(546, 82);
@@ -249,7 +246,7 @@
             // 
             // buttonReadState
             // 
-            this.buttonReadState.Location = new System.Drawing.Point(66, 471);
+            this.buttonReadState.Location = new System.Drawing.Point(66, 570);
             this.buttonReadState.Margin = new System.Windows.Forms.Padding(7, 8, 7, 8);
             this.buttonReadState.Name = "buttonReadState";
             this.buttonReadState.Size = new System.Drawing.Size(546, 82);
@@ -294,15 +291,16 @@
             this.label12.TabIndex = 6;
             this.label12.Text = "IP Address";
             // 
-            // checkBoxCaseSensetive
+            // checkBoxStayConnected
             // 
-            this.checkBoxCaseSensetive.AutoSize = true;
-            this.checkBoxCaseSensetive.Location = new System.Drawing.Point(19, 920);
-            this.checkBoxCaseSensetive.Name = "checkBoxCaseSensetive";
-            this.checkBoxCaseSensetive.Size = new System.Drawing.Size(264, 45);
-            this.checkBoxCaseSensetive.TabIndex = 5;
-            this.checkBoxCaseSensetive.Text = "Stay Connected";
-            this.checkBoxCaseSensetive.UseVisualStyleBackColor = true;
+            this.checkBoxStayConnected.AutoSize = true;
+            this.checkBoxStayConnected.Location = new System.Drawing.Point(19, 920);
+            this.checkBoxStayConnected.Name = "checkBoxStayConnected";
+            this.checkBoxStayConnected.Size = new System.Drawing.Size(264, 45);
+            this.checkBoxStayConnected.TabIndex = 5;
+            this.checkBoxStayConnected.Text = "Stay Connected";
+            this.checkBoxStayConnected.UseVisualStyleBackColor = true;
+            this.checkBoxStayConnected.CheckedChanged += new System.EventHandler(this.checkBoxStayConnected_CheckedChanged);
             // 
             // textBoxCommunication
             // 
@@ -338,13 +336,11 @@
             this.buttonConnect.TabIndex = 0;
             this.buttonConnect.Text = "Connect";
             this.buttonConnect.UseVisualStyleBackColor = true;
+            this.buttonConnect.Click += new System.EventHandler(this.buttonConnect_Click);
             // 
             // Sensor_Data
             // 
             this.Sensor_Data.BackColor = System.Drawing.Color.WhiteSmoke;
-            this.Sensor_Data.Controls.Add(this.button9);
-            this.Sensor_Data.Controls.Add(this.button8);
-            this.Sensor_Data.Controls.Add(this.button7);
             this.Sensor_Data.Controls.Add(this.saveFileButton);
             this.Sensor_Data.Controls.Add(this.comboBoxInstrumentName);
             this.Sensor_Data.Controls.Add(this.buttonOpenFile);
@@ -379,33 +375,6 @@
             this.Sensor_Data.Size = new System.Drawing.Size(2329, 997);
             this.Sensor_Data.TabIndex = 0;
             this.Sensor_Data.Text = "Sensor Data";
-            // 
-            // button9
-            // 
-            this.button9.Location = new System.Drawing.Point(1385, 940);
-            this.button9.Name = "button9";
-            this.button9.Size = new System.Drawing.Size(188, 58);
-            this.button9.TabIndex = 29;
-            this.button9.Text = "button9";
-            this.button9.UseVisualStyleBackColor = true;
-            // 
-            // button8
-            // 
-            this.button8.Location = new System.Drawing.Point(1136, 920);
-            this.button8.Name = "button8";
-            this.button8.Size = new System.Drawing.Size(188, 58);
-            this.button8.TabIndex = 28;
-            this.button8.Text = "button8";
-            this.button8.UseVisualStyleBackColor = true;
-            // 
-            // button7
-            // 
-            this.button7.Location = new System.Drawing.Point(836, 904);
-            this.button7.Name = "button7";
-            this.button7.Size = new System.Drawing.Size(188, 58);
-            this.button7.TabIndex = 27;
-            this.button7.Text = "button7";
-            this.button7.UseVisualStyleBackColor = true;
             // 
             // saveFileButton
             // 
@@ -544,6 +513,7 @@
             this.buttonSummary.TabIndex = 22;
             this.buttonSummary.Text = "SUMMARY";
             this.buttonSummary.UseVisualStyleBackColor = true;
+            this.buttonSummary.Click += new System.EventHandler(this.buttonSummary_Click);
             // 
             // vScrollBar3
             // 
@@ -714,6 +684,7 @@
             this.RegisterNewButton.TabStop = true;
             this.RegisterNewButton.Text = "Register New";
             this.RegisterNewButton.UseVisualStyleBackColor = true;
+            this.RegisterNewButton.CheckedChanged += new System.EventHandler(this.RegisterNewButton_CheckedChanged);
             // 
             // SignalTypeLabel
             // 
@@ -727,6 +698,7 @@
             this.SignalTypeLabel.Name = "SignalTypeLabel";
             this.SignalTypeLabel.Size = new System.Drawing.Size(503, 49);
             this.SignalTypeLabel.TabIndex = 5;
+            this.SignalTypeLabel.SelectedIndexChanged += new System.EventHandler(this.SignalTypeLabel_SelectedIndexChanged);
             // 
             // dateTimePicker1Label
             // 
@@ -912,22 +884,22 @@
             // 
             // chart1
             // 
-            chartArea1.Name = "ChartArea1";
-            this.chart1.ChartAreas.Add(chartArea1);
+            chartArea2.Name = "ChartArea1";
+            this.chart1.ChartAreas.Add(chartArea2);
             this.chart1.Dock = System.Windows.Forms.DockStyle.Fill;
-            legend1.Name = "Legend1";
-            this.chart1.Legends.Add(legend1);
+            legend2.Name = "Legend1";
+            this.chart1.Legends.Add(legend2);
             this.chart1.Location = new System.Drawing.Point(3, 3);
             this.chart1.Name = "chart1";
-            series1.ChartArea = "ChartArea1";
-            series1.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
-            series1.Legend = "Legend1";
-            series1.Name = "Series1";
-            series1.Points.Add(dataPoint1);
-            series1.Points.Add(dataPoint2);
-            series1.Points.Add(dataPoint3);
-            series1.Points.Add(dataPoint4);
-            this.chart1.Series.Add(series1);
+            series2.ChartArea = "ChartArea1";
+            series2.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
+            series2.Legend = "Legend1";
+            series2.Name = "Series1";
+            series2.Points.Add(dataPoint5);
+            series2.Points.Add(dataPoint6);
+            series2.Points.Add(dataPoint7);
+            series2.Points.Add(dataPoint8);
+            this.chart1.Series.Add(series2);
             this.chart1.Size = new System.Drawing.Size(2323, 991);
             this.chart1.TabIndex = 0;
             this.chart1.Text = "chart1";
@@ -1024,7 +996,7 @@
         private ToolStripStatusLabel toolStripStatusLabel1;
         private TabPage tabPage1;
         private TabPage tabPage2;
-        private CheckBox checkBoxCaseSensetive;
+        private CheckBox checkBoxStayConnected;
         private TextBox textBoxCommunication;
         private TextBox textBoxPort;
         private TextBox textBoxIP;
@@ -1084,13 +1056,10 @@
         private TextBox textBox3;
         private TextBox textBox2;
         private Label label11;
-        private Button button6;
+        private Button buttonWriteConf;
         private Button buttonReadScaled;
         private Button buttonReadState;
         private Button buttonReadConfiguration;
-        private Button button9;
-        private Button button8;
-        private Button button7;
         private TabPage tabPage3;
         private System.Windows.Forms.DataVisualization.Charting.Chart chart1;
         private Button buttonAddXY;
