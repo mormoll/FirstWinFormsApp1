@@ -124,58 +124,58 @@ namespace FirstWinFormsApp1
 
                 }
         */
-        
-/*
-        private void RegSaveDel_Click(object sender, EventArgs e)
-        {
 
-
-            if (RegisterNewButton.Checked)
-
-            {
-                //Data from form is registerd to textBoxRegister
-                if (FormDataVerified())
+        /*
+                private void RegSaveDel_Click(object sender, EventArgs e)
                 {
-                    RegisterIndex++;
-                    checkBox1Registerd.Checked = true;
-                    TextboxRegisterText();
-                    switch (SignalTypeLabel.Text)
-                    {
-                        case "Analog":
-                            analogIndex++;
-                            break;
-                        case "Digital":
-                            digitalIndex++;
-                            break;
-                        case "Fieldbus":
-                            fieldbusIndex++;
-                            break;
 
-                        default: break;
+
+                    if (RegisterNewButton.Checked)
+
+                    {
+                        //Data from form is registerd to textBoxRegister
+                        if (FormDataVerified())
+                        {
+                            RegisterIndex++;
+                            checkBox1Registerd.Checked = true;
+                            TextboxRegisterText();
+                            switch (SignalTypeLabel.Text)
+                            {
+                                case "Analog":
+                                    analogIndex++;
+                                    break;
+                                case "Digital":
+                                    digitalIndex++;
+                                    break;
+                                case "Fieldbus":
+                                    fieldbusIndex++;
+                                    break;
+
+                                default: break;
+                            }
+
+                        }
+
+
                     }
 
+                    else if (SaveChangesButton.Checked)
+                    {
+                        RegisterIndex++;
+                        checkBox1Registerd.Checked = true;
+                        TextboxRegisterText();
+                    }
+
+                    else if (DeleteButton.Checked)
+                    {
+                        //Reset from initial state
+                        ClearForm();
+
+                    }
+
+
                 }
-
-
-            }
-
-            else if (SaveChangesButton.Checked)
-            {
-                RegisterIndex++;
-                checkBox1Registerd.Checked = true;
-                TextboxRegisterText();
-            }
-
-            else if (DeleteButton.Checked)
-            {
-                //Reset from initial state
-                ClearForm();
-
-            }
-
-
-        }
-*/
+        */
         private void ClearForm()
         {
             //Reset from initial state
@@ -191,7 +191,7 @@ namespace FirstWinFormsApp1
             //textBoxRegister.AppendText("" + comboSignalTypeLabel.Text +"");
             //textBoxRegister.AppendText("" + listBox1.Text + "");
             //textBoxRegister.AppendText("" + comboSignalTypeLabel.Text +"" );
-            SensorNameTextLabel.Text = "";
+            //SensorNameTextLabel.Text = "";
             SerialNumberLabel.Text = "";
             dateTimePicker1Label.Value = DateTime.Now;
             checkBox1Registerd.Checked = false;
@@ -209,7 +209,7 @@ namespace FirstWinFormsApp1
             toolStripStatusLabel1.Text = "OK";
             textBoxRegister.AppendText("([" + RegisterIndex + "]\r\n");
 
-            textBoxRegister.AppendText("Sensor Name: " + SensorNameTextLabel.Text + "\r\n");
+            //textBoxRegister.AppendText("Sensor Name: " + SensorNameTextLabel.Text + "\r\n");
             textBoxRegister.AppendText("Serial Number: " + SerialNumberLabel.Text + "\r\n");
             textBoxRegister.AppendText("Registered: " + checkBox1Registerd.CheckState + "\r\n");
             textBoxRegister.AppendText("Date: " + dateTimePicker1Label.Text + "\r\n");
@@ -236,25 +236,25 @@ namespace FirstWinFormsApp1
             }
 
         }
-        private Boolean FormDataVerified()
-        {
-            //Sensor Name Check
-            if (SensorNameTextLabel.Text.Length == 0)
-            {
-                SensorNameTextLabel.Focus();
-                return false;
-            }
+        /* private Boolean FormDataVerified()
+         {
+             //Sensor Name Check
+             if (SensorNameTextLabel.Text.Length == 0)
+             {
+                 SensorNameTextLabel.Focus();
+                 return false;
+             }
 
-            //Check Range
-            lrvValue = Convert.ToDouble(textBoxLRV.Text, CultureInfo.InvariantCulture);
-            urvValue = Convert.ToDouble(textBoxURV.Text, CultureInfo.InvariantCulture);
-            spanValue = urvValue - lrvValue;
-            if (spanValue > 0.0)
-            {
-                return true;
-            }
-            else { return false; }
-        }
+             //Check Range
+             lrvValue = Convert.ToDouble(textBoxLRV.Text, CultureInfo.InvariantCulture);
+             urvValue = Convert.ToDouble(textBoxURV.Text, CultureInfo.InvariantCulture);
+             spanValue = urvValue - lrvValue;
+             if (spanValue > 0.0)
+             {
+                 return true;
+             }
+             else { return false; }
+         }*/
 
         private void button1_Click(object sender, EventArgs e)
         {
@@ -332,18 +332,18 @@ namespace FirstWinFormsApp1
                 RegisterNewSensor();
 
             }
-            if (SaveChangesButton.Checked) 
+            if (SaveChangesButton1.Checked)
             {
                 RegisterNewSensor();
             }
-            else 
+            else
             {
-                ClearForm();            
+                ClearForm();
             }
         }
 
         private void RegisterNewSensor()
-        {   
+        {
             toolStripStatusLabel1.Text = "OK";
             RegisterIndex++;
 
@@ -363,35 +363,33 @@ namespace FirstWinFormsApp1
 
             if (SignalTypeLabel.Text == "Analog")
             {
-                analogIndex++;
-                
-                lrvValue = Convert.ToDouble(textBoxLRV.Text);
-                urvValue = Convert.ToDouble(textBoxURV.Text);
-                spanValue = urvValue - lrvValue;
-                
                 if (spanValue > 0.0)
                 {
-                    
-                                                        
-                    textBoxRegister.AppendText("LRV: " + textBoxLRV.Text + "\r\n");
-                    textBoxRegister.AppendText("URV: " + textBoxURV.Text + "\r\n");
-                    textBoxRegister.AppendText("SPAN: " + spanValue + "\r\n");
-                    textBoxRegister.AppendText("LRV: " + textBoxUnit.Text + "\r\n");
-                    textBoxRegister.AppendText("[" + RegisterIndex + "]\r\n");
-                    textBoxRegister.AppendText("Sensor Name: " + comboBoxInstrumentName.Text + "\r\n");
-                    textBoxRegister.AppendText("Serial Number: " + SerialNumberLabel.Text + "\r\n");
-                    textBoxRegister.AppendText("Registered: " + checkBox1Registerd.CheckState + "\r\n");
-                    textBoxRegister.AppendText("Date: " + dateTimePicker1Label.Text + "\r\n");
-                    textBoxRegister.AppendText("Signal Type: " + SignalTypeLabel.Text + "\r\n");
-                    textBoxRegister.AppendText("Options: " + TextBoxOptions.Text + "\r\n");
-                    textBoxRegister.AppendText("Comments: " + SignalTypeLabel.Text + "\r\n");
-                    
+                    analogIndex++;
 
+                    Instrument instrument = new Instrument(Convert.ToString(DateTime.Now) + "\r\n",
+                                                        comboBoxInstrumentName.Text + "\r\n",
+                                                        SerialNumberLabel.Text + "\r\n",
+                                                        SignalTypeLabel.Text + "\r\n",
+                                                        MeasureTypeLabel.Text + "\r\n",
+                                                        TextBoxOptions.Text + "\r\n",
+                                                        CommentsTextLabel.Text + "\r\n",
+                                                        lrvValue = Convert.ToDouble(textBoxLRV.Text),
+                                                        urvValue = Convert.ToDouble(textBoxURV.Text),
+                                                        textBoxUnit.Text + "\r\n");
+                    //textBoxRegister.AppendText("[" + RegisterIndex + "]\r\n");
+                    //Instrument instrument = new Instrument("RegisterDate", "SensorName", "serialNumber", "signalType", "measureType", "options", "comment", 0.0, 0.0, "unit");
+
+
+                    spanValue = urvValue - lrvValue;
+                    instrumentList.Add(instrument);
+                    textBoxRegister.AppendText(instrument.ToString());
                 }
-                else
+                else 
                 {
                     MessageBox.Show("Range not correct!");
                 }
+                
 
 
             }
@@ -399,10 +397,10 @@ namespace FirstWinFormsApp1
             if (SignalTypeLabel.Text == "Digital")
             {
                 digitalIndex++;
-                
+
 
                 Instrument instrument = new Instrument(Convert.ToString(DateTime.Now) + "\r\n",
-                                                        comboBoxInstrumentName.Text+"\r\n",
+                                                        comboBoxInstrumentName.Text + "\r\n",
                                                         SerialNumberLabel.Text + "\r\n",
                                                         SignalTypeLabel.Text + "\r\n",
                                                         MeasureTypeLabel.Text + "\r\n",
@@ -442,171 +440,171 @@ namespace FirstWinFormsApp1
 
 
 
-          /*  Instrument instrument = new Instrument(Convert.ToString(DateTime.Now),
-                                                    comboBoxInstrumentName.Text,
-                                                    SerialNumberLabel.Text,
-                                                    SignalTypeLabel.Text,
-                                                    MeasureTypeLabel.Text,
-                                                    TextBoxOptions.Text,
-                                                    CommentsTextLabel.Text,
-                                                    lrvValue,
-                                                    urvValue,
-                                                    textBoxUnit.Text );
+            /*  Instrument instrument = new Instrument(Convert.ToString(DateTime.Now),
+                                                      comboBoxInstrumentName.Text,
+                                                      SerialNumberLabel.Text,
+                                                      SignalTypeLabel.Text,
+                                                      MeasureTypeLabel.Text,
+                                                      TextBoxOptions.Text,
+                                                      CommentsTextLabel.Text,
+                                                      lrvValue,
+                                                      urvValue,
+                                                      textBoxUnit.Text );
 
 
-         /*   if (SignalTypeLabel.Text == "Analog")
-            {
-                lrvValue = Convert.ToDouble(textBoxLRV.Text);
-                urvValue = Convert.ToDouble(textBoxURV.Text);
-                spanValue = urvValue - lrvValue;
-                if (spanValue > 0.0)
+           /*   if (SignalTypeLabel.Text == "Analog")
+              {
+                  lrvValue = Convert.ToDouble(textBoxLRV.Text);
+                  urvValue = Convert.ToDouble(textBoxURV.Text);
+                  spanValue = urvValue - lrvValue;
+                  if (spanValue > 0.0)
+                  {
+                      textBoxRegister.AppendText("LRV: " + textBoxLRV.Text + "\r\n");
+                      textBoxRegister.AppendText("URV: " + textBoxURV.Text + "\r\n");
+                      textBoxRegister.AppendText("SPAN: " + spanValue + "\r\n");
+                      textBoxRegister.AppendText("LRV: " + textBoxUnit.Text + "\r\n");
+                  }
+                  else
+                  {
+                      MessageBox.Show("Range not correct!");
+                  }
+
+
+              }
+              Instrument instrument = new Instrument(Convert.ToString(DateTime.Now),
+                                                      comboBoxInstrumentName.Text,
+                                                      SerialNumberLabel.Text,
+                                                      SignalTypeLabel.Text,
+                                                      MeasureTypeLabel.Text,
+                                                      TextBoxOptions.Text,
+                                                      CommentsTextLabel.Text,
+                                                      lrvValue,
+                                                      urvValue,
+                                                      textBoxUnit.Text );
+
+              //Instrument instrument = new Instrument("RegisterDate", "SensorName", "serialNumber", "signalType", "measureType", "options", "comment", 0.0, 0.0, "unit");
+
+
+              instrumentList.Add(instrument);
+              textBoxRegister.AppendText(instrument.ToString());
+
+
+          }
+
+          private void buttonSummary_Click_1(object sender, EventArgs e)
+          {
+              //DateTime sessionTime;
+
+              System.TimeSpan sessionTime = DateTime.Now.Subtract(sessionStartTime);
+              textBoxSummary.AppendText("Session time; " + sessionTime.TotalSeconds.ToString() + "s \r\n");
+              textBoxSummary.AppendText("Number of sensors regirsterd:" + RegisterIndex + "\r\n");
+              textBoxSummary.AppendText("Number og digital sensor: " + digitalIndex + "\r\n");
+              textBoxSummary.AppendText("Number of analog sensors: " + analogIndex + "\r\n");
+              textBoxSummary.AppendText("Number of fieldbus sensors: " + fieldbusIndex + "\r\n");
+          }
+
+          private void SignalTypeLabel_SelectedIndexChanged(object sender, EventArgs e)
+          {
+              MeasureTypeLabel.Items.Clear();
+              switch (SignalTypeLabel.Text)
+              {
+                  case "Analog":
+                      MeasureTypeLabel.Items.AddRange(analogSignals);
+                      panelRange.Visible = true;
+                      break;
+                  case "Digital":
+                      MeasureTypeLabel.Items.AddRange(digitalSignals);
+                      panelRange.Visible = false;
+                      break;
+                  case "Fieldbus":
+                      panelRange.Visible = false;
+
+                      break;
+                  default:
+                      break;
+              }
+          }
+
+          private void button1_Click_1(object sender, EventArgs e)
+          {
+            IPEndPoint endpoint = new IPEndPoint(IPAddress.Parse(textBoxIP.Text),
+              Convert.ToInt32(textBoxPort.Text));
+              Socket client = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
+              client.Connect(endpoint);
+              textBoxCommunication.AppendText("Connected to server.");
+              if(textBoxSend.Text.Length <= 0) 
+              {
+                  client.Send(Encoding.ASCII.GetBytes("Test"));
+              }
+              else { 
+                  client.Send(Encoding.ASCII.GetBytes(textBoxSend.Text)); 
+              }
+
+              byte[] buffer = new byte[1024];
+              int bytesReceived = client.Receive(buffer);
+              textBoxCommunication.AppendText("Received: " + Encoding.ASCII.GetString(buffer, 0, bytesReceived));
+              client.Close();
+              textBoxCommunication.AppendText("Disconnected from server.");
+
+              /*  //Compare two inputs
+
+                bool textEqual = false;
+
+                if (checkBoxCaseSensetive.Checked)
                 {
-                    textBoxRegister.AppendText("LRV: " + textBoxLRV.Text + "\r\n");
-                    textBoxRegister.AppendText("URV: " + textBoxURV.Text + "\r\n");
-                    textBoxRegister.AppendText("SPAN: " + spanValue + "\r\n");
-                    textBoxRegister.AppendText("LRV: " + textBoxUnit.Text + "\r\n");
+                    textBoxResult.Text = textBox1input1.Text.Equals(textBox2input2.Text) ? "Strings are Equal" : "Strings are not equal";
+
                 }
                 else
                 {
-                    MessageBox.Show("Range not correct!");
+                    textEqual = textBox1input1.Text.Equals(textBox2input2.Text, StringComparison.InvariantCultureIgnoreCase);
                 }
 
 
-            }
-            Instrument instrument = new Instrument(Convert.ToString(DateTime.Now),
-                                                    comboBoxInstrumentName.Text,
-                                                    SerialNumberLabel.Text,
-                                                    SignalTypeLabel.Text,
-                                                    MeasureTypeLabel.Text,
-                                                    TextBoxOptions.Text,
-                                                    CommentsTextLabel.Text,
-                                                    lrvValue,
-                                                    urvValue,
-                                                    textBoxUnit.Text );
 
-            //Instrument instrument = new Instrument("RegisterDate", "SensorName", "serialNumber", "signalType", "measureType", "options", "comment", 0.0, 0.0, "unit");
+                int stringCompareResult;
 
+                stringCompareResult = string.Compare(textBox1input1.Text, textBox2input2.Text, checkBoxCaseSensetive.Checked);
 
-            instrumentList.Add(instrument);
-            textBoxRegister.AppendText(instrument.ToString());
-    
-            
+                if (stringCompareResult > 0)
+                {
+                    textBoxResult.AppendText(string.Format("{0} is after {1}", textBox1input1.Text, textBox2input2.Text));
+
+                }
+                else if (stringCompareResult < 0)
+                {
+                    textBoxResult.AppendText(string.Format("{0} is before {1}", textBox1input1.Text, textBox2input2.Text));
+                }
+                else
+                {
+                    textBoxResult.AppendText(string.Format("{0} is equal to {1}", textBox1input1.Text, textBox2input2.Text));
+                }
+
+                if (textBox1input1.Text.IndexOf(":") > 0)
+                {
+                    string[] textSeperatePart = textBox1input1.Text.Split(";");
+
+                    foreach (String part in textSeperatePart)
+                    {
+                        textBoxResult.AppendText(part + "\r+n");
+                    }
+                }*/
         }
 
-        private void buttonSummary_Click_1(object sender, EventArgs e)
-        {
-            //DateTime sessionTime;
-
-            System.TimeSpan sessionTime = DateTime.Now.Subtract(sessionStartTime);
-            textBoxSummary.AppendText("Session time; " + sessionTime.TotalSeconds.ToString() + "s \r\n");
-            textBoxSummary.AppendText("Number of sensors regirsterd:" + RegisterIndex + "\r\n");
-            textBoxSummary.AppendText("Number og digital sensor: " + digitalIndex + "\r\n");
-            textBoxSummary.AppendText("Number of analog sensors: " + analogIndex + "\r\n");
-            textBoxSummary.AppendText("Number of fieldbus sensors: " + fieldbusIndex + "\r\n");
-        }
-
-        private void SignalTypeLabel_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            MeasureTypeLabel.Items.Clear();
-            switch (SignalTypeLabel.Text)
-            {
-                case "Analog":
-                    MeasureTypeLabel.Items.AddRange(analogSignals);
-                    panelRange.Visible = true;
-                    break;
-                case "Digital":
-                    MeasureTypeLabel.Items.AddRange(digitalSignals);
-                    panelRange.Visible = false;
-                    break;
-                case "Fieldbus":
-                    panelRange.Visible = false;
-
-                    break;
-                default:
-                    break;
-            }
-        }
-
-        private void button1_Click_1(object sender, EventArgs e)
-        {
-          IPEndPoint endpoint = new IPEndPoint(IPAddress.Parse(textBoxIP.Text),
-            Convert.ToInt32(textBoxPort.Text));
-            Socket client = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
-            client.Connect(endpoint);
-            textBoxCommunication.AppendText("Connected to server.");
-            if(textBoxSend.Text.Length <= 0) 
-            {
-                client.Send(Encoding.ASCII.GetBytes("Test"));
-            }
-            else { 
-                client.Send(Encoding.ASCII.GetBytes(textBoxSend.Text)); 
-            }
-            
-            byte[] buffer = new byte[1024];
-            int bytesReceived = client.Receive(buffer);
-            textBoxCommunication.AppendText("Received: " + Encoding.ASCII.GetString(buffer, 0, bytesReceived));
-            client.Close();
-            textBoxCommunication.AppendText("Disconnected from server.");
-           
-            /*  //Compare two inputs
-
-              bool textEqual = false;
-
-              if (checkBoxCaseSensetive.Checked)
+        /*  private void SensorData_SelectedIndexChanged_1(object sender, EventArgs e)
+          {
+              if (SensorData.SelectedIndex ==2) 
               {
-                  textBoxResult.Text = textBox1input1.Text.Equals(textBox2input2.Text) ? "Strings are Equal" : "Strings are not equal";
-
-              }
-              else
-              {
-                  textEqual = textBox1input1.Text.Equals(textBox2input2.Text, StringComparison.InvariantCultureIgnoreCase);
+                  listBox_IpAddresses.Items.Clear();  
+                  listBox_IpAddresses.Items.AddRange(servers.ToArray());
               }
 
-
-
-              int stringCompareResult;
-
-              stringCompareResult = string.Compare(textBox1input1.Text, textBox2input2.Text, checkBoxCaseSensetive.Checked);
-
-              if (stringCompareResult > 0)
-              {
-                  textBoxResult.AppendText(string.Format("{0} is after {1}", textBox1input1.Text, textBox2input2.Text));
-
-              }
-              else if (stringCompareResult < 0)
-              {
-                  textBoxResult.AppendText(string.Format("{0} is before {1}", textBox1input1.Text, textBox2input2.Text));
-              }
-              else
-              {
-                  textBoxResult.AppendText(string.Format("{0} is equal to {1}", textBox1input1.Text, textBox2input2.Text));
-              }
-
-              if (textBox1input1.Text.IndexOf(":") > 0)
-              {
-                  string[] textSeperatePart = textBox1input1.Text.Split(";");
-
-                  foreach (String part in textSeperatePart)
-                  {
-                      textBoxResult.AppendText(part + "\r+n");
-                  }
-              }*/
-        }
-
-      /*  private void SensorData_SelectedIndexChanged_1(object sender, EventArgs e)
-        {
-            if (SensorData.SelectedIndex ==2) 
-            {
-                listBox_IpAddresses.Items.Clear();  
-                listBox_IpAddresses.Items.AddRange(servers.ToArray());
-            }
-
-        }
-        */
+          }
+          */
 
         private void button2_Click(object sender, EventArgs e)
         {
-            if (textBoxRegister.TextLength > 0) 
+            if (textBoxRegister.TextLength > 0)
             {
                 StreamWriter outputFile = new StreamWriter("register.csv");
                 outputFile.Write(textBoxRegister.Text);
@@ -614,31 +612,31 @@ namespace FirstWinFormsApp1
             }
         }
 
-       
 
 
-       private bool NewSensorName()
-       {
-          bool newSensorName = true;
-          //check to see if instrument already is in the list.
-          instrumentList.ForEach(delegate (Instrument instr)
+
+        /*  private bool NewSensorName()
           {
-              if (instr.SensorName == SensorNameTextLabel.Text)
-              {
-                  MessageBox.Show("Sensor Name already exist!");
-                  newSensorName = false;
-                  SensorNameTextLabel.Focus();
-              }
-          });
-          return newSensorName;
-       }
+             bool newSensorName = true;
+             //check to see if instrument already is in the list.
+             instrumentList.ForEach(delegate (Instrument instr)
+             {
+                 if (instr.SensorName == SensorNameTextLabel.Text)
+                 {
+                     MessageBox.Show("Sensor Name already exist!");
+                     newSensorName = false;
+                     SensorNameTextLabel.Focus();
+                 }
+             });
+             return newSensorName;
+          }*/
 
         private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
         {
             AboutBox aboutBox = new AboutBox();
             aboutBox.ShowDialog();
         }
-        public bool NewInstrument(string sensorName) 
+        public bool NewInstrument(string sensorName)
         {
             bool newInstrument = true;
             instrumentList.ForEach(delegate (Instrument instrument)
@@ -669,7 +667,7 @@ namespace FirstWinFormsApp1
 
         }
 
-        private void Form1_FormClosing(object sender, FormClosingEventArgs e) 
+        private void Form1_FormClosing(object sender, FormClosingEventArgs e)
         {
             StreamWriter outputFile = new StreamWriter(fileNameInstrumentList);
             instrumentList.ForEach(delegate (Instrument instrument)
@@ -681,12 +679,12 @@ namespace FirstWinFormsApp1
 
         private void comboBoxInstrumentName_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (comboBoxInstrumentName.SelectedIndex > -1) 
+            if (comboBoxInstrumentName.SelectedIndex > -1)
             {
                 bool fountInstrumet = false;
                 instrumentList.ForEach(delegate (Instrument instrument)
                 {
-                    
+
                 });
             }
         }
@@ -696,20 +694,20 @@ namespace FirstWinFormsApp1
             string[] weekEnd = new string[2];
 
             Array.Copy(daysOfWeek, 5, weekEnd, 0, 2);
-            foreach (string day in weekEnd) 
+            foreach (string day in weekEnd)
             {
-                textBox1.AppendText(day+"\r\n");
+                textBox1.AppendText(day + "\r\n");
             }
             Array.Sort(daysOfWeek);
             foreach (string day in daysOfWeek) ;
             {
-                textBox1.AppendText("day"+ "\r\n");
+                textBox1.AppendText("day" + "\r\n");
             }
             textBox1.AppendText(daysOfWeek.ToString());
-                
-                    
-                
-           
+
+
+
+
         }
 
         private void groupBox1_Enter(object sender, EventArgs e)
@@ -724,28 +722,23 @@ namespace FirstWinFormsApp1
             recived = sendToBackEnd("readconf");
             sensorConf = recived.Split(',');
             textBoxCommunication.AppendText(recived + "\r\n");
-            string caption ="";
-            foreach (string conf in sensorConf) 
+            string caption = "";
+            foreach (string conf in sensorConf)
             {
-                caption = conf+"\r\n";
+                caption = conf + "\r\n";
             }
             MessageBox.Show(caption, "Sensor Configuration", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
         }
 
-        private string sendToBackEnd(string command) 
+        private string sendToBackEnd(string command)
         {
             IPEndPoint endpoint = new IPEndPoint(IPAddress.Parse(textBoxIP.Text), Convert.ToInt32(textBoxPort.Text));
             Socket client = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
             client.Connect(endpoint);
             textBoxCommunication.AppendText("Connected to server.");
-            if (textBoxSend.Text.Length <= 0)
-            {
-                client.Send(Encoding.ASCII.GetBytes("Test"));
-            }
-            else
-            {
-                client.Send(Encoding.ASCII.GetBytes(textBoxSend.Text));
-            }
+
+            client.Send(Encoding.ASCII.GetBytes(command));
+
 
             byte[] buffer = new byte[1024];
             int bytesReceived = client.Receive(buffer);
@@ -797,7 +790,7 @@ namespace FirstWinFormsApp1
             string received;
             received = sendToBackEnd("Redstatus");
             textBoxCommunication.AppendText(received + "\r\n");
-            
+
         }
 
         private void buttonReadScaled_Click(object sender, EventArgs e)
@@ -821,9 +814,10 @@ namespace FirstWinFormsApp1
             string received;
 
             received = sendToBackEnd("readscaled");
-            string[] receivedParts = received.Split(",");
+            string[] receivedParts = received.Split(";");
+            string recievedString = receivedParts[1].Remove(receivedParts[1].Length - 2);
 
-            yValue = Convert.ToDouble(receivedParts[1]);
+            yValue = Convert.ToDouble(recievedString, CultureInfo.InvariantCulture);
 
             chart1.Series[0].Points.AddXY(xTimeValue, yValue);
 
@@ -844,10 +838,7 @@ namespace FirstWinFormsApp1
 
         }
 
-        private void checkBoxStayConnected_CheckedChanged(object sender, EventArgs e)
-        {
 
-        }
 
         private void buttonSummary_Click(object sender, EventArgs e)
         {
@@ -862,13 +853,53 @@ namespace FirstWinFormsApp1
 
         private void SignalTypeLabel_SelectedIndexChanged(object sender, EventArgs e)
         {
+            MeasureTypeLabel.Items.Clear();
 
+            switch (SignalTypeLabel.Text)
+            {
+                case "Analog":
+                    MeasureTypeLabel.Items.AddRange(analogSignals);
+                    panelRange.Visible = true;
+                    //analogIndex++;
+                    break;
+
+                case "Digital":
+                    MeasureTypeLabel.Items.AddRange(digitalSignals);
+                    panelRange.Visible = false;
+                    //digitalIndex++;
+                    break;
+
+                case "Feildbus":
+                    MeasureTypeLabel.Items.AddRange(fieldbusSigals);
+                    panelRange.Visible = false;
+                    //fieldbusIndex++;
+                    break;
+
+                default:
+                    break;
+
+            }
         }
 
         private void RegisterNewButton_CheckedChanged(object sender, EventArgs e)
         {
 
         }
+
+        private void textBoxLRV_MaskInputRejected(object sender, MaskInputRejectedEventArgs e)
+        {
+
+        }
+
+        private void button2_Click_3(object sender, EventArgs e)
+        {
+
+        }
+
+        private void saveChangesButton_Click(object sender, EventArgs e)
+        {
+            RegisterNewSensor();
+        }
     }
-    
+
 }
