@@ -41,6 +41,8 @@
             textBox1 = new TextBox();
             listBox_IpAddresses = new ListBox();
             tabPage2 = new TabPage();
+            label18 = new Label();
+            passwordTextBox = new TextBox();
             buttonWriteConf = new Button();
             buttonReadScaled = new Button();
             buttonReadState = new Button();
@@ -52,8 +54,9 @@
             textBoxCommunication = new TextBox();
             textBoxPort = new TextBox();
             textBoxIP = new TextBox();
-            buttonConnect = new Button();
+            buttonSend = new Button();
             Sensor_Data = new TabPage();
+            deleButton = new Button();
             saveChangesButton = new Button();
             saveFileButton = new Button();
             comboBoxInstrumentName = new ComboBox();
@@ -61,8 +64,8 @@
             panelRange = new Panel();
             label15 = new Label();
             label14 = new Label();
-            textBox3 = new TextBox();
-            textBox2 = new TextBox();
+            textBoxAlarmLow = new TextBox();
+            textBoxAlarmHigh = new TextBox();
             textBoxURV = new MaskedTextBox();
             textBoxLRV = new MaskedTextBox();
             textBoxUnit = new TextBox();
@@ -111,6 +114,7 @@
             aboutToolStripMenuItem = new ToolStripMenuItem();
             openFileDialog1 = new OpenFileDialog();
             timerRedaScaled = new System.Windows.Forms.Timer(components);
+            registerButton = new Button();
             statusStrip1.SuspendLayout();
             tabPage1.SuspendLayout();
             tabPage2.SuspendLayout();
@@ -176,7 +180,6 @@
             button2.TabIndex = 3;
             button2.Text = "button2";
             button2.UseVisualStyleBackColor = true;
-            button2.Click += button2_Click_3;
             // 
             // textBox1
             // 
@@ -197,6 +200,8 @@
             // 
             // tabPage2
             // 
+            tabPage2.Controls.Add(label18);
+            tabPage2.Controls.Add(passwordTextBox);
             tabPage2.Controls.Add(buttonWriteConf);
             tabPage2.Controls.Add(buttonReadScaled);
             tabPage2.Controls.Add(buttonReadState);
@@ -208,7 +213,7 @@
             tabPage2.Controls.Add(textBoxCommunication);
             tabPage2.Controls.Add(textBoxPort);
             tabPage2.Controls.Add(textBoxIP);
-            tabPage2.Controls.Add(buttonConnect);
+            tabPage2.Controls.Add(buttonSend);
             tabPage2.Location = new Point(10, 58);
             tabPage2.Margin = new Padding(2, 3, 2, 3);
             tabPage2.Name = "tabPage2";
@@ -217,6 +222,22 @@
             tabPage2.TabIndex = 1;
             tabPage2.Text = "Connection";
             tabPage2.UseVisualStyleBackColor = true;
+            // 
+            // label18
+            // 
+            label18.AutoSize = true;
+            label18.Location = new Point(814, 707);
+            label18.Name = "label18";
+            label18.Size = new Size(143, 41);
+            label18.TabIndex = 14;
+            label18.Text = "Password";
+            // 
+            // passwordTextBox
+            // 
+            passwordTextBox.Location = new Point(963, 703);
+            passwordTextBox.Name = "passwordTextBox";
+            passwordTextBox.Size = new Size(250, 47);
+            passwordTextBox.TabIndex = 13;
             // 
             // buttonWriteConf
             // 
@@ -268,6 +289,7 @@
             textBoxSend.Name = "textBoxSend";
             textBoxSend.Size = new Size(494, 47);
             textBoxSend.TabIndex = 8;
+            textBoxSend.TextChanged += textBoxSend_TextChanged;
             // 
             // label13
             // 
@@ -322,20 +344,22 @@
             textBoxIP.Size = new Size(378, 47);
             textBoxIP.TabIndex = 1;
             // 
-            // buttonConnect
+            // buttonSend
             // 
-            buttonConnect.Location = new Point(582, 268);
-            buttonConnect.Margin = new Padding(7, 8, 7, 8);
-            buttonConnect.Name = "buttonConnect";
-            buttonConnect.Size = new Size(173, 76);
-            buttonConnect.TabIndex = 0;
-            buttonConnect.Text = "Connect";
-            buttonConnect.UseVisualStyleBackColor = true;
-            buttonConnect.Click += buttonConnect_Click;
+            buttonSend.Location = new Point(582, 268);
+            buttonSend.Margin = new Padding(7, 8, 7, 8);
+            buttonSend.Name = "buttonSend";
+            buttonSend.Size = new Size(173, 76);
+            buttonSend.TabIndex = 0;
+            buttonSend.Text = "Send";
+            buttonSend.UseVisualStyleBackColor = true;
+            buttonSend.Click += buttonSend_Click;
             // 
             // Sensor_Data
             // 
             Sensor_Data.BackColor = Color.WhiteSmoke;
+            Sensor_Data.Controls.Add(registerButton);
+            Sensor_Data.Controls.Add(deleButton);
             Sensor_Data.Controls.Add(saveChangesButton);
             Sensor_Data.Controls.Add(saveFileButton);
             Sensor_Data.Controls.Add(comboBoxInstrumentName);
@@ -371,9 +395,19 @@
             Sensor_Data.TabIndex = 0;
             Sensor_Data.Text = "Sensor Data";
             // 
+            // deleButton
+            // 
+            deleButton.Location = new Point(1115, 922);
+            deleButton.Name = "deleButton";
+            deleButton.Size = new Size(188, 58);
+            deleButton.TabIndex = 28;
+            deleButton.Text = "Delete";
+            deleButton.UseVisualStyleBackColor = true;
+            deleButton.Click += deleButton_Click;
+            // 
             // saveChangesButton
             // 
-            saveChangesButton.Location = new Point(879, 882);
+            saveChangesButton.Location = new Point(815, 867);
             saveChangesButton.Name = "saveChangesButton";
             saveChangesButton.Size = new Size(279, 58);
             saveChangesButton.TabIndex = 27;
@@ -416,8 +450,8 @@
             // 
             panelRange.Controls.Add(label15);
             panelRange.Controls.Add(label14);
-            panelRange.Controls.Add(textBox3);
-            panelRange.Controls.Add(textBox2);
+            panelRange.Controls.Add(textBoxAlarmLow);
+            panelRange.Controls.Add(textBoxAlarmHigh);
             panelRange.Controls.Add(textBoxURV);
             panelRange.Controls.Add(textBoxLRV);
             panelRange.Controls.Add(textBoxUnit);
@@ -434,32 +468,32 @@
             label15.AutoSize = true;
             label15.Location = new Point(36, 305);
             label15.Name = "label15";
-            label15.Size = new Size(117, 41);
+            label15.Size = new Size(157, 41);
             label15.TabIndex = 24;
-            label15.Text = "Alarm L";
+            label15.Text = "Alarm Low";
             // 
             // label14
             // 
             label14.AutoSize = true;
             label14.Location = new Point(36, 241);
             label14.Name = "label14";
-            label14.Size = new Size(124, 41);
+            label14.Size = new Size(166, 41);
             label14.TabIndex = 23;
-            label14.Text = "Alarm H";
+            label14.Text = "Alarm High";
             // 
-            // textBox3
+            // textBoxAlarmLow
             // 
-            textBox3.Location = new Point(189, 305);
-            textBox3.Name = "textBox3";
-            textBox3.Size = new Size(250, 47);
-            textBox3.TabIndex = 22;
+            textBoxAlarmLow.Location = new Point(189, 305);
+            textBoxAlarmLow.Name = "textBoxAlarmLow";
+            textBoxAlarmLow.Size = new Size(250, 47);
+            textBoxAlarmLow.TabIndex = 22;
             // 
-            // textBox2
+            // textBoxAlarmHigh
             // 
-            textBox2.Location = new Point(189, 235);
-            textBox2.Name = "textBox2";
-            textBox2.Size = new Size(250, 47);
-            textBox2.TabIndex = 21;
+            textBoxAlarmHigh.Location = new Point(189, 235);
+            textBoxAlarmHigh.Name = "textBoxAlarmHigh";
+            textBoxAlarmHigh.Size = new Size(250, 47);
+            textBoxAlarmHigh.TabIndex = 21;
             // 
             // textBoxURV
             // 
@@ -614,13 +648,13 @@
             groupBox1.Margin = new Padding(2, 3, 2, 3);
             groupBox1.Name = "groupBox1";
             groupBox1.Padding = new Padding(2, 3, 2, 3);
-            groupBox1.Size = new Size(488, 423);
+            groupBox1.Size = new Size(488, 348);
             groupBox1.TabIndex = 8;
             groupBox1.TabStop = false;
             // 
             // RegSaveDel
             // 
-            RegSaveDel.Location = new Point(38, 356);
+            RegSaveDel.Location = new Point(19, 264);
             RegSaveDel.Margin = new Padding(2, 3, 2, 3);
             RegSaveDel.Name = "RegSaveDel";
             RegSaveDel.Size = new Size(335, 57);
@@ -927,6 +961,16 @@
             // 
             timerRedaScaled.Tick += timer1_Tick;
             // 
+            // registerButton
+            // 
+            registerButton.Location = new Point(822, 803);
+            registerButton.Name = "registerButton";
+            registerButton.Size = new Size(188, 58);
+            registerButton.TabIndex = 29;
+            registerButton.Text = "Register New";
+            registerButton.UseVisualStyleBackColor = true;
+            registerButton.Click += registerButton_Click;
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(17F, 41F);
@@ -980,7 +1024,7 @@
         private TextBox textBoxCommunication;
         private TextBox textBoxPort;
         private TextBox textBoxIP;
-        private Button buttonConnect;
+        private Button buttonSend;
         private TabPage Sensor_Data;
         private Panel panelRange;
         private TextBox textBoxUnit;
@@ -1032,8 +1076,8 @@
         private TextBox textBox1;
         private Label label15;
         private Label label14;
-        private TextBox textBox3;
-        private TextBox textBox2;
+        private TextBox textBoxAlarmLow;
+        private TextBox textBoxAlarmHigh;
         private Label label11;
         private Button buttonWriteConf;
         private Button buttonReadScaled;
@@ -1049,5 +1093,9 @@
         private GroupBox groupBox2;
         private System.Windows.Forms.Timer timerRedaScaled;
         private Button saveChangesButton;
+        private TextBox passwordTextBox;
+        private Label label18;
+        private Button deleButton;
+        private Button registerButton;
     }
 }

@@ -201,7 +201,7 @@ namespace FirstWinFormsApp1
             CommentsTextLabel.Text = "";
             textBoxLRV.Text = "0.0";
             textBoxURV.Text = "0.0";
-            textBoxUnit.Text = "0.0";
+            textBoxUnit.Text = "";
         }
 
         private void TextboxRegisterText()
@@ -363,33 +363,42 @@ namespace FirstWinFormsApp1
 
             if (SignalTypeLabel.Text == "Analog")
             {
-                if (spanValue > 0.0)
-                {
-                    analogIndex++;
+                analogIndex++;
 
-                    Instrument instrument = new Instrument(Convert.ToString(DateTime.Now) + "\r\n",
-                                                        comboBoxInstrumentName.Text + "\r\n",
-                                                        SerialNumberLabel.Text + "\r\n",
-                                                        SignalTypeLabel.Text + "\r\n",
-                                                        MeasureTypeLabel.Text + "\r\n",
-                                                        TextBoxOptions.Text + "\r\n",
-                                                        CommentsTextLabel.Text + "\r\n",
-                                                        lrvValue = Convert.ToDouble(textBoxLRV.Text),
-                                                        urvValue = Convert.ToDouble(textBoxURV.Text),
-                                                        textBoxUnit.Text + "\r\n");
-                    //textBoxRegister.AppendText("[" + RegisterIndex + "]\r\n");
-                    //Instrument instrument = new Instrument("RegisterDate", "SensorName", "serialNumber", "signalType", "measureType", "options", "comment", 0.0, 0.0, "unit");
+                Instrument instrument = new Instrument(Convert.ToString(DateTime.Now) + "\r\n",
+                                                    comboBoxInstrumentName.Text + "\r\n",
+                                                    SerialNumberLabel.Text + "\r\n",
+                                                    SignalTypeLabel.Text + "\r\n",
+                                                    MeasureTypeLabel.Text + "\r\n",
+                                                    TextBoxOptions.Text + "\r\n",
+                                                    CommentsTextLabel.Text + "\r\n",
+                                                    lrvValue = Convert.ToDouble(textBoxLRV.Text),
+                                                    urvValue = Convert.ToDouble(textBoxURV.Text),
+                                                    textBoxUnit.Text + "\r\n");
+                //textBoxRegister.AppendText("[" + RegisterIndex + "]\r\n");
+                //Instrument instrument = new Instrument("RegisterDate", "SensorName", "serialNumber", "signalType", "measureType", "options", "comment", 0.0, 0.0, "unit");
 
 
-                    spanValue = urvValue - lrvValue;
-                    instrumentList.Add(instrument);
-                    textBoxRegister.AppendText(instrument.ToString());
-                }
-                else 
+                spanValue = urvValue - lrvValue;
+                instrumentList.Add(instrument);
+                textBoxRegister.AppendText(instrument.ToString());
+                textBoxRegister.AppendText("Span Value: " + spanValue + "\r\n");
+                textBoxRegister.AppendText("Alarm High: " + textBoxAlarmHigh.Text + "\r\n");
+                textBoxRegister.AppendText("Alarm Low: " + textBoxAlarmLow.Text + "\r\n");
+                /*else 
                 {
                     MessageBox.Show("Range not correct!");
-                }
-                
+                }*/
+
+
+
+
+
+
+
+
+
+
 
 
             }
@@ -787,23 +796,36 @@ namespace FirstWinFormsApp1
 
         private void buttonReadState_Click(object sender, EventArgs e)
         {
+            string[] sensorState;
             string received;
-            received = sendToBackEnd("Redstatus");
+            received = sendToBackEnd("readstatus");
+            sensorState = received.Split(",");
             textBoxCommunication.AppendText(received + "\r\n");
 
         }
 
         private void buttonReadScaled_Click(object sender, EventArgs e)
         {
+            string[] sensorScaled;
             string received;
-            received = sendToBackEnd("Redstatus");
+            received = sendToBackEnd("readscaled");
+            sensorScaled = received.Split(",");
             textBoxCommunication.AppendText(received + "\r\n");
         }
 
         private void button6_Click(object sender, EventArgs e)
         {
+            string[] writeconf;
             string received;
-            received = sendToBackEnd("Redstatus");
+            received = sendToBackEnd("writeconf>"
+                                    + passwordTextBox.Text +
+                                    ">" + comboBoxInstrumentName.Text +
+                                    ";" + textBoxLRV.Text +
+                                    ";" + textBoxURV.Text +
+                                    ";" + textBoxAlarmLow.Text +
+                                    ";" + textBoxAlarmHigh.Text);
+
+            writeconf = received.Split(",");
             textBoxCommunication.AppendText(received + "\r\n");
         }
 
@@ -833,10 +855,7 @@ namespace FirstWinFormsApp1
 
         }
 
-        private void buttonConnect_Click(object sender, EventArgs e)
-        {
 
-        }
 
 
 
@@ -891,12 +910,46 @@ namespace FirstWinFormsApp1
 
         }
 
-        private void button2_Click_3(object sender, EventArgs e)
+
+
+        private void saveChangesButton_Click(object sender, EventArgs e)
+        {
+            RegisterNewSensor();
+        }
+
+        private void buttonSend_Click(object sender, EventArgs e)
+        {
+            IPEndPoint endPoint = new IPEndPoint(IPAddress.Parse(textBoxIP.Text), Convert.ToInt32(textBoxPort.Text));
+            Socket client = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
+
+            client.Connect(endPoint);
+
+            textBoxCommunication.AppendText("Connected to server..." + "\r\n");
+
+            //Cliet Send
+            client.Send(Encoding.ASCII.GetBytes(textBoxIP.Text));
+
+            //Cliet receive
+            byte[] buffer = new byte[1024];
+            int bytesReceived = client.Receive(buffer);
+
+            textBoxCommunication.AppendText("Received..." + Encoding.ASCII.GetString(buffer, 0, bytesReceived) + "\r\n");
+            client.Close();
+            textBoxCommunication.AppendText("Connection closed..." + "\r\n");
+
+        }
+
+        private void textBoxSend_TextChanged(object sender, EventArgs e)
         {
 
         }
 
-        private void saveChangesButton_Click(object sender, EventArgs e)
+        private void deleButton_Click(object sender, EventArgs e)
+        {
+            ClearForm();
+        }
+
+        private void registerButton_Click(object sender, EventArgs e)
         {
             RegisterNewSensor();
         }
