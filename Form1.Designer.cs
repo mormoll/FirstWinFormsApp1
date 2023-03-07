@@ -41,6 +41,9 @@
             textBox1 = new TextBox();
             listBox_IpAddresses = new ListBox();
             tabPage2 = new TabPage();
+            textBox2 = new TextBox();
+            DisconnectButton = new Button();
+            connectButton = new Button();
             comboBoxBaudRate = new ComboBox();
             comboBoxComPort = new ComboBox();
             label20 = new Label();
@@ -114,6 +117,7 @@
             aboutToolStripMenuItem = new ToolStripMenuItem();
             openFileDialog1 = new OpenFileDialog();
             timerRedaScaled = new System.Windows.Forms.Timer(components);
+            disconnectButtonAddXY = new Button();
             statusStrip1.SuspendLayout();
             tabPage1.SuspendLayout();
             tabPage2.SuspendLayout();
@@ -198,6 +202,9 @@
             // 
             // tabPage2
             // 
+            tabPage2.Controls.Add(textBox2);
+            tabPage2.Controls.Add(DisconnectButton);
+            tabPage2.Controls.Add(connectButton);
             tabPage2.Controls.Add(comboBoxBaudRate);
             tabPage2.Controls.Add(comboBoxComPort);
             tabPage2.Controls.Add(label20);
@@ -224,6 +231,32 @@
             tabPage2.TabIndex = 1;
             tabPage2.Text = "Connection";
             tabPage2.UseVisualStyleBackColor = true;
+            // 
+            // textBox2
+            // 
+            textBox2.Location = new Point(1915, 458);
+            textBox2.Multiline = true;
+            textBox2.Name = "textBox2";
+            textBox2.Size = new Size(250, 118);
+            textBox2.TabIndex = 23;
+            // 
+            // DisconnectButton
+            // 
+            DisconnectButton.Location = new Point(1810, 374);
+            DisconnectButton.Name = "DisconnectButton";
+            DisconnectButton.Size = new Size(188, 58);
+            DisconnectButton.TabIndex = 22;
+            DisconnectButton.Text = "Disconnect";
+            DisconnectButton.UseVisualStyleBackColor = true;
+            // 
+            // connectButton
+            // 
+            connectButton.Location = new Point(1741, 291);
+            connectButton.Name = "connectButton";
+            connectButton.Size = new Size(188, 58);
+            connectButton.TabIndex = 21;
+            connectButton.Text = "Connect";
+            connectButton.UseVisualStyleBackColor = true;
             // 
             // comboBoxBaudRate
             // 
@@ -832,6 +865,7 @@
             // 
             // groupBox2
             // 
+            groupBox2.Controls.Add(disconnectButtonAddXY);
             groupBox2.Controls.Add(textBoxYValue);
             groupBox2.Controls.Add(buttonAddXY);
             groupBox2.Controls.Add(label16);
@@ -839,7 +873,7 @@
             groupBox2.Controls.Add(label17);
             groupBox2.Location = new Point(1982, 156);
             groupBox2.Name = "groupBox2";
-            groupBox2.Size = new Size(330, 250);
+            groupBox2.Size = new Size(330, 392);
             groupBox2.TabIndex = 13;
             groupBox2.TabStop = false;
             groupBox2.Text = "groupBox2";
@@ -858,7 +892,7 @@
             buttonAddXY.Name = "buttonAddXY";
             buttonAddXY.Size = new Size(188, 58);
             buttonAddXY.TabIndex = 7;
-            buttonAddXY.Text = "Add Point";
+            buttonAddXY.Text = "Connect";
             buttonAddXY.UseVisualStyleBackColor = true;
             buttonAddXY.Click += button10_Click;
             // 
@@ -944,6 +978,15 @@
             // timerRedaScaled
             // 
             timerRedaScaled.Tick += timer1_Tick;
+            // 
+            // disconnectButtonAddXY
+            // 
+            disconnectButtonAddXY.Location = new Point(64, 267);
+            disconnectButtonAddXY.Name = "disconnectButtonAddXY";
+            disconnectButtonAddXY.Size = new Size(188, 58);
+            disconnectButtonAddXY.TabIndex = 13;
+            disconnectButtonAddXY.Text = "Disconnect";
+            disconnectButtonAddXY.UseVisualStyleBackColor = true;
             // 
             // Form1
             // 
@@ -1070,5 +1113,9 @@
         private Button clearButton;
         private ComboBox comboBoxBaudRate;
         private ComboBox comboBoxComPort;
+        private TextBox textBox2;
+        private Button DisconnectButton;
+        private Button connectButton;
+        private Button disconnectButtonAddXY;
     }
 }

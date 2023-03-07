@@ -2,6 +2,7 @@ using System.Diagnostics;
 using System.Diagnostics.Metrics;
 using System.DirectoryServices;
 using System.Globalization;
+using System.IO;
 using System.Net;
 using System.Net.Sockets;
 using System.Text;
@@ -37,8 +38,11 @@ namespace FirstWinFormsApp1
         int digitalIndex = 0;
         int fieldbusIndex = 0;
 
-        string fileNameInstrumentList = " ";
+        // Declare SerialPort as a static variable
+        //static SerialPort = serialPort;
 
+        string fileNameInstrumentList = " ";
+        //string[] ComPorts = System.IO.Ports.SerialPort.GetPortNames();
         //Font boldFont = new Font("Calibri", 10, FontStyle.Bold);
         //Font regularFont = new Font("Calibri"), 10, FontStyle.Regular);
 
@@ -50,12 +54,21 @@ namespace FirstWinFormsApp1
         List<string> servers = new List<string>();
 
         List<Instrument> instrumentList = new List<Instrument>();
+
+
+        // Global Variables
+        //static SerialPort serialPort = new SerialPort();
+
+
+
         private void Form_Load(object sender, EventArgs e)
         {
             sessionStartTime = DateTime.Now;
             toolStripStatusLabel1.Text = "Ready";
             panelRange.Visible = false;
             SignalTypeLabel.SelectedIndex = 0;
+
+
 
             //Load instrument.csv file
             string instrumentLine = "";
@@ -953,8 +966,10 @@ namespace FirstWinFormsApp1
 
         private void comboBoxComPort_SelectedIndexChanged(object sender, EventArgs e)
         {
-            
+
         }
+
+
     }
 
 }
