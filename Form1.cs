@@ -182,7 +182,7 @@ namespace FirstWinFormsApp1
             toolStripStatusLabel1.Text = "Cleared";
 
 
-            textBoxRegister.AppendText("Cleared");
+            textBoxRegister.AppendText("" + "\r\n");
 
             //textBoxRegister.AppendText("" + textbox1SensorName.Text + "");
             //textBoxRegister.AppendText("" + MaskedSerialNumberLabel.Text + "");
@@ -193,15 +193,19 @@ namespace FirstWinFormsApp1
             //textBoxRegister.AppendText("" + comboSignalTypeLabel.Text +"" );
             //SensorNameTextLabel.Text = "";
             SerialNumberLabel.Text = "";
+            comboBoxInstrumentName.Text = "";
             dateTimePicker1Label.Value = DateTime.Now;
             checkBox1Registerd.Checked = false;
             SignalTypeLabel.SelectedIndex = -1;
             SignalTypeLabel.Text = "";
             TextBoxOptions.SelectedItems.Clear();
             CommentsTextLabel.Text = "";
-            textBoxLRV.Text = "0.0";
-            textBoxURV.Text = "0.0";
+            textBoxLRV.Text = "";
+            textBoxURV.Text = "";
             textBoxUnit.Text = "";
+            textBoxAlarmHigh.Text = "";
+            textBoxAlarmLow.Text = "";
+            CommentsTextLabel.Text = "";
         }
 
         private void TextboxRegisterText()
@@ -325,22 +329,7 @@ namespace FirstWinFormsApp1
             //textBoxResult.AppendText("" + testInt);
         }
 
-        private void RegSaveDel_Click_1(object sender, EventArgs e)
-        {
-            if (RegisterNewButton.Checked)
-            {
-                RegisterNewSensor();
 
-            }
-            if (SaveChangesButton1.Checked)
-            {
-                RegisterNewSensor();
-            }
-            else
-            {
-                ClearForm();
-            }
-        }
 
         private void RegisterNewSensor()
         {
@@ -385,20 +374,11 @@ namespace FirstWinFormsApp1
                 textBoxRegister.AppendText("Span Value: " + spanValue + "\r\n");
                 textBoxRegister.AppendText("Alarm High: " + textBoxAlarmHigh.Text + "\r\n");
                 textBoxRegister.AppendText("Alarm Low: " + textBoxAlarmLow.Text + "\r\n");
+                ClearForm();
                 /*else 
                 {
                     MessageBox.Show("Range not correct!");
                 }*/
-
-
-
-
-
-
-
-
-
-
 
 
             }
@@ -424,6 +404,7 @@ namespace FirstWinFormsApp1
 
                 instrumentList.Add(instrument);
                 textBoxRegister.AppendText(instrument.ToString());
+                ClearForm();
             }
             if (SignalTypeLabel.Text == "Fieldbus")
             {
@@ -445,6 +426,7 @@ namespace FirstWinFormsApp1
 
                 instrumentList.Add(instrument);
                 textBoxRegister.AppendText(instrument.ToString());
+                ClearForm();
             }
 
 
@@ -660,7 +642,7 @@ namespace FirstWinFormsApp1
 
         private void buttonOpenFile_Click(object sender, EventArgs e)
         {
-            var inputFile = new StreamReader(@"C:\tmp\Test.txt");
+            var inputFile = new StreamReader("register.csv");
             textBoxRegister.Text = inputFile.ReadToEnd();
             inputFile.Close();
         }
@@ -689,13 +671,14 @@ namespace FirstWinFormsApp1
         private void comboBoxInstrumentName_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (comboBoxInstrumentName.SelectedIndex > -1)
-            {
-                bool fountInstrumet = false;
-                instrumentList.ForEach(delegate (Instrument instrument)
+                if (comboBoxInstrumentName.SelectedIndex > -1)
                 {
+                    bool fountInstrumet = false;
+                    instrumentList.ForEach(delegate (Instrument instrument)
+                    {
 
-                });
-            }
+                    });
+                }
         }
 
         private void button2_Click_2(object sender, EventArgs e)
@@ -817,8 +800,7 @@ namespace FirstWinFormsApp1
         {
             string[] writeconf;
             string received;
-            received = sendToBackEnd("writeconf>"
-                                    + passwordTextBox.Text +
+            received = sendToBackEnd("writeconf>" + passwordTextBox.Text +
                                     ">" + comboBoxInstrumentName.Text +
                                     ";" + textBoxLRV.Text +
                                     ";" + textBoxURV.Text +
@@ -827,6 +809,7 @@ namespace FirstWinFormsApp1
 
             writeconf = received.Split(",");
             textBoxCommunication.AppendText(received + "\r\n");
+
         }
 
         private void timer1_Tick(object sender, EventArgs e)
@@ -888,7 +871,7 @@ namespace FirstWinFormsApp1
                     //digitalIndex++;
                     break;
 
-                case "Feildbus":
+                case "Fieldbus":
                     MeasureTypeLabel.Items.AddRange(fieldbusSigals);
                     panelRange.Visible = false;
                     //fieldbusIndex++;
@@ -900,10 +883,7 @@ namespace FirstWinFormsApp1
             }
         }
 
-        private void RegisterNewButton_CheckedChanged(object sender, EventArgs e)
-        {
 
-        }
 
         private void textBoxLRV_MaskInputRejected(object sender, MaskInputRejectedEventArgs e)
         {
@@ -939,10 +919,7 @@ namespace FirstWinFormsApp1
 
         }
 
-        private void textBoxSend_TextChanged(object sender, EventArgs e)
-        {
 
-        }
 
         private void deleButton_Click(object sender, EventArgs e)
         {
@@ -952,6 +929,31 @@ namespace FirstWinFormsApp1
         private void registerButton_Click(object sender, EventArgs e)
         {
             RegisterNewSensor();
+        }
+
+
+
+        private void passwordTextBox_TextChanged(object sender, EventArgs e)
+        {
+            // Get the password text from the TextBox control
+            string password = passwordTextBox.Text;
+
+            // Do something with the password text, such as validate it or store it securely
+            // For example, you can check if the password meets certain requirements:
+            if (password.Length < 8)
+            {
+                MessageBox.Show("Password must be at least 8 characters long.");
+            }
+        }
+
+        private void clearButton_Click(object sender, EventArgs e)
+        {
+            textBoxRegister.Clear();
+        }
+
+        private void comboBoxComPort_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            
         }
     }
 

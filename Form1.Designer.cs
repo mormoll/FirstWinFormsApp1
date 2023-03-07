@@ -41,6 +41,10 @@
             textBox1 = new TextBox();
             listBox_IpAddresses = new ListBox();
             tabPage2 = new TabPage();
+            comboBoxBaudRate = new ComboBox();
+            comboBoxComPort = new ComboBox();
+            label20 = new Label();
+            Comport = new Label();
             label18 = new Label();
             passwordTextBox = new TextBox();
             buttonWriteConf = new Button();
@@ -56,6 +60,8 @@
             textBoxIP = new TextBox();
             buttonSend = new Button();
             Sensor_Data = new TabPage();
+            clearButton = new Button();
+            registerNewButton = new Button();
             deleButton = new Button();
             saveChangesButton = new Button();
             saveFileButton = new Button();
@@ -82,12 +88,6 @@
             label8 = new Label();
             MeasureTypeLabel = new ComboBox();
             TextBoxOptions = new ListBox();
-            groupBox1 = new GroupBox();
-            RegSaveDel = new Button();
-            DeleteButton = new RadioButton();
-            radioButton3 = new RadioButton();
-            SaveChangesButton1 = new RadioButton();
-            RegisterNewButton = new RadioButton();
             SignalTypeLabel = new ComboBox();
             dateTimePicker1Label = new DateTimePicker();
             checkBox1Registerd = new CheckBox();
@@ -114,13 +114,11 @@
             aboutToolStripMenuItem = new ToolStripMenuItem();
             openFileDialog1 = new OpenFileDialog();
             timerRedaScaled = new System.Windows.Forms.Timer(components);
-            registerButton = new Button();
             statusStrip1.SuspendLayout();
             tabPage1.SuspendLayout();
             tabPage2.SuspendLayout();
             Sensor_Data.SuspendLayout();
             panelRange.SuspendLayout();
-            groupBox1.SuspendLayout();
             tabControl2.SuspendLayout();
             tabPage3.SuspendLayout();
             groupBox2.SuspendLayout();
@@ -200,6 +198,10 @@
             // 
             // tabPage2
             // 
+            tabPage2.Controls.Add(comboBoxBaudRate);
+            tabPage2.Controls.Add(comboBoxComPort);
+            tabPage2.Controls.Add(label20);
+            tabPage2.Controls.Add(Comport);
             tabPage2.Controls.Add(label18);
             tabPage2.Controls.Add(passwordTextBox);
             tabPage2.Controls.Add(buttonWriteConf);
@@ -223,6 +225,42 @@
             tabPage2.Text = "Connection";
             tabPage2.UseVisualStyleBackColor = true;
             // 
+            // comboBoxBaudRate
+            // 
+            comboBoxBaudRate.FormattingEnabled = true;
+            comboBoxBaudRate.Items.AddRange(new object[] { "2400", "4800", "9600", "19200", "38400", "57600" });
+            comboBoxBaudRate.Location = new Point(1882, 180);
+            comboBoxBaudRate.Name = "comboBoxBaudRate";
+            comboBoxBaudRate.Size = new Size(302, 49);
+            comboBoxBaudRate.TabIndex = 20;
+            // 
+            // comboBoxComPort
+            // 
+            comboBoxComPort.FormattingEnabled = true;
+            comboBoxComPort.Location = new Point(1882, 104);
+            comboBoxComPort.Name = "comboBoxComPort";
+            comboBoxComPort.Size = new Size(302, 49);
+            comboBoxComPort.TabIndex = 19;
+            comboBoxComPort.SelectedIndexChanged += comboBoxComPort_SelectedIndexChanged;
+            // 
+            // label20
+            // 
+            label20.AutoSize = true;
+            label20.Location = new Point(1709, 163);
+            label20.Name = "label20";
+            label20.Size = new Size(152, 41);
+            label20.TabIndex = 18;
+            label20.Text = "Baud Rate";
+            // 
+            // Comport
+            // 
+            Comport.AutoSize = true;
+            Comport.Location = new Point(1709, 100);
+            Comport.Name = "Comport";
+            Comport.Size = new Size(143, 41);
+            Comport.TabIndex = 17;
+            Comport.Text = "Com Port";
+            // 
             // label18
             // 
             label18.AutoSize = true;
@@ -238,6 +276,7 @@
             passwordTextBox.Name = "passwordTextBox";
             passwordTextBox.Size = new Size(250, 47);
             passwordTextBox.TabIndex = 13;
+            passwordTextBox.TextChanged += passwordTextBox_TextChanged;
             // 
             // buttonWriteConf
             // 
@@ -289,7 +328,6 @@
             textBoxSend.Name = "textBoxSend";
             textBoxSend.Size = new Size(494, 47);
             textBoxSend.TabIndex = 8;
-            textBoxSend.TextChanged += textBoxSend_TextChanged;
             // 
             // label13
             // 
@@ -321,11 +359,11 @@
             // 
             // textBoxCommunication
             // 
-            textBoxCommunication.Location = new Point(1327, 36);
+            textBoxCommunication.Location = new Point(769, 36);
             textBoxCommunication.Margin = new Padding(7, 8, 7, 8);
             textBoxCommunication.Multiline = true;
             textBoxCommunication.Name = "textBoxCommunication";
-            textBoxCommunication.Size = new Size(793, 518);
+            textBoxCommunication.Size = new Size(477, 518);
             textBoxCommunication.TabIndex = 3;
             // 
             // textBoxPort
@@ -358,7 +396,8 @@
             // Sensor_Data
             // 
             Sensor_Data.BackColor = Color.WhiteSmoke;
-            Sensor_Data.Controls.Add(registerButton);
+            Sensor_Data.Controls.Add(clearButton);
+            Sensor_Data.Controls.Add(registerNewButton);
             Sensor_Data.Controls.Add(deleButton);
             Sensor_Data.Controls.Add(saveChangesButton);
             Sensor_Data.Controls.Add(saveFileButton);
@@ -375,7 +414,6 @@
             Sensor_Data.Controls.Add(label8);
             Sensor_Data.Controls.Add(MeasureTypeLabel);
             Sensor_Data.Controls.Add(TextBoxOptions);
-            Sensor_Data.Controls.Add(groupBox1);
             Sensor_Data.Controls.Add(SignalTypeLabel);
             Sensor_Data.Controls.Add(dateTimePicker1Label);
             Sensor_Data.Controls.Add(checkBox1Registerd);
@@ -395,11 +433,31 @@
             Sensor_Data.TabIndex = 0;
             Sensor_Data.Text = "Sensor Data";
             // 
+            // clearButton
+            // 
+            clearButton.Location = new Point(1543, 915);
+            clearButton.Name = "clearButton";
+            clearButton.Size = new Size(335, 58);
+            clearButton.TabIndex = 30;
+            clearButton.Text = "Clear";
+            clearButton.UseVisualStyleBackColor = true;
+            clearButton.Click += clearButton_Click;
+            // 
+            // registerNewButton
+            // 
+            registerNewButton.Location = new Point(1024, 463);
+            registerNewButton.Name = "registerNewButton";
+            registerNewButton.Size = new Size(279, 58);
+            registerNewButton.TabIndex = 29;
+            registerNewButton.Text = "Register New";
+            registerNewButton.UseVisualStyleBackColor = true;
+            registerNewButton.Click += registerButton_Click;
+            // 
             // deleButton
             // 
-            deleButton.Location = new Point(1115, 922);
+            deleButton.Location = new Point(1024, 643);
             deleButton.Name = "deleButton";
-            deleButton.Size = new Size(188, 58);
+            deleButton.Size = new Size(279, 58);
             deleButton.TabIndex = 28;
             deleButton.Text = "Delete";
             deleButton.UseVisualStyleBackColor = true;
@@ -407,7 +465,7 @@
             // 
             // saveChangesButton
             // 
-            saveChangesButton.Location = new Point(815, 867);
+            saveChangesButton.Location = new Point(1024, 551);
             saveChangesButton.Name = "saveChangesButton";
             saveChangesButton.Size = new Size(279, 58);
             saveChangesButton.TabIndex = 27;
@@ -417,7 +475,7 @@
             // 
             // saveFileButton
             // 
-            saveFileButton.Location = new Point(1377, 723);
+            saveFileButton.Location = new Point(1543, 711);
             saveFileButton.Name = "saveFileButton";
             saveFileButton.Size = new Size(335, 58);
             saveFileButton.TabIndex = 26;
@@ -428,7 +486,7 @@
             // comboBoxInstrumentName
             // 
             comboBoxInstrumentName.FormattingEnabled = true;
-            comboBoxInstrumentName.Location = new Point(266, 99);
+            comboBoxInstrumentName.Location = new Point(264, 39);
             comboBoxInstrumentName.Margin = new Padding(2, 3, 2, 3);
             comboBoxInstrumentName.Name = "comboBoxInstrumentName";
             comboBoxInstrumentName.Size = new Size(503, 49);
@@ -437,7 +495,7 @@
             // 
             // buttonOpenFile
             // 
-            buttonOpenFile.Location = new Point(1377, 819);
+            buttonOpenFile.Location = new Point(1543, 813);
             buttonOpenFile.Margin = new Padding(2, 3, 2, 3);
             buttonOpenFile.Name = "buttonOpenFile";
             buttonOpenFile.Size = new Size(335, 57);
@@ -460,7 +518,7 @@
             panelRange.Controls.Add(label10);
             panelRange.Location = new Point(815, 22);
             panelRange.Name = "panelRange";
-            panelRange.Size = new Size(500, 385);
+            panelRange.Size = new Size(620, 385);
             panelRange.TabIndex = 4;
             // 
             // label15
@@ -483,28 +541,28 @@
             // 
             // textBoxAlarmLow
             // 
-            textBoxAlarmLow.Location = new Point(189, 305);
+            textBoxAlarmLow.Location = new Point(238, 299);
             textBoxAlarmLow.Name = "textBoxAlarmLow";
             textBoxAlarmLow.Size = new Size(250, 47);
             textBoxAlarmLow.TabIndex = 22;
             // 
             // textBoxAlarmHigh
             // 
-            textBoxAlarmHigh.Location = new Point(189, 235);
+            textBoxAlarmHigh.Location = new Point(238, 235);
             textBoxAlarmHigh.Name = "textBoxAlarmHigh";
             textBoxAlarmHigh.Size = new Size(250, 47);
             textBoxAlarmHigh.TabIndex = 21;
             // 
             // textBoxURV
             // 
-            textBoxURV.Location = new Point(189, 93);
+            textBoxURV.Location = new Point(238, 93);
             textBoxURV.Name = "textBoxURV";
             textBoxURV.Size = new Size(250, 47);
             textBoxURV.TabIndex = 20;
             // 
             // textBoxLRV
             // 
-            textBoxLRV.Location = new Point(189, 21);
+            textBoxLRV.Location = new Point(238, 22);
             textBoxLRV.Name = "textBoxLRV";
             textBoxLRV.Size = new Size(250, 47);
             textBoxLRV.TabIndex = 19;
@@ -512,7 +570,7 @@
             // 
             // textBoxUnit
             // 
-            textBoxUnit.Location = new Point(189, 169);
+            textBoxUnit.Location = new Point(238, 169);
             textBoxUnit.Name = "textBoxUnit";
             textBoxUnit.Size = new Size(250, 47);
             textBoxUnit.TabIndex = 18;
@@ -529,7 +587,7 @@
             // label9
             // 
             label9.AutoSize = true;
-            label9.Location = new Point(36, 12);
+            label9.Location = new Point(43, 28);
             label9.Name = "label9";
             label9.Size = new Size(69, 41);
             label9.TabIndex = 13;
@@ -546,7 +604,7 @@
             // 
             // buttonSummary
             // 
-            buttonSummary.Location = new Point(1794, 805);
+            buttonSummary.Location = new Point(1917, 796);
             buttonSummary.Margin = new Padding(2, 3, 2, 3);
             buttonSummary.Name = "buttonSummary";
             buttonSummary.Size = new Size(380, 57);
@@ -557,28 +615,28 @@
             // 
             // vScrollBar3
             // 
-            vScrollBar3.Location = new Point(2121, 22);
+            vScrollBar3.Location = new Point(2257, 18);
             vScrollBar3.Name = "vScrollBar3";
             vScrollBar3.Size = new Size(40, 759);
             vScrollBar3.TabIndex = 21;
             // 
             // vScrollBar2
             // 
-            vScrollBar2.Location = new Point(1704, 22);
+            vScrollBar2.Location = new Point(1850, 22);
             vScrollBar2.Name = "vScrollBar2";
             vScrollBar2.Size = new Size(43, 665);
             vScrollBar2.TabIndex = 20;
             // 
             // vScrollBar1
             // 
-            vScrollBar1.Location = new Point(715, 530);
+            vScrollBar1.Location = new Point(713, 438);
             vScrollBar1.Name = "vScrollBar1";
             vScrollBar1.Size = new Size(41, 171);
             vScrollBar1.TabIndex = 19;
             // 
             // textBoxSummary
             // 
-            textBoxSummary.Location = new Point(1794, 22);
+            textBoxSummary.Location = new Point(1930, 22);
             textBoxSummary.Multiline = true;
             textBoxSummary.Name = "textBoxSummary";
             textBoxSummary.ReadOnly = true;
@@ -589,7 +647,7 @@
             // 
             textBoxRegister.Font = new Font("Segoe UI", 6F, FontStyle.Regular, GraphicsUnit.Point);
             textBoxRegister.ForeColor = SystemColors.InfoText;
-            textBoxRegister.Location = new Point(1367, 22);
+            textBoxRegister.Location = new Point(1513, 22);
             textBoxRegister.Margin = new Padding(2, 3, 2, 3);
             textBoxRegister.Multiline = true;
             textBoxRegister.Name = "textBoxRegister";
@@ -600,7 +658,7 @@
             // 
             // CommentsTextLabel
             // 
-            CommentsTextLabel.Location = new Point(264, 720);
+            CommentsTextLabel.Location = new Point(252, 649);
             CommentsTextLabel.Margin = new Padding(2, 3, 2, 3);
             CommentsTextLabel.Multiline = true;
             CommentsTextLabel.Name = "CommentsTextLabel";
@@ -610,7 +668,7 @@
             // label8
             // 
             label8.AutoSize = true;
-            label8.Location = new Point(5, 463);
+            label8.Location = new Point(11, 366);
             label8.Name = "label8";
             label8.Size = new Size(203, 41);
             label8.TabIndex = 11;
@@ -620,7 +678,7 @@
             // 
             MeasureTypeLabel.FormattingEnabled = true;
             MeasureTypeLabel.Items.AddRange(new object[] { "4-20ma", "0-10VDC", "0.5DC" });
-            MeasureTypeLabel.Location = new Point(266, 463);
+            MeasureTypeLabel.Location = new Point(264, 358);
             MeasureTypeLabel.Margin = new Padding(2, 3, 2, 3);
             MeasureTypeLabel.Name = "MeasureTypeLabel";
             MeasureTypeLabel.Size = new Size(503, 49);
@@ -631,92 +689,18 @@
             TextBoxOptions.FormattingEnabled = true;
             TextBoxOptions.ItemHeight = 41;
             TextBoxOptions.Items.AddRange(new object[] { "None", "Display", "HART Protocol" });
-            TextBoxOptions.Location = new Point(264, 530);
+            TextBoxOptions.Location = new Point(262, 441);
             TextBoxOptions.Margin = new Padding(2, 3, 2, 3);
             TextBoxOptions.Name = "TextBoxOptions";
+            TextBoxOptions.ScrollAlwaysVisible = true;
             TextBoxOptions.Size = new Size(492, 168);
             TextBoxOptions.TabIndex = 6;
-            // 
-            // groupBox1
-            // 
-            groupBox1.Controls.Add(RegSaveDel);
-            groupBox1.Controls.Add(DeleteButton);
-            groupBox1.Controls.Add(radioButton3);
-            groupBox1.Controls.Add(SaveChangesButton1);
-            groupBox1.Controls.Add(RegisterNewButton);
-            groupBox1.Location = new Point(815, 429);
-            groupBox1.Margin = new Padding(2, 3, 2, 3);
-            groupBox1.Name = "groupBox1";
-            groupBox1.Padding = new Padding(2, 3, 2, 3);
-            groupBox1.Size = new Size(488, 348);
-            groupBox1.TabIndex = 8;
-            groupBox1.TabStop = false;
-            // 
-            // RegSaveDel
-            // 
-            RegSaveDel.Location = new Point(19, 264);
-            RegSaveDel.Margin = new Padding(2, 3, 2, 3);
-            RegSaveDel.Name = "RegSaveDel";
-            RegSaveDel.Size = new Size(335, 57);
-            RegSaveDel.TabIndex = 3;
-            RegSaveDel.Text = "Rregister New";
-            RegSaveDel.UseVisualStyleBackColor = true;
-            RegSaveDel.Click += RegSaveDel_Click_1;
-            // 
-            // DeleteButton
-            // 
-            DeleteButton.AutoSize = true;
-            DeleteButton.Location = new Point(44, 213);
-            DeleteButton.Margin = new Padding(2, 3, 2, 3);
-            DeleteButton.Name = "DeleteButton";
-            DeleteButton.Size = new Size(141, 45);
-            DeleteButton.TabIndex = 2;
-            DeleteButton.TabStop = true;
-            DeleteButton.Text = "Delete";
-            DeleteButton.UseVisualStyleBackColor = true;
-            // 
-            // radioButton3
-            // 
-            radioButton3.AutoSize = true;
-            radioButton3.Location = new Point(-328, 951);
-            radioButton3.Margin = new Padding(2, 3, 2, 3);
-            radioButton3.Name = "radioButton3";
-            radioButton3.Size = new Size(228, 45);
-            radioButton3.TabIndex = 2;
-            radioButton3.TabStop = true;
-            radioButton3.Text = "radioButton3";
-            radioButton3.UseVisualStyleBackColor = true;
-            // 
-            // SaveChangesButton1
-            // 
-            SaveChangesButton1.AutoSize = true;
-            SaveChangesButton1.Location = new Point(44, 150);
-            SaveChangesButton1.Margin = new Padding(2, 3, 2, 3);
-            SaveChangesButton1.Name = "SaveChangesButton1";
-            SaveChangesButton1.Size = new Size(239, 45);
-            SaveChangesButton1.TabIndex = 1;
-            SaveChangesButton1.TabStop = true;
-            SaveChangesButton1.Text = "Save Changes";
-            SaveChangesButton1.UseVisualStyleBackColor = true;
-            // 
-            // RegisterNewButton
-            // 
-            RegisterNewButton.AutoSize = true;
-            RegisterNewButton.Location = new Point(44, 79);
-            RegisterNewButton.Margin = new Padding(2, 3, 2, 3);
-            RegisterNewButton.Name = "RegisterNewButton";
-            RegisterNewButton.Size = new Size(230, 45);
-            RegisterNewButton.TabIndex = 0;
-            RegisterNewButton.TabStop = true;
-            RegisterNewButton.Text = "Register New";
-            RegisterNewButton.UseVisualStyleBackColor = true;
-            RegisterNewButton.CheckedChanged += RegisterNewButton_CheckedChanged;
             // 
             // SignalTypeLabel
             // 
             SignalTypeLabel.FormattingEnabled = true;
             SignalTypeLabel.Items.AddRange(new object[] { "Analog", "Digital", "Fieldbus" });
-            SignalTypeLabel.Location = new Point(266, 396);
+            SignalTypeLabel.Location = new Point(264, 288);
             SignalTypeLabel.Margin = new Padding(2, 3, 2, 3);
             SignalTypeLabel.Name = "SignalTypeLabel";
             SignalTypeLabel.Size = new Size(503, 49);
@@ -725,7 +709,7 @@
             // 
             // dateTimePicker1Label
             // 
-            dateTimePicker1Label.Location = new Point(266, 327);
+            dateTimePicker1Label.Location = new Point(264, 227);
             dateTimePicker1Label.Margin = new Padding(2, 3, 2, 3);
             dateTimePicker1Label.Name = "dateTimePicker1Label";
             dateTimePicker1Label.Size = new Size(503, 47);
@@ -735,7 +719,7 @@
             // 
             checkBox1Registerd.AutoSize = true;
             checkBox1Registerd.ForeColor = SystemColors.ActiveCaptionText;
-            checkBox1Registerd.Location = new Point(266, 271);
+            checkBox1Registerd.Location = new Point(266, 177);
             checkBox1Registerd.Margin = new Padding(2, 3, 2, 3);
             checkBox1Registerd.Name = "checkBox1Registerd";
             checkBox1Registerd.Size = new Size(34, 33);
@@ -745,7 +729,7 @@
             // label7
             // 
             label7.AutoSize = true;
-            label7.Location = new Point(22, 720);
+            label7.Location = new Point(17, 643);
             label7.Margin = new Padding(2, 0, 2, 0);
             label7.Name = "label7";
             label7.Size = new Size(163, 41);
@@ -755,7 +739,7 @@
             // label6
             // 
             label6.AutoSize = true;
-            label6.Location = new Point(22, 530);
+            label6.Location = new Point(11, 427);
             label6.Margin = new Padding(2, 0, 2, 0);
             label6.Name = "label6";
             label6.Size = new Size(124, 41);
@@ -765,7 +749,7 @@
             // label5
             // 
             label5.AutoSize = true;
-            label5.Location = new Point(5, 396);
+            label5.Location = new Point(11, 296);
             label5.Margin = new Padding(2, 0, 2, 0);
             label5.Name = "label5";
             label5.Size = new Size(169, 41);
@@ -775,7 +759,7 @@
             // label4
             // 
             label4.AutoSize = true;
-            label4.Location = new Point(9, 327);
+            label4.Location = new Point(11, 233);
             label4.Margin = new Padding(2, 0, 2, 0);
             label4.Name = "label4";
             label4.Size = new Size(139, 41);
@@ -785,7 +769,7 @@
             // label3
             // 
             label3.AutoSize = true;
-            label3.Location = new Point(5, 266);
+            label3.Location = new Point(11, 172);
             label3.Margin = new Padding(2, 0, 2, 0);
             label3.Name = "label3";
             label3.Size = new Size(143, 41);
@@ -794,7 +778,7 @@
             // 
             // SerialNumberLabel
             // 
-            SerialNumberLabel.Location = new Point(266, 212);
+            SerialNumberLabel.Location = new Point(264, 109);
             SerialNumberLabel.Margin = new Padding(2, 3, 2, 3);
             SerialNumberLabel.Mask = "000-00-0000";
             SerialNumberLabel.Name = "SerialNumberLabel";
@@ -804,7 +788,7 @@
             // label2
             // 
             label2.AutoSize = true;
-            label2.Location = new Point(0, 212);
+            label2.Location = new Point(11, 115);
             label2.Margin = new Padding(2, 0, 2, 0);
             label2.Name = "label2";
             label2.Size = new Size(206, 41);
@@ -814,7 +798,7 @@
             // label1
             // 
             label1.AutoSize = true;
-            label1.Location = new Point(13, 102);
+            label1.Location = new Point(11, 39);
             label1.Margin = new Padding(2, 0, 2, 0);
             label1.Name = "label1";
             label1.Size = new Size(249, 41);
@@ -961,16 +945,6 @@
             // 
             timerRedaScaled.Tick += timer1_Tick;
             // 
-            // registerButton
-            // 
-            registerButton.Location = new Point(822, 803);
-            registerButton.Name = "registerButton";
-            registerButton.Size = new Size(188, 58);
-            registerButton.TabIndex = 29;
-            registerButton.Text = "Register New";
-            registerButton.UseVisualStyleBackColor = true;
-            registerButton.Click += registerButton_Click;
-            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(17F, 41F);
@@ -998,8 +972,6 @@
             Sensor_Data.PerformLayout();
             panelRange.ResumeLayout(false);
             panelRange.PerformLayout();
-            groupBox1.ResumeLayout(false);
-            groupBox1.PerformLayout();
             tabControl2.ResumeLayout(false);
             tabPage3.ResumeLayout(false);
             groupBox2.ResumeLayout(false);
@@ -1041,11 +1013,7 @@
         private ComboBox MeasureTypeLabel;
         private ListBox TextBoxOptions;
         private GroupBox groupBox1;
-        private Button RegSaveDel;
-        private RadioButton DeleteButton;
         private RadioButton radioButton3;
-        private RadioButton SaveChangesButton1;
-        private RadioButton RegisterNewButton;
         private ComboBox SignalTypeLabel;
         private DateTimePicker dateTimePicker1Label;
         private CheckBox checkBox1Registerd;
@@ -1096,6 +1064,11 @@
         private TextBox passwordTextBox;
         private Label label18;
         private Button deleButton;
-        private Button registerButton;
+        private Button registerNewButton;
+        private Label label20;
+        private Label Comport;
+        private Button clearButton;
+        private ComboBox comboBoxBaudRate;
+        private ComboBox comboBoxComPort;
     }
 }

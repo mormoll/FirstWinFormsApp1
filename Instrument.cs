@@ -97,15 +97,16 @@ namespace FirstWinFormsApp1
 
         public override string ToString()
         {
-            return RegisterDate.ToString() + ";" + SensorName
-                                          + ";" + SerialNumber
-                                          + ";" + SignalType
-                                          + ";" + MeasureType
-                                          + ";" + Options
-                                          + ";" + Comment
-                                          + ";" + Convert.ToString(LRV, CultureInfo.InvariantCulture)
-                                          + ";" + Convert.ToString(URV, CultureInfo.InvariantCulture)
-                                          + ";" + Unit;
+            return RegisterDate.ToString()+ "\r\n"
+                                          + "Sensor Name:" + SensorName
+                                          + "Serial Number:" + SerialNumber
+                                          + "Signal Type:" + SignalType
+                                          + "Measure Type:" + MeasureType
+                                          + "Optins:" + Options
+                                          + "Comments: " + Comment
+                                          + "LRV Value: " + Convert.ToString(LRV, CultureInfo.InvariantCulture)
+                                          + "URV Value: " + Convert.ToString(URV, CultureInfo.InvariantCulture)
+                                          + "Unit: " + Unit;
 
         }
         
