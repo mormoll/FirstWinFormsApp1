@@ -969,7 +969,10 @@ namespace FirstWinFormsApp1
 
         }
 
-
+        private void disconnectButtonAddXY_Click(object sender, EventArgs e)
+        {
+            timerRedaScaled.Stop();
+        }
     }
 
 }

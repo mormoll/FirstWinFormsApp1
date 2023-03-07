@@ -32,6 +32,7 @@
             System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
             System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
             System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.Title title1 = new System.Windows.Forms.DataVisualization.Charting.Title();
             printDialog1 = new PrintDialog();
             statusStrip1 = new StatusStrip();
             toolStripStatusLabel1 = new ToolStripStatusLabel();
@@ -105,6 +106,7 @@
             tabControl2 = new TabControl();
             tabPage3 = new TabPage();
             groupBox2 = new GroupBox();
+            disconnectButtonAddXY = new Button();
             textBoxYValue = new TextBox();
             buttonAddXY = new Button();
             label16 = new Label();
@@ -117,7 +119,6 @@
             aboutToolStripMenuItem = new ToolStripMenuItem();
             openFileDialog1 = new OpenFileDialog();
             timerRedaScaled = new System.Windows.Forms.Timer(components);
-            disconnectButtonAddXY = new Button();
             statusStrip1.SuspendLayout();
             tabPage1.SuspendLayout();
             tabPage2.SuspendLayout();
@@ -878,6 +879,16 @@
             groupBox2.TabStop = false;
             groupBox2.Text = "groupBox2";
             // 
+            // disconnectButtonAddXY
+            // 
+            disconnectButtonAddXY.Location = new Point(64, 267);
+            disconnectButtonAddXY.Name = "disconnectButtonAddXY";
+            disconnectButtonAddXY.Size = new Size(188, 58);
+            disconnectButtonAddXY.TabIndex = 13;
+            disconnectButtonAddXY.Text = "Disconnect";
+            disconnectButtonAddXY.UseVisualStyleBackColor = true;
+            disconnectButtonAddXY.Click += disconnectButtonAddXY_Click;
+            // 
             // textBoxYValue
             // 
             textBoxYValue.Location = new Point(45, 86);
@@ -931,14 +942,19 @@
             chart1.Legends.Add(legend1);
             chart1.Location = new Point(3, 3);
             chart1.Name = "chart1";
+            series1.BorderWidth = 3;
             series1.ChartArea = "ChartArea1";
             series1.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
+            series1.Color = Color.Red;
             series1.Legend = "Legend1";
             series1.Name = "Series1";
+            series1.YValuesPerPoint = 2;
             chart1.Series.Add(series1);
             chart1.Size = new Size(2323, 991);
             chart1.TabIndex = 0;
             chart1.Text = "chart1";
+            title1.Name = "Test";
+            chart1.Titles.Add(title1);
             chart1.Click += chart1_Click;
             // 
             // menuStrip1
@@ -978,15 +994,6 @@
             // timerRedaScaled
             // 
             timerRedaScaled.Tick += timer1_Tick;
-            // 
-            // disconnectButtonAddXY
-            // 
-            disconnectButtonAddXY.Location = new Point(64, 267);
-            disconnectButtonAddXY.Name = "disconnectButtonAddXY";
-            disconnectButtonAddXY.Size = new Size(188, 58);
-            disconnectButtonAddXY.TabIndex = 13;
-            disconnectButtonAddXY.Text = "Disconnect";
-            disconnectButtonAddXY.UseVisualStyleBackColor = true;
             // 
             // Form1
             // 
