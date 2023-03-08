@@ -119,6 +119,7 @@
             aboutToolStripMenuItem = new ToolStripMenuItem();
             openFileDialog1 = new OpenFileDialog();
             timerRedaScaled = new System.Windows.Forms.Timer(components);
+            testButton = new Button();
             statusStrip1.SuspendLayout();
             tabPage1.SuspendLayout();
             tabPage2.SuspendLayout();
@@ -203,6 +204,7 @@
             // 
             // tabPage2
             // 
+            tabPage2.Controls.Add(testButton);
             tabPage2.Controls.Add(textBox2);
             tabPage2.Controls.Add(DisconnectButton);
             tabPage2.Controls.Add(connectButton);
@@ -415,6 +417,8 @@
             textBoxIP.Name = "textBoxIP";
             textBoxIP.Size = new Size(378, 47);
             textBoxIP.TabIndex = 1;
+            textBoxIP.Text = ".0.0";
+            textBoxIP.TextChanged += textBoxIP_TextChanged;
             // 
             // buttonSend
             // 
@@ -717,6 +721,7 @@
             MeasureTypeLabel.Name = "MeasureTypeLabel";
             MeasureTypeLabel.Size = new Size(503, 49);
             MeasureTypeLabel.TabIndex = 10;
+            MeasureTypeLabel.SelectedIndexChanged += MeasureTypeLabel_SelectedIndexChanged;
             // 
             // TextBoxOptions
             // 
@@ -992,6 +997,16 @@
             // 
             timerRedaScaled.Tick += timer1_Tick;
             // 
+            // testButton
+            // 
+            testButton.Location = new Point(1537, 423);
+            testButton.Name = "testButton";
+            testButton.Size = new Size(188, 58);
+            testButton.TabIndex = 24;
+            testButton.Text = "Test";
+            testButton.UseVisualStyleBackColor = true;
+            testButton.Click += testButton_Click;
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(17F, 41F);
@@ -1121,5 +1136,6 @@
         private Button DisconnectButton;
         private Button connectButton;
         private Button disconnectButtonAddXY;
+        private Button testButton;
     }
 }

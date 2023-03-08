@@ -992,10 +992,83 @@ namespace FirstWinFormsApp1
         {
 
         }
+        private void LoadCOMPorts()
+        {
+            // Send the "comports" command to the BE and receive the list of COM ports
+            byte[] sendBuffer = Encoding.ASCII.GetBytes("comports");
+            byte[] receiveBuffer = new byte[1024];
+            using (var client = new TcpClient("localhost", 12345))
+            {
+                client.GetStream().Write(sendBuffer, 0, sendBuffer.Length);
+                int bytesRead = client.GetStream().Read(receiveBuffer, 0, receiveBuffer.Length);
+                string comPortString = Encoding.ASCII.GetString(receiveBuffer, 0, bytesRead);
 
+                // Split the received COM port string at the semicolon delimiter and populate the combo box
+                string[] comPorts = comPortString.Split(';');
+                foreach (string port in comPorts)
+                {
+                    if (!string.IsNullOrWhiteSpace(port))
+                    {
+                        comboBoxComPort.Items.Add(port);
+                    }
+                }
+            }
+        }
         private void disconnectButtonAddXY_Click(object sender, EventArgs e)
         {
             timerRedaScaled.Stop();
+        }
+
+        private void textBoxIP_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void MeasureTypeLabel_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void testButton_Click(object sender, EventArgs e)
+        {
+            // Create a new client socket
+            TcpClient client = new TcpClient();
+
+            try
+            {
+                // Connect to the server
+                client.Connect("127.0.0.1", 5000);
+
+                // Send a command to get the available COM ports
+                byte[] sendBuffer = Encoding.ASCII.GetBytes("comports");
+                client.GetStream().Write(sendBuffer, 0, sendBuffer.Length);
+
+                // Receive the COM port list from the server
+                byte[] receiveBuffer = new byte[1024];
+                int bytesRead = client.GetStream().Read(receiveBuffer, 0, receiveBuffer.Length);
+                string comPortString = Encoding.ASCII.GetString(receiveBuffer, 0, bytesRead);
+
+                // Split the COM port list at the semicolon delimiter
+                string[] comPorts = comPortString.Split(';');
+
+                // Populate the combo box with the available COM ports
+                foreach (string comPort in comPorts)
+                {
+                    if (!string.IsNullOrWhiteSpace(comPort))
+                    {
+                        comboBoxComPort.Items.Add(comPort);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+            finally
+            {
+                // Close the client socket
+                client.Close();
+            }
         }
 
         /*  private void connectButton_Click(object sender, EventArgs e)
