@@ -243,7 +243,7 @@
             // 
             // DisconnectButton
             // 
-            DisconnectButton.Location = new Point(1741, 373);
+            DisconnectButton.Location = new Point(1882, 339);
             DisconnectButton.Name = "DisconnectButton";
             DisconnectButton.Size = new Size(188, 58);
             DisconnectButton.TabIndex = 22;
@@ -252,7 +252,7 @@
             // 
             // connectButton
             // 
-            connectButton.Location = new Point(1741, 291);
+            connectButton.Location = new Point(1882, 257);
             connectButton.Name = "connectButton";
             connectButton.Size = new Size(188, 58);
             connectButton.TabIndex = 21;

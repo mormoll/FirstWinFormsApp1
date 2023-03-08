@@ -2,7 +2,6 @@ using System.Diagnostics;
 using System.Diagnostics.Metrics;
 using System.DirectoryServices;
 using System.Globalization;
-using System.IO;
 using System.Net;
 using System.Net.Sockets;
 using System.Text;
@@ -57,10 +56,35 @@ namespace FirstWinFormsApp1
         List<Instrument> instrumentList = new List<Instrument>();
 
 
+
+
         // Global Variables
         //static SerialPort serialPort = new SerialPort();
+        // Declare SerialPort as a static variable
+        // static SerialPort serialPort;
 
+        /*// Form constructor
+      public Form1()
+        {
+            InitializeComponent();
 
+            // Find available COM ports
+            string[] portNames = SerialPort.GetPortNames();
+
+            if (portNames.Length == 0)
+            {
+                MessageBox.Show("No serial ports found.");
+            }
+            else
+            {
+                // Display the list of available COM ports in the combo box
+                foreach (string portName in portNames)
+                {
+                    comboBoxComPort.Items.Add(portName);
+                }
+            }
+        }
+     */
 
         private void Form_Load(object sender, EventArgs e)
         {
@@ -913,7 +937,7 @@ namespace FirstWinFormsApp1
             textBoxCommunication.AppendText("Connected to server..." + "\r\n");
 
             //Cliet Send
-            client.Send(Encoding.ASCII.GetBytes(textBoxIP.Text));
+            client.Send(Encoding.ASCII.GetBytes(textBoxSend.Text));
 
             //Cliet receive
             byte[] buffer = new byte[1024];
@@ -957,6 +981,13 @@ namespace FirstWinFormsApp1
             textBoxRegister.Clear();
         }
 
+        /*
+        private void dataReceived(object sender, SerialDataReceivedEventArgs e)
+        {
+            string message = serialPort.ReadLine();
+            textBoxComReceived.AppendText(message);
+        }*/
+
         private void comboBoxComPort_SelectedIndexChanged(object sender, EventArgs e)
         {
 
@@ -966,6 +997,27 @@ namespace FirstWinFormsApp1
         {
             timerRedaScaled.Stop();
         }
+
+        /*  private void connectButton_Click(object sender, EventArgs e)
+          {
+              if (comboBoxComPort.Text != "")
+              {
+                  serialPort.PortName = comboBoxComPort.Text;
+              }
+              else
+              {
+                  return;
+              }
+              if (comboBoxBaudRate.Text != "")
+              {
+                  serialPort.BaudRate = Convert.ToInt32(comboBoxBaudRate.Text);
+              }
+              else
+              {
+                  return;
+              }
+              serialPort.Open();
+          }*/
     }
 
 }
