@@ -7,6 +7,7 @@ using System.Net;
 using System.Net.Sockets;
 using System.Text;
 using System.Windows.Forms;
+using System.Windows.Forms.DataVisualization.Charting;
 using static System.Net.Mime.MediaTypeNames;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
@@ -768,6 +769,14 @@ namespace FirstWinFormsApp1
             else
             {
                 timerRedaScaled.Start();
+
+                using (StreamWriter writer = new StreamWriter("output.txt", true))
+                {
+                    foreach (DataPoint point in chart1.Series[0].Points)
+                    {
+                        writer.WriteLine(point.XValue.ToString("F2") + " " + point.YValues[0].ToString("F2"));
+                    }
+                }
             }
 
 
@@ -776,10 +785,7 @@ namespace FirstWinFormsApp1
             //textBoxXValue.Text = textBoxYValue.Text = "";
         }
 
-        private void textBoxYValue_TextChanged(object sender, EventArgs e)
-        {
 
-        }
 
         private void buttonReadConfiguration_Click(object sender, EventArgs e)
         {
@@ -840,19 +846,6 @@ namespace FirstWinFormsApp1
             chart1.Series[0].Points.AddXY(xTimeValue, yValue);
 
         }
-
-        private void chart1_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void textBoxXValue_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-
-
 
 
         private void buttonSummary_Click(object sender, EventArgs e)

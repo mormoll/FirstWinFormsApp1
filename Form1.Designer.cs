@@ -243,7 +243,7 @@
             // 
             // DisconnectButton
             // 
-            DisconnectButton.Location = new Point(1810, 374);
+            DisconnectButton.Location = new Point(1741, 373);
             DisconnectButton.Name = "DisconnectButton";
             DisconnectButton.Size = new Size(188, 58);
             DisconnectButton.TabIndex = 22;
@@ -895,7 +895,6 @@
             textBoxYValue.Name = "textBoxYValue";
             textBoxYValue.Size = new Size(250, 47);
             textBoxYValue.TabIndex = 12;
-            textBoxYValue.TextChanged += textBoxYValue_TextChanged;
             // 
             // buttonAddXY
             // 
@@ -922,7 +921,6 @@
             textBoxXValue.Name = "textBoxXValue";
             textBoxXValue.Size = new Size(250, 47);
             textBoxXValue.TabIndex = 11;
-            textBoxXValue.TextChanged += textBoxXValue_TextChanged;
             // 
             // label17
             // 
@@ -955,7 +953,6 @@
             chart1.Text = "chart1";
             title1.Name = "Test";
             chart1.Titles.Add(title1);
-            chart1.Click += chart1_Click;
             // 
             // menuStrip1
             // 
