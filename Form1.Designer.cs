@@ -42,7 +42,8 @@
             textBox1 = new TextBox();
             listBox_IpAddresses = new ListBox();
             tabPage2 = new TabPage();
-            textBox2 = new TextBox();
+            testButton = new Button();
+            textBoxConnect = new TextBox();
             DisconnectButton = new Button();
             connectButton = new Button();
             comboBoxBaudRate = new ComboBox();
@@ -106,12 +107,9 @@
             tabControl2 = new TabControl();
             tabPage3 = new TabPage();
             groupBox2 = new GroupBox();
+            textBoxChart = new TextBox();
             disconnectButtonAddXY = new Button();
-            textBoxYValue = new TextBox();
             buttonAddXY = new Button();
-            label16 = new Label();
-            textBoxXValue = new TextBox();
-            label17 = new Label();
             chart1 = new System.Windows.Forms.DataVisualization.Charting.Chart();
             menuStrip1 = new MenuStrip();
             fileToolStripMenuItem = new ToolStripMenuItem();
@@ -119,7 +117,6 @@
             aboutToolStripMenuItem = new ToolStripMenuItem();
             openFileDialog1 = new OpenFileDialog();
             timerRedaScaled = new System.Windows.Forms.Timer(components);
-            testButton = new Button();
             statusStrip1.SuspendLayout();
             tabPage1.SuspendLayout();
             tabPage2.SuspendLayout();
@@ -205,7 +202,7 @@
             // tabPage2
             // 
             tabPage2.Controls.Add(testButton);
-            tabPage2.Controls.Add(textBox2);
+            tabPage2.Controls.Add(textBoxConnect);
             tabPage2.Controls.Add(DisconnectButton);
             tabPage2.Controls.Add(connectButton);
             tabPage2.Controls.Add(comboBoxBaudRate);
@@ -235,17 +232,28 @@
             tabPage2.Text = "Connection";
             tabPage2.UseVisualStyleBackColor = true;
             // 
-            // textBox2
+            // testButton
             // 
-            textBox2.Location = new Point(1915, 458);
-            textBox2.Multiline = true;
-            textBox2.Name = "textBox2";
-            textBox2.Size = new Size(250, 118);
-            textBox2.TabIndex = 23;
+            testButton.Location = new Point(1900, 38);
+            testButton.Name = "testButton";
+            testButton.Size = new Size(188, 58);
+            testButton.TabIndex = 24;
+            testButton.Text = "Test";
+            testButton.UseVisualStyleBackColor = true;
+            testButton.Click += testButton_Click;
+            // 
+            // textBoxConnect
+            // 
+            textBoxConnect.Location = new Point(1900, 141);
+            textBoxConnect.Multiline = true;
+            textBoxConnect.Name = "textBoxConnect";
+            textBoxConnect.Size = new Size(250, 391);
+            textBoxConnect.TabIndex = 23;
+            textBoxConnect.TextChanged += textBoxConnect_TextChanged;
             // 
             // DisconnectButton
             // 
-            DisconnectButton.Location = new Point(1882, 339);
+            DisconnectButton.Location = new Point(1557, 268);
             DisconnectButton.Name = "DisconnectButton";
             DisconnectButton.Size = new Size(188, 58);
             DisconnectButton.TabIndex = 22;
@@ -254,18 +262,19 @@
             // 
             // connectButton
             // 
-            connectButton.Location = new Point(1882, 257);
+            connectButton.Location = new Point(1557, 184);
             connectButton.Name = "connectButton";
             connectButton.Size = new Size(188, 58);
             connectButton.TabIndex = 21;
             connectButton.Text = "Connect";
             connectButton.UseVisualStyleBackColor = true;
+            connectButton.Click += connectButton_Click;
             // 
             // comboBoxBaudRate
             // 
             comboBoxBaudRate.FormattingEnabled = true;
             comboBoxBaudRate.Items.AddRange(new object[] { "2400", "4800", "9600", "19200", "38400", "57600" });
-            comboBoxBaudRate.Location = new Point(1882, 180);
+            comboBoxBaudRate.Location = new Point(1557, 115);
             comboBoxBaudRate.Name = "comboBoxBaudRate";
             comboBoxBaudRate.Size = new Size(302, 49);
             comboBoxBaudRate.TabIndex = 20;
@@ -273,7 +282,7 @@
             // comboBoxComPort
             // 
             comboBoxComPort.FormattingEnabled = true;
-            comboBoxComPort.Location = new Point(1882, 104);
+            comboBoxComPort.Location = new Point(1557, 47);
             comboBoxComPort.Name = "comboBoxComPort";
             comboBoxComPort.Size = new Size(302, 49);
             comboBoxComPort.TabIndex = 19;
@@ -282,7 +291,7 @@
             // label20
             // 
             label20.AutoSize = true;
-            label20.Location = new Point(1709, 163);
+            label20.Location = new Point(1408, 115);
             label20.Name = "label20";
             label20.Size = new Size(152, 41);
             label20.TabIndex = 18;
@@ -291,7 +300,7 @@
             // Comport
             // 
             Comport.AutoSize = true;
-            Comport.Location = new Point(1709, 100);
+            Comport.Location = new Point(1408, 55);
             Comport.Name = "Comport";
             Comport.Size = new Size(143, 41);
             Comport.TabIndex = 17;
@@ -392,6 +401,7 @@
             checkBoxStayConnected.TabIndex = 5;
             checkBoxStayConnected.Text = "Stay Connected";
             checkBoxStayConnected.UseVisualStyleBackColor = true;
+            checkBoxStayConnected.CheckedChanged += checkBoxStayConnected_CheckedChanged;
             // 
             // textBoxCommunication
             // 
@@ -871,22 +881,26 @@
             // 
             // groupBox2
             // 
+            groupBox2.Controls.Add(textBoxChart);
             groupBox2.Controls.Add(disconnectButtonAddXY);
-            groupBox2.Controls.Add(textBoxYValue);
             groupBox2.Controls.Add(buttonAddXY);
-            groupBox2.Controls.Add(label16);
-            groupBox2.Controls.Add(textBoxXValue);
-            groupBox2.Controls.Add(label17);
             groupBox2.Location = new Point(1982, 156);
             groupBox2.Name = "groupBox2";
-            groupBox2.Size = new Size(330, 392);
+            groupBox2.Size = new Size(330, 720);
             groupBox2.TabIndex = 13;
             groupBox2.TabStop = false;
-            groupBox2.Text = "groupBox2";
+            // 
+            // textBoxChart
+            // 
+            textBoxChart.Location = new Point(39, 227);
+            textBoxChart.Multiline = true;
+            textBoxChart.Name = "textBoxChart";
+            textBoxChart.Size = new Size(250, 487);
+            textBoxChart.TabIndex = 14;
             // 
             // disconnectButtonAddXY
             // 
-            disconnectButtonAddXY.Location = new Point(64, 267);
+            disconnectButtonAddXY.Location = new Point(64, 137);
             disconnectButtonAddXY.Name = "disconnectButtonAddXY";
             disconnectButtonAddXY.Size = new Size(188, 58);
             disconnectButtonAddXY.TabIndex = 13;
@@ -894,47 +908,15 @@
             disconnectButtonAddXY.UseVisualStyleBackColor = true;
             disconnectButtonAddXY.Click += disconnectButtonAddXY_Click;
             // 
-            // textBoxYValue
-            // 
-            textBoxYValue.Location = new Point(45, 86);
-            textBoxYValue.Name = "textBoxYValue";
-            textBoxYValue.Size = new Size(250, 47);
-            textBoxYValue.TabIndex = 12;
-            // 
             // buttonAddXY
             // 
-            buttonAddXY.Location = new Point(64, 186);
+            buttonAddXY.Location = new Point(64, 46);
             buttonAddXY.Name = "buttonAddXY";
             buttonAddXY.Size = new Size(188, 58);
             buttonAddXY.TabIndex = 7;
             buttonAddXY.Text = "Connect";
             buttonAddXY.UseVisualStyleBackColor = true;
             buttonAddXY.Click += button10_Click;
-            // 
-            // label16
-            // 
-            label16.AutoSize = true;
-            label16.Location = new Point(6, 39);
-            label16.Name = "label16";
-            label16.Size = new Size(32, 41);
-            label16.TabIndex = 9;
-            label16.Text = "x";
-            // 
-            // textBoxXValue
-            // 
-            textBoxXValue.Location = new Point(44, 36);
-            textBoxXValue.Name = "textBoxXValue";
-            textBoxXValue.Size = new Size(250, 47);
-            textBoxXValue.TabIndex = 11;
-            // 
-            // label17
-            // 
-            label17.AutoSize = true;
-            label17.Location = new Point(6, 89);
-            label17.Name = "label17";
-            label17.Size = new Size(33, 41);
-            label17.TabIndex = 10;
-            label17.Text = "y";
             // 
             // chart1
             // 
@@ -996,16 +978,6 @@
             // timerRedaScaled
             // 
             timerRedaScaled.Tick += timer1_Tick;
-            // 
-            // testButton
-            // 
-            testButton.Location = new Point(1537, 423);
-            testButton.Name = "testButton";
-            testButton.Size = new Size(188, 58);
-            testButton.TabIndex = 24;
-            testButton.Text = "Test";
-            testButton.UseVisualStyleBackColor = true;
-            testButton.Click += testButton_Click;
             // 
             // Form1
             // 
@@ -1116,10 +1088,6 @@
         private TabPage tabPage3;
         private System.Windows.Forms.DataVisualization.Charting.Chart chart1;
         private Button buttonAddXY;
-        private Label label16;
-        private Label label17;
-        private TextBox textBoxXValue;
-        private TextBox textBoxYValue;
         private GroupBox groupBox2;
         private System.Windows.Forms.Timer timerRedaScaled;
         private Button saveChangesButton;
@@ -1132,10 +1100,11 @@
         private Button clearButton;
         private ComboBox comboBoxBaudRate;
         private ComboBox comboBoxComPort;
-        private TextBox textBox2;
+        private TextBox textBoxConnect;
         private Button DisconnectButton;
         private Button connectButton;
         private Button disconnectButtonAddXY;
         private Button testButton;
+        private TextBox textBoxChart;
     }
 }

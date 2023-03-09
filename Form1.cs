@@ -794,19 +794,37 @@ namespace FirstWinFormsApp1
             {
                 timerRedaScaled.Start();
 
-                using (StreamWriter writer = new StreamWriter("output.txt", true))
+                // Clear the existing text in the textbox
+                textBoxChart.Clear();
+
+                // Create a new file with a unique name
+                string timestamp = DateTime.Now.ToString("yyyyMMddHHmmss");
+                string fileId = Guid.NewGuid().ToString().Substring(0, 8);
+                string fileName = $"output_{timestamp}_{fileId}.txt";
+                using (StreamWriter writer = new StreamWriter(fileName))
                 {
+                    writer.WriteLine("This is a new file created at " + DateTime.Now.ToString());
+                }
+
+                // Write the X and Y values to the output file and textbox every time the timer elapses
+                timerRedaScaled.Tick += (s, ev) =>
+                {
+                    // Write the current X and Y values to the output file
+                    using (StreamWriter writer = new StreamWriter(fileName, true))
+                    {
+                        foreach (DataPoint point in chart1.Series[0].Points)
+                        {
+                            writer.WriteLine(point.XValue.ToString("F2") + " " + point.YValues[0].ToString("F2"));
+                        }
+                    }
+
+                    // Append the current X and Y values to the textbox
                     foreach (DataPoint point in chart1.Series[0].Points)
                     {
-                        writer.WriteLine(point.XValue.ToString("F2") + " " + point.YValues[0].ToString("F2"));
+                        textBoxChart.AppendText(point.XValue.ToString("F2") + " " + point.YValues[0].ToString("F2") + Environment.NewLine);
                     }
-                }
+                };
             }
-
-
-
-            //chart1.Series[0].Points.AddXY(Convert.ToDouble(textBoxXValue.Text), Convert.ToDouble(textBoxYValue.Text));
-            //textBoxXValue.Text = textBoxYValue.Text = "";
         }
 
 
@@ -1031,7 +1049,7 @@ namespace FirstWinFormsApp1
 
         private void testButton_Click(object sender, EventArgs e)
         {
-            // Create a new client socket
+            //client socket
             TcpClient client = new TcpClient();
 
             try
@@ -1066,10 +1084,27 @@ namespace FirstWinFormsApp1
             }
             finally
             {
-                // Close the client socket
                 client.Close();
             }
         }
+
+        private void checkBoxStayConnected_CheckedChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void connectButton_Click(object sender, EventArgs e)
+        {
+            textBoxConnect.AppendText("Selected Com Port:  " + comboBoxComPort + "\r\n");
+            textBoxConnect.AppendText("Selected Baud Rate:  " + comboBoxBaudRate + "\r\n");
+        }
+
+        private void textBoxConnect_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+
 
         /*  private void connectButton_Click(object sender, EventArgs e)
           {
