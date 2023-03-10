@@ -29,10 +29,10 @@
         private void InitializeComponent()
         {
             components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea2 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend2 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series2 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.Title title2 = new System.Windows.Forms.DataVisualization.Charting.Title();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.Title title1 = new System.Windows.Forms.DataVisualization.Charting.Title();
             printDialog1 = new PrintDialog();
             statusStrip1 = new StatusStrip();
             toolStripStatusLabel1 = new ToolStripStatusLabel();
@@ -47,8 +47,6 @@
             comboBoxComPort = new ComboBox();
             label20 = new Label();
             Comport = new Label();
-            label18 = new Label();
-            passwordTextBoxcon = new TextBox();
             buttonWriteConf = new Button();
             buttonReadScaled = new Button();
             buttonReadState = new Button();
@@ -62,8 +60,6 @@
             textBoxIP = new TextBox();
             buttonSend = new Button();
             Sensor_Data = new TabPage();
-            label16 = new Label();
-            passwordTextBox = new TextBox();
             clearButton = new Button();
             registerNewButton = new Button();
             deleButton = new Button();
@@ -197,6 +193,7 @@
             listBox_IpAddresses.Name = "listBox_IpAddresses";
             listBox_IpAddresses.Size = new Size(557, 701);
             listBox_IpAddresses.TabIndex = 1;
+            listBox_IpAddresses.SelectedIndexChanged += listBox_IpAddresses_SelectedIndexChanged;
             // 
             // tabPage2
             // 
@@ -205,8 +202,6 @@
             tabPage2.Controls.Add(comboBoxComPort);
             tabPage2.Controls.Add(label20);
             tabPage2.Controls.Add(Comport);
-            tabPage2.Controls.Add(label18);
-            tabPage2.Controls.Add(passwordTextBoxcon);
             tabPage2.Controls.Add(buttonWriteConf);
             tabPage2.Controls.Add(buttonReadScaled);
             tabPage2.Controls.Add(buttonReadState);
@@ -233,7 +228,7 @@
             testButton.Location = new Point(1900, 38);
             testButton.Name = "testButton";
             testButton.Size = new Size(242, 58);
-            testButton.TabIndex = 24;
+            testButton.TabIndex = 9;
             testButton.Text = "Get Com Ports";
             testButton.UseVisualStyleBackColor = true;
             testButton.Click += testButton_Click;
@@ -245,7 +240,7 @@
             comboBoxBaudRate.Location = new Point(1557, 115);
             comboBoxBaudRate.Name = "comboBoxBaudRate";
             comboBoxBaudRate.Size = new Size(302, 49);
-            comboBoxBaudRate.TabIndex = 20;
+            comboBoxBaudRate.TabIndex = 11;
             // 
             // comboBoxComPort
             // 
@@ -253,7 +248,7 @@
             comboBoxComPort.Location = new Point(1557, 47);
             comboBoxComPort.Name = "comboBoxComPort";
             comboBoxComPort.Size = new Size(302, 49);
-            comboBoxComPort.TabIndex = 19;
+            comboBoxComPort.TabIndex = 10;
             comboBoxComPort.SelectedIndexChanged += comboBoxComPort_SelectedIndexChanged;
             // 
             // label20
@@ -274,30 +269,13 @@
             Comport.TabIndex = 17;
             Comport.Text = "Com Port";
             // 
-            // label18
-            // 
-            label18.AutoSize = true;
-            label18.Location = new Point(684, 632);
-            label18.Name = "label18";
-            label18.Size = new Size(143, 41);
-            label18.TabIndex = 14;
-            label18.Text = "Password";
-            // 
-            // passwordTextBoxcon
-            // 
-            passwordTextBoxcon.Location = new Point(833, 632);
-            passwordTextBoxcon.Name = "passwordTextBoxcon";
-            passwordTextBoxcon.Size = new Size(250, 47);
-            passwordTextBoxcon.TabIndex = 13;
-            passwordTextBoxcon.TextChanged += passwordTextBox_TextChanged;
-            // 
             // buttonWriteConf
             // 
-            buttonWriteConf.Location = new Point(66, 614);
+            buttonWriteConf.Location = new Point(66, 597);
             buttonWriteConf.Margin = new Padding(7, 8, 7, 8);
             buttonWriteConf.Name = "buttonWriteConf";
             buttonWriteConf.Size = new Size(546, 82);
-            buttonWriteConf.TabIndex = 12;
+            buttonWriteConf.TabIndex = 6;
             buttonWriteConf.Text = "Write Configuration";
             buttonWriteConf.UseVisualStyleBackColor = true;
             buttonWriteConf.Click += button6_Click;
@@ -308,7 +286,7 @@
             buttonReadScaled.Margin = new Padding(7, 8, 7, 8);
             buttonReadScaled.Name = "buttonReadScaled";
             buttonReadScaled.Size = new Size(546, 82);
-            buttonReadScaled.TabIndex = 11;
+            buttonReadScaled.TabIndex = 8;
             buttonReadScaled.Text = "Read Scaled";
             buttonReadScaled.UseVisualStyleBackColor = true;
             buttonReadScaled.Click += buttonReadScaled_Click;
@@ -319,18 +297,18 @@
             buttonReadState.Margin = new Padding(7, 8, 7, 8);
             buttonReadState.Name = "buttonReadState";
             buttonReadState.Size = new Size(546, 82);
-            buttonReadState.TabIndex = 10;
+            buttonReadState.TabIndex = 7;
             buttonReadState.Text = "Read State";
             buttonReadState.UseVisualStyleBackColor = true;
             buttonReadState.Click += buttonReadState_Click;
             // 
             // buttonReadConfiguration
             // 
-            buttonReadConfiguration.Location = new Point(66, 373);
+            buttonReadConfiguration.Location = new Point(66, 490);
             buttonReadConfiguration.Margin = new Padding(7, 8, 7, 8);
             buttonReadConfiguration.Name = "buttonReadConfiguration";
             buttonReadConfiguration.Size = new Size(546, 82);
-            buttonReadConfiguration.TabIndex = 9;
+            buttonReadConfiguration.TabIndex = 5;
             buttonReadConfiguration.Text = "Read Configuration";
             buttonReadConfiguration.UseVisualStyleBackColor = true;
             buttonReadConfiguration.Click += buttonReadConfiguration_Click;
@@ -340,7 +318,7 @@
             textBoxSend.Location = new Point(66, 297);
             textBoxSend.Name = "textBoxSend";
             textBoxSend.Size = new Size(494, 47);
-            textBoxSend.TabIndex = 8;
+            textBoxSend.TabIndex = 3;
             // 
             // label13
             // 
@@ -377,7 +355,7 @@
             textBoxCommunication.Margin = new Padding(7, 8, 7, 8);
             textBoxCommunication.Multiline = true;
             textBoxCommunication.Name = "textBoxCommunication";
-            textBoxCommunication.Size = new Size(477, 518);
+            textBoxCommunication.Size = new Size(477, 853);
             textBoxCommunication.TabIndex = 3;
             // 
             // textBoxPort
@@ -400,11 +378,11 @@
             // 
             // buttonSend
             // 
-            buttonSend.Location = new Point(582, 268);
+            buttonSend.Location = new Point(66, 355);
             buttonSend.Margin = new Padding(7, 8, 7, 8);
             buttonSend.Name = "buttonSend";
             buttonSend.Size = new Size(173, 76);
-            buttonSend.TabIndex = 0;
+            buttonSend.TabIndex = 4;
             buttonSend.Text = "Send";
             buttonSend.UseVisualStyleBackColor = true;
             buttonSend.Click += buttonSend_Click;
@@ -412,8 +390,6 @@
             // Sensor_Data
             // 
             Sensor_Data.BackColor = Color.WhiteSmoke;
-            Sensor_Data.Controls.Add(label16);
-            Sensor_Data.Controls.Add(passwordTextBox);
             Sensor_Data.Controls.Add(clearButton);
             Sensor_Data.Controls.Add(registerNewButton);
             Sensor_Data.Controls.Add(deleButton);
@@ -451,23 +427,6 @@
             Sensor_Data.TabIndex = 0;
             Sensor_Data.Text = "Sensor Data";
             // 
-            // label16
-            // 
-            label16.AutoSize = true;
-            label16.Location = new Point(815, 796);
-            label16.Name = "label16";
-            label16.Size = new Size(143, 41);
-            label16.TabIndex = 32;
-            label16.Text = "Password";
-            // 
-            // passwordTextBox
-            // 
-            passwordTextBox.Location = new Point(964, 793);
-            passwordTextBox.Name = "passwordTextBox";
-            passwordTextBox.Size = new Size(250, 47);
-            passwordTextBox.TabIndex = 31;
-            passwordTextBox.TextChanged += passwordTextBox_TextChanged_1;
-            // 
             // clearButton
             // 
             clearButton.Location = new Point(1543, 915);
@@ -483,7 +442,7 @@
             registerNewButton.Location = new Point(1024, 463);
             registerNewButton.Name = "registerNewButton";
             registerNewButton.Size = new Size(279, 58);
-            registerNewButton.TabIndex = 29;
+            registerNewButton.TabIndex = 14;
             registerNewButton.Text = "Register New";
             registerNewButton.UseVisualStyleBackColor = true;
             registerNewButton.Click += registerButton_Click;
@@ -493,7 +452,7 @@
             deleButton.Location = new Point(1024, 643);
             deleButton.Name = "deleButton";
             deleButton.Size = new Size(279, 58);
-            deleButton.TabIndex = 28;
+            deleButton.TabIndex = 16;
             deleButton.Text = "Delete";
             deleButton.UseVisualStyleBackColor = true;
             deleButton.Click += deleButton_Click;
@@ -503,7 +462,7 @@
             saveChangesButton.Location = new Point(1024, 551);
             saveChangesButton.Name = "saveChangesButton";
             saveChangesButton.Size = new Size(279, 58);
-            saveChangesButton.TabIndex = 27;
+            saveChangesButton.TabIndex = 15;
             saveChangesButton.Text = "Save Changes";
             saveChangesButton.UseVisualStyleBackColor = true;
             saveChangesButton.Click += saveChangesButton_Click;
@@ -513,7 +472,7 @@
             saveFileButton.Location = new Point(1543, 711);
             saveFileButton.Name = "saveFileButton";
             saveFileButton.Size = new Size(335, 58);
-            saveFileButton.TabIndex = 26;
+            saveFileButton.TabIndex = 17;
             saveFileButton.Text = "Save File";
             saveFileButton.UseVisualStyleBackColor = true;
             saveFileButton.Click += button2_Click_1;
@@ -525,8 +484,9 @@
             comboBoxInstrumentName.Margin = new Padding(2, 3, 2, 3);
             comboBoxInstrumentName.Name = "comboBoxInstrumentName";
             comboBoxInstrumentName.Size = new Size(503, 49);
-            comboBoxInstrumentName.TabIndex = 25;
+            comboBoxInstrumentName.TabIndex = 1;
             comboBoxInstrumentName.SelectedIndexChanged += comboBoxInstrumentName_SelectedIndexChanged;
+            comboBoxInstrumentName.MouseHover += comboBoxInstrumentName_SelectedIndexChanged;
             // 
             // buttonOpenFile
             // 
@@ -534,7 +494,7 @@
             buttonOpenFile.Margin = new Padding(2, 3, 2, 3);
             buttonOpenFile.Name = "buttonOpenFile";
             buttonOpenFile.Size = new Size(335, 57);
-            buttonOpenFile.TabIndex = 23;
+            buttonOpenFile.TabIndex = 18;
             buttonOpenFile.Text = "Open File";
             buttonOpenFile.UseVisualStyleBackColor = true;
             buttonOpenFile.Click += buttonOpenFile_Click;
@@ -579,28 +539,28 @@
             textBoxAlarmLow.Location = new Point(238, 299);
             textBoxAlarmLow.Name = "textBoxAlarmLow";
             textBoxAlarmLow.Size = new Size(250, 47);
-            textBoxAlarmLow.TabIndex = 22;
+            textBoxAlarmLow.TabIndex = 13;
             // 
             // textBoxAlarmHigh
             // 
             textBoxAlarmHigh.Location = new Point(238, 235);
             textBoxAlarmHigh.Name = "textBoxAlarmHigh";
             textBoxAlarmHigh.Size = new Size(250, 47);
-            textBoxAlarmHigh.TabIndex = 21;
+            textBoxAlarmHigh.TabIndex = 12;
             // 
             // textBoxURV
             // 
             textBoxURV.Location = new Point(238, 93);
             textBoxURV.Name = "textBoxURV";
             textBoxURV.Size = new Size(250, 47);
-            textBoxURV.TabIndex = 20;
+            textBoxURV.TabIndex = 10;
             // 
             // textBoxLRV
             // 
             textBoxLRV.Location = new Point(238, 22);
             textBoxLRV.Name = "textBoxLRV";
             textBoxLRV.Size = new Size(250, 47);
-            textBoxLRV.TabIndex = 19;
+            textBoxLRV.TabIndex = 9;
             textBoxLRV.MaskInputRejected += textBoxLRV_MaskInputRejected;
             // 
             // textBoxUnit
@@ -608,7 +568,7 @@
             textBoxUnit.Location = new Point(238, 169);
             textBoxUnit.Name = "textBoxUnit";
             textBoxUnit.Size = new Size(250, 47);
-            textBoxUnit.TabIndex = 18;
+            textBoxUnit.TabIndex = 11;
             // 
             // label11
             // 
@@ -643,7 +603,7 @@
             buttonSummary.Margin = new Padding(2, 3, 2, 3);
             buttonSummary.Name = "buttonSummary";
             buttonSummary.Size = new Size(380, 57);
-            buttonSummary.TabIndex = 22;
+            buttonSummary.TabIndex = 19;
             buttonSummary.Text = "SUMMARY";
             buttonSummary.UseVisualStyleBackColor = true;
             buttonSummary.Click += buttonSummary_Click;
@@ -698,7 +658,7 @@
             CommentsTextLabel.Multiline = true;
             CommentsTextLabel.Name = "CommentsTextLabel";
             CommentsTextLabel.Size = new Size(492, 247);
-            CommentsTextLabel.TabIndex = 7;
+            CommentsTextLabel.TabIndex = 8;
             // 
             // label8
             // 
@@ -717,7 +677,7 @@
             MeasureTypeLabel.Margin = new Padding(2, 3, 2, 3);
             MeasureTypeLabel.Name = "MeasureTypeLabel";
             MeasureTypeLabel.Size = new Size(503, 49);
-            MeasureTypeLabel.TabIndex = 10;
+            MeasureTypeLabel.TabIndex = 6;
             MeasureTypeLabel.SelectedIndexChanged += MeasureTypeLabel_SelectedIndexChanged;
             // 
             // TextBoxOptions
@@ -730,7 +690,7 @@
             TextBoxOptions.Name = "TextBoxOptions";
             TextBoxOptions.ScrollAlwaysVisible = true;
             TextBoxOptions.Size = new Size(492, 168);
-            TextBoxOptions.TabIndex = 6;
+            TextBoxOptions.TabIndex = 7;
             // 
             // SignalTypeLabel
             // 
@@ -750,6 +710,8 @@
             dateTimePicker1Label.Name = "dateTimePicker1Label";
             dateTimePicker1Label.Size = new Size(503, 47);
             dateTimePicker1Label.TabIndex = 4;
+            dateTimePicker1Label.ValueChanged += dateTimePicker1Label_ValueChanged;
+            dateTimePicker1Label.MouseHover += SignalTypeLabel_SelectedIndexChanged;
             // 
             // checkBox1Registerd
             // 
@@ -868,6 +830,7 @@
             // 
             // groupBox2
             // 
+            groupBox2.BackColor = Color.WhiteSmoke;
             groupBox2.Controls.Add(textBoxChart);
             groupBox2.Controls.Add(disconnectButtonAddXY);
             groupBox2.Controls.Add(buttonAddXY);
@@ -887,46 +850,57 @@
             // 
             // disconnectButtonAddXY
             // 
+            disconnectButtonAddXY.BackColor = Color.IndianRed;
             disconnectButtonAddXY.Location = new Point(64, 137);
             disconnectButtonAddXY.Name = "disconnectButtonAddXY";
             disconnectButtonAddXY.Size = new Size(188, 58);
-            disconnectButtonAddXY.TabIndex = 13;
+            disconnectButtonAddXY.TabIndex = 2;
             disconnectButtonAddXY.Text = "Disconnect";
-            disconnectButtonAddXY.UseVisualStyleBackColor = true;
+            disconnectButtonAddXY.UseVisualStyleBackColor = false;
             disconnectButtonAddXY.Click += disconnectButtonAddXY_Click;
             // 
             // buttonAddXY
             // 
+            buttonAddXY.BackColor = Color.YellowGreen;
             buttonAddXY.Location = new Point(64, 46);
             buttonAddXY.Name = "buttonAddXY";
             buttonAddXY.Size = new Size(188, 58);
-            buttonAddXY.TabIndex = 7;
+            buttonAddXY.TabIndex = 1;
             buttonAddXY.Text = "Connect";
-            buttonAddXY.UseVisualStyleBackColor = true;
+            buttonAddXY.UseVisualStyleBackColor = false;
             buttonAddXY.Click += button10_Click;
             // 
             // chart1
             // 
-            chartArea2.Name = "ChartArea1";
-            chart1.ChartAreas.Add(chartArea2);
+            chart1.BackColor = Color.WhiteSmoke;
+            chart1.BorderlineDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.Solid;
+            chartArea1.AxisX.Title = "Seconds";
+            chartArea1.AxisX.TitleFont = new Font("Microsoft Sans Serif", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            chartArea1.AxisY.TextOrientation = System.Windows.Forms.DataVisualization.Charting.TextOrientation.Horizontal;
+            chartArea1.AxisY.Title = "Lux";
+            chartArea1.AxisY.TitleFont = new Font("Microsoft Sans Serif", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            chartArea1.CursorX.IntervalOffset = 5D;
+            chartArea1.Name = "ChartArea1";
+            chart1.ChartAreas.Add(chartArea1);
             chart1.Dock = DockStyle.Fill;
-            legend2.Name = "Legend1";
-            chart1.Legends.Add(legend2);
+            legend1.Name = "Legend1";
+            chart1.Legends.Add(legend1);
             chart1.Location = new Point(3, 3);
             chart1.Name = "chart1";
-            series2.BorderWidth = 3;
-            series2.ChartArea = "ChartArea1";
-            series2.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
-            series2.Color = Color.Red;
-            series2.Legend = "Legend1";
-            series2.Name = "Series1";
-            series2.YValuesPerPoint = 2;
-            chart1.Series.Add(series2);
+            series1.BorderWidth = 3;
+            series1.ChartArea = "ChartArea1";
+            series1.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
+            series1.Color = Color.Red;
+            series1.Legend = "Legend1";
+            series1.Name = "Live Uppdate";
+            series1.YValuesPerPoint = 2;
+            chart1.Series.Add(series1);
             chart1.Size = new Size(2323, 991);
             chart1.TabIndex = 0;
             chart1.Text = "chart1";
-            title2.Name = "Test";
-            chart1.Titles.Add(title2);
+            title1.Name = "Ligth Value";
+            chart1.Titles.Add(title1);
+            chart1.Click += chart1_Click;
             // 
             // menuStrip1
             // 
@@ -1079,8 +1053,6 @@
         private GroupBox groupBox2;
         private System.Windows.Forms.Timer timerRedaScaled;
         private Button saveChangesButton;
-        private TextBox passwordTextBoxcon;
-        private Label label18;
         private Button deleButton;
         private Button registerNewButton;
         private Label label20;
@@ -1091,7 +1063,5 @@
         private Button disconnectButtonAddXY;
         private Button testButton;
         private TextBox textBoxChart;
-        private Label label16;
-        private TextBox passwordTextBox;
     }
 }

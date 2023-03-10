@@ -767,6 +767,7 @@ namespace FirstWinFormsApp1
 
         private string sendToBackEnd(string command)
         {
+
             IPEndPoint endpoint = new IPEndPoint(IPAddress.Parse(textBoxIP.Text), Convert.ToInt32(textBoxPort.Text));
             Socket client = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
             client.Connect(endpoint);
@@ -907,20 +908,20 @@ namespace FirstWinFormsApp1
             public static string ShowDialog(string text, string caption)
             {
                 Form prompt = new Form();
-                prompt.Width = 600;
-                prompt.Height = 650;
+                prompt.Width = 400;
+                prompt.Height = 350;
                 prompt.Text = caption;
 
-                System.Windows.Forms.Label textLabel = new System.Windows.Forms.Label() { Left = 50, Top = 20, Text = text, Font = new Font("Arial", 8) };
+                System.Windows.Forms.Label textLabel = new System.Windows.Forms.Label() { Left = 50, Top = 20, Text = text, Font = new Font("Arial", 10) };
                 textLabel.Size = new Size(450, 50);
                 prompt.Controls.Add(textLabel);
 
-                System.Windows.Forms.TextBox textBox = new System.Windows.Forms.TextBox() { Left = 50, Top = 200, Width = 600, PasswordChar = '*', Font = new Font("Arial", 8) };
+                System.Windows.Forms.TextBox textBox = new System.Windows.Forms.TextBox() { Left = 50, Top = 70, Width = 600, PasswordChar = '*', Font = new Font("Arial", 10) };
                 textBox.Size = new Size(200, 100);
                 prompt.Controls.Add(textBox);
 
-                System.Windows.Forms.Button okButton = new System.Windows.Forms.Button() { Text = "OK", Left = 260, Width = 170, Top = 400, Font = new Font("Arial", 8) };
-                okButton.Size = new Size(200, 400);
+                System.Windows.Forms.Button okButton = new System.Windows.Forms.Button() { Text = "OK", Left = 50, Width = 100, Top = 150, Font = new Font("Arial", 10) };
+                okButton.Size = new Size(100, 70);
                 okButton.Click += (sender, e) => { prompt.DialogResult = DialogResult.OK; };
                 prompt.Controls.Add(okButton);
 
@@ -951,7 +952,7 @@ namespace FirstWinFormsApp1
             // If the password is correct, continue with the existing code
             string[] writeconf;
             string received;
-            received = sendToBackEnd("writeconf>" + passwordTextBox.Text +
+            received = sendToBackEnd("writeconf>" +
             ">" + comboBoxInstrumentName.Text +
                                              ";" + textBoxLRV.Text +
                                              ";" + textBoxURV.Text +
@@ -1072,18 +1073,7 @@ namespace FirstWinFormsApp1
 
 
 
-        private void passwordTextBox_TextChanged(object sender, EventArgs e)
-        {
-            // Get the password text from the TextBox control
-            string password = passwordTextBoxcon.Text;
 
-            // Do something with the password text, such as validate it or store it securely
-            // For example, you can check if the password meets certain requirements:
-            if (password.Length < 8)
-            {
-                MessageBox.Show("Password must be at least 8 characters long.");
-            }
-        }
 
         private void clearButton_Click(object sender, EventArgs e)
         {
@@ -1182,17 +1172,23 @@ namespace FirstWinFormsApp1
 
         }
 
-
-
-        private void textBoxConnect_TextChanged(object sender, EventArgs e)
+        private void chart1_Click(object sender, EventArgs e)
         {
 
         }
 
-        private void passwordTextBox_TextChanged_1(object sender, EventArgs e)
+        private void listBox_IpAddresses_SelectedIndexChanged(object sender, EventArgs e)
         {
 
         }
+
+        private void dateTimePicker1Label_ValueChanged(object sender, EventArgs e)
+        {
+            toolStripStatusLabel1.Text = "Date/Time";
+        }
+
+
+
 
 
 
