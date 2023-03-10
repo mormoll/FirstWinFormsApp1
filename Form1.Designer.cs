@@ -29,10 +29,10 @@
         private void InitializeComponent()
         {
             components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.Title title1 = new System.Windows.Forms.DataVisualization.Charting.Title();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea2 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend2 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series2 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.Title title2 = new System.Windows.Forms.DataVisualization.Charting.Title();
             printDialog1 = new PrintDialog();
             statusStrip1 = new StatusStrip();
             toolStripStatusLabel1 = new ToolStripStatusLabel();
@@ -43,15 +43,12 @@
             listBox_IpAddresses = new ListBox();
             tabPage2 = new TabPage();
             testButton = new Button();
-            textBoxConnect = new TextBox();
-            DisconnectButton = new Button();
-            connectButton = new Button();
             comboBoxBaudRate = new ComboBox();
             comboBoxComPort = new ComboBox();
             label20 = new Label();
             Comport = new Label();
             label18 = new Label();
-            passwordTextBox = new TextBox();
+            passwordTextBoxcon = new TextBox();
             buttonWriteConf = new Button();
             buttonReadScaled = new Button();
             buttonReadState = new Button();
@@ -65,6 +62,8 @@
             textBoxIP = new TextBox();
             buttonSend = new Button();
             Sensor_Data = new TabPage();
+            label16 = new Label();
+            passwordTextBox = new TextBox();
             clearButton = new Button();
             registerNewButton = new Button();
             deleButton = new Button();
@@ -202,15 +201,12 @@
             // tabPage2
             // 
             tabPage2.Controls.Add(testButton);
-            tabPage2.Controls.Add(textBoxConnect);
-            tabPage2.Controls.Add(DisconnectButton);
-            tabPage2.Controls.Add(connectButton);
             tabPage2.Controls.Add(comboBoxBaudRate);
             tabPage2.Controls.Add(comboBoxComPort);
             tabPage2.Controls.Add(label20);
             tabPage2.Controls.Add(Comport);
             tabPage2.Controls.Add(label18);
-            tabPage2.Controls.Add(passwordTextBox);
+            tabPage2.Controls.Add(passwordTextBoxcon);
             tabPage2.Controls.Add(buttonWriteConf);
             tabPage2.Controls.Add(buttonReadScaled);
             tabPage2.Controls.Add(buttonReadState);
@@ -236,39 +232,11 @@
             // 
             testButton.Location = new Point(1900, 38);
             testButton.Name = "testButton";
-            testButton.Size = new Size(188, 58);
+            testButton.Size = new Size(242, 58);
             testButton.TabIndex = 24;
-            testButton.Text = "Test";
+            testButton.Text = "Get Com Ports";
             testButton.UseVisualStyleBackColor = true;
             testButton.Click += testButton_Click;
-            // 
-            // textBoxConnect
-            // 
-            textBoxConnect.Location = new Point(1900, 141);
-            textBoxConnect.Multiline = true;
-            textBoxConnect.Name = "textBoxConnect";
-            textBoxConnect.Size = new Size(250, 391);
-            textBoxConnect.TabIndex = 23;
-            textBoxConnect.TextChanged += textBoxConnect_TextChanged;
-            // 
-            // DisconnectButton
-            // 
-            DisconnectButton.Location = new Point(1557, 268);
-            DisconnectButton.Name = "DisconnectButton";
-            DisconnectButton.Size = new Size(188, 58);
-            DisconnectButton.TabIndex = 22;
-            DisconnectButton.Text = "Disconnect";
-            DisconnectButton.UseVisualStyleBackColor = true;
-            // 
-            // connectButton
-            // 
-            connectButton.Location = new Point(1557, 184);
-            connectButton.Name = "connectButton";
-            connectButton.Size = new Size(188, 58);
-            connectButton.TabIndex = 21;
-            connectButton.Text = "Connect";
-            connectButton.UseVisualStyleBackColor = true;
-            connectButton.Click += connectButton_Click;
             // 
             // comboBoxBaudRate
             // 
@@ -309,23 +277,23 @@
             // label18
             // 
             label18.AutoSize = true;
-            label18.Location = new Point(814, 707);
+            label18.Location = new Point(684, 632);
             label18.Name = "label18";
             label18.Size = new Size(143, 41);
             label18.TabIndex = 14;
             label18.Text = "Password";
             // 
-            // passwordTextBox
+            // passwordTextBoxcon
             // 
-            passwordTextBox.Location = new Point(963, 703);
-            passwordTextBox.Name = "passwordTextBox";
-            passwordTextBox.Size = new Size(250, 47);
-            passwordTextBox.TabIndex = 13;
-            passwordTextBox.TextChanged += passwordTextBox_TextChanged;
+            passwordTextBoxcon.Location = new Point(833, 632);
+            passwordTextBoxcon.Name = "passwordTextBoxcon";
+            passwordTextBoxcon.Size = new Size(250, 47);
+            passwordTextBoxcon.TabIndex = 13;
+            passwordTextBoxcon.TextChanged += passwordTextBox_TextChanged;
             // 
             // buttonWriteConf
             // 
-            buttonWriteConf.Location = new Point(66, 472);
+            buttonWriteConf.Location = new Point(66, 614);
             buttonWriteConf.Margin = new Padding(7, 8, 7, 8);
             buttonWriteConf.Name = "buttonWriteConf";
             buttonWriteConf.Size = new Size(546, 82);
@@ -336,7 +304,7 @@
             // 
             // buttonReadScaled
             // 
-            buttonReadScaled.Location = new Point(66, 668);
+            buttonReadScaled.Location = new Point(66, 807);
             buttonReadScaled.Margin = new Padding(7, 8, 7, 8);
             buttonReadScaled.Name = "buttonReadScaled";
             buttonReadScaled.Size = new Size(546, 82);
@@ -347,7 +315,7 @@
             // 
             // buttonReadState
             // 
-            buttonReadState.Location = new Point(66, 570);
+            buttonReadState.Location = new Point(66, 709);
             buttonReadState.Margin = new Padding(7, 8, 7, 8);
             buttonReadState.Name = "buttonReadState";
             buttonReadState.Size = new Size(546, 82);
@@ -419,6 +387,7 @@
             textBoxPort.Name = "textBoxPort";
             textBoxPort.Size = new Size(373, 47);
             textBoxPort.TabIndex = 2;
+            textBoxPort.Text = "5000";
             // 
             // textBoxIP
             // 
@@ -427,8 +396,7 @@
             textBoxIP.Name = "textBoxIP";
             textBoxIP.Size = new Size(378, 47);
             textBoxIP.TabIndex = 1;
-            textBoxIP.Text = ".0.0";
-            textBoxIP.TextChanged += textBoxIP_TextChanged;
+            textBoxIP.Text = "127.0.0.1";
             // 
             // buttonSend
             // 
@@ -444,6 +412,8 @@
             // Sensor_Data
             // 
             Sensor_Data.BackColor = Color.WhiteSmoke;
+            Sensor_Data.Controls.Add(label16);
+            Sensor_Data.Controls.Add(passwordTextBox);
             Sensor_Data.Controls.Add(clearButton);
             Sensor_Data.Controls.Add(registerNewButton);
             Sensor_Data.Controls.Add(deleButton);
@@ -480,6 +450,23 @@
             Sensor_Data.Size = new Size(2329, 997);
             Sensor_Data.TabIndex = 0;
             Sensor_Data.Text = "Sensor Data";
+            // 
+            // label16
+            // 
+            label16.AutoSize = true;
+            label16.Location = new Point(815, 796);
+            label16.Name = "label16";
+            label16.Size = new Size(143, 41);
+            label16.TabIndex = 32;
+            label16.Text = "Password";
+            // 
+            // passwordTextBox
+            // 
+            passwordTextBox.Location = new Point(964, 793);
+            passwordTextBox.Name = "passwordTextBox";
+            passwordTextBox.Size = new Size(250, 47);
+            passwordTextBox.TabIndex = 31;
+            passwordTextBox.TextChanged += passwordTextBox_TextChanged_1;
             // 
             // clearButton
             // 
@@ -920,26 +907,26 @@
             // 
             // chart1
             // 
-            chartArea1.Name = "ChartArea1";
-            chart1.ChartAreas.Add(chartArea1);
+            chartArea2.Name = "ChartArea1";
+            chart1.ChartAreas.Add(chartArea2);
             chart1.Dock = DockStyle.Fill;
-            legend1.Name = "Legend1";
-            chart1.Legends.Add(legend1);
+            legend2.Name = "Legend1";
+            chart1.Legends.Add(legend2);
             chart1.Location = new Point(3, 3);
             chart1.Name = "chart1";
-            series1.BorderWidth = 3;
-            series1.ChartArea = "ChartArea1";
-            series1.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
-            series1.Color = Color.Red;
-            series1.Legend = "Legend1";
-            series1.Name = "Series1";
-            series1.YValuesPerPoint = 2;
-            chart1.Series.Add(series1);
+            series2.BorderWidth = 3;
+            series2.ChartArea = "ChartArea1";
+            series2.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
+            series2.Color = Color.Red;
+            series2.Legend = "Legend1";
+            series2.Name = "Series1";
+            series2.YValuesPerPoint = 2;
+            chart1.Series.Add(series2);
             chart1.Size = new Size(2323, 991);
             chart1.TabIndex = 0;
             chart1.Text = "chart1";
-            title1.Name = "Test";
-            chart1.Titles.Add(title1);
+            title2.Name = "Test";
+            chart1.Titles.Add(title2);
             // 
             // menuStrip1
             // 
@@ -977,6 +964,7 @@
             // 
             // timerRedaScaled
             // 
+            timerRedaScaled.Interval = 5000;
             timerRedaScaled.Tick += timer1_Tick;
             // 
             // Form1
@@ -1091,7 +1079,7 @@
         private GroupBox groupBox2;
         private System.Windows.Forms.Timer timerRedaScaled;
         private Button saveChangesButton;
-        private TextBox passwordTextBox;
+        private TextBox passwordTextBoxcon;
         private Label label18;
         private Button deleButton;
         private Button registerNewButton;
@@ -1100,11 +1088,10 @@
         private Button clearButton;
         private ComboBox comboBoxBaudRate;
         private ComboBox comboBoxComPort;
-        private TextBox textBoxConnect;
-        private Button DisconnectButton;
-        private Button connectButton;
         private Button disconnectButtonAddXY;
         private Button testButton;
         private TextBox textBoxChart;
+        private Label label16;
+        private TextBox passwordTextBox;
     }
 }

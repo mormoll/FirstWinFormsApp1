@@ -1,14 +1,18 @@
+using System;
 using System.Diagnostics;
 using System.Diagnostics.Metrics;
 using System.DirectoryServices;
 using System.Globalization;
 using System.Net;
 using System.Net.Sockets;
+using System.Reflection.Emit;
+using System.Reflection.Metadata;
 using System.Text;
 using System.Windows.Forms;
 using System.Windows.Forms.DataVisualization.Charting;
 using static System.Net.Mime.MediaTypeNames;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.ToolBar;
 
 
 namespace FirstWinFormsApp1
@@ -85,6 +89,7 @@ namespace FirstWinFormsApp1
             }
         }
      */
+
 
         private void Form_Load(object sender, EventArgs e)
         {
@@ -792,7 +797,9 @@ namespace FirstWinFormsApp1
             }
             else
             {
+                timer1_Tick(this, EventArgs.Empty);
                 timerRedaScaled.Start();
+
 
                 // Clear the existing text in the textbox
                 textBoxChart.Clear();
@@ -856,21 +863,103 @@ namespace FirstWinFormsApp1
             sensorScaled = received.Split(",");
             textBoxCommunication.AppendText(received + "\r\n");
         }
+        public static class Prompt
+        {
+            /*
+            public static string ShowDialog(string text, string caption)
+            {
+                Form prompt = new Form();
+                prompt.Width = 600;
+                prompt.Height = 350;
+                prompt.Text = caption;
+                Label textLabel = new Label() { Left = 50, Top = 20, Text = text };
+                System.Windows.Forms.TextBox textBox = new System.Windows.Forms.TextBox() { Left = 50, Top = 50, Width = 200, PasswordChar = '*' };
+                System.Windows.Forms.Button okButton = new System.Windows.Forms.Button() { Text = "OK", Left = 150, Width = 50, Top = 80 };
+                okButton.Click += (sender, e) => { prompt.DialogResult = DialogResult.OK; };
+                prompt.Controls.Add(textBox);
+                prompt.Controls.Add(textLabel);
+                prompt.Controls.Add(okButton);
+                prompt.AcceptButton = okButton;
 
+                return prompt.ShowDialog() == DialogResult.OK ? textBox.Text : null;
+            }
+            
+            public static string ShowDialog(string text, string caption)
+            {
+                Form prompt = new Form();
+                prompt.Width = 600;
+                prompt.Height = 350;
+                prompt.Text = caption;
+
+                System.Windows.Forms.Label textLabel = new System.Windows.Forms.Label() { Left = 50, Top = 20, Text = text };
+                prompt.Controls.Add(textLabel);
+
+                System.Windows.Forms.TextBox textBox = new System.Windows.Forms.TextBox() { Left = 50, Top = 50, Width = 200, PasswordChar = '*' };
+                prompt.Controls.Add(textBox);
+
+                System.Windows.Forms.Button okButton = new System.Windows.Forms.Button() { Text = "OK", Left = 260, Width = 50, Top = 50 };
+                okButton.Click += (sender, e) => { prompt.DialogResult = DialogResult.OK; };
+                prompt.Controls.Add(okButton);
+                prompt.AcceptButton = okButton;
+                return prompt.ShowDialog() == DialogResult.OK ? textBox.Text : null;
+            }*/
+
+            public static string ShowDialog(string text, string caption)
+            {
+                Form prompt = new Form();
+                prompt.Width = 600;
+                prompt.Height = 650;
+                prompt.Text = caption;
+
+                System.Windows.Forms.Label textLabel = new System.Windows.Forms.Label() { Left = 50, Top = 20, Text = text, Font = new Font("Arial", 8) };
+                textLabel.Size = new Size(450, 50);
+                prompt.Controls.Add(textLabel);
+
+                System.Windows.Forms.TextBox textBox = new System.Windows.Forms.TextBox() { Left = 50, Top = 200, Width = 600, PasswordChar = '*', Font = new Font("Arial", 8) };
+                textBox.Size = new Size(200, 100);
+                prompt.Controls.Add(textBox);
+
+                System.Windows.Forms.Button okButton = new System.Windows.Forms.Button() { Text = "OK", Left = 260, Width = 170, Top = 400, Font = new Font("Arial", 8) };
+                okButton.Size = new Size(200, 400);
+                okButton.Click += (sender, e) => { prompt.DialogResult = DialogResult.OK; };
+                prompt.Controls.Add(okButton);
+
+                prompt.AcceptButton = okButton;
+
+                return prompt.ShowDialog() == DialogResult.OK ? textBox.Text : null;
+            }
+
+
+
+
+
+
+        }
         private void button6_Click(object sender, EventArgs e)
         {
+            // Prompt the user for a password
+            string password = Prompt.ShowDialog("Enter Password", "Password");
+
+            // Check if the password is correct
+            if (password != "password")
+            {
+                // Display an error message and return
+                MessageBox.Show("Incorrect Password! Press Write configuration again");
+                return;
+            }
+
+            // If the password is correct, continue with the existing code
             string[] writeconf;
             string received;
             received = sendToBackEnd("writeconf>" + passwordTextBox.Text +
-                                    ">" + comboBoxInstrumentName.Text +
-                                    ";" + textBoxLRV.Text +
-                                    ";" + textBoxURV.Text +
-                                    ";" + textBoxAlarmLow.Text +
-                                    ";" + textBoxAlarmHigh.Text);
+            ">" + comboBoxInstrumentName.Text +
+                                             ";" + textBoxLRV.Text +
+                                             ";" + textBoxURV.Text +
+                                             ";" + textBoxAlarmLow.Text +
+                                             ";" + textBoxAlarmHigh.Text);
 
             writeconf = received.Split(",");
             textBoxCommunication.AppendText(received + "\r\n");
-
         }
 
         private void timer1_Tick(object sender, EventArgs e)
@@ -892,9 +981,11 @@ namespace FirstWinFormsApp1
 
         private void buttonSummary_Click(object sender, EventArgs e)
         {
-            //DateTime sessionTime;
-            System.TimeSpan sessionTime = DateTime.Now.Subtract(sessionStartTime);
-            textBoxSummary.AppendText("Session time; " + sessionTime.TotalSeconds.ToString() + "s \r\n");
+
+            //System.TimeSpan sessionTime = DateTime.Now.Subtract(sessionStartTime);
+            //string formattedSessionTime = sessionTime.TotalSeconds.ToString("0.00", CultureInfo.InvariantCulture);
+            textBoxSummary.Clear();
+            //textBoxSummary.AppendText("Session time; " + formattedSessionTime + "s \r\n");
             textBoxSummary.AppendText("Number of sensors regirsterd:" + RegisterIndex + "\r\n");
             textBoxSummary.AppendText("Number og digital sensor: " + digitalIndex + "\r\n");
             textBoxSummary.AppendText("Number of analog sensors: " + analogIndex + "\r\n");
@@ -984,7 +1075,7 @@ namespace FirstWinFormsApp1
         private void passwordTextBox_TextChanged(object sender, EventArgs e)
         {
             // Get the password text from the TextBox control
-            string password = passwordTextBox.Text;
+            string password = passwordTextBoxcon.Text;
 
             // Do something with the password text, such as validate it or store it securely
             // For example, you can check if the password meets certain requirements:
@@ -1037,10 +1128,7 @@ namespace FirstWinFormsApp1
             timerRedaScaled.Stop();
         }
 
-        private void textBoxIP_TextChanged(object sender, EventArgs e)
-        {
 
-        }
 
         private void MeasureTypeLabel_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -1054,6 +1142,7 @@ namespace FirstWinFormsApp1
 
             try
             {
+
                 // Connect to the server
                 client.Connect("127.0.0.1", 5000);
 
@@ -1093,13 +1182,14 @@ namespace FirstWinFormsApp1
 
         }
 
-        private void connectButton_Click(object sender, EventArgs e)
-        {
-            textBoxConnect.AppendText("Selected Com Port:  " + comboBoxComPort + "\r\n");
-            textBoxConnect.AppendText("Selected Baud Rate:  " + comboBoxBaudRate + "\r\n");
-        }
+
 
         private void textBoxConnect_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void passwordTextBox_TextChanged_1(object sender, EventArgs e)
         {
 
         }
