@@ -33,13 +33,13 @@
             System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
             System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
             System.Windows.Forms.DataVisualization.Charting.Title title1 = new System.Windows.Forms.DataVisualization.Charting.Title();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             printDialog1 = new PrintDialog();
             statusStrip1 = new StatusStrip();
             toolStripStatusLabel1 = new ToolStripStatusLabel();
             toolStrip1 = new ToolStrip();
             tabPage1 = new TabPage();
-            button2 = new Button();
-            textBox1 = new TextBox();
+            label16 = new Label();
             listBox_IpAddresses = new ListBox();
             tabPage2 = new TabPage();
             testButton = new Button();
@@ -157,8 +157,7 @@
             // 
             // tabPage1
             // 
-            tabPage1.Controls.Add(button2);
-            tabPage1.Controls.Add(textBox1);
+            tabPage1.Controls.Add(label16);
             tabPage1.Controls.Add(listBox_IpAddresses);
             tabPage1.Location = new Point(10, 58);
             tabPage1.Name = "tabPage1";
@@ -168,28 +167,20 @@
             tabPage1.Text = "Lists";
             tabPage1.UseVisualStyleBackColor = true;
             // 
-            // button2
+            // label16
             // 
-            button2.Location = new Point(751, 127);
-            button2.Name = "button2";
-            button2.Size = new Size(188, 58);
-            button2.TabIndex = 3;
-            button2.Text = "button2";
-            button2.UseVisualStyleBackColor = true;
-            // 
-            // textBox1
-            // 
-            textBox1.Location = new Point(975, 138);
-            textBox1.Multiline = true;
-            textBox1.Name = "textBox1";
-            textBox1.Size = new Size(250, 118);
-            textBox1.TabIndex = 2;
+            label16.AutoSize = true;
+            label16.Location = new Point(68, 60);
+            label16.Name = "label16";
+            label16.Size = new Size(191, 41);
+            label16.TabIndex = 2;
+            label16.Text = "Network Info";
             // 
             // listBox_IpAddresses
             // 
             listBox_IpAddresses.FormattingEnabled = true;
             listBox_IpAddresses.ItemHeight = 41;
-            listBox_IpAddresses.Location = new Point(20, 22);
+            listBox_IpAddresses.Location = new Point(47, 133);
             listBox_IpAddresses.Name = "listBox_IpAddresses";
             listBox_IpAddresses.Size = new Size(557, 701);
             listBox_IpAddresses.TabIndex = 1;
@@ -365,7 +356,7 @@
             textBoxPort.Name = "textBoxPort";
             textBoxPort.Size = new Size(373, 47);
             textBoxPort.TabIndex = 2;
-            textBoxPort.Text = "5000";
+            textBoxPort.Text = "\r\n";
             // 
             // textBoxIP
             // 
@@ -374,7 +365,7 @@
             textBoxIP.Name = "textBoxIP";
             textBoxIP.Size = new Size(378, 47);
             textBoxIP.TabIndex = 1;
-            textBoxIP.Text = "127.0.0.1";
+            textBoxIP.Text = "\r\n\r\n";
             // 
             // buttonSend
             // 
@@ -426,12 +417,13 @@
             Sensor_Data.Size = new Size(2329, 997);
             Sensor_Data.TabIndex = 0;
             Sensor_Data.Text = "Sensor Data";
+            Sensor_Data.Click += Sensor_Data_Click;
             // 
             // clearButton
             // 
-            clearButton.Location = new Point(1543, 915);
+            clearButton.Location = new Point(1513, 915);
             clearButton.Name = "clearButton";
-            clearButton.Size = new Size(335, 58);
+            clearButton.Size = new Size(365, 58);
             clearButton.TabIndex = 30;
             clearButton.Text = "Clear";
             clearButton.UseVisualStyleBackColor = true;
@@ -469,9 +461,9 @@
             // 
             // saveFileButton
             // 
-            saveFileButton.Location = new Point(1543, 711);
+            saveFileButton.Location = new Point(1513, 711);
             saveFileButton.Name = "saveFileButton";
-            saveFileButton.Size = new Size(335, 58);
+            saveFileButton.Size = new Size(365, 58);
             saveFileButton.TabIndex = 17;
             saveFileButton.Text = "Save File";
             saveFileButton.UseVisualStyleBackColor = true;
@@ -490,10 +482,10 @@
             // 
             // buttonOpenFile
             // 
-            buttonOpenFile.Location = new Point(1543, 813);
+            buttonOpenFile.Location = new Point(1513, 813);
             buttonOpenFile.Margin = new Padding(2, 3, 2, 3);
             buttonOpenFile.Name = "buttonOpenFile";
-            buttonOpenFile.Size = new Size(335, 57);
+            buttonOpenFile.Size = new Size(365, 57);
             buttonOpenFile.TabIndex = 18;
             buttonOpenFile.Text = "Open File";
             buttonOpenFile.UseVisualStyleBackColor = true;
@@ -501,6 +493,7 @@
             // 
             // panelRange
             // 
+            panelRange.BackColor = Color.Snow;
             panelRange.Controls.Add(label15);
             panelRange.Controls.Add(label14);
             panelRange.Controls.Add(textBoxAlarmLow);
@@ -513,7 +506,7 @@
             panelRange.Controls.Add(label10);
             panelRange.Location = new Point(815, 22);
             panelRange.Name = "panelRange";
-            panelRange.Size = new Size(620, 385);
+            panelRange.Size = new Size(620, 747);
             panelRange.TabIndex = 4;
             // 
             // label15
@@ -599,10 +592,10 @@
             // 
             // buttonSummary
             // 
-            buttonSummary.Location = new Point(1917, 796);
+            buttonSummary.Location = new Point(1930, 796);
             buttonSummary.Margin = new Padding(2, 3, 2, 3);
             buttonSummary.Name = "buttonSummary";
-            buttonSummary.Size = new Size(380, 57);
+            buttonSummary.Size = new Size(367, 57);
             buttonSummary.TabIndex = 19;
             buttonSummary.Text = "SUMMARY";
             buttonSummary.UseVisualStyleBackColor = true;
@@ -950,6 +943,7 @@
             Controls.Add(toolStrip1);
             Controls.Add(statusStrip1);
             Controls.Add(menuStrip1);
+            Icon = (Icon)resources.GetObject("$this.Icon");
             KeyPreview = true;
             MainMenuStrip = menuStrip1;
             Margin = new Padding(2, 3, 2, 3);
@@ -1036,8 +1030,6 @@
         private OpenFileDialog openFileDialog1;
         private Button saveFileButton;
         private TextBox textBoxSend;
-        private Button button2;
-        private TextBox textBox1;
         private Label label15;
         private Label label14;
         private TextBox textBoxAlarmLow;
@@ -1063,5 +1055,6 @@
         private Button disconnectButtonAddXY;
         private Button testButton;
         private TextBox textBoxChart;
+        private Label label16;
     }
 }

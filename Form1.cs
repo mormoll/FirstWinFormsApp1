@@ -59,6 +59,8 @@ namespace FirstWinFormsApp1
 
         List<Instrument> instrumentList = new List<Instrument>();
 
+        private List<string> previousInstrumentNames;
+
 
 
 
@@ -714,17 +716,34 @@ namespace FirstWinFormsApp1
         private void comboBoxInstrumentName_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (comboBoxInstrumentName.SelectedIndex > -1)
-                if (comboBoxInstrumentName.SelectedIndex > -1)
-                {
-                    bool fountInstrumet = false;
-                    instrumentList.ForEach(delegate (Instrument instrument)
-                    {
+            {
+                bool foundInstrument = false;
+                string selectedInstrumentName = comboBoxInstrumentName.SelectedItem.ToString();
 
-                    });
+                // Check if the selected instrument name is in the previous instrument names
+                foreach (string instrumentName in previousInstrumentNames)
+                {
+                    if (instrumentName == selectedInstrumentName)
+                    {
+                        foundInstrument = true;
+                        break;
+                    }
                 }
+
+                if (foundInstrument)
+                {
+                    // Reload the instrument names from the previous instrument names list
+                    comboBoxInstrumentName.Items.Clear();
+                    comboBoxInstrumentName.Items.AddRange(previousInstrumentNames.ToArray());
+                }
+                else
+                {
+                    // Do something else
+                }
+            }
         }
 
-        private void button2_Click_2(object sender, EventArgs e)
+        /*private void button2_Click_2(object sender, EventArgs e)
         {
             string[] weekEnd = new string[2];
 
@@ -743,7 +762,7 @@ namespace FirstWinFormsApp1
 
 
 
-        }
+        }*/
 
         private void groupBox1_Enter(object sender, EventArgs e)
         {
@@ -965,7 +984,7 @@ namespace FirstWinFormsApp1
 
         private void timer1_Tick(object sender, EventArgs e)
         {
-            xTimeValue++;
+            xTimeValue += 5;
             double yValue = 0.0;
             string received;
 
@@ -1069,6 +1088,7 @@ namespace FirstWinFormsApp1
         private void registerButton_Click(object sender, EventArgs e)
         {
             RegisterNewSensor();
+
         }
 
 
@@ -1078,6 +1098,42 @@ namespace FirstWinFormsApp1
         private void clearButton_Click(object sender, EventArgs e)
         {
             textBoxRegister.Clear();
+
+            // Save values from controls to variables
+            string instrumentName = comboBoxInstrumentName.Text;
+            string serialNumber = SerialNumberLabel.Text;
+            bool isRegistered = checkBox1Registerd.Checked;
+            DateTime registrationDate = dateTimePicker1Label.Value;
+            string signalType = SignalTypeLabel.Text;
+            string measureType = MeasureTypeLabel.Text;
+            string options = TextBoxOptions.Text;
+            string comments = CommentsTextLabel.Text;
+            double lrv = double.Parse(textBoxLRV.Text);
+            double urv = double.Parse(textBoxURV.Text);
+            string unit = textBoxUnit.Text;
+            double alarmHigh = double.Parse(textBoxAlarmHigh.Text);
+            double alarmLow = double.Parse(textBoxAlarmLow.Text);
+
+            // Save variables to file or database
+            // ...
+
+            // Display success message
+            MessageBox.Show("Sensor registered successfully.");
+
+            // Clear controls
+            comboBoxInstrumentName.SelectedIndex = -1;
+            SerialNumberLabel.Text = "";
+            checkBox1Registerd.Checked = false;
+            dateTimePicker1Label.Value = DateTime.Now;
+            SignalTypeLabel.Text = "";
+            MeasureTypeLabel.Text = "";
+            TextBoxOptions.Text = "";
+            CommentsTextLabel.Text = "";
+            textBoxLRV.Text = "";
+            textBoxURV.Text = "";
+            textBoxUnit.Text = "";
+            textBoxAlarmHigh.Text = "";
+            textBoxAlarmLow.Text = "";
         }
 
         /*
@@ -1185,6 +1241,11 @@ namespace FirstWinFormsApp1
         private void dateTimePicker1Label_ValueChanged(object sender, EventArgs e)
         {
             toolStripStatusLabel1.Text = "Date/Time";
+        }
+
+        private void Sensor_Data_Click(object sender, EventArgs e)
+        {
+
         }
 
 
