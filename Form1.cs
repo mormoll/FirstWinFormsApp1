@@ -148,7 +148,7 @@ namespace FirstWinFormsApp1
                 if (address.AddressFamily == AddressFamily.InterNetwork)
                 {
                     listBox_IpAddresses.Items.Add(address.ToString());
-                    
+
                 }
             }
         }
@@ -722,6 +722,15 @@ namespace FirstWinFormsApp1
 
         private void comboBoxInstrumentName_SelectedIndexChanged(object sender, EventArgs e)
         {
+            if (comboBoxInstrumentName.SelectedIndex > -1)
+                if (comboBoxInstrumentName.SelectedIndex > -1)
+                {
+                    bool fountInstrumet = false;
+                    instrumentList.ForEach(delegate (Instrument instrument)
+                    {
+
+                    });
+                }
         }
 
         private void button2_Click_2(object sender, EventArgs e)
@@ -965,7 +974,7 @@ namespace FirstWinFormsApp1
 
         private void timer1_Tick(object sender, EventArgs e)
         {
-            xTimeValue+=5;
+            xTimeValue += 5;
             double yValue = 0.0;
             string received;
 
@@ -1127,7 +1136,7 @@ namespace FirstWinFormsApp1
 
         private void testButton_Click(object sender, EventArgs e)
         {
-            
+
             IPEndPoint endPoint = new IPEndPoint(IPAddress.Parse(textBoxIP.Text), Convert.ToInt32(textBoxPort.Text));
             Socket client = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
 
@@ -1166,7 +1175,7 @@ namespace FirstWinFormsApp1
                 client.Close();
             }
         }
-        
+
 
         private void checkBoxStayConnected_CheckedChanged(object sender, EventArgs e)
         {

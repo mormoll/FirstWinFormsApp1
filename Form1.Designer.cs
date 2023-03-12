@@ -38,8 +38,6 @@
             toolStripStatusLabel1 = new ToolStripStatusLabel();
             toolStrip1 = new ToolStrip();
             tabPage1 = new TabPage();
-            button2 = new Button();
-            textBox1 = new TextBox();
             listBox_IpAddresses = new ListBox();
             tabPage2 = new TabPage();
             testButton = new Button();
@@ -157,8 +155,6 @@
             // 
             // tabPage1
             // 
-            tabPage1.Controls.Add(button2);
-            tabPage1.Controls.Add(textBox1);
             tabPage1.Controls.Add(listBox_IpAddresses);
             tabPage1.Location = new Point(10, 58);
             tabPage1.Name = "tabPage1";
@@ -167,23 +163,6 @@
             tabPage1.TabIndex = 2;
             tabPage1.Text = "Lists";
             tabPage1.UseVisualStyleBackColor = true;
-            // 
-            // button2
-            // 
-            button2.Location = new Point(751, 127);
-            button2.Name = "button2";
-            button2.Size = new Size(188, 58);
-            button2.TabIndex = 3;
-            button2.Text = "button2";
-            button2.UseVisualStyleBackColor = true;
-            // 
-            // textBox1
-            // 
-            textBox1.Location = new Point(975, 138);
-            textBox1.Multiline = true;
-            textBox1.Name = "textBox1";
-            textBox1.Size = new Size(250, 118);
-            textBox1.TabIndex = 2;
             // 
             // listBox_IpAddresses
             // 
@@ -962,7 +941,6 @@
             statusStrip1.ResumeLayout(false);
             statusStrip1.PerformLayout();
             tabPage1.ResumeLayout(false);
-            tabPage1.PerformLayout();
             tabPage2.ResumeLayout(false);
             tabPage2.PerformLayout();
             Sensor_Data.ResumeLayout(false);
@@ -1037,8 +1015,6 @@
         private OpenFileDialog openFileDialog1;
         private Button saveFileButton;
         private TextBox textBoxSend;
-        private Button button2;
-        private TextBox textBox1;
         private Label label15;
         private Label label14;
         private TextBox textBoxAlarmLow;
