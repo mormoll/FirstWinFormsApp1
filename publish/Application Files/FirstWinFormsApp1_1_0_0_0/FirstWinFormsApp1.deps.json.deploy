@@ -1,0 +1,45 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v6.0",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v6.0": {
+      "FirstWinFormsApp1/1.0.0": {
+        "dependencies": {
+          "WinForms.DataVisualization": "1.7.0"
+        },
+        "runtime": {
+          "FirstWinFormsApp1.dll": {}
+        }
+      },
+      "WinForms.DataVisualization/1.7.0": {
+        "runtime": {
+          "lib/net6.0-windows7.0/WinForms.DataVisualization.Utilities.dll": {
+            "assemblyVersion": "1.0.0.0",
+            "fileVersion": "1.7.0.0"
+          },
+          "lib/net6.0-windows7.0/WinForms.DataVisualization.dll": {
+            "assemblyVersion": "1.0.0.0",
+            "fileVersion": "1.7.0.0"
+          }
+        }
+      }
+    }
+  },
+  "libraries": {
+    "FirstWinFormsApp1/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "WinForms.DataVisualization/1.7.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-ws9wkGa3df+Bij7mvXdm73WrijAi+3rA8hrMfANZqAkhwqlCfSWaFo+xNsnOzyDLCaPNrQ/fkq1/HAWuEpUiTA==",
+      "path": "winforms.datavisualization/1.7.0",
+      "hashPath": "winforms.datavisualization.1.7.0.nupkg.sha512"
+    }
+  }
+}
