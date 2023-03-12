@@ -110,6 +110,7 @@
             aboutToolStripMenuItem = new ToolStripMenuItem();
             openFileDialog1 = new OpenFileDialog();
             timerRedaScaled = new System.Windows.Forms.Timer(components);
+            label16 = new Label();
             statusStrip1.SuspendLayout();
             tabPage1.SuspendLayout();
             tabPage2.SuspendLayout();
@@ -155,6 +156,7 @@
             // 
             // tabPage1
             // 
+            tabPage1.Controls.Add(label16);
             tabPage1.Controls.Add(listBox_IpAddresses);
             tabPage1.Location = new Point(10, 58);
             tabPage1.Name = "tabPage1";
@@ -168,11 +170,10 @@
             // 
             listBox_IpAddresses.FormattingEnabled = true;
             listBox_IpAddresses.ItemHeight = 41;
-            listBox_IpAddresses.Location = new Point(20, 22);
+            listBox_IpAddresses.Location = new Point(18, 107);
             listBox_IpAddresses.Name = "listBox_IpAddresses";
             listBox_IpAddresses.Size = new Size(557, 701);
             listBox_IpAddresses.TabIndex = 1;
-            listBox_IpAddresses.SelectedIndexChanged += listBox_IpAddresses_SelectedIndexChanged;
             // 
             // tabPage2
             // 
@@ -228,7 +229,6 @@
             comboBoxComPort.Name = "comboBoxComPort";
             comboBoxComPort.Size = new Size(302, 49);
             comboBoxComPort.TabIndex = 10;
-            comboBoxComPort.SelectedIndexChanged += comboBoxComPort_SelectedIndexChanged;
             // 
             // label20
             // 
@@ -326,7 +326,6 @@
             checkBoxStayConnected.TabIndex = 5;
             checkBoxStayConnected.Text = "Stay Connected";
             checkBoxStayConnected.UseVisualStyleBackColor = true;
-            checkBoxStayConnected.CheckedChanged += checkBoxStayConnected_CheckedChanged;
             // 
             // textBoxCommunication
             // 
@@ -344,7 +343,6 @@
             textBoxPort.Name = "textBoxPort";
             textBoxPort.Size = new Size(373, 47);
             textBoxPort.TabIndex = 2;
-            textBoxPort.Text = "5000";
             // 
             // textBoxIP
             // 
@@ -353,8 +351,6 @@
             textBoxIP.Name = "textBoxIP";
             textBoxIP.Size = new Size(378, 47);
             textBoxIP.TabIndex = 1;
-            textBoxIP.Text = "127.0.0.1";
-            textBoxIP.TextChanged += textBoxIP_TextChanged;
             // 
             // buttonSend
             // 
@@ -541,7 +537,6 @@
             textBoxLRV.Name = "textBoxLRV";
             textBoxLRV.Size = new Size(250, 47);
             textBoxLRV.TabIndex = 9;
-            textBoxLRV.MaskInputRejected += textBoxLRV_MaskInputRejected;
             // 
             // textBoxUnit
             // 
@@ -629,7 +624,6 @@
             textBoxRegister.ReadOnly = true;
             textBoxRegister.Size = new Size(380, 665);
             textBoxRegister.TabIndex = 9;
-            textBoxRegister.TextChanged += textBoxRegister_TextChanged;
             // 
             // CommentsTextLabel
             // 
@@ -658,7 +652,6 @@
             MeasureTypeLabel.Name = "MeasureTypeLabel";
             MeasureTypeLabel.Size = new Size(503, 49);
             MeasureTypeLabel.TabIndex = 6;
-            MeasureTypeLabel.SelectedIndexChanged += MeasureTypeLabel_SelectedIndexChanged;
             // 
             // TextBoxOptions
             // 
@@ -880,7 +873,6 @@
             chart1.Text = "chart1";
             title1.Name = "Ligth Value";
             chart1.Titles.Add(title1);
-            chart1.Click += chart1_Click;
             // 
             // menuStrip1
             // 
@@ -921,6 +913,15 @@
             timerRedaScaled.Interval = 5000;
             timerRedaScaled.Tick += timer1_Tick;
             // 
+            // label16
+            // 
+            label16.AutoSize = true;
+            label16.Location = new Point(107, 37);
+            label16.Name = "label16";
+            label16.Size = new Size(285, 41);
+            label16.TabIndex = 2;
+            label16.Text = "Networkinformation";
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(17F, 41F);
@@ -941,6 +942,7 @@
             statusStrip1.ResumeLayout(false);
             statusStrip1.PerformLayout();
             tabPage1.ResumeLayout(false);
+            tabPage1.PerformLayout();
             tabPage2.ResumeLayout(false);
             tabPage2.PerformLayout();
             Sensor_Data.ResumeLayout(false);
@@ -1040,5 +1042,6 @@
         private Button disconnectButtonAddXY;
         private Button testButton;
         private TextBox textBoxChart;
+        private Label label16;
     }
 }
