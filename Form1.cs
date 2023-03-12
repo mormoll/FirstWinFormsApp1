@@ -148,6 +148,7 @@ namespace FirstWinFormsApp1
                 if (address.AddressFamily == AddressFamily.InterNetwork)
                 {
                     listBox_IpAddresses.Items.Add(address.ToString());
+                    
                 }
             }
         }
@@ -643,9 +644,17 @@ namespace FirstWinFormsApp1
                 StreamWriter outputFile = new StreamWriter("register.csv");
                 outputFile.Write(textBoxRegister.Text);
                 outputFile.Close();
+                //updatecomboBox_InstrumentList();
             }
         }
 
+        /*  private void updatecomboBox_InstrumentList()
+          {
+              comboBoxInstrumentName.Items.Clear();
+              comboBoxInstrumentName.Items.AddRange(Instrument.ToString().ToArray());
+              comboBoxInstrumentName.DropDownHeight = comboBox_InstrumentList.ItemHeight * comboBox_InstrumentList.Items.Count;
+              comboBoxInstrumentName.DisplayMember = "SensorName";
+          }*/
 
 
 
@@ -713,15 +722,6 @@ namespace FirstWinFormsApp1
 
         private void comboBoxInstrumentName_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (comboBoxInstrumentName.SelectedIndex > -1)
-                if (comboBoxInstrumentName.SelectedIndex > -1)
-                {
-                    bool fountInstrumet = false;
-                    instrumentList.ForEach(delegate (Instrument instrument)
-                    {
-
-                    });
-                }
         }
 
         private void button2_Click_2(object sender, EventArgs e)
@@ -965,7 +965,7 @@ namespace FirstWinFormsApp1
 
         private void timer1_Tick(object sender, EventArgs e)
         {
-            xTimeValue++;
+            xTimeValue+=5;
             double yValue = 0.0;
             string received;
 
@@ -1127,22 +1127,22 @@ namespace FirstWinFormsApp1
 
         private void testButton_Click(object sender, EventArgs e)
         {
-            //client socket
-            TcpClient client = new TcpClient();
+            
+            IPEndPoint endPoint = new IPEndPoint(IPAddress.Parse(textBoxIP.Text), Convert.ToInt32(textBoxPort.Text));
+            Socket client = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
 
             try
             {
-
                 // Connect to the server
-                client.Connect("127.0.0.1", 5000);
+                client.Connect(endPoint);
 
                 // Send a command to get the available COM ports
                 byte[] sendBuffer = Encoding.ASCII.GetBytes("comports");
-                client.GetStream().Write(sendBuffer, 0, sendBuffer.Length);
+                client.Send(sendBuffer);
 
                 // Receive the COM port list from the server
                 byte[] receiveBuffer = new byte[1024];
-                int bytesRead = client.GetStream().Read(receiveBuffer, 0, receiveBuffer.Length);
+                int bytesRead = client.Receive(receiveBuffer);
                 string comPortString = Encoding.ASCII.GetString(receiveBuffer, 0, bytesRead);
 
                 // Split the COM port list at the semicolon delimiter
@@ -1166,6 +1166,7 @@ namespace FirstWinFormsApp1
                 client.Close();
             }
         }
+        
 
         private void checkBoxStayConnected_CheckedChanged(object sender, EventArgs e)
         {
@@ -1187,7 +1188,7 @@ namespace FirstWinFormsApp1
             toolStripStatusLabel1.Text = "Date/Time";
         }
 
-<<<<<<< HEAD
+
         private void Sensor_Data_Click(object sender, EventArgs e)
         {
 
@@ -1197,9 +1198,6 @@ namespace FirstWinFormsApp1
         {
 
         }
-
-=======
->>>>>>> parent of 541e30f (12.03)
 
 
 

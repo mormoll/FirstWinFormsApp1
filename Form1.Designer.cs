@@ -374,12 +374,8 @@
             textBoxIP.Name = "textBoxIP";
             textBoxIP.Size = new Size(378, 47);
             textBoxIP.TabIndex = 1;
-<<<<<<< HEAD
-            textBoxIP.Text = "\r\n\r\n";
-            textBoxIP.TextChanged += textBoxIP_TextChanged;
-=======
             textBoxIP.Text = "127.0.0.1";
->>>>>>> parent of 541e30f (12.03)
+            textBoxIP.TextChanged += textBoxIP_TextChanged;
             // 
             // buttonSend
             // 

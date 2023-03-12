@@ -88,6 +88,32 @@ namespace FirstWinFormsApp1
             this.Unit = unit;
 
         }
+         /*
+
+        public void CreateInstrument(
+                                string sensorName,
+                                string serialNumber,
+                                string signalType,
+                                string measureType,
+                                string options,
+                                string lrv,
+                                string urv,
+                                string comment)
+        {
+            Instrument newInstrument = new Instrument()
+            {
+                SensorName = sensorName,
+                SerialNumber = serialNumber,
+                SignalType = signalType,
+                MeasureType = measureType,
+                Options = options,
+                LRV = lrv,
+                URV = urv,
+                Comment = comment
+            };
+
+            InstrumentList.Add(newInstrument);
+        }
 
         public double Span()
         {
@@ -113,7 +139,7 @@ namespace FirstWinFormsApp1
 
 
 
-
+*/
     }
 }
 
