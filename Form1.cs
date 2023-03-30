@@ -10,10 +10,15 @@ using System.Reflection.Metadata;
 using System.Text;
 using System.Windows.Forms;
 using System.Windows.Forms.DataVisualization.Charting;
+using System.Configuration;
+using System.Data;
+using Microsoft.Data.SqlClient;
+using System.Collections.Specialized;
 using static System.Net.Mime.MediaTypeNames;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.ToolBar;
-
+using System.Web;
+using System.Collections.Generic;
 
 namespace FirstWinFormsApp1
 {
@@ -24,7 +29,7 @@ namespace FirstWinFormsApp1
         //Constans
 
         readonly int[] numbers = new int[7] { 5, 3, 7, 25, 65, 32, 43 };
-        string[] analogSignals = new string[] { "0-5DC", "0-10VDC", "0-20mA", "4-20mA", "RTD" };
+        string[] analogSignals = new string[] { "0-5VDC", "0-10VDC", "0-20mA", "4-20mA", "RTD" };
         string[] digitalSignals = new string[] { "5VDC", "10VDC0", "24VDC", "Relay" };
         string[] fieldbusSigals = new string[] { "Modbus RTU", "ModbusTCP", "Profibus", "ProfiNet", "CANBus", "ErherCat", "RS48" };
 
@@ -45,7 +50,7 @@ namespace FirstWinFormsApp1
         // Declare SerialPort as a static variable
         //static SerialPort = serialPort;
 
-        string fileNameInstrumentList = " ";
+        string fileNameInstrumentList = "instrumentList.csv";
         //string[] ComPorts = System.IO.Ports.SerialPort.GetPortNames();
         //Font boldFont = new Font("Calibri", 10, FontStyle.Bold);
         //Font regularFont = new Font("Calibri"), 10, FontStyle.Regular);
@@ -59,7 +64,7 @@ namespace FirstWinFormsApp1
 
         List<Instrument> instrumentList = new List<Instrument>();
 
-
+        string connectionString;
 
 
         private void Form_Load(object sender, EventArgs e)
@@ -69,19 +74,14 @@ namespace FirstWinFormsApp1
             panelRange.Visible = false;
             SignalTypeLabel.SelectedIndex = 0;
 
-
-
-            //Load instrument.csv file
-            string instrumentLine = "";
-            string[] instrumentLineParts;
-            var inputFile = new StreamReader(File.OpenRead(fileNameInstrumentList));
-
-            if (inputFile != null)
+            // Load instrumentList.csv file
+            string instrumentListFile = "instrumentList.csv";
+            if (File.Exists(instrumentListFile))
             {
-                while (inputFile.EndOfStream)
+                string[] instrumentListLines = File.ReadAllLines(instrumentListFile);
+                foreach (string instrumentLine in instrumentListLines)
                 {
-                    instrumentLine = inputFile.ReadLine();
-                    instrumentLineParts = instrumentLine.Split(';');
+                    string[] instrumentLineParts = instrumentLine.Split(';');
 
                     Instrument instrument = new Instrument(instrumentLineParts[0],
                                                            instrumentLineParts[1],
@@ -98,18 +98,46 @@ namespace FirstWinFormsApp1
                     comboBoxInstrumentName.Items.Add(instrumentLineParts[1]);
 
                     textBoxRegister.Text = instrument.ToString();
-
-
                 }
             }
-            inputFile.Close();
 
+            try
+            {
+                ImportToComboBox(comboBoxSenorName, "InstrumentSet", "InstrumentName");
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString());
+            }
+
+            // Reload previous sensor names
+            string sensorNamesFile = "instrumentList.csv";
+            if (File.Exists(sensorNamesFile))
+            {
+                string[] sensorNames = File.ReadAllLines(sensorNamesFile);
+                foreach (string sensorName in sensorNames)
+                {
+                    comboBoxInstrumentName.Items.Add(sensorName);
+                }
+            }
+
+            // Save instrument list to file
+            using (var outputFile = new StreamWriter(instrumentListFile))
+            {
+                foreach (Instrument instrument in instrumentList)
+                {
+                    outputFile.WriteLine(instrument.ToString());
+                }
+            }
         }
         public Form1()
         {
 
 
             InitializeComponent();
+
+
+            connectionString = ConfigurationManager.ConnectionStrings["instrumentConfDB"].ConnectionString;
 
             IPAddress[] addresslist = Dns.GetHostAddresses(Dns.GetHostName());
             foreach (IPAddress address in addresslist)
@@ -132,14 +160,7 @@ namespace FirstWinFormsApp1
 
             textBoxRegister.AppendText("" + "\r\n");
 
-            //textBoxRegister.AppendText("" + textbox1SensorName.Text + "");
-            //textBoxRegister.AppendText("" + MaskedSerialNumberLabel.Text + "");
-            //textBoxRegister.AppendText("" + checkBox1Registerd.CheckState + "");
-            //textBoxRegister.AppendText("" + dateTimePicker1Label.Text + "");
-            //textBoxRegister.AppendText("" + comboSignalTypeLabel.Text +"");
-            //textBoxRegister.AppendText("" + listBox1.Text + "");
-            //textBoxRegister.AppendText("" + comboSignalTypeLabel.Text +"" );
-            //SensorNameTextLabel.Text = "";
+
             SerialNumberLabel.Text = "";
             comboBoxInstrumentName.Text = "";
             dateTimePicker1Label.Value = DateTime.Now;
@@ -154,6 +175,7 @@ namespace FirstWinFormsApp1
             textBoxAlarmHigh.Text = "";
             textBoxAlarmLow.Text = "";
             CommentsTextLabel.Text = "";
+            comboBoxSenorName.Text = "";
         }
 
         private void TextboxRegisterText()
@@ -308,11 +330,8 @@ namespace FirstWinFormsApp1
                 textBoxRegister.AppendText("Span Value: " + spanValue + "\r\n");
                 textBoxRegister.AppendText("Alarm High: " + textBoxAlarmHigh.Text + "\r\n");
                 textBoxRegister.AppendText("Alarm Low: " + textBoxAlarmLow.Text + "\r\n");
-                ClearForm();
-                /*else 
-                {
-                    MessageBox.Show("Range not correct!");
-                }*/
+
+
 
 
             }
@@ -338,7 +357,8 @@ namespace FirstWinFormsApp1
 
                 instrumentList.Add(instrument);
                 textBoxRegister.AppendText(instrument.ToString());
-                ClearForm();
+
+
             }
             if (SignalTypeLabel.Text == "Fieldbus")
             {
@@ -360,11 +380,91 @@ namespace FirstWinFormsApp1
 
                 instrumentList.Add(instrument);
                 textBoxRegister.AppendText(instrument.ToString());
-                ClearForm();
-            }            
+
+
+            }
+
+            InstrumentSQL();
+            InstrumentSQLProcedure();
+            //ImportToComboBox(System.Windows.Forms.ComboBox cbToFill, string tableName, string dbVariable);
+            ClearForm();
+        }
+        private void InstrumentSQLProcedure()
+        {
+            SqlConnection sqlConnection = new SqlConnection(connectionString);
+
+            try
+            {
+                SqlCommand cmd = new SqlCommand("InsertNewInstrumentWithRange", sqlConnection);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("@InstrumentName", comboBoxSenorName.Text);
+                cmd.Parameters.AddWithValue("@RegisterDate", DateTime.Now);
+                cmd.Parameters.AddWithValue("SerialNo", SerialNumberLabel.Text);
+                cmd.Parameters.AddWithValue("@Comments", CommentsTextLabel.Text);
+                cmd.Parameters.AddWithValue("@SignaType_Signal_id", 2);
+                cmd.Parameters.AddWithValue("@MeasurementType_MeasuremntTypeId", 7);
+                cmd.Parameters.AddWithValue("@Lrv", textBoxLRV.Text);
+                cmd.Parameters.AddWithValue("@Urv", textBoxURV.Text);
+                cmd.Parameters.AddWithValue("@AlarmHigh", textBoxAlarmHigh.Text);
+                cmd.Parameters.AddWithValue("@AlarmLow", textBoxAlarmLow.Text);
+
+                sqlConnection.Open();
+                cmd.ExecuteNonQuery();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+
+
+        }
+        private void InstrumentSQL()
+        {
+            SqlConnection sqlConnection = new SqlConnection(connectionString);
+            string InsertRangeQuery = "INSERT INTO AnalogRangeSet (Lrv, Urv, AlarmHigh, AlarmLow)"
+                                    + "Values(@lrv, @urv, @alarmH, @alarmL); SELECT SCOPE_IDENTITY();";
+
+            string insertInstrumentQuery = "INSERT INTO InstrumentSet(InstrumentName, RegisterDate, "
+                                          + "SerialNo, Comments, SignaType_Signal_id, "
+                                          + "MeasurementType_MeasuremntTypeID, AnalogRange_RangeId) "
+                                          + "VALUES (@InstrumentName, GETDATE(), @SerialNo, @Comment, "
+                                          + "@SignaType_Signal_id, @MeasurementType_MeasuremntTypeID, @RangeId);";
+
+            string lrv = textBoxLRV.Text;
+            string urv = textBoxURV.Text;
+            string alarmH = textBoxAlarmHigh.Text;
+            string alarmL = textBoxAlarmLow.Text;
+            string instrumentName = comboBoxSenorName.Text;
+            string serialNo = SerialNumberLabel.Text;
+            string comment = CommentsTextLabel.Text;
+            int signalType = 2;
+            int measurementType = 7;
+
+            //Insert Range Command
+            sqlConnection.Open();
+
+            SqlCommand command = new SqlCommand(InsertRangeQuery, sqlConnection);
+
+            command.Parameters.AddWithValue("@lrv", lrv);
+            command.Parameters.AddWithValue("@urv", urv);
+            command.Parameters.AddWithValue("@alarmH", alarmH);
+            command.Parameters.AddWithValue("@alarmL", alarmL);
+            int RangeId = Convert.ToInt32(command.ExecuteScalar());
+
+            //Insert Instrument Command
+            SqlCommand command2 = new SqlCommand(insertInstrumentQuery, sqlConnection);
+            command2.Parameters.AddWithValue("@instrumentName", instrumentName);
+            command2.Parameters.AddWithValue("@serialNo", serialNo);
+            command2.Parameters.AddWithValue("@comment", comment);
+            command2.Parameters.AddWithValue("@SignaType_Signal_id", signalType);
+            command2.Parameters.AddWithValue("@MeasurementType_MeasuremntTypeID", measurementType);
+            command2.Parameters.AddWithValue("@RangeId", RangeId);
+            command2.ExecuteNonQuery();
+            sqlConnection.Close();
+
+
         }
 
- 
 
         private void button2_Click(object sender, EventArgs e)
         {
@@ -451,15 +551,55 @@ namespace FirstWinFormsApp1
 
         private void comboBoxInstrumentName_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (comboBoxInstrumentName.SelectedIndex > -1)
+            {
                 if (comboBoxInstrumentName.SelectedIndex > -1)
-                {
-                    bool fountInstrumet = false;
-                    instrumentList.ForEach(delegate (Instrument instrument)
+                    if (comboBoxInstrumentName.SelectedIndex > -1)
                     {
+                        bool fountInstrumet = false;
+                        instrumentList.ForEach(delegate (Instrument instrument)
+                        {
 
-                    });
+                        });
+                    }
+            }
+
+            if (comboBoxInstrumentName.SelectedIndex > -1)
+            {
+                bool foundInstrument = false;
+                instrumentList.ForEach(delegate (Instrument instrument)
+                {
+                    if (instrument.SensorName == comboBoxInstrumentName.Text)
+                    {
+                        foundInstrument = true;
+                        SerialNumberLabel.Text = instrument.SerialNumber;
+                        SignalTypeLabel.Text = instrument.SignalType;
+                        MeasureTypeLabel.Text = instrument.MeasureType;
+                        TextBoxOptions.Text = instrument.Options;
+                        CommentsTextLabel.Text = instrument.Comment;
+                        textBoxLRV.Text = Convert.ToString(instrument.LRV);
+                        textBoxURV.Text = Convert.ToString(instrument.URV);
+                        textBoxUnit.Text = instrument.Unit;
+
+                        // Create unique file with information from RegisterNewSensor
+                        string fileName = comboBoxInstrumentName.Text + "_" + DateTime.Now.ToString("yyyyMMddHHmmss") + ".txt";
+                        using (StreamWriter writer = new StreamWriter(fileName))
+                        {
+                            writer.WriteLine(instrument.ToString());
+                            writer.WriteLine("Span Value: " + (instrument.URV - instrument.LRV));
+                            writer.WriteLine("Alarm High: " + textBoxAlarmHigh.Text);
+                            writer.WriteLine("Alarm Low: " + textBoxAlarmLow.Text);
+                        }
+                        toolStripStatusLabel1.Text = "File created: " + fileName;
+
+                        //break;
+                    }
+                });
+
+                if (!foundInstrument)
+                {
+                    MessageBox.Show("Instrument not found.");
                 }
+            }
         }
 
         /*private void button2_Click_2(object sender, EventArgs e)
@@ -738,7 +878,18 @@ namespace FirstWinFormsApp1
 
         private void registerButton_Click(object sender, EventArgs e)
         {
-            RegisterNewSensor();
+            if (radioButton1.Checked)
+            {
+                RegisterNewSensor();
+            }
+            if (radioButton2.Checked)
+            {
+                //InstrumentSQL();
+                InstrumentSQLProcedure();
+            }
+
+
+
         }
 
 
@@ -824,8 +975,171 @@ namespace FirstWinFormsApp1
         {
             toolStripStatusLabel1.Text = "Date/Time";
         }
+
+        public void ImportToComboBox(System.Windows.Forms.ComboBox cbToFill, string tableName, string dbVariable)
+        {
+            SqlConnection sqlConnection = new SqlConnection(connectionString);
+            string sqlQuery = "SELECT " + dbVariable
+                            + " FROM " + tableName
+                            + " ORDER BY " + dbVariable
+                            + " ASC";
+            SqlCommand sqlCommand = new SqlCommand(sqlQuery, sqlConnection);
+            sqlConnection.Open();
+            SqlDataReader sqlDataReader = sqlCommand.ExecuteReader();
+            if (sqlDataReader.HasRows)
+            {
+                string sqlQueryResult;
+                while (sqlDataReader.Read())
+                {
+                    sqlQueryResult = sqlDataReader[0].ToString();
+                    cbToFill.Items.Add(sqlQueryResult);
+                }
+            }
+
+            sqlConnection.Close();
+        }
+
+        private void comboBoxInstrument_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void comboBoxInstrument_Click(object sender, EventArgs e)
+        {
+            //InstrumentSQL();
+        }
+
+        private void label5_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label6_Click(object sender, EventArgs e)
+        {
+
+        }
+
+
+
+        private void radioButton2_CheckedChanged(object sender, EventArgs e)
+        {
+
+            string sql = "SELECT * FROM InstrumentSet";
+            SqlConnection connection = new SqlConnection(connectionString);
+            //SqlConnection sqlConnection = new SqlConnection(connectionString);
+            try
+            {
+
+                SqlDataAdapter dataAdapter = new SqlDataAdapter(sql, connection);
+                DataSet dataSet = new DataSet();
+                dataSet.Tables.Add("Instruments");
+                dataAdapter.Fill(dataSet.Tables["Instruments"]);
+                bindingSourceInstrument.DataSource = dataSet.Tables["Instruments"];
+                comboBoxSenorName.DataSource = bindingSourceInstrument;
+                comboBoxSenorName.DisplayMember = "InstrumentName";
+                comboBoxSenorName.ValueMember = "Instrument_id";
+                SerialNumberLabel.DataBindings.Add(new Binding("Text", bindingSourceInstrument, "SerialNo"));
+                CommentsTextLabel.DataBindings.Add(new Binding("Text", bindingSourceInstrument, "Comments"));
+                dateTimePicker1Label.DataBindings.Add(new Binding("Value", bindingSourceInstrument, "RegisterDate"));
+                /*
+                SqlCommand cmd = new SqlCommand("InsertNewInstrumentWithRange", sqlConnection);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("@InstrumentName", comboBoxSenorName.Text);
+                cmd.Parameters.AddWithValue("@RegisterDate", DateTime.Now);
+                cmd.Parameters.AddWithValue("SerialNo",SerialNumberLabel.Text);
+                cmd.Parameters.AddWithValue("@Comments", CommentsTextLabel.Text);
+                cmd.Parameters.AddWithValue("@SignaType_Signal_id", 2);
+                cmd.Parameters.AddWithValue("@MeasurementType_MeasuremntTypeId", 7);
+                cmd.Parameters.AddWithValue("@Lrv", textBoxLRV.Text);
+                cmd.Parameters.AddWithValue("@Urv", textBoxURV.Text);
+                cmd.Parameters.AddWithValue("@AlarmHigh", textBoxAlarmHigh.Text);
+                cmd.Parameters.AddWithValue("@AlarmLow", textBoxAlarmLow.Text);
+
+                sqlConnection.Open();
+                cmd.ExecuteNonQuery();*/
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+
+
+
+        private void radioButton1_CheckedChanged(object sender, EventArgs e)
+        {
+            ClearForm();
+
+            if (radioButton1.Checked)
+
+            {
+                comboBoxInstrumentName.Visible = true;
+                comboBoxSenorName.Visible = false;
+            }
+            else
+            {
+                comboBoxInstrumentName.Visible = false;
+            }
+        }
+
+        private void radioButton2_CheckedChanged_1(object sender, EventArgs e)
+        {
+            ClearForm();
+            if (radioButton2.Checked)
+            {
+                comboBoxSenorName.Visible = true;
+                comboBoxInstrumentName.Visible = false;
+            }
+            else
+            {
+                comboBoxSenorName.Visible = false;
+            }
+        }
+
+        private void button1_Click_1(object sender, EventArgs e)
+        {
+            IEnumerable<double> instrumentListQuery =
+                from instrument in instrumentList
+                where instrument.SerialNumber.StartsWith('1')
+                select instrument.URV;
+
+            double average = instrumentListQuery.Count();
+            listBox_IpAddresses.Items.Add("Average URV:" + average.ToString());
+
+
+            foreach (double urv in instrumentListQuery)
+            {
+                listBox_IpAddresses.Items.Add(urv.ToString());
+            }
+
+
+            /*IEnumerable<string> analogSignalQuery = analogSignals
+                                .Where(analogSignal => analogSignal.StartsWith('0'))
+                                .OrderByDescending(analogSignal => analogSignal);
+                                
+                                
+
+            /*
+            IEnumerable<string> analogSignalQuery =
+                from analogSignal in analogSignals
+                where analogSignal.StartsWith('0')
+                orderby analogSignal descending
+                select analogSignal;
+            */
+            /*
+            foreach (string signal in analogSignalQuery)
+            {
+                listBox_IpAddresses.Items.Add(signal);
+            }
+            */
+
+
+        }
+
+
     }
-
-
-
 }
+
+
+
+
