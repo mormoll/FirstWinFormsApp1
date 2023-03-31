@@ -495,7 +495,7 @@
             // comboBoxSenorName
             // 
             comboBoxSenorName.FormattingEnabled = true;
-            comboBoxSenorName.Location = new Point(874, 93);
+            comboBoxSenorName.Location = new Point(872, 41);
             comboBoxSenorName.Margin = new Padding(2, 3, 2, 3);
             comboBoxSenorName.Name = "comboBoxSenorName";
             comboBoxSenorName.Size = new Size(492, 49);
