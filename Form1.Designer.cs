@@ -505,7 +505,7 @@
             // 
             // clearButton
             // 
-            clearButton.Location = new Point(15, 473);
+            clearButton.Location = new Point(40, 472);
             clearButton.Margin = new Padding(2, 3, 2, 3);
             clearButton.Name = "clearButton";
             clearButton.Size = new Size(335, 57);
