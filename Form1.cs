@@ -135,7 +135,8 @@ namespace FirstWinFormsApp1
 
 
             InitializeComponent();
-
+            comboBoxInstrumentName.Visible = false;
+            comboBoxSenorName.Visible = false;
 
             connectionString = ConfigurationManager.ConnectionStrings["instrumentConfDB"].ConnectionString;
 
@@ -303,6 +304,7 @@ namespace FirstWinFormsApp1
 
         private void RegisterNewSensor()
         {
+            /*
             toolStripStatusLabel1.Text = "OK";
             RegisterIndex++;
 
@@ -388,6 +390,98 @@ namespace FirstWinFormsApp1
             InstrumentSQLProcedure();
             //ImportToComboBox(System.Windows.Forms.ComboBox cbToFill, string tableName, string dbVariable);
             ClearForm();
+            */
+
+            toolStripStatusLabel1.Text = "OK";
+            RegisterIndex++;
+
+            if (SignalTypeLabel.Text == "Analog")
+            {
+                analogIndex++;
+
+                Instrument instrument = new Instrument(Convert.ToString(DateTime.Now) + "\r\n",
+                                                        comboBoxInstrumentName.Text + "\r\n",
+                                                        SerialNumberLabel.Text + "\r\n",
+                                                        SignalTypeLabel.Text + "\r\n",
+                                                        MeasureTypeLabel.Text + "\r\n",
+                                                        TextBoxOptions.Text + "\r\n",
+                                                        CommentsTextLabel.Text + "\r\n",
+                                                        lrvValue = Convert.ToDouble(textBoxLRV.Text),
+                                                        urvValue = Convert.ToDouble(textBoxURV.Text),
+                                                        textBoxUnit.Text + "\r\n");
+
+                spanValue = urvValue - lrvValue;
+                instrumentList.Add(instrument);
+                textBoxRegister.AppendText(instrument.ToString());
+                textBoxRegister.AppendText("Span Value: " + spanValue + "\r\n");
+                textBoxRegister.AppendText("Alarm High: " + textBoxAlarmHigh.Text + "\r\n");
+                textBoxRegister.AppendText("Alarm Low: " + textBoxAlarmLow.Text + "\r\n");
+
+                // save instrument data to file
+                string data = instrument.ToString() + "\r\n";
+                string path = @"C:\Users\morte\OneDrive\Dokumenter\Instruments\" + comboBoxInstrumentName.Text + ".txt";
+                File.AppendAllText(path, data);
+                //saveDataToFile();
+            }
+
+            if (SignalTypeLabel.Text == "Digital")
+            {
+                digitalIndex++;
+
+                Instrument instrument = new Instrument(Convert.ToString(DateTime.Now) + "\r\n",
+                                                        comboBoxInstrumentName.Text + "\r\n",
+                                                        SerialNumberLabel.Text + "\r\n",
+                                                        SignalTypeLabel.Text + "\r\n",
+                                                        MeasureTypeLabel.Text + "\r\n",
+                                                        TextBoxOptions.Text + "\r\n",
+                                                        CommentsTextLabel.Text + "\r\n",
+                                                        lrvValue,
+                                                        urvValue,
+                                                        textBoxUnit.Text + "\r\n");
+
+                instrumentList.Add(instrument);
+                textBoxRegister.AppendText(instrument.ToString());
+
+                // save instrument data to file
+                string data = instrument.ToString() + "\r\n";
+                string path = @"C:\Users\morte\OneDrive\Dokumenter\Instruments\" + comboBoxInstrumentName.Text + ".txt";
+                File.AppendAllText(path, data);
+                //saveDataToFile();
+            }
+
+            if (SignalTypeLabel.Text == "Fieldbus")
+            {
+                fieldbusIndex++;
+
+                Instrument instrument = new Instrument(Convert.ToString(DateTime.Now) + "\r\n",
+                                                        comboBoxInstrumentName.Text + "\r\n",
+                                                        SerialNumberLabel.Text + "\r\n",
+                                                        SignalTypeLabel.Text + "\r\n",
+                                                        MeasureTypeLabel.Text + "\r\n",
+                                                        TextBoxOptions.Text + "\r\n",
+                                                        CommentsTextLabel.Text + "\r\n",
+                                                        lrvValue,
+                                                        urvValue,
+                                                        textBoxUnit.Text + "\r\n");
+
+                instrumentList.Add(instrument);
+                textBoxRegister.AppendText(instrument.ToString());
+
+                // save instrument data to file
+                string data = instrument.ToString() + "\r\n";
+                string path = @"C:\Users\morte\OneDrive\Dokumenter\Instruments\" + comboBoxInstrumentName.Text + ".txt";
+                File.AppendAllText(path, data);
+                //saveDataToFile();
+            }
+
+            // check which radio button is checked before connecting to SQL server
+            if (radioButton2.Checked)
+            {
+                InstrumentSQL();
+                InstrumentSQLProcedure();
+            }
+
+            ClearForm();
         }
         private void InstrumentSQLProcedure()
         {
@@ -464,7 +558,36 @@ namespace FirstWinFormsApp1
 
 
         }
+        private void saveDataToFile()
+        {
+            //string data = instrument.ToString() + "\r\n";
+            //string path = @"C:\Users\morte\OneDrive\Dokumenter\Instruments\" + comboBoxInstrumentName.Text + ".txt";
+            //File.AppendAllText(path, data);
+            /* string data = DateTime.Now.ToString() + "\r\n" +
+                 comboBoxInstrumentName.Text + "\r\n" +
+                 SerialNumberLabel.Text + "\r\n" +
+                 SignalTypeLabel.Text + "\r\n" +
+                 MeasureTypeLabel.Text + "\r\n" +
+                 TextBoxOptions.Text + "\r\n" +
+                 CommentsTextLabel.Text + "\r\n" +
+                 textBoxLRV.Text + "\r\n" +
+                 textBoxURV.Text + "\r\n" +
+                 textBoxUnit.Text + "\r\n" +
+                 textBoxAlarmLow.Text + "\r\n" +
+                 textBoxAlarmHigh.Text + "\r\n";
 
+             string fileName = comboBoxInstrumentName.Text + ".txt";
+             string folderPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "Instruments");
+             string path = Path.Combine(folderPath, fileName);
+
+             if (!Directory.Exists(folderPath))
+             {
+                 Directory.CreateDirectory(folderPath);
+             }
+
+             File.AppendAllText(path, data);
+            */
+        }
 
         private void button2_Click(object sender, EventArgs e)
         {
@@ -549,57 +672,73 @@ namespace FirstWinFormsApp1
             outputFile.Close();
         }
 
-        private void comboBoxInstrumentName_SelectedIndexChanged(object sender, EventArgs e)
+        private void LoadInstrumentData()
         {
+            string path = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "instrumentData.txt");
+            if (File.Exists(path))
             {
-                if (comboBoxInstrumentName.SelectedIndex > -1)
-                    if (comboBoxInstrumentName.SelectedIndex > -1)
-                    {
-                        bool fountInstrumet = false;
-                        instrumentList.ForEach(delegate (Instrument instrument)
-                        {
-
-                        });
-                    }
-            }
-
-            if (comboBoxInstrumentName.SelectedIndex > -1)
-            {
-                bool foundInstrument = false;
-                instrumentList.ForEach(delegate (Instrument instrument)
+                string[] lines = File.ReadAllLines(path);
+                foreach (string line in lines)
                 {
-                    if (instrument.SensorName == comboBoxInstrumentName.Text)
-                    {
-                        foundInstrument = true;
-                        SerialNumberLabel.Text = instrument.SerialNumber;
-                        SignalTypeLabel.Text = instrument.SignalType;
-                        MeasureTypeLabel.Text = instrument.MeasureType;
-                        TextBoxOptions.Text = instrument.Options;
-                        CommentsTextLabel.Text = instrument.Comment;
-                        textBoxLRV.Text = Convert.ToString(instrument.LRV);
-                        textBoxURV.Text = Convert.ToString(instrument.URV);
-                        textBoxUnit.Text = instrument.Unit;
-
-                        // Create unique file with information from RegisterNewSensor
-                        string fileName = comboBoxInstrumentName.Text + "_" + DateTime.Now.ToString("yyyyMMddHHmmss") + ".txt";
-                        using (StreamWriter writer = new StreamWriter(fileName))
-                        {
-                            writer.WriteLine(instrument.ToString());
-                            writer.WriteLine("Span Value: " + (instrument.URV - instrument.LRV));
-                            writer.WriteLine("Alarm High: " + textBoxAlarmHigh.Text);
-                            writer.WriteLine("Alarm Low: " + textBoxAlarmLow.Text);
-                        }
-                        toolStripStatusLabel1.Text = "File created: " + fileName;
-
-                        //break;
-                    }
-                });
-
-                if (!foundInstrument)
-                {
-                    MessageBox.Show("Instrument not found.");
+                    string[] fields = line.Split('\r');
+                    comboBoxInstrumentName.Items.Add(fields[1].Trim());
                 }
             }
+        }
+
+        private void comboBoxInstrumentName_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            
+            // get all files in the instrument directory
+            string path = @"C:\Users\morte\OneDrive\Dokumenter\Instruments";
+            string[] files = Directory.GetFiles(path);
+
+            // iterate over each file and add it to the comboBoxInstrumentName if it's not already in the list
+            foreach (string file in files)
+            {
+                string itemName = Path.GetFileNameWithoutExtension(file);
+                if (!comboBoxInstrumentName.Items.Contains(itemName))
+                {
+                    comboBoxInstrumentName.Items.Add(itemName);
+                }
+            }
+
+
+            // get the selected filename from the ComboBox
+            string selectedFileName = null;
+            if (comboBoxInstrumentName.SelectedItem != null)
+            {
+                selectedFileName = comboBoxInstrumentName.SelectedItem.ToString();
+            }
+            else
+            {
+                // handle the case where no filename is selected
+                // for example, clear all the controls on the form
+                ClearForm();
+                return;
+            }
+
+            // construct the path to the file
+            string filePath = Path.Combine(@"C:\Users\morte\OneDrive\Dokumenter\Instruments", selectedFileName + ".txt");
+
+            // read the contents of the file
+            string fileContents = File.ReadAllText(filePath);
+
+            // parse the data in the file
+            string[] data = fileContents.Split(new string[] { "\r\n" }, StringSplitOptions.RemoveEmptyEntries);
+
+            // set the values of the appropriate controls on the form
+            dateTimePicker1Label.Value = Convert.ToDateTime(data[0]);
+            comboBoxInstrumentName.Text = data[1];
+            SerialNumberLabel.Text = data[2];
+            SignalTypeLabel.Text = data[3];
+            MeasureTypeLabel.Text = data[4];
+            TextBoxOptions.Text = data[5];
+            CommentsTextLabel.Text = data[6];
+            textBoxLRV.Text = data[7];
+            textBoxURV.Text = data[8];
+            textBoxUnit.Text = data[9];
+            // set other controls here as needed
         }
 
         /*private void button2_Click_2(object sender, EventArgs e)
@@ -1095,6 +1234,8 @@ namespace FirstWinFormsApp1
                 comboBoxSenorName.Visible = false;
             }
         }
+
+
 
         private void button1_Click_1(object sender, EventArgs e)
         {
