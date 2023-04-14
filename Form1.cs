@@ -304,7 +304,6 @@ namespace FirstWinFormsApp1
 
         private void RegisterNewSensor()
         {
-            /*
             toolStripStatusLabel1.Text = "OK";
             RegisterIndex++;
 
@@ -312,116 +311,53 @@ namespace FirstWinFormsApp1
             {
                 analogIndex++;
 
-                Instrument instrument = new Instrument(Convert.ToString(DateTime.Now) + "\r\n",
-                                                    comboBoxInstrumentName.Text + "\r\n",
-                                                    SerialNumberLabel.Text + "\r\n",
-                                                    SignalTypeLabel.Text + "\r\n",
-                                                    MeasureTypeLabel.Text + "\r\n",
-                                                    TextBoxOptions.Text + "\r\n",
-                                                    CommentsTextLabel.Text + "\r\n",
-                                                    lrvValue = Convert.ToDouble(textBoxLRV.Text),
-                                                    urvValue = Convert.ToDouble(textBoxURV.Text),
-                                                    textBoxUnit.Text + "\r\n");
-                //textBoxRegister.AppendText("[" + RegisterIndex + "]\r\n");
-                //Instrument instrument = new Instrument("RegisterDate", "SensorName", "serialNumber", "signalType", "measureType", "options", "comment", 0.0, 0.0, "unit");
-
+                Instrument instrument = new Instrument(
+                                                        Convert.ToString(DateTime.Now) + "\n" ,
+                                                        comboBoxInstrumentName.Text + "\r\n",
+                                                        SerialNumberLabel.Text + "\r\n",
+                                                        SignalTypeLabel.Text + "\r\n",
+                                                        MeasureTypeLabel.Text + "\r\n",
+                                                        TextBoxOptions.Text + "\r\n",
+                                                        CommentsTextLabel.Text + "\r\n",
+                                                        Convert.ToDouble(textBoxLRV.Text),
+                                                        Convert.ToDouble(textBoxURV.Text),
+                                                        textBoxUnit.Text + "\r\n"
+                                                        );
 
                 spanValue = urvValue - lrvValue;
                 instrumentList.Add(instrument);
                 textBoxRegister.AppendText(instrument.ToString());
-                textBoxRegister.AppendText("Span Value: " + spanValue + "\r\n");
-                textBoxRegister.AppendText("Alarm High: " + textBoxAlarmHigh.Text + "\r\n");
-                textBoxRegister.AppendText("Alarm Low: " + textBoxAlarmLow.Text + "\r\n");
-
-
-
-
-            }
-
-            if (SignalTypeLabel.Text == "Digital")
-            {
-                digitalIndex++;
-
-
-                Instrument instrument = new Instrument(Convert.ToString(DateTime.Now) + "\r\n",
-                                                        comboBoxInstrumentName.Text + "\r\n",
-                                                        SerialNumberLabel.Text + "\r\n",
-                                                        SignalTypeLabel.Text + "\r\n",
-                                                        MeasureTypeLabel.Text + "\r\n",
-                                                        TextBoxOptions.Text + "\r\n",
-                                                        CommentsTextLabel.Text + "\r\n",
-                                                        lrvValue,
-                                                        urvValue,
-                                                        textBoxUnit.Text + "\r\n");
-                //textBoxRegister.AppendText("[" + RegisterIndex + "]\r\n");
-                //Instrument instrument = new Instrument("RegisterDate", "SensorName", "serialNumber", "signalType", "measureType", "options", "comment", 0.0, 0.0, "unit");
-
-
-                instrumentList.Add(instrument);
-                textBoxRegister.AppendText(instrument.ToString());
-
-
-            }
-            if (SignalTypeLabel.Text == "Fieldbus")
-            {
-                fieldbusIndex++;
-
-                Instrument instrument = new Instrument(Convert.ToString(DateTime.Now) + "\r\n",
-                                                        comboBoxInstrumentName.Text + "\r\n",
-                                                        SerialNumberLabel.Text + "\r\n",
-                                                        SignalTypeLabel.Text + "\r\n",
-                                                        MeasureTypeLabel.Text + "\r\n",
-                                                        TextBoxOptions.Text + "\r\n",
-                                                        CommentsTextLabel.Text + "\r\n",
-                                                        lrvValue,
-                                                        urvValue,
-                                                        textBoxUnit.Text + "\r\n");
-
-                //Instrument instrument = new Instrument("RegisterDate", "SensorName", "serialNumber", "signalType", "measureType", "options", "comment", 0.0, 0.0, "unit");
-
-
-                instrumentList.Add(instrument);
-                textBoxRegister.AppendText(instrument.ToString());
-
-
-            }
-
-            InstrumentSQL();
-            InstrumentSQLProcedure();
-            //ImportToComboBox(System.Windows.Forms.ComboBox cbToFill, string tableName, string dbVariable);
-            ClearForm();
-            */
-
-            toolStripStatusLabel1.Text = "OK";
-            RegisterIndex++;
-
-            if (SignalTypeLabel.Text == "Analog")
-            {
-                analogIndex++;
-
-                Instrument instrument = new Instrument(Convert.ToString(DateTime.Now) + "\r\n",
-                                                        comboBoxInstrumentName.Text + "\r\n",
-                                                        SerialNumberLabel.Text + "\r\n",
-                                                        SignalTypeLabel.Text + "\r\n",
-                                                        MeasureTypeLabel.Text + "\r\n",
-                                                        TextBoxOptions.Text + "\r\n",
-                                                        CommentsTextLabel.Text + "\r\n",
-                                                        lrvValue = Convert.ToDouble(textBoxLRV.Text),
-                                                        urvValue = Convert.ToDouble(textBoxURV.Text),
-                                                        textBoxUnit.Text + "\r\n");
-
-                spanValue = urvValue - lrvValue;
-                instrumentList.Add(instrument);
-                textBoxRegister.AppendText(instrument.ToString());
+                textBoxRegister.AppendText("LRV Value: " + instrument.LRV + "\r\n");
+                textBoxRegister.AppendText("URV Value: " + instrument.URV + "\r\n");
                 textBoxRegister.AppendText("Span Value: " + spanValue + "\r\n");
                 textBoxRegister.AppendText("Alarm High: " + textBoxAlarmHigh.Text + "\r\n");
                 textBoxRegister.AppendText("Alarm Low: " + textBoxAlarmLow.Text + "\r\n");
 
                 // save instrument data to file
-                string data = instrument.ToString() + "\r\n";
-                string path = @"C:\Users\morte\OneDrive\Dokumenter\Instruments\" + comboBoxInstrumentName.Text + ".txt";
-                File.AppendAllText(path, data);
-                //saveDataToFile();
+                string dateString = DateTime.Now.ToString("dd.MM.yyyy HH:mm:ss");
+                if (DateTime.TryParseExact(dateString, "dd.MM.yyyy HH:mm:ss", CultureInfo.InvariantCulture, DateTimeStyles.None, out DateTime date))
+                {
+                    string data = 
+                                  comboBoxInstrumentName.Text + "\n" +
+                                  SerialNumberLabel.Text + "\n" +
+                                  dateString + "\n" +
+                                  SignalTypeLabel.Text + "\n" +
+                                  MeasureTypeLabel.Text + "\n" +
+                                  TextBoxOptions.Text + "\n" +
+                                  CommentsTextLabel.Text + "\n" +
+                                  Convert.ToDouble(textBoxLRV.Text) + "\n" +
+                                  Convert.ToDouble(textBoxURV.Text) + "\n" +
+                                  textBoxUnit.Text + "\n" +
+                                  textBoxAlarmHigh.Text + "\n" +
+                                  textBoxAlarmLow.Text + "\n";
+
+                    string path = @"C:\Users\morte\OneDrive\Dokumenter\Instruments\" + comboBoxInstrumentName.Text + ".txt";
+                    File.AppendAllText(path, data);
+                }
+                else
+                {
+                    MessageBox.Show("Invalid datetime format. Please enter a datetime in the format 'dd.MM.yyyy HH:mm:ss'.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
             }
 
             if (SignalTypeLabel.Text == "Digital")
@@ -443,10 +379,26 @@ namespace FirstWinFormsApp1
                 textBoxRegister.AppendText(instrument.ToString());
 
                 // save instrument data to file
-                string data = instrument.ToString() + "\r\n";
-                string path = @"C:\Users\morte\OneDrive\Dokumenter\Instruments\" + comboBoxInstrumentName.Text + ".txt";
-                File.AppendAllText(path, data);
-                //saveDataToFile();
+                string dateString = DateTime.Now.ToString("dd.MM.yyyy HH:mm:ss");
+                if (DateTime.TryParseExact(dateString, "dd.MM.yyyy HH:mm:ss", CultureInfo.InvariantCulture, DateTimeStyles.None, out DateTime date))
+                {
+                    string data =
+                                  comboBoxInstrumentName.Text + "\n" +
+                                  SerialNumberLabel.Text + "\n" +
+                                  dateString + "\n" +
+                                  SignalTypeLabel.Text + "\n" +
+                                  MeasureTypeLabel.Text + "\n" +
+                                  TextBoxOptions.Text + "\n" +
+                                  CommentsTextLabel.Text + "\n";
+                                  
+
+                    string path = @"C:\Users\morte\OneDrive\Dokumenter\Instruments\AFsignals" + comboBoxInstrumentName.Text + ".txt";
+                    File.AppendAllText(path, data);
+                }
+                else
+                {
+                    MessageBox.Show("Invalid datetime format. Please enter a datetime in the format 'dd.MM.yyyy HH:mm:ss'.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
             }
 
             if (SignalTypeLabel.Text == "Fieldbus")
@@ -468,10 +420,26 @@ namespace FirstWinFormsApp1
                 textBoxRegister.AppendText(instrument.ToString());
 
                 // save instrument data to file
-                string data = instrument.ToString() + "\r\n";
-                string path = @"C:\Users\morte\OneDrive\Dokumenter\Instruments\" + comboBoxInstrumentName.Text + ".txt";
-                File.AppendAllText(path, data);
-                //saveDataToFile();
+                string dateString = DateTime.Now.ToString("dd.MM.yyyy HH:mm:ss");
+                if (DateTime.TryParseExact(dateString, "dd.MM.yyyy HH:mm:ss", CultureInfo.InvariantCulture, DateTimeStyles.None, out DateTime date))
+                {
+                    string data =
+                                  comboBoxInstrumentName.Text + "\n" +
+                                  SerialNumberLabel.Text + "\n" +
+                                  dateString + "\n" +
+                                  SignalTypeLabel.Text + "\n" +
+                                  MeasureTypeLabel.Text + "\n" +
+                                  TextBoxOptions.Text + "\n" +
+                                  CommentsTextLabel.Text + "\n";
+
+
+                    string path = @"C:\Users\morte\OneDrive\Dokumenter\Instruments\AFsignals" + comboBoxInstrumentName.Text + ".txt";
+                    File.AppendAllText(path, data);
+                }
+                else
+                {
+                    MessageBox.Show("Invalid datetime format. Please enter a datetime in the format 'dd.MM.yyyy HH:mm:ss'.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
             }
 
             // check which radio button is checked before connecting to SQL server
@@ -688,7 +656,6 @@ namespace FirstWinFormsApp1
 
         private void comboBoxInstrumentName_SelectedIndexChanged(object sender, EventArgs e)
         {
-            
             // get all files in the instrument directory
             string path = @"C:\Users\morte\OneDrive\Dokumenter\Instruments";
             string[] files = Directory.GetFiles(path);
@@ -725,12 +692,13 @@ namespace FirstWinFormsApp1
             string fileContents = File.ReadAllText(filePath);
 
             // parse the data in the file
-            string[] data = fileContents.Split(new string[] { "\r\n" }, StringSplitOptions.RemoveEmptyEntries);
+            string[] data = fileContents.Split(new string[] { "\n" }, StringSplitOptions.RemoveEmptyEntries);
 
             // set the values of the appropriate controls on the form
-            dateTimePicker1Label.Value = Convert.ToDateTime(data[0]);
-            comboBoxInstrumentName.Text = data[1];
-            SerialNumberLabel.Text = data[2];
+            
+            comboBoxInstrumentName.Text = data[0];
+            SerialNumberLabel.Text = data[1];
+            dateTimePicker1Label.Value = Convert.ToDateTime(data[2]);
             SignalTypeLabel.Text = data[3];
             MeasureTypeLabel.Text = data[4];
             TextBoxOptions.Text = data[5];
@@ -738,7 +706,9 @@ namespace FirstWinFormsApp1
             textBoxLRV.Text = data[7];
             textBoxURV.Text = data[8];
             textBoxUnit.Text = data[9];
-            // set other controls here as needed
+            textBoxAlarmHigh.Text = data[10];
+            textBoxAlarmLow.Text = data[11];
+            
         }
 
         /*private void button2_Click_2(object sender, EventArgs e)
