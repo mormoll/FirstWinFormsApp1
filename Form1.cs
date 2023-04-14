@@ -699,7 +699,6 @@ namespace FirstWinFormsApp1
                 }
             }
 
-
             // get the selected filename from the ComboBox
             string selectedFileName = null;
             if (comboBoxInstrumentName.SelectedItem != null)
@@ -723,21 +722,51 @@ namespace FirstWinFormsApp1
             // parse the data in the file
             string[] data = fileContents.Split(new string[] { "\n" }, StringSplitOptions.RemoveEmptyEntries);
 
-            // set the values of the appropriate controls on the form
-
-            comboBoxInstrumentName.Text = data[0];
-            SerialNumberLabel.Text = data[1];
-            dateTimePicker1Label.Value = Convert.ToDateTime(data[2]);
-            textBoxLocation.Text = data[3];
-            SignalTypeLabel.Text = data[4];
-            MeasureTypeLabel.Text = data[5];
-            TextBoxOptions.Text = data[6];
-            CommentsTextLabel.Text = data[7];
-            textBoxLRV.Text = data[8];
-            textBoxURV.Text = data[9];
-            textBoxUnit.Text = data[10];
-            textBoxAlarmHigh.Text = data[11];
-            textBoxAlarmLow.Text = data[12];
+            // check if file has 13 lines of data
+            if (data.Length == 13)
+            {
+                // set the values of the appropriate controls on the form
+                comboBoxInstrumentName.Text = data[0];
+                SerialNumberLabel.Text = data[1];
+                dateTimePicker1Label.Value = Convert.ToDateTime(data[2]);
+                textBoxLocation.Text = data[3];
+                SignalTypeLabel.Text = data[4];
+                MeasureTypeLabel.Text = data[5];
+                TextBoxOptions.Text = data[6];
+                CommentsTextLabel.Text = data[7];
+                textBoxLRV.Text = data[8];
+                textBoxURV.Text = data[9];
+                textBoxUnit.Text = data[10];
+                textBoxAlarmHigh.Text = data[11];
+                textBoxAlarmLow.Text = data[12];
+            }
+            // check if file has 9 lines of data
+            else if (data.Length == 8)
+            {
+                // set the values of the appropriate controls on the form
+                comboBoxInstrumentName.Text = data[0];
+                SerialNumberLabel.Text = data[1];
+                dateTimePicker1Label.Value = Convert.ToDateTime(data[2]);
+                textBoxLocation.Text = data[3];
+                SignalTypeLabel.Text = data[4];
+                MeasureTypeLabel.Text = data[5];
+                TextBoxOptions.Text = data[6];
+                CommentsTextLabel.Text = data[7];
+                // clear the values of the unused controls on the form
+                textBoxLRV.Text = "";
+                textBoxURV.Text = "";
+                textBoxUnit.Text = "";
+                textBoxAlarmHigh.Text = "";
+                textBoxAlarmLow.Text = "";
+            }
+            else
+            {
+                // handle the case where the file has an unexpected number of lines
+                // for example, clear all the controls on the form
+                ClearForm();
+                MessageBox.Show("The selected file has an unexpected number of lines. It should have either 8 or 13 lines of data.");
+                return;
+            }
 
         }
 

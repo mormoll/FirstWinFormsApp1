@@ -145,7 +145,7 @@
             statusStrip1.Location = new Point(0, 1099);
             statusStrip1.Name = "statusStrip1";
             statusStrip1.Padding = new Padding(0, 0, 15, 0);
-            statusStrip1.Size = new Size(2181, 54);
+            statusStrip1.Size = new Size(2381, 54);
             statusStrip1.TabIndex = 2;
             statusStrip1.Text = "statusStrip1";
             // 
@@ -161,7 +161,7 @@
             toolStrip1.Location = new Point(0, 45);
             toolStrip1.Name = "toolStrip1";
             toolStrip1.Padding = new Padding(0);
-            toolStrip1.Size = new Size(2181, 25);
+            toolStrip1.Size = new Size(2381, 25);
             toolStrip1.TabIndex = 4;
             toolStrip1.Text = "toolStrip1";
             // 
@@ -728,7 +728,7 @@
             // 
             // textBoxSummary
             // 
-            textBoxSummary.Location = new Point(1928, 22);
+            textBoxSummary.Location = new Point(1903, 6);
             textBoxSummary.Margin = new Padding(2, 3, 2, 3);
             textBoxSummary.Multiline = true;
             textBoxSummary.Name = "textBoxSummary";
@@ -1016,7 +1016,7 @@
             menuStrip1.Location = new Point(0, 0);
             menuStrip1.Name = "menuStrip1";
             menuStrip1.Padding = new Padding(5, 0, 0, 0);
-            menuStrip1.Size = new Size(2181, 45);
+            menuStrip1.Size = new Size(2381, 45);
             menuStrip1.TabIndex = 6;
             menuStrip1.Text = "menuStrip1";
             // 
@@ -1053,7 +1053,7 @@
             // 
             AutoScaleDimensions = new SizeF(17F, 41F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(2181, 1153);
+            ClientSize = new Size(2381, 1153);
             Controls.Add(tabControl2);
             Controls.Add(toolStrip1);
             Controls.Add(statusStrip1);
