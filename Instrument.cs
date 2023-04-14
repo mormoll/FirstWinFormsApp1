@@ -36,33 +36,9 @@ namespace FirstWinFormsApp1
         public double URV { get; set; }
 
         public string Unit { get; set; }
+        public string Location { get; set; }
 
-        
 
-
-       /* public Instrument(  string registerDate,
-                            string sensorName,
-                            string serialNumber,
-                            string signalType,
-                            string measureType,
-                            string options = null,
-                            string comment = null,
-                            double lrv = 0.0,
-                            double urv = 0.0,
-                            string unit = null)
-        {
-            this.RegisterDate = DateTime.Now;
-            this.SensorName = sensorName;
-            this.SerialNumber = serialNumber;
-            this.SignalType = signalType;
-            this.MeasureType = measureType;
-            this.Options = options;
-            this.Comment = comment;
-            this.LRV = lrv;
-            this.URV = urv;
-            this.Unit = unit;
-        }
-       */
 
         public Instrument(string registerDate,
                           string sensorName,
@@ -73,7 +49,8 @@ namespace FirstWinFormsApp1
                           string comment = null,
                           double lrv = 0.0,
                           double urv = 0.0,
-                          string unit = null)
+                          string unit = null,
+                          string location = null)
                             
         {
             this.RegisterDate = Convert.ToDateTime(registerDate);
@@ -86,36 +63,14 @@ namespace FirstWinFormsApp1
             this.LRV = lrv;
             this.URV = urv;
             this.Unit = unit;
+            this.Location = location;
 
         }
 
 
          
 
-      /*  public void CreateInstrument(
-                                string sensorName,
-                                string serialNumber,
-                                string signalType,
-                                string measureType,
-                                string options,
-                                string lrv,
-                                string urv,
-                                string comment)
-        {
-            Instrument newInstrument = new Instrument()
-            {
-                SensorName = sensorName,
-                SerialNumber = serialNumber,
-                SignalType = signalType,
-                MeasureType = measureType,
-                Options = options,
-                LRV = lrv,
-                URV = urv,
-                Comment = comment
-            };
-
-            InstrumentList.Add(newInstrument);
-        }*/
+    
 
         public double Span()
         {
@@ -134,7 +89,8 @@ namespace FirstWinFormsApp1
                                           + "Comments: " + Comment
                                           + "LRV Value: " + Convert.ToString(LRV, CultureInfo.InvariantCulture)
                                           + "URV Value: " + Convert.ToString(URV, CultureInfo.InvariantCulture)
-                                          + "Unit: " + Unit;
+                                          + "Unit: " + Unit
+                                          + "Location:" + Location;
 
         }
         

@@ -67,6 +67,7 @@ namespace FirstWinFormsApp1
         string connectionString;
 
 
+
         private void Form_Load(object sender, EventArgs e)
         {
             sessionStartTime = DateTime.Now;
@@ -76,30 +77,30 @@ namespace FirstWinFormsApp1
 
             // Load instrumentList.csv file
             string instrumentListFile = "instrumentList.csv";
-            if (File.Exists(instrumentListFile))
-            {
-                string[] instrumentListLines = File.ReadAllLines(instrumentListFile);
-                foreach (string instrumentLine in instrumentListLines)
-                {
-                    string[] instrumentLineParts = instrumentLine.Split(';');
+            //if (File.Exists(instrumentListFile))
+            //{
+            //    string[] instrumentListLines = File.ReadAllLines(instrumentListFile);
+            //    foreach (string instrumentLine in instrumentListLines)
+            //    {
+            //        string[] instrumentLineParts = instrumentLine.Split(';');
 
-                    Instrument instrument = new Instrument(instrumentLineParts[0],
-                                                           instrumentLineParts[1],
-                                                           instrumentLineParts[2],
-                                                           instrumentLineParts[3],
-                                                           instrumentLineParts[4],
-                                                           instrumentLineParts[5],
-                                                           instrumentLineParts[6],
-                                                           Convert.ToDouble(instrumentLineParts[7], CultureInfo.InvariantCulture),
-                                                           Convert.ToDouble(instrumentLineParts[8], CultureInfo.InvariantCulture),
-                                                           instrumentLineParts[9]);
+            //        Instrument instrument = new Instrument(instrumentLineParts[0],
+            //                                               instrumentLineParts[1],
+            //                                               instrumentLineParts[2],
+            //                                               instrumentLineParts[3],
+            //                                               instrumentLineParts[4],
+            //                                               instrumentLineParts[5],
+            //                                               instrumentLineParts[6],
+            //                                               Convert.ToDouble(instrumentLineParts[7], CultureInfo.InvariantCulture),
+            //                                               Convert.ToDouble(instrumentLineParts[8], CultureInfo.InvariantCulture),
+            //                                               instrumentLineParts[9]);
 
-                    instrumentList.Add(instrument);
-                    comboBoxInstrumentName.Items.Add(instrumentLineParts[1]);
+            //        instrumentList.Add(instrument);
+            //        comboBoxInstrumentName.Items.Add(instrumentLineParts[1]);
 
-                    textBoxRegister.Text = instrument.ToString();
-                }
-            }
+            //        textBoxRegister.Text = instrument.ToString();
+            //    }
+            //}
 
             try
             {
@@ -112,14 +113,14 @@ namespace FirstWinFormsApp1
 
             // Reload previous sensor names
             string sensorNamesFile = "instrumentList.csv";
-            if (File.Exists(sensorNamesFile))
-            {
-                string[] sensorNames = File.ReadAllLines(sensorNamesFile);
-                foreach (string sensorName in sensorNames)
-                {
-                    comboBoxInstrumentName.Items.Add(sensorName);
-                }
-            }
+            //if (File.Exists(sensorNamesFile))
+            //{
+            //    string[] sensorNames = File.ReadAllLines(sensorNamesFile);
+            //    foreach (string sensorName in sensorNames)
+            //    {
+            //        comboBoxInstrumentName.Items.Add(sensorName);
+            //    }
+            //}
 
             // Save instrument list to file
             using (var outputFile = new StreamWriter(instrumentListFile))
@@ -177,6 +178,7 @@ namespace FirstWinFormsApp1
             textBoxAlarmLow.Text = "";
             CommentsTextLabel.Text = "";
             comboBoxSenorName.Text = "";
+            textBoxLocation.Text = "";
         }
 
         private void TextboxRegisterText()
@@ -312,7 +314,7 @@ namespace FirstWinFormsApp1
                 analogIndex++;
 
                 Instrument instrument = new Instrument(
-                                                        Convert.ToString(DateTime.Now) + "\n" ,
+                                                        Convert.ToString(DateTime.Now) + "\n",
                                                         comboBoxInstrumentName.Text + "\r\n",
                                                         SerialNumberLabel.Text + "\r\n",
                                                         SignalTypeLabel.Text + "\r\n",
@@ -321,7 +323,8 @@ namespace FirstWinFormsApp1
                                                         CommentsTextLabel.Text + "\r\n",
                                                         Convert.ToDouble(textBoxLRV.Text),
                                                         Convert.ToDouble(textBoxURV.Text),
-                                                        textBoxUnit.Text + "\r\n"
+                                                        textBoxUnit.Text + "\r\n",
+                                                        textBoxLocation.Text + "\r\n"
                                                         );
 
                 spanValue = urvValue - lrvValue;
@@ -337,10 +340,11 @@ namespace FirstWinFormsApp1
                 string dateString = DateTime.Now.ToString("dd.MM.yyyy HH:mm:ss");
                 if (DateTime.TryParseExact(dateString, "dd.MM.yyyy HH:mm:ss", CultureInfo.InvariantCulture, DateTimeStyles.None, out DateTime date))
                 {
-                    string data = 
+                    string data =
                                   comboBoxInstrumentName.Text + "\n" +
                                   SerialNumberLabel.Text + "\n" +
                                   dateString + "\n" +
+                                  textBoxLocation.Text + "\n" +
                                   SignalTypeLabel.Text + "\n" +
                                   MeasureTypeLabel.Text + "\n" +
                                   TextBoxOptions.Text + "\n" +
@@ -373,7 +377,9 @@ namespace FirstWinFormsApp1
                                                         CommentsTextLabel.Text + "\r\n",
                                                         lrvValue,
                                                         urvValue,
-                                                        textBoxUnit.Text + "\r\n");
+                                                        textBoxUnit.Text + "\r\n",
+                                                        textBoxLocation.Text + "\r\n");
+
 
                 instrumentList.Add(instrument);
                 textBoxRegister.AppendText(instrument.ToString());
@@ -386,13 +392,14 @@ namespace FirstWinFormsApp1
                                   comboBoxInstrumentName.Text + "\n" +
                                   SerialNumberLabel.Text + "\n" +
                                   dateString + "\n" +
+                                  textBoxLocation.Text + "\n" +
                                   SignalTypeLabel.Text + "\n" +
                                   MeasureTypeLabel.Text + "\n" +
                                   TextBoxOptions.Text + "\n" +
                                   CommentsTextLabel.Text + "\n";
-                                  
 
-                    string path = @"C:\Users\morte\OneDrive\Dokumenter\Instruments\AFsignals" + comboBoxInstrumentName.Text + ".txt";
+
+                    string path = @"C:\Users\morte\OneDrive\Dokumenter\Instruments\" + comboBoxInstrumentName.Text + ".txt";
                     File.AppendAllText(path, data);
                 }
                 else
@@ -414,7 +421,8 @@ namespace FirstWinFormsApp1
                                                         CommentsTextLabel.Text + "\r\n",
                                                         lrvValue,
                                                         urvValue,
-                                                        textBoxUnit.Text + "\r\n");
+                                                        textBoxUnit.Text + "\r\n",
+                                                        textBoxLocation.Text + "\r\n");
 
                 instrumentList.Add(instrument);
                 textBoxRegister.AppendText(instrument.ToString());
@@ -427,13 +435,14 @@ namespace FirstWinFormsApp1
                                   comboBoxInstrumentName.Text + "\n" +
                                   SerialNumberLabel.Text + "\n" +
                                   dateString + "\n" +
+                                  textBoxLocation.Text + "\n" +
                                   SignalTypeLabel.Text + "\n" +
                                   MeasureTypeLabel.Text + "\n" +
                                   TextBoxOptions.Text + "\n" +
                                   CommentsTextLabel.Text + "\n";
 
 
-                    string path = @"C:\Users\morte\OneDrive\Dokumenter\Instruments\AFsignals" + comboBoxInstrumentName.Text + ".txt";
+                    string path = @"C:\Users\morte\OneDrive\Dokumenter\Instruments\" + comboBoxInstrumentName.Text + ".txt";
                     File.AppendAllText(path, data);
                 }
                 else
@@ -525,6 +534,26 @@ namespace FirstWinFormsApp1
             sqlConnection.Close();
 
 
+        }
+
+        private void LoadDataFromDigitalFieldbus(string savedData)
+        {
+            // parse the saved data
+            string[] data = savedData.Split(new string[] { "\n" }, StringSplitOptions.RemoveEmptyEntries);
+
+            // set the values of the appropriate controls on the form
+            comboBoxInstrumentName.Text = data[0];
+            SerialNumberLabel.Text = data[1];
+            dateTimePicker1Label.Value = Convert.ToDateTime(data[2]);
+            SignalTypeLabel.Text = data[3];
+            MeasureTypeLabel.Text = data[4];
+            TextBoxOptions.Text = data[5];
+            CommentsTextLabel.Text = data[6];
+            textBoxLRV.Text = "";
+            textBoxURV.Text = "";
+            textBoxUnit.Text = "";
+            textBoxAlarmHigh.Text = "";
+            textBoxAlarmLow.Text = "";
         }
         private void saveDataToFile()
         {
@@ -695,39 +724,24 @@ namespace FirstWinFormsApp1
             string[] data = fileContents.Split(new string[] { "\n" }, StringSplitOptions.RemoveEmptyEntries);
 
             // set the values of the appropriate controls on the form
-            
+
             comboBoxInstrumentName.Text = data[0];
             SerialNumberLabel.Text = data[1];
             dateTimePicker1Label.Value = Convert.ToDateTime(data[2]);
-            SignalTypeLabel.Text = data[3];
-            MeasureTypeLabel.Text = data[4];
-            TextBoxOptions.Text = data[5];
-            CommentsTextLabel.Text = data[6];
-            textBoxLRV.Text = data[7];
-            textBoxURV.Text = data[8];
-            textBoxUnit.Text = data[9];
-            textBoxAlarmHigh.Text = data[10];
-            textBoxAlarmLow.Text = data[11];
-            
+            textBoxLocation.Text = data[3];
+            SignalTypeLabel.Text = data[4];
+            MeasureTypeLabel.Text = data[5];
+            TextBoxOptions.Text = data[6];
+            CommentsTextLabel.Text = data[7];
+            textBoxLRV.Text = data[8];
+            textBoxURV.Text = data[9];
+            textBoxUnit.Text = data[10];
+            textBoxAlarmHigh.Text = data[11];
+            textBoxAlarmLow.Text = data[12];
+
         }
 
-        /*private void button2_Click_2(object sender, EventArgs e)
-        {
-            string[] weekEnd = new string[2];
 
-            Array.Copy(daysOfWeek, 5, weekEnd, 0, 2);
-            foreach (string day in weekEnd)
-            {
-                textBox1.AppendText(day + "\r\n");
-            }
-            Array.Sort(daysOfWeek);
-            foreach (string day in daysOfWeek) ;
-            {
-                textBox1.AppendText("day" + "\r\n");
-            }
-            textBox1.AppendText(daysOfWeek.ToString());
-
-        }*/
 
 
 
@@ -1008,6 +1022,7 @@ namespace FirstWinFormsApp1
         private void clearButton_Click(object sender, EventArgs e)
         {
             textBoxRegister.Clear();
+            ClearForm();
         }
 
 
@@ -1247,7 +1262,15 @@ namespace FirstWinFormsApp1
 
         }
 
+        private void label7_Click(object sender, EventArgs e)
+        {
 
+        }
+
+        private void textBoxRegister_TextChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }
 

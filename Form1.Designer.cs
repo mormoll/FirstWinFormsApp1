@@ -60,6 +60,8 @@
             textBoxIP = new TextBox();
             buttonSend = new Button();
             Sensor_Data = new TabPage();
+            textBoxLocation = new TextBox();
+            Location = new Label();
             panel1 = new Panel();
             radioButton2 = new RadioButton();
             radioButton1 = new RadioButton();
@@ -407,6 +409,8 @@
             // Sensor_Data
             // 
             Sensor_Data.BackColor = Color.WhiteSmoke;
+            Sensor_Data.Controls.Add(textBoxLocation);
+            Sensor_Data.Controls.Add(Location);
             Sensor_Data.Controls.Add(panel1);
             Sensor_Data.Controls.Add(comboBoxSenorName);
             Sensor_Data.Controls.Add(clearButton);
@@ -443,6 +447,22 @@
             Sensor_Data.Size = new Size(2328, 998);
             Sensor_Data.TabIndex = 0;
             Sensor_Data.Text = "Sensor Data";
+            // 
+            // textBoxLocation
+            // 
+            textBoxLocation.Location = new Point(870, 365);
+            textBoxLocation.Name = "textBoxLocation";
+            textBoxLocation.Size = new Size(494, 47);
+            textBoxLocation.TabIndex = 34;
+            // 
+            // Location
+            // 
+            Location.AutoSize = true;
+            Location.Location = new Point(613, 366);
+            Location.Name = "Location";
+            Location.Size = new Size(131, 41);
+            Location.TabIndex = 33;
+            Location.Text = "Location";
             // 
             // panel1
             // 
@@ -727,20 +747,21 @@
             textBoxRegister.ReadOnly = true;
             textBoxRegister.Size = new Size(335, 376);
             textBoxRegister.TabIndex = 9;
+            textBoxRegister.TextChanged += textBoxRegister_TextChanged;
             // 
             // CommentsTextLabel
             // 
-            CommentsTextLabel.Location = new Point(865, 711);
+            CommentsTextLabel.Location = new Point(865, 795);
             CommentsTextLabel.Margin = new Padding(2, 3, 2, 3);
             CommentsTextLabel.Multiline = true;
             CommentsTextLabel.Name = "CommentsTextLabel";
-            CommentsTextLabel.Size = new Size(492, 247);
+            CommentsTextLabel.Size = new Size(492, 163);
             CommentsTextLabel.TabIndex = 8;
             // 
             // label8
             // 
             label8.AutoSize = true;
-            label8.Location = new Point(602, 443);
+            label8.Location = new Point(607, 518);
             label8.Margin = new Padding(2, 0, 2, 0);
             label8.Name = "label8";
             label8.Size = new Size(203, 41);
@@ -751,7 +772,7 @@
             // 
             MeasureTypeLabel.FormattingEnabled = true;
             MeasureTypeLabel.Items.AddRange(new object[] { "4-20ma", "0-10VDC", "0.5DC" });
-            MeasureTypeLabel.Location = new Point(865, 437);
+            MeasureTypeLabel.Location = new Point(865, 518);
             MeasureTypeLabel.Margin = new Padding(2, 3, 2, 3);
             MeasureTypeLabel.Name = "MeasureTypeLabel";
             MeasureTypeLabel.Size = new Size(502, 49);
@@ -762,7 +783,7 @@
             TextBoxOptions.FormattingEnabled = true;
             TextBoxOptions.ItemHeight = 41;
             TextBoxOptions.Items.AddRange(new object[] { "None", "Display", "HART Protocol" });
-            TextBoxOptions.Location = new Point(865, 506);
+            TextBoxOptions.Location = new Point(865, 599);
             TextBoxOptions.Margin = new Padding(2, 3, 2, 3);
             TextBoxOptions.Name = "TextBoxOptions";
             TextBoxOptions.ScrollAlwaysVisible = true;
@@ -773,7 +794,7 @@
             // 
             SignalTypeLabel.FormattingEnabled = true;
             SignalTypeLabel.Items.AddRange(new object[] { "Analog", "Digital", "Fieldbus" });
-            SignalTypeLabel.Location = new Point(874, 350);
+            SignalTypeLabel.Location = new Point(865, 430);
             SignalTypeLabel.Margin = new Padding(2, 3, 2, 3);
             SignalTypeLabel.Name = "SignalTypeLabel";
             SignalTypeLabel.Size = new Size(502, 49);
@@ -804,17 +825,18 @@
             // label7
             // 
             label7.AutoSize = true;
-            label7.Location = new Point(602, 711);
+            label7.Location = new Point(607, 795);
             label7.Margin = new Padding(2, 0, 2, 0);
             label7.Name = "label7";
             label7.Size = new Size(163, 41);
             label7.TabIndex = 8;
             label7.Text = "Comments";
+            label7.Click += label7_Click;
             // 
             // label6
             // 
             label6.AutoSize = true;
-            label6.Location = new Point(607, 506);
+            label6.Location = new Point(607, 599);
             label6.Margin = new Padding(2, 0, 2, 0);
             label6.Name = "label6";
             label6.Size = new Size(124, 41);
@@ -825,7 +847,7 @@
             // label5
             // 
             label5.AutoSize = true;
-            label5.Location = new Point(607, 358);
+            label5.Location = new Point(607, 430);
             label5.Margin = new Padding(2, 0, 2, 0);
             label5.Name = "label5";
             label5.Size = new Size(169, 41);
@@ -1159,5 +1181,7 @@
         private RadioButton radioButton2;
         private RadioButton radioButton1;
         private Button button1;
+        private TextBox textBoxLocation;
+        private Label Location;
     }
 }
