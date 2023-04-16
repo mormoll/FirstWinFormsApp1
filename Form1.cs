@@ -134,10 +134,13 @@ namespace FirstWinFormsApp1
         public Form1()
         {
 
+            
 
             InitializeComponent();
             comboBoxInstrumentName.Visible = false;
             comboBoxSenorName.Visible = false;
+            // Set initial value of textBoxLocation to a hyphen (-)
+            textBoxLocation.Text = "-";
 
             connectionString = ConfigurationManager.ConnectionStrings["instrumentConfDB"].ConnectionString;
 
@@ -470,6 +473,7 @@ namespace FirstWinFormsApp1
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.AddWithValue("@InstrumentName", comboBoxSenorName.Text);
                 cmd.Parameters.AddWithValue("@RegisterDate", DateTime.Now);
+                cmd.Parameters.AddWithValue("@Location", textBoxLocation.Text);
                 cmd.Parameters.AddWithValue("SerialNo", SerialNumberLabel.Text);
                 cmd.Parameters.AddWithValue("@Comments", CommentsTextLabel.Text);
                 cmd.Parameters.AddWithValue("@SignaType_Signal_id", 2);
@@ -496,7 +500,7 @@ namespace FirstWinFormsApp1
                                     + "Values(@lrv, @urv, @alarmH, @alarmL); SELECT SCOPE_IDENTITY();";
 
             string insertInstrumentQuery = "INSERT INTO InstrumentSet(InstrumentName, RegisterDate, "
-                                          + "SerialNo, Comments, SignaType_Signal_id, "
+                                          + "SerialNo, Comments, SignaType_Signal_id, Location,"
                                           + "MeasurementType_MeasuremntTypeID, AnalogRange_RangeId) "
                                           + "VALUES (@InstrumentName, GETDATE(), @SerialNo, @Comment, "
                                           + "@SignaType_Signal_id, @MeasurementType_MeasuremntTypeID, @RangeId);";
@@ -508,6 +512,7 @@ namespace FirstWinFormsApp1
             string instrumentName = comboBoxSenorName.Text;
             string serialNo = SerialNumberLabel.Text;
             string comment = CommentsTextLabel.Text;
+            string location = textBoxLocation.Text;
             int signalType = 2;
             int measurementType = 7;
 
@@ -526,6 +531,7 @@ namespace FirstWinFormsApp1
             SqlCommand command2 = new SqlCommand(insertInstrumentQuery, sqlConnection);
             command2.Parameters.AddWithValue("@instrumentName", instrumentName);
             command2.Parameters.AddWithValue("@serialNo", serialNo);
+            command2.Parameters.AddWithValue("@Location", location);
             command2.Parameters.AddWithValue("@comment", comment);
             command2.Parameters.AddWithValue("@SignaType_Signal_id", signalType);
             command2.Parameters.AddWithValue("@MeasurementType_MeasuremntTypeID", measurementType);
@@ -1194,6 +1200,8 @@ namespace FirstWinFormsApp1
                 SerialNumberLabel.DataBindings.Add(new Binding("Text", bindingSourceInstrument, "SerialNo"));
                 CommentsTextLabel.DataBindings.Add(new Binding("Text", bindingSourceInstrument, "Comments"));
                 dateTimePicker1Label.DataBindings.Add(new Binding("Value", bindingSourceInstrument, "RegisterDate"));
+                SignalTypeLabel.DataBindings.Add(new Binding("Text", bindingSourceInstrument, "SignalType"));
+                //textBoxLocation.DataBindings.Add(new Binding("Text", bindingSource1Instrument, "Location"));
                 /*
                 SqlCommand cmd = new SqlCommand("InsertNewInstrumentWithRange", sqlConnection);
                 cmd.CommandType = CommandType.StoredProcedure;
@@ -1291,7 +1299,13 @@ namespace FirstWinFormsApp1
 
         }
 
-        private void label7_Click(object sender, EventArgs e)
+        private void Form1_Load(object sender, EventArgs e)
+        {
+            textBoxLocation.Text = "-";
+        }
+
+
+            private void label7_Click(object sender, EventArgs e)
         {
 
         }
@@ -1299,6 +1313,21 @@ namespace FirstWinFormsApp1
         private void textBoxRegister_TextChanged(object sender, EventArgs e)
         {
 
+        }
+
+        private void TextBoxOptions_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void panel1_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void textBoxLocation_TextChanged(object sender, EventArgs e)
+        {
+           
         }
     }
 }
