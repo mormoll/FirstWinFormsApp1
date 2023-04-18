@@ -134,13 +134,13 @@ namespace FirstWinFormsApp1
         public Form1()
         {
 
-            
+
 
             InitializeComponent();
             comboBoxInstrumentName.Visible = false;
             comboBoxSenorName.Visible = false;
             // Set initial value of textBoxLocation to a hyphen (-)
-            textBoxLocation.Text = "-";
+            //textBoxLocation.Text = "-";
 
             connectionString = ConfigurationManager.ConnectionStrings["instrumentConfDB"].ConnectionString;
 
@@ -1002,7 +1002,79 @@ namespace FirstWinFormsApp1
 
         private void saveChangesButton_Click(object sender, EventArgs e)
         {
-            RegisterNewSensor();
+            // get the selected file name from the comboBoxInstrumentName control
+            string selectedFileName = comboBoxInstrumentName.SelectedItem?.ToString();
+
+            // construct the full file path using the directory path and the selected file name
+            string filePath = Path.Combine(@"C:\Users\morte\OneDrive\Dokumenter\Instruments", selectedFileName + ".txt");
+
+            // display a message box to confirm whether the user wants to delete the file
+            DialogResult result = MessageBox.Show($"Are you sure you want to delete the file '{selectedFileName}.txt'?", "Confirm Delete", MessageBoxButtons.YesNo);
+            if (result == DialogResult.Yes)
+            {
+                try
+                {
+                    if (File.Exists(filePath))
+                    {
+                        // delete the file
+                        File.Delete(filePath);
+                        MessageBox.Show("File deleted successfully.");
+
+                        // reload the list of files in the directory
+                        comboBoxInstrumentName.Items.Clear();
+                        string[] files = Directory.GetFiles(@"C:\Users\morte\OneDrive\Dokumenter\Instruments");
+                        foreach (string file in files)
+                        {
+                            string itemName = Path.GetFileNameWithoutExtension(file);
+                            if (!comboBoxInstrumentName.Items.Contains(itemName))
+                            {
+                                comboBoxInstrumentName.Items.Add(itemName);
+                            }
+                        }
+
+                        // clear all the controls on the form
+                        ClearForm();
+                    }
+                    else
+                    {
+                        MessageBox.Show("File not found.");
+                    }
+                }
+                catch (IOException ex)
+                {
+                    MessageBox.Show("An error occurred while deleting the file: " + ex.Message);
+                }
+            }
+            else
+            {
+                // save the data to the file
+                string dateString = DateTime.Now.ToString("dd.MM.yyyy HH:mm:ss");
+                if (DateTime.TryParseExact(dateString, "dd.MM.yyyy HH:mm:ss", CultureInfo.InvariantCulture, DateTimeStyles.None, out DateTime date))
+                {
+                    string data =
+                                  comboBoxInstrumentName.Text + "\n" +
+                                  SerialNumberLabel.Text + "\n" +
+                                  dateString + "\n" +
+                                  textBoxLocation.Text + "\n" +
+                                  SignalTypeLabel.Text + "\n" +
+                                  MeasureTypeLabel.Text + "\n" +
+                                  TextBoxOptions.Text + "\n" +
+                                  CommentsTextLabel.Text + "\n" +
+                                  Convert.ToDouble(textBoxLRV.Text) + "\n" +
+                                  Convert.ToDouble(textBoxURV.Text) + "\n" +
+                                  textBoxUnit.Text + "\n" +
+                                  textBoxAlarmHigh.Text + "\n" +
+                                  textBoxAlarmLow.Text + "\n";
+
+                    string path = @"C:\Users\morte\OneDrive\Dokumenter\Instruments\" + comboBoxInstrumentName.Text + ".txt";
+                    File.AppendAllText(path, data);
+                    MessageBox.Show("Data saved successfully.");
+                }
+                else
+                {
+                    MessageBox.Show("Invalid datetime format. Please enter a datetime in the format 'dd.MM.yyyy HH:mm:ss'.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
         }
 
         private void buttonSend_Click(object sender, EventArgs e)
@@ -1031,7 +1103,36 @@ namespace FirstWinFormsApp1
 
         private void deleButton_Click(object sender, EventArgs e)
         {
-            ClearForm();
+            delete_From_file();
+            //// get the selected file name from the comboBoxInstrumentName control
+            //string selectedFileName = comboBoxInstrumentName.SelectedItem?.ToString();
+
+            //// construct the full file path using the directory path and the selected file name
+            //string filePath = Path.Combine(@"C:\Users\morte\OneDrive\Dokumenter\Instruments", selectedFileName + ".txt");
+
+            //// display a message box to confirm whether the user wants to delete the file
+            //DialogResult result = MessageBox.Show($"Are you sure you want to delete the file '{selectedFileName}.txt'?", "Confirm Delete", MessageBoxButtons.YesNo);
+            //if (result == DialogResult.Yes)
+            //{
+            //    try
+            //    {
+            //        if (File.Exists(filePath))
+            //        {
+            //            File.Delete(filePath);
+            //            MessageBox.Show("File deleted successfully.");
+            //            ClearForm();
+            //        }
+            //        else
+            //        {
+            //            MessageBox.Show("File not found.");
+            //        }
+            //    }
+            //    catch (IOException ex)
+            //    {
+            //        MessageBox.Show("An error occurred while deleting the file: " + ex.Message);
+            //    }
+            //}
+
         }
 
         private void registerButton_Click(object sender, EventArgs e)
@@ -1158,25 +1259,14 @@ namespace FirstWinFormsApp1
             sqlConnection.Close();
         }
 
-        private void comboBoxInstrument_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
-        }
+        
 
         private void comboBoxInstrument_Click(object sender, EventArgs e)
         {
             //InstrumentSQL();
         }
 
-        private void label5_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label6_Click(object sender, EventArgs e)
-        {
-
-        }
+      
 
 
 
@@ -1200,7 +1290,9 @@ namespace FirstWinFormsApp1
                 SerialNumberLabel.DataBindings.Add(new Binding("Text", bindingSourceInstrument, "SerialNo"));
                 CommentsTextLabel.DataBindings.Add(new Binding("Text", bindingSourceInstrument, "Comments"));
                 dateTimePicker1Label.DataBindings.Add(new Binding("Value", bindingSourceInstrument, "RegisterDate"));
-                SignalTypeLabel.DataBindings.Add(new Binding("Text", bindingSourceInstrument, "SignalType"));
+                SignalTypeLabel.DataBindings.Add(new Binding("Text", bindingSourceInstrument, "SignaType_Signal_id"));
+                textBoxLocation.DataBindings.Add(new Binding("Text", bindingSourceInstrument, "Location"));
+                MeasureTypeLabel.DataBindings.Add(new Binding("Text", bindingSourceInstrument, "MeasurementType_MeasuremntTypeId"));
                 //textBoxLocation.DataBindings.Add(new Binding("Text", bindingSource1Instrument, "Location"));
                 /*
                 SqlCommand cmd = new SqlCommand("InsertNewInstrumentWithRange", sqlConnection);
@@ -1298,37 +1390,58 @@ namespace FirstWinFormsApp1
 
 
         }
+        private void delete_From_file()
+        {
+            // get the selected file name from the comboBoxInstrumentName control
+            string selectedFileName = comboBoxInstrumentName.SelectedItem?.ToString();
 
+            // construct the full file path using the directory path and the selected file name
+            string filePath = Path.Combine(@"C:\Users\morte\OneDrive\Dokumenter\Instruments", selectedFileName + ".txt");
+
+            // display a message box to confirm whether the user wants to delete the file
+            DialogResult result = MessageBox.Show($"Are you sure you want to delete the file '{selectedFileName}.txt'?", "Confirm Delete", MessageBoxButtons.YesNo);
+            if (result == DialogResult.Yes)
+            {
+                try
+                {
+                    if (File.Exists(filePath))
+                    {
+                        File.Delete(filePath);
+                        MessageBox.Show("File deleted successfully.");
+
+                        // Reload the list of files in the directory
+                        comboBoxInstrumentName.Items.Clear();
+                        string[] files = Directory.GetFiles(@"C:\Users\morte\OneDrive\Dokumenter\Instruments");
+                        foreach (string file in files)
+                        {
+                            string itemName = Path.GetFileNameWithoutExtension(file);
+                            if (!comboBoxInstrumentName.Items.Contains(itemName))
+                            {
+                                comboBoxInstrumentName.Items.Add(itemName);
+                            }
+                        }
+
+                        // clear all the controls on the form
+                        ClearForm();
+                    }
+                    else
+                    {
+                        MessageBox.Show("File not found.");
+                    }
+                }
+                catch (IOException ex)
+                {
+                    MessageBox.Show("An error occurred while deleting the file: " + ex.Message);
+                }
+            }
+        }
         private void Form1_Load(object sender, EventArgs e)
         {
             textBoxLocation.Text = "-";
         }
 
 
-            private void label7_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void textBoxRegister_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void TextBoxOptions_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void panel1_Paint(object sender, PaintEventArgs e)
-        {
-
-        }
-
-        private void textBoxLocation_TextChanged(object sender, EventArgs e)
-        {
-           
-        }
+       
     }
 }
 
