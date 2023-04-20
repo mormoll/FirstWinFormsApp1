@@ -29,10 +29,10 @@
         private void InitializeComponent()
         {
             components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.Title title1 = new System.Windows.Forms.DataVisualization.Charting.Title();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea2 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend2 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series2 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.Title title2 = new System.Windows.Forms.DataVisualization.Charting.Title();
             printDialog1 = new PrintDialog();
             statusStrip1 = new StatusStrip();
             toolStripStatusLabel1 = new ToolStripStatusLabel();
@@ -118,6 +118,9 @@
             timerRedaScaled = new System.Windows.Forms.Timer(components);
             bindingSource1 = new BindingSource(components);
             bindingSourceInstrument = new BindingSource(components);
+            bindingSourceAnalogRange = new BindingSource(components);
+            bindingSourceMeasurementType = new BindingSource(components);
+            bindingSourceSignalType = new BindingSource(components);
             statusStrip1.SuspendLayout();
             tabPage1.SuspendLayout();
             tabPage2.SuspendLayout();
@@ -131,6 +134,9 @@
             menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)bindingSource1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)bindingSourceInstrument).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)bindingSourceAnalogRange).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)bindingSourceMeasurementType).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)bindingSourceSignalType).BeginInit();
             SuspendLayout();
             // 
             // printDialog1
@@ -452,7 +458,6 @@
             textBoxLocation.Name = "textBoxLocation";
             textBoxLocation.Size = new Size(494, 47);
             textBoxLocation.TabIndex = 34;
-  
             // 
             // Location
             // 
@@ -473,7 +478,6 @@
             panel1.Name = "panel1";
             panel1.Size = new Size(328, 186);
             panel1.TabIndex = 32;
-
             // 
             // radioButton2
             // 
@@ -520,7 +524,6 @@
             comboBoxSenorName.Name = "comboBoxSenorName";
             comboBoxSenorName.Size = new Size(492, 49);
             comboBoxSenorName.TabIndex = 31;
-
             comboBoxSenorName.Click += comboBoxInstrument_Click;
             // 
             // clearButton
@@ -740,7 +743,6 @@
             textBoxRegister.ReadOnly = true;
             textBoxRegister.Size = new Size(335, 376);
             textBoxRegister.TabIndex = 9;
-
             // 
             // CommentsTextLabel
             // 
@@ -754,12 +756,12 @@
             // label8
             // 
             label8.AutoSize = true;
-            label8.Location = new Point(607, 518);
+            label8.Location = new Point(564, 521);
             label8.Margin = new Padding(2, 0, 2, 0);
             label8.Name = "label8";
-            label8.Size = new Size(203, 41);
+            label8.Size = new Size(272, 41);
             label8.TabIndex = 11;
-            label8.Text = "Measure Type";
+            label8.Text = "Measurement Type";
             // 
             // MeasureTypeLabel
             // 
@@ -782,7 +784,6 @@
             TextBoxOptions.ScrollAlwaysVisible = true;
             TextBoxOptions.Size = new Size(492, 168);
             TextBoxOptions.TabIndex = 7;
-
             // 
             // SignalTypeLabel
             // 
@@ -835,7 +836,6 @@
             label6.Size = new Size(124, 41);
             label6.TabIndex = 7;
             label6.Text = "Options";
-         
             // 
             // label5
             // 
@@ -846,7 +846,6 @@
             label5.Size = new Size(169, 41);
             label5.TabIndex = 6;
             label5.Text = "Signal Type";
-        
             // 
             // label4
             // 
@@ -974,33 +973,33 @@
             // 
             chart1.BackColor = Color.WhiteSmoke;
             chart1.BorderlineDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.Solid;
-            chartArea1.AxisX.Title = "Seconds";
-            chartArea1.AxisX.TitleFont = new Font("Microsoft Sans Serif", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            chartArea1.AxisY.TextOrientation = System.Windows.Forms.DataVisualization.Charting.TextOrientation.Horizontal;
-            chartArea1.AxisY.Title = "Lux";
-            chartArea1.AxisY.TitleFont = new Font("Microsoft Sans Serif", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            chartArea1.CursorX.IntervalOffset = 5D;
-            chartArea1.Name = "ChartArea1";
-            chart1.ChartAreas.Add(chartArea1);
+            chartArea2.AxisX.Title = "Seconds";
+            chartArea2.AxisX.TitleFont = new Font("Microsoft Sans Serif", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            chartArea2.AxisY.TextOrientation = System.Windows.Forms.DataVisualization.Charting.TextOrientation.Horizontal;
+            chartArea2.AxisY.Title = "Lux";
+            chartArea2.AxisY.TitleFont = new Font("Microsoft Sans Serif", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            chartArea2.CursorX.IntervalOffset = 5D;
+            chartArea2.Name = "ChartArea1";
+            chart1.ChartAreas.Add(chartArea2);
             chart1.Dock = DockStyle.Fill;
-            legend1.Name = "Legend1";
-            chart1.Legends.Add(legend1);
+            legend2.Name = "Legend1";
+            chart1.Legends.Add(legend2);
             chart1.Location = new Point(2, 3);
             chart1.Margin = new Padding(2, 3, 2, 3);
             chart1.Name = "chart1";
-            series1.BorderWidth = 3;
-            series1.ChartArea = "ChartArea1";
-            series1.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
-            series1.Color = Color.Red;
-            series1.Legend = "Legend1";
-            series1.Name = "Live Uppdate";
-            series1.YValuesPerPoint = 2;
-            chart1.Series.Add(series1);
+            series2.BorderWidth = 3;
+            series2.ChartArea = "ChartArea1";
+            series2.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
+            series2.Color = Color.Red;
+            series2.Legend = "Legend1";
+            series2.Name = "Live Uppdate";
+            series2.YValuesPerPoint = 2;
+            chart1.Series.Add(series2);
             chart1.Size = new Size(2324, 992);
             chart1.TabIndex = 0;
             chart1.Text = "chart1";
-            title1.Name = "Ligth Value";
-            chart1.Titles.Add(title1);
+            title2.Name = "Ligth Value";
+            chart1.Titles.Add(title2);
             // 
             // menuStrip1
             // 
@@ -1042,6 +1041,14 @@
             timerRedaScaled.Interval = 5000;
             timerRedaScaled.Tick += timer1_Tick;
             // 
+            // bindingSource1
+            // 
+            bindingSource1.CurrentChanged += bindingSource1_CurrentChanged;
+            // 
+            // bindingSourceInstrument
+            // 
+            bindingSourceInstrument.CurrentChanged += bindingSourceInstrument_CurrentChanged;
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(17F, 41F);
@@ -1081,6 +1088,9 @@
             menuStrip1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)bindingSource1).EndInit();
             ((System.ComponentModel.ISupportInitialize)bindingSourceInstrument).EndInit();
+            ((System.ComponentModel.ISupportInitialize)bindingSourceAnalogRange).EndInit();
+            ((System.ComponentModel.ISupportInitialize)bindingSourceMeasurementType).EndInit();
+            ((System.ComponentModel.ISupportInitialize)bindingSourceSignalType).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -1175,5 +1185,8 @@
         private Button button1;
         private TextBox textBoxLocation;
         private Label Location;
+        private BindingSource bindingSourceAnalogRange;
+        private BindingSource bindingSourceMeasurementType;
+        private BindingSource bindingSourceSignalType;
     }
 }

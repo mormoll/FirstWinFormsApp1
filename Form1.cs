@@ -1259,57 +1259,97 @@ namespace FirstWinFormsApp1
             sqlConnection.Close();
         }
 
-        
+
 
         private void comboBoxInstrument_Click(object sender, EventArgs e)
         {
             //InstrumentSQL();
         }
 
-      
+
 
 
 
         private void radioButton2_CheckedChanged(object sender, EventArgs e)
         {
 
-            string sql = "SELECT * FROM InstrumentSet";
+            // Define SQL queries to select all data from database tables.
+            string sqlInstrument = "SELECT * FROM InstrumentSet";
+            string sqlAnalogRange = "SELECT * FROM AnalogRangeSet";
+            string sqlMeasurementType = "SELECT * FROM MeasurementTypeSet";
+            string sqlSignalType = "SELECT * FROM SignalTypeSet";
+
+            // Create a SqlConnection object using a connection string to connect to a database.
             SqlConnection connection = new SqlConnection(connectionString);
-            //SqlConnection sqlConnection = new SqlConnection(connectionString);
+
             try
             {
+                // Create SqlDataAdapter objects using the SQL queries and SqlConnection object.
+                SqlDataAdapter dataAdapterInstrument = new SqlDataAdapter(sqlInstrument, connection);
+                SqlDataAdapter dataAdapterAnalogRange = new SqlDataAdapter(sqlAnalogRange, connection);
+                SqlDataAdapter dataAdapterMeasurementType = new SqlDataAdapter(sqlMeasurementType, connection);
+                SqlDataAdapter dataAdapterSignalType = new SqlDataAdapter(sqlSignalType, connection);
 
-                SqlDataAdapter dataAdapter = new SqlDataAdapter(sql, connection);
+                // Create a new DataSet object.
                 DataSet dataSet = new DataSet();
+
+                // Add a new DataTable object to the DataSet with the name "Instruments".
                 dataSet.Tables.Add("Instruments");
-                dataAdapter.Fill(dataSet.Tables["Instruments"]);
+                // Fill the "Instruments" DataTable with the data returned from the SQL query using the dataAdapterInstrument.
+                dataAdapterInstrument.Fill(dataSet.Tables["Instruments"]);
+
+                // Add a new DataTable object to the DataSet with the name "AnalogRange".
+                dataSet.Tables.Add("AnalogRange");
+                // Fill the "AnalogRange" DataTable with the data returned from the SQL query using the dataAdapterAnalogRange.
+                dataAdapterAnalogRange.Fill(dataSet.Tables["AnalogRange"]);
+
+                // Add a new DataTable object to the DataSet with the name "MeasurementType".
+                dataSet.Tables.Add("MeasurementType");
+                // Fill the "MeasurementType" DataTable with the data returned from the SQL query using the dataAdapterMeasurementType.
+                dataAdapterMeasurementType.Fill(dataSet.Tables["MeasurementType"]);
+
+                // Add a new DataTable object to the DataSet with the name "SignalType".
+                dataSet.Tables.Add("SignalType");
+                // Fill the "SignalTypes" DataTable with the data returned from the SQL query using the dataAdapterInstrument.
+                dataAdapterSignalType.Fill(dataSet.Tables["SignalType"]);
+
+                // Set the DataSource property
                 bindingSourceInstrument.DataSource = dataSet.Tables["Instruments"];
+                bindingSourceAnalogRange.DataSource = dataSet.Tables["AnalogRange"];
+                bindingSourceMeasurementType.DataSource = dataSet.Tables["MeasurementType"];
+                bindingSourceSignalType.DataSource = dataSet.Tables["SignalType"];
+
+                // Set the DataSource property of a ComboBox control called "comboBoxSenorName" to the bindingSourceInstrument object.
                 comboBoxSenorName.DataSource = bindingSourceInstrument;
+
+                // Set the DisplayMember property of the comboBoxSenorName control to "InstrumentName" which is a field/column in the "Instruments" DataTable.
                 comboBoxSenorName.DisplayMember = "InstrumentName";
+
+                // Set the ValueMember property of the comboBoxSenorName control to "Instrument_id" which is another field/column in the "Instruments" DataTable.
                 comboBoxSenorName.ValueMember = "Instrument_id";
+
+                //Data binding for Instrument
                 SerialNumberLabel.DataBindings.Add(new Binding("Text", bindingSourceInstrument, "SerialNo"));
                 CommentsTextLabel.DataBindings.Add(new Binding("Text", bindingSourceInstrument, "Comments"));
                 dateTimePicker1Label.DataBindings.Add(new Binding("Value", bindingSourceInstrument, "RegisterDate"));
-                SignalTypeLabel.DataBindings.Add(new Binding("Text", bindingSourceInstrument, "SignaType_Signal_id"));
+               
                 textBoxLocation.DataBindings.Add(new Binding("Text", bindingSourceInstrument, "Location"));
-                MeasureTypeLabel.DataBindings.Add(new Binding("Text", bindingSourceInstrument, "MeasurementType_MeasuremntTypeId"));
-                //textBoxLocation.DataBindings.Add(new Binding("Text", bindingSource1Instrument, "Location"));
-                /*
-                SqlCommand cmd = new SqlCommand("InsertNewInstrumentWithRange", sqlConnection);
-                cmd.CommandType = CommandType.StoredProcedure;
-                cmd.Parameters.AddWithValue("@InstrumentName", comboBoxSenorName.Text);
-                cmd.Parameters.AddWithValue("@RegisterDate", DateTime.Now);
-                cmd.Parameters.AddWithValue("SerialNo",SerialNumberLabel.Text);
-                cmd.Parameters.AddWithValue("@Comments", CommentsTextLabel.Text);
-                cmd.Parameters.AddWithValue("@SignaType_Signal_id", 2);
-                cmd.Parameters.AddWithValue("@MeasurementType_MeasuremntTypeId", 7);
-                cmd.Parameters.AddWithValue("@Lrv", textBoxLRV.Text);
-                cmd.Parameters.AddWithValue("@Urv", textBoxURV.Text);
-                cmd.Parameters.AddWithValue("@AlarmHigh", textBoxAlarmHigh.Text);
-                cmd.Parameters.AddWithValue("@AlarmLow", textBoxAlarmLow.Text);
+                
 
-                sqlConnection.Open();
-                cmd.ExecuteNonQuery();*/
+                //Data binding from AnalogRange
+                textBoxLRV.DataBindings.Add(new Binding("Text", bindingSourceAnalogRange, "Lrv"));
+                textBoxURV.DataBindings.Add(new Binding("Text", bindingSourceAnalogRange, "Urv"));
+                textBoxUnit.DataBindings.Add(new Binding("Text", bindingSourceAnalogRange, "Unit"));
+                textBoxAlarmHigh.DataBindings.Add(new Binding("Text", bindingSourceAnalogRange, "AlarmHigh"));
+                textBoxAlarmLow.DataBindings.Add(new Binding("Text", bindingSourceAnalogRange, "AlarmLow"));
+
+                //Data binding from MeasurementType
+                MeasureTypeLabel.DataBindings.Add(new Binding("Text", bindingSourceMeasurementType, "MeasurementTypeName"));
+                
+
+                //Data binding form SignalType
+                SignalTypeLabel.DataBindings.Add(new Binding("Text", bindingSourceSignalType, "SignalTypeName"));
+
             }
             catch (Exception ex)
             {
@@ -1440,8 +1480,15 @@ namespace FirstWinFormsApp1
             textBoxLocation.Text = "-";
         }
 
+        private void bindingSource1_CurrentChanged(object sender, EventArgs e)
+        {
 
-       
+        }
+
+        private void bindingSourceInstrument_CurrentChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }
 
