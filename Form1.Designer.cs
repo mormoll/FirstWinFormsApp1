@@ -524,6 +524,7 @@
             comboBoxSenorName.Name = "comboBoxSenorName";
             comboBoxSenorName.Size = new Size(492, 49);
             comboBoxSenorName.TabIndex = 31;
+            comboBoxSenorName.SelectedIndexChanged += comboBoxSenorName_SelectedIndexChanged;
             comboBoxSenorName.Click += comboBoxInstrument_Click;
             // 
             // clearButton

@@ -1537,6 +1537,11 @@ namespace FirstWinFormsApp1
         {
 
         }
+
+        private void comboBoxSenorName_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }
 
