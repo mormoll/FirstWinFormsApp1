@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.Metrics;
 using System.Globalization;
 using System.Linq;
 using System.Text;
@@ -38,26 +39,37 @@ namespace FirstWinFormsApp1
         public string Unit { get; set; }
         public string Location { get; set; }
 
+        public string InstrumentID { get; set; }
 
 
         public Instrument(string registerDate,
-                          string sensorName,
-                          string serialNumber,
-                          string signalType,
-                          string measureType,
-                          string options = null,
-                          string comment = null,
-                          double lrv = 0.0,
-                          double urv = 0.0,
-                          string unit = null,
-                          string location = null)
-                            
+                  string sensorName,
+                  string serialNumber,
+                  string signalType,
+                  string measureType,
+                  string instrumentID,
+                  string options = null,
+                  string comment = null,
+                  double lrv = 0.0,
+                  double urv = 0.0,
+                  string unit = null,
+                  string location = null
+                  )
         {
             this.RegisterDate = Convert.ToDateTime(registerDate);
             this.SensorName = sensorName;
             this.SerialNumber = serialNumber;
             this.SignalType = signalType;
             this.MeasureType = measureType;
+
+            if (instrumentList.Any(i => i.InstrumentID == instrumentID))
+            {
+                throw new ArgumentException("Instrument ID must be unique.");
+                // or generate a new unique ID
+                // instrumentID = GenerateUniqueID();
+            }
+
+            this.InstrumentID = instrumentID;
             this.Options = options;
             this.Comment = comment;
             this.LRV = lrv;
@@ -65,12 +77,13 @@ namespace FirstWinFormsApp1
             this.Unit = unit;
             this.Location = location;
 
+            instrumentList.Add(this);
         }
 
 
-         
 
-    
+
+
 
         public double Span()
         {
@@ -85,6 +98,7 @@ namespace FirstWinFormsApp1
                                           + "Serial Number:" + SerialNumber
                                           + "Signal Type:" + SignalType
                                           + "Measure Type:" + MeasureType
+                                          + "Instrument ID" + InstrumentID
                                           + "Optins:" + Options
                                           + "Comments: " + Comment
                                           + "LRV Value: " + Convert.ToString(LRV, CultureInfo.InvariantCulture)

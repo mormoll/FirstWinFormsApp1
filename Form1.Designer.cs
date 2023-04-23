@@ -60,6 +60,8 @@
             textBoxIP = new TextBox();
             buttonSend = new Button();
             Sensor_Data = new TabPage();
+            textBoxInstrumentID = new TextBox();
+            label18 = new Label();
             textBoxLocation = new TextBox();
             Location = new Label();
             panel1 = new Panel();
@@ -121,6 +123,7 @@
             bindingSourceAnalogRange = new BindingSource(components);
             bindingSourceMeasurementType = new BindingSource(components);
             bindingSourceSignalType = new BindingSource(components);
+            radioButtonInstrumentID = new RadioButton();
             statusStrip1.SuspendLayout();
             tabPage1.SuspendLayout();
             tabPage2.SuspendLayout();
@@ -414,6 +417,9 @@
             // Sensor_Data
             // 
             Sensor_Data.BackColor = Color.WhiteSmoke;
+            Sensor_Data.Controls.Add(radioButtonInstrumentID);
+            Sensor_Data.Controls.Add(textBoxInstrumentID);
+            Sensor_Data.Controls.Add(label18);
             Sensor_Data.Controls.Add(textBoxLocation);
             Sensor_Data.Controls.Add(Location);
             Sensor_Data.Controls.Add(panel1);
@@ -452,9 +458,25 @@
             Sensor_Data.TabIndex = 0;
             Sensor_Data.Text = "Sensor Data";
             // 
+            // textBoxInstrumentID
+            // 
+            textBoxInstrumentID.Location = new Point(709, 169);
+            textBoxInstrumentID.Name = "textBoxInstrumentID";
+            textBoxInstrumentID.Size = new Size(488, 47);
+            textBoxInstrumentID.TabIndex = 36;
+            // 
+            // label18
+            // 
+            label18.AutoSize = true;
+            label18.Location = new Point(422, 175);
+            label18.Name = "label18";
+            label18.Size = new Size(199, 41);
+            label18.TabIndex = 35;
+            label18.Text = "Instrument ID";
+            // 
             // textBoxLocation
             // 
-            textBoxLocation.Location = new Point(870, 365);
+            textBoxLocation.Location = new Point(707, 423);
             textBoxLocation.Name = "textBoxLocation";
             textBoxLocation.Size = new Size(494, 47);
             textBoxLocation.TabIndex = 34;
@@ -462,7 +484,7 @@
             // Location
             // 
             Location.AutoSize = true;
-            Location.Location = new Point(613, 366);
+            Location.Location = new Point(422, 426);
             Location.Name = "Location";
             Location.Size = new Size(131, 41);
             Location.TabIndex = 33;
@@ -519,7 +541,7 @@
             // comboBoxSenorName
             // 
             comboBoxSenorName.FormattingEnabled = true;
-            comboBoxSenorName.Location = new Point(872, 41);
+            comboBoxSenorName.Location = new Point(707, 44);
             comboBoxSenorName.Margin = new Padding(2, 3, 2, 3);
             comboBoxSenorName.Name = "comboBoxSenorName";
             comboBoxSenorName.Size = new Size(492, 49);
@@ -585,7 +607,7 @@
             // comboBoxInstrumentName
             // 
             comboBoxInstrumentName.FormattingEnabled = true;
-            comboBoxInstrumentName.Location = new Point(874, 93);
+            comboBoxInstrumentName.Location = new Point(709, 96);
             comboBoxInstrumentName.Margin = new Padding(2, 3, 2, 3);
             comboBoxInstrumentName.Name = "comboBoxInstrumentName";
             comboBoxInstrumentName.Size = new Size(492, 49);
@@ -747,7 +769,7 @@
             // 
             // CommentsTextLabel
             // 
-            CommentsTextLabel.Location = new Point(865, 795);
+            CommentsTextLabel.Location = new Point(707, 800);
             CommentsTextLabel.Margin = new Padding(2, 3, 2, 3);
             CommentsTextLabel.Multiline = true;
             CommentsTextLabel.Name = "CommentsTextLabel";
@@ -757,7 +779,7 @@
             // label8
             // 
             label8.AutoSize = true;
-            label8.Location = new Point(564, 521);
+            label8.Location = new Point(413, 565);
             label8.Margin = new Padding(2, 0, 2, 0);
             label8.Name = "label8";
             label8.Size = new Size(272, 41);
@@ -768,7 +790,7 @@
             // 
             MeasureTypeLabel.FormattingEnabled = true;
             MeasureTypeLabel.Items.AddRange(new object[] { "4-20ma", "0-10VDC", "0.5DC" });
-            MeasureTypeLabel.Location = new Point(865, 518);
+            MeasureTypeLabel.Location = new Point(707, 562);
             MeasureTypeLabel.Margin = new Padding(2, 3, 2, 3);
             MeasureTypeLabel.Name = "MeasureTypeLabel";
             MeasureTypeLabel.Size = new Size(502, 49);
@@ -780,18 +802,18 @@
             TextBoxOptions.FormattingEnabled = true;
             TextBoxOptions.ItemHeight = 41;
             TextBoxOptions.Items.AddRange(new object[] { "None", "Display", "HART Protocol" });
-            TextBoxOptions.Location = new Point(865, 599);
+            TextBoxOptions.Location = new Point(707, 635);
             TextBoxOptions.Margin = new Padding(2, 3, 2, 3);
             TextBoxOptions.Name = "TextBoxOptions";
             TextBoxOptions.ScrollAlwaysVisible = true;
-            TextBoxOptions.Size = new Size(492, 168);
+            TextBoxOptions.Size = new Size(492, 127);
             TextBoxOptions.TabIndex = 7;
             // 
             // SignalTypeLabel
             // 
             SignalTypeLabel.FormattingEnabled = true;
             SignalTypeLabel.Items.AddRange(new object[] { "Analog", "Digital", "Fieldbus" });
-            SignalTypeLabel.Location = new Point(865, 430);
+            SignalTypeLabel.Location = new Point(707, 494);
             SignalTypeLabel.Margin = new Padding(2, 3, 2, 3);
             SignalTypeLabel.Name = "SignalTypeLabel";
             SignalTypeLabel.Size = new Size(502, 49);
@@ -800,7 +822,7 @@
             // 
             // dateTimePicker1Label
             // 
-            dateTimePicker1Label.Location = new Point(874, 282);
+            dateTimePicker1Label.Location = new Point(707, 360);
             dateTimePicker1Label.Margin = new Padding(2, 3, 2, 3);
             dateTimePicker1Label.Name = "dateTimePicker1Label";
             dateTimePicker1Label.Size = new Size(502, 47);
@@ -812,7 +834,7 @@
             // 
             checkBox1Registerd.AutoSize = true;
             checkBox1Registerd.ForeColor = SystemColors.ActiveCaptionText;
-            checkBox1Registerd.Location = new Point(874, 238);
+            checkBox1Registerd.Location = new Point(707, 309);
             checkBox1Registerd.Margin = new Padding(2, 3, 2, 3);
             checkBox1Registerd.Name = "checkBox1Registerd";
             checkBox1Registerd.Size = new Size(34, 33);
@@ -822,7 +844,7 @@
             // label7
             // 
             label7.AutoSize = true;
-            label7.Location = new Point(607, 795);
+            label7.Location = new Point(422, 795);
             label7.Margin = new Padding(2, 0, 2, 0);
             label7.Name = "label7";
             label7.Size = new Size(163, 41);
@@ -832,7 +854,7 @@
             // label6
             // 
             label6.AutoSize = true;
-            label6.Location = new Point(607, 599);
+            label6.Location = new Point(422, 640);
             label6.Margin = new Padding(2, 0, 2, 0);
             label6.Name = "label6";
             label6.Size = new Size(124, 41);
@@ -842,7 +864,7 @@
             // label5
             // 
             label5.AutoSize = true;
-            label5.Location = new Point(607, 430);
+            label5.Location = new Point(422, 494);
             label5.Margin = new Padding(2, 0, 2, 0);
             label5.Name = "label5";
             label5.Size = new Size(169, 41);
@@ -852,7 +874,7 @@
             // label4
             // 
             label4.AutoSize = true;
-            label4.Location = new Point(607, 298);
+            label4.Location = new Point(422, 366);
             label4.Margin = new Padding(2, 0, 2, 0);
             label4.Name = "label4";
             label4.Size = new Size(139, 41);
@@ -862,7 +884,7 @@
             // label3
             // 
             label3.AutoSize = true;
-            label3.Location = new Point(602, 235);
+            label3.Location = new Point(422, 304);
             label3.Margin = new Padding(2, 0, 2, 0);
             label3.Name = "label3";
             label3.Size = new Size(143, 41);
@@ -871,7 +893,7 @@
             // 
             // SerialNumberLabel
             // 
-            SerialNumberLabel.Location = new Point(874, 169);
+            SerialNumberLabel.Location = new Point(707, 240);
             SerialNumberLabel.Margin = new Padding(2, 3, 2, 3);
             SerialNumberLabel.Mask = "000-00-0000";
             SerialNumberLabel.Name = "SerialNumberLabel";
@@ -881,7 +903,7 @@
             // label2
             // 
             label2.AutoSize = true;
-            label2.Location = new Point(602, 169);
+            label2.Location = new Point(422, 240);
             label2.Margin = new Padding(2, 0, 2, 0);
             label2.Name = "label2";
             label2.Size = new Size(206, 41);
@@ -891,7 +913,7 @@
             // label1
             // 
             label1.AutoSize = true;
-            label1.Location = new Point(597, 93);
+            label1.Location = new Point(413, 52);
             label1.Margin = new Padding(2, 0, 2, 0);
             label1.Name = "label1";
             label1.Size = new Size(249, 41);
@@ -1051,6 +1073,18 @@
             // 
             bindingSourceInstrument.CurrentChanged += bindingSourceInstrument_CurrentChanged;
             // 
+            // radioButtonInstrumentID
+            // 
+            radioButtonInstrumentID.AutoSize = true;
+            radioButtonInstrumentID.Location = new Point(24, 244);
+            radioButtonInstrumentID.Name = "radioButtonInstrumentID";
+            radioButtonInstrumentID.Size = new Size(357, 45);
+            radioButtonInstrumentID.TabIndex = 37;
+            radioButtonInstrumentID.TabStop = true;
+            radioButtonInstrumentID.Text = "Generate InstrumentID";
+            radioButtonInstrumentID.UseVisualStyleBackColor = true;
+            radioButtonInstrumentID.CheckedChanged += radioButtonInstrumentID_CheckedChanged;
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(17F, 41F);
@@ -1190,5 +1224,8 @@
         private BindingSource bindingSourceAnalogRange;
         private BindingSource bindingSourceMeasurementType;
         private BindingSource bindingSourceSignalType;
+        private TextBox textBoxInstrumentID;
+        private Label label18;
+        private RadioButton radioButtonInstrumentID;
     }
 }

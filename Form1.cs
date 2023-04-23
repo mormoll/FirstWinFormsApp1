@@ -183,6 +183,8 @@ namespace FirstWinFormsApp1
             CommentsTextLabel.Text = "";
             comboBoxSenorName.Text = "";
             textBoxLocation.Text = "";
+            textBoxInstrumentID.Text = "";
+            
         }
 
         private void TextboxRegisterText()
@@ -323,6 +325,7 @@ namespace FirstWinFormsApp1
                                                         SerialNumberLabel.Text + "\r\n",
                                                         SignalTypeLabel.Text + "\r\n",
                                                         MeasureTypeLabel.Text + "\r\n",
+                                                        textBoxInstrumentID.Text + "\r\n",
                                                         TextBoxOptions.Text + "\r\n",
                                                         CommentsTextLabel.Text + "\r\n",
                                                         Convert.ToDouble(textBoxLRV.Text),
@@ -351,6 +354,7 @@ namespace FirstWinFormsApp1
                                   textBoxLocation.Text + "\n" +
                                   SignalTypeLabel.Text + "\n" +
                                   MeasureTypeLabel.Text + "\n" +
+                                  textBoxInstrumentID.Text + "\n" +
                                   TextBoxOptions.Text + "\n" +
                                   CommentsTextLabel.Text + "\n" +
                                   Convert.ToDouble(textBoxLRV.Text) + "\n" +
@@ -377,6 +381,7 @@ namespace FirstWinFormsApp1
                                                         SerialNumberLabel.Text + "\r\n",
                                                         SignalTypeLabel.Text + "\r\n",
                                                         MeasureTypeLabel.Text + "\r\n",
+                                                        textBoxInstrumentID.Text + "\r\n",
                                                         TextBoxOptions.Text + "\r\n",
                                                         CommentsTextLabel.Text + "\r\n",
                                                         lrvValue,
@@ -399,8 +404,10 @@ namespace FirstWinFormsApp1
                                   textBoxLocation.Text + "\n" +
                                   SignalTypeLabel.Text + "\n" +
                                   MeasureTypeLabel.Text + "\n" +
+                                  textBoxInstrumentID.Text + "\n" +
                                   TextBoxOptions.Text + "\n" +
                                   CommentsTextLabel.Text + "\n";
+
 
 
                     string path = @"C:\Users\morte\OneDrive\Dokumenter\Instruments\" + comboBoxInstrumentName.Text + ".txt";
@@ -421,6 +428,7 @@ namespace FirstWinFormsApp1
                                                         SerialNumberLabel.Text + "\r\n",
                                                         SignalTypeLabel.Text + "\r\n",
                                                         MeasureTypeLabel.Text + "\r\n",
+                                                        textBoxInstrumentID.Text + "\r\n",
                                                         TextBoxOptions.Text + "\r\n",
                                                         CommentsTextLabel.Text + "\r\n",
                                                         lrvValue,
@@ -442,6 +450,7 @@ namespace FirstWinFormsApp1
                                   textBoxLocation.Text + "\n" +
                                   SignalTypeLabel.Text + "\n" +
                                   MeasureTypeLabel.Text + "\n" +
+                                  textBoxInstrumentID.Text + "\n" +
                                   TextBoxOptions.Text + "\n" +
                                   CommentsTextLabel.Text + "\n";
 
@@ -729,8 +738,8 @@ namespace FirstWinFormsApp1
             // parse the data in the file
             string[] data = fileContents.Split(new string[] { "\n" }, StringSplitOptions.RemoveEmptyEntries);
 
-            // check if file has 13 lines of data
-            if (data.Length == 13)
+            // check if file has 14 lines of data
+            if (data.Length == 14)
             {
                 // set the values of the appropriate controls on the form
                 comboBoxInstrumentName.Text = data[0];
@@ -739,16 +748,17 @@ namespace FirstWinFormsApp1
                 textBoxLocation.Text = data[3];
                 SignalTypeLabel.Text = data[4];
                 MeasureTypeLabel.Text = data[5];
-                TextBoxOptions.Text = data[6];
-                CommentsTextLabel.Text = data[7];
-                textBoxLRV.Text = data[8];
-                textBoxURV.Text = data[9];
-                textBoxUnit.Text = data[10];
-                textBoxAlarmHigh.Text = data[11];
-                textBoxAlarmLow.Text = data[12];
+                textBoxInstrumentID.Text = data[6];
+                TextBoxOptions.Text = data[7];
+                CommentsTextLabel.Text = data[8];
+                textBoxLRV.Text = data[9];
+                textBoxURV.Text = data[10];
+                textBoxUnit.Text = data[11];
+                textBoxAlarmHigh.Text = data[12];
+                textBoxAlarmLow.Text = data[13];
             }
             // check if file has 9 lines of data
-            else if (data.Length == 8)
+            else if (data.Length == 9)
             {
                 // set the values of the appropriate controls on the form
                 comboBoxInstrumentName.Text = data[0];
@@ -757,8 +767,9 @@ namespace FirstWinFormsApp1
                 textBoxLocation.Text = data[3];
                 SignalTypeLabel.Text = data[4];
                 MeasureTypeLabel.Text = data[5];
-                TextBoxOptions.Text = data[6];
-                CommentsTextLabel.Text = data[7];
+                textBoxInstrumentID.Text = data[6];
+                TextBoxOptions.Text = data[7];
+                CommentsTextLabel.Text = data[8];
                 // clear the values of the unused controls on the form
                 textBoxLRV.Text = "";
                 textBoxURV.Text = "";
@@ -771,7 +782,7 @@ namespace FirstWinFormsApp1
                 // handle the case where the file has an unexpected number of lines
                 // for example, clear all the controls on the form
                 ClearForm();
-                MessageBox.Show("The selected file has an unexpected number of lines. It should have either 8 or 13 lines of data.");
+                MessageBox.Show("The selected file has an unexpected number of lines. It should have either 9 or 14 lines of data.");
                 return;
             }
 
@@ -1542,7 +1553,21 @@ namespace FirstWinFormsApp1
         {
 
         }
+
+        private void radioButtonInstrumentID_CheckedChanged(object sender, EventArgs e)
+        {
+            string uniqueID = GenerateUniqueID();
+            textBoxInstrumentID.Text = uniqueID;
+
+            // Reset the radioButtonInstrumentID control
+            radioButtonInstrumentID.Checked = false;
+        }
+        private string GenerateUniqueID()
+        {
+            return Guid.NewGuid().ToString("N");
+        }
     }
+
 }
 
 
