@@ -184,7 +184,7 @@ namespace FirstWinFormsApp1
             comboBoxSenorName.Text = "";
             textBoxLocation.Text = "";
             textBoxInstrumentID.Text = "";
-            
+
         }
 
         private void TextboxRegisterText()

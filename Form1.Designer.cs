@@ -60,6 +60,7 @@
             textBoxIP = new TextBox();
             buttonSend = new Button();
             Sensor_Data = new TabPage();
+            radioButtonInstrumentID = new RadioButton();
             textBoxInstrumentID = new TextBox();
             label18 = new Label();
             textBoxLocation = new TextBox();
@@ -123,7 +124,6 @@
             bindingSourceAnalogRange = new BindingSource(components);
             bindingSourceMeasurementType = new BindingSource(components);
             bindingSourceSignalType = new BindingSource(components);
-            radioButtonInstrumentID = new RadioButton();
             statusStrip1.SuspendLayout();
             tabPage1.SuspendLayout();
             tabPage2.SuspendLayout();
@@ -458,6 +458,18 @@
             Sensor_Data.TabIndex = 0;
             Sensor_Data.Text = "Sensor Data";
             // 
+            // radioButtonInstrumentID
+            // 
+            radioButtonInstrumentID.AutoSize = true;
+            radioButtonInstrumentID.Location = new Point(422, 113);
+            radioButtonInstrumentID.Name = "radioButtonInstrumentID";
+            radioButtonInstrumentID.Size = new Size(357, 45);
+            radioButtonInstrumentID.TabIndex = 37;
+            radioButtonInstrumentID.TabStop = true;
+            radioButtonInstrumentID.Text = "Generate InstrumentID";
+            radioButtonInstrumentID.UseVisualStyleBackColor = true;
+            radioButtonInstrumentID.CheckedChanged += radioButtonInstrumentID_CheckedChanged;
+            // 
             // textBoxInstrumentID
             // 
             textBoxInstrumentID.Location = new Point(709, 169);
@@ -607,7 +619,7 @@
             // comboBoxInstrumentName
             // 
             comboBoxInstrumentName.FormattingEnabled = true;
-            comboBoxInstrumentName.Location = new Point(709, 96);
+            comboBoxInstrumentName.Location = new Point(833, 44);
             comboBoxInstrumentName.Margin = new Padding(2, 3, 2, 3);
             comboBoxInstrumentName.Name = "comboBoxInstrumentName";
             comboBoxInstrumentName.Size = new Size(492, 49);
@@ -1072,18 +1084,6 @@
             // bindingSourceInstrument
             // 
             bindingSourceInstrument.CurrentChanged += bindingSourceInstrument_CurrentChanged;
-            // 
-            // radioButtonInstrumentID
-            // 
-            radioButtonInstrumentID.AutoSize = true;
-            radioButtonInstrumentID.Location = new Point(24, 244);
-            radioButtonInstrumentID.Name = "radioButtonInstrumentID";
-            radioButtonInstrumentID.Size = new Size(357, 45);
-            radioButtonInstrumentID.TabIndex = 37;
-            radioButtonInstrumentID.TabStop = true;
-            radioButtonInstrumentID.Text = "Generate InstrumentID";
-            radioButtonInstrumentID.UseVisualStyleBackColor = true;
-            radioButtonInstrumentID.CheckedChanged += radioButtonInstrumentID_CheckedChanged;
             // 
             // Form1
             // 
