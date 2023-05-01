@@ -27,6 +27,12 @@ namespace FirstWinFormsApp1
 
 
     {
+
+        private System.Windows.Forms.Timer connectionTimer;
+
+
+
+
         //Constans
 
         readonly int[] numbers = new int[7] { 5, 3, 7, 25, 65, 32, 43 };
@@ -66,6 +72,8 @@ namespace FirstWinFormsApp1
         List<Instrument> instrumentList = new List<Instrument>();
 
         string connectionString;
+
+
 
 
 
@@ -156,7 +164,37 @@ namespace FirstWinFormsApp1
 
                 }
             }
+            // Create and start the timer for checking the connection
+            connectionTimer = new System.Windows.Forms.Timer();
+            connectionTimer.Interval = 5000; // 5 seconds
+            connectionTimer.Tick += new EventHandler(CheckConnectionStatus);
+            connectionTimer.Start();
+
+            // Call the CheckConnectionStatus method once to initialize the label visibility
+            CheckConnectionStatus(null, null);
         }
+
+        private bool IsConnectedToBackend()
+        {
+            try
+            {
+                using (var conn = new SqlConnection(connectionString))
+                {
+                    conn.Open();
+                    return conn != null;
+                }
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+        }
+
+        private void CheckConnectionStatus(object sender, EventArgs e)
+        {
+            
+        }
+
 
         private void ClearForm()
         {
@@ -812,7 +850,8 @@ namespace FirstWinFormsApp1
 
             try
             {
-                IPEndPoint endpoint = new IPEndPoint(IPAddress.Parse(textBoxIP.Text), Convert.ToInt32(textBoxPort.Text));
+                IPEndPoint endpoint = new IPEndPoint(IPAddress.Parse(textBoxIP.Text),
+                 Convert.ToInt32(textBoxPort.Text));
                 Socket client = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
                 client.Connect(endpoint);
                 textBoxCommunication.AppendText("Connected to server.");
@@ -832,6 +871,23 @@ namespace FirstWinFormsApp1
                 // Display the error message in a message box
                 MessageBox.Show("Error occurred: " + ex.Message);
                 return null;
+            }
+        }
+
+        private bool IsConnected()
+        {
+            try
+            {
+                IPEndPoint endpoint = new IPEndPoint(IPAddress.Parse(textBoxIP.Text),
+                Convert.ToInt32(textBoxPort.Text));
+                Socket client = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
+                client.Connect(endpoint);
+                client.Close();
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
             }
         }
 
@@ -960,20 +1016,36 @@ namespace FirstWinFormsApp1
             textBoxCommunication.AppendText(received + "\r\n");
         }
 
+        private bool isFirstTick = true;
+
         private void timer1_Tick(object sender, EventArgs e)
         {
             xTimeValue += 5;
             double yValue = 0.0;
             string received;
 
-            received = sendToBackEnd("readscaled");
-            string[] receivedParts = received.Split(";");
-            string recievedString = receivedParts[1].Remove(receivedParts[1].Length - 2);
+            try
+            {
+                received = sendToBackEnd("readscaled");
+                string[] receivedParts = received.Split(";");
+                string receivedString = receivedParts[1].Remove(receivedParts[1].Length - 2);
 
-            yValue = Convert.ToDouble(recievedString, CultureInfo.InvariantCulture);
+                yValue = Convert.ToDouble(receivedString, CultureInfo.InvariantCulture);
 
-            chart1.Series[0].Points.AddXY(xTimeValue, yValue);
-
+                if (isFirstTick)
+                {
+                    chart1.Series[0].Points.AddXY(xTimeValue - 5, yValue);
+                    isFirstTick = false;
+                }
+                else
+                {
+                    chart1.Series[0].Points.AddXY(xTimeValue, yValue);
+                }
+            }
+            catch (Exception ex)
+            {
+                textBoxCommunication.AppendText("Error: " + ex.Message + "\r\n");
+            }
         }
 
 
@@ -1099,23 +1171,32 @@ namespace FirstWinFormsApp1
 
         private void buttonSend_Click(object sender, EventArgs e)
         {
-            IPEndPoint endPoint = new IPEndPoint(IPAddress.Parse(textBoxIP.Text), Convert.ToInt32(textBoxPort.Text));
-            Socket client = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
+            try
+            {
+                IPEndPoint endPoint = new IPEndPoint(IPAddress.Parse(textBoxIP.Text),
+                Convert.ToInt32(textBoxPort.Text));
+                Socket client = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
 
-            client.Connect(endPoint);
+                client.Connect(endPoint);
 
-            textBoxCommunication.AppendText("Connected to server..." + "\r\n");
+                textBoxCommunication.AppendText("Connected to server..." + "\r\n");
 
-            //Cliet Send
-            client.Send(Encoding.ASCII.GetBytes(textBoxSend.Text));
+                //Client Send
+                client.Send(Encoding.ASCII.GetBytes(textBoxSend.Text));
 
-            //Cliet receive
-            byte[] buffer = new byte[1024];
-            int bytesReceived = client.Receive(buffer);
+                //Client Receive
+                byte[] buffer = new byte[1024];
+                int bytesReceived = client.Receive(buffer);
 
-            textBoxCommunication.AppendText("Received..." + Encoding.ASCII.GetString(buffer, 0, bytesReceived) + "\r\n");
-            client.Close();
-            textBoxCommunication.AppendText("Connection closed..." + "\r\n");
+                textBoxCommunication.AppendText("Received..." + Encoding.ASCII.GetString(buffer, 0, bytesReceived) + "\r\n");
+
+                client.Close();
+                textBoxCommunication.AppendText("Connection closed..." + "\r\n");
+            }
+            catch (Exception ex)
+            {
+                textBoxCommunication.AppendText("Error: " + ex.Message + "\r\n");
+            }
 
         }
 
@@ -1212,7 +1293,8 @@ namespace FirstWinFormsApp1
         private void testButton_Click(object sender, EventArgs e)
         {
 
-            IPEndPoint endPoint = new IPEndPoint(IPAddress.Parse(textBoxIP.Text), Convert.ToInt32(textBoxPort.Text));
+            IPEndPoint endPoint = new IPEndPoint(IPAddress.Parse(textBoxIP.Text),
+            Convert.ToInt32(textBoxPort.Text));
             Socket client = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
 
             try
@@ -1534,26 +1616,6 @@ namespace FirstWinFormsApp1
             textBoxLocation.Text = "-";
         }
 
-        private void bindingSource1_CurrentChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void bindingSourceInstrument_CurrentChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void MeasureTypeLabel_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void comboBoxSenorName_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
-        }
-
         private void radioButtonInstrumentID_CheckedChanged(object sender, EventArgs e)
         {
             string uniqueID = GenerateUniqueID();
@@ -1565,6 +1627,18 @@ namespace FirstWinFormsApp1
         private string GenerateUniqueID()
         {
             return Guid.NewGuid().ToString("N");
+        }
+
+        private void testConnectionButton_Click(object sender, EventArgs e)
+        {
+            if (IsConnected())
+            {
+                MessageBox.Show("Connection successful.");
+            }
+            else
+            {
+                MessageBox.Show("Connection failed.");
+            }
         }
     }
 

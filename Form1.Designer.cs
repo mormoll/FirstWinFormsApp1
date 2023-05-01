@@ -42,6 +42,7 @@
             label16 = new Label();
             listBox_IpAddresses = new ListBox();
             tabPage2 = new TabPage();
+            testConnectionButton = new Button();
             testButton = new Button();
             comboBoxBaudRate = new ComboBox();
             comboBoxComPort = new ComboBox();
@@ -219,6 +220,7 @@
             // 
             // tabPage2
             // 
+            tabPage2.Controls.Add(testConnectionButton);
             tabPage2.Controls.Add(testButton);
             tabPage2.Controls.Add(comboBoxBaudRate);
             tabPage2.Controls.Add(comboBoxComPort);
@@ -244,6 +246,16 @@
             tabPage2.TabIndex = 1;
             tabPage2.Text = "Connection";
             tabPage2.UseVisualStyleBackColor = true;
+            // 
+            // testConnectionButton
+            // 
+            testConnectionButton.Location = new Point(66, 189);
+            testConnectionButton.Name = "testConnectionButton";
+            testConnectionButton.Size = new Size(302, 58);
+            testConnectionButton.TabIndex = 21;
+            testConnectionButton.Text = "Test Connection";
+            testConnectionButton.UseVisualStyleBackColor = true;
+            testConnectionButton.Click += testConnectionButton_Click;
             // 
             // testButton
             // 
@@ -353,9 +365,9 @@
             label13.Location = new Point(19, 115);
             label13.Margin = new Padding(2, 0, 2, 0);
             label13.Name = "label13";
-            label13.Size = new Size(72, 41);
+            label13.Size = new Size(131, 41);
             label13.TabIndex = 7;
-            label13.Text = "Port";
+            label13.Text = "TCP Port";
             // 
             // label12
             // 
@@ -394,6 +406,7 @@
             textBoxPort.Name = "textBoxPort";
             textBoxPort.Size = new Size(373, 47);
             textBoxPort.TabIndex = 2;
+            
             // 
             // textBoxIP
             // 
@@ -558,7 +571,7 @@
             comboBoxSenorName.Name = "comboBoxSenorName";
             comboBoxSenorName.Size = new Size(492, 49);
             comboBoxSenorName.TabIndex = 31;
-            comboBoxSenorName.SelectedIndexChanged += comboBoxSenorName_SelectedIndexChanged;
+            
             comboBoxSenorName.Click += comboBoxInstrument_Click;
             // 
             // clearButton
@@ -619,7 +632,7 @@
             // comboBoxInstrumentName
             // 
             comboBoxInstrumentName.FormattingEnabled = true;
-            comboBoxInstrumentName.Location = new Point(833, 44);
+            comboBoxInstrumentName.Location = new Point(817, 70);
             comboBoxInstrumentName.Margin = new Padding(2, 3, 2, 3);
             comboBoxInstrumentName.Name = "comboBoxInstrumentName";
             comboBoxInstrumentName.Size = new Size(492, 49);
@@ -807,7 +820,7 @@
             MeasureTypeLabel.Name = "MeasureTypeLabel";
             MeasureTypeLabel.Size = new Size(502, 49);
             MeasureTypeLabel.TabIndex = 6;
-            MeasureTypeLabel.SelectedIndexChanged += MeasureTypeLabel_SelectedIndexChanged;
+            
             // 
             // TextBoxOptions
             // 
@@ -1036,6 +1049,7 @@
             chart1.Text = "chart1";
             title1.Name = "Ligth Value";
             chart1.Titles.Add(title1);
+            
             // 
             // menuStrip1
             // 
@@ -1079,11 +1093,11 @@
             // 
             // bindingSource1
             // 
-            bindingSource1.CurrentChanged += bindingSource1_CurrentChanged;
+            
             // 
             // bindingSourceInstrument
             // 
-            bindingSourceInstrument.CurrentChanged += bindingSourceInstrument_CurrentChanged;
+            
             // 
             // Form1
             // 
@@ -1227,5 +1241,6 @@
         private TextBox textBoxInstrumentID;
         private Label label18;
         private RadioButton radioButtonInstrumentID;
+        private Button testConnectionButton;
     }
 }
