@@ -110,6 +110,7 @@
             tabControl2 = new TabControl();
             tabPage3 = new TabPage();
             groupBox2 = new GroupBox();
+            labelConnecionOK = new Label();
             textBoxChart = new TextBox();
             disconnectButtonAddXY = new Button();
             buttonAddXY = new Button();
@@ -406,7 +407,6 @@
             textBoxPort.Name = "textBoxPort";
             textBoxPort.Size = new Size(373, 47);
             textBoxPort.TabIndex = 2;
-            
             // 
             // textBoxIP
             // 
@@ -571,7 +571,7 @@
             comboBoxSenorName.Name = "comboBoxSenorName";
             comboBoxSenorName.Size = new Size(492, 49);
             comboBoxSenorName.TabIndex = 31;
-            
+            comboBoxSenorName.SelectedIndexChanged += comboBoxSenorName_SelectedIndexChanged;
             comboBoxSenorName.Click += comboBoxInstrument_Click;
             // 
             // clearButton
@@ -632,7 +632,7 @@
             // comboBoxInstrumentName
             // 
             comboBoxInstrumentName.FormattingEnabled = true;
-            comboBoxInstrumentName.Location = new Point(817, 70);
+            comboBoxInstrumentName.Location = new Point(709, 44);
             comboBoxInstrumentName.Margin = new Padding(2, 3, 2, 3);
             comboBoxInstrumentName.Name = "comboBoxInstrumentName";
             comboBoxInstrumentName.Size = new Size(492, 49);
@@ -820,7 +820,6 @@
             MeasureTypeLabel.Name = "MeasureTypeLabel";
             MeasureTypeLabel.Size = new Size(502, 49);
             MeasureTypeLabel.TabIndex = 6;
-            
             // 
             // TextBoxOptions
             // 
@@ -974,6 +973,7 @@
             // groupBox2
             // 
             groupBox2.BackColor = Color.WhiteSmoke;
+            groupBox2.Controls.Add(labelConnecionOK);
             groupBox2.Controls.Add(textBoxChart);
             groupBox2.Controls.Add(disconnectButtonAddXY);
             groupBox2.Controls.Add(buttonAddXY);
@@ -985,19 +985,30 @@
             groupBox2.TabIndex = 13;
             groupBox2.TabStop = false;
             // 
+            // labelConnecionOK
+            // 
+            labelConnecionOK.AutoSize = true;
+            labelConnecionOK.ForeColor = Color.ForestGreen;
+            labelConnecionOK.Location = new Point(50, 179);
+            labelConnecionOK.Name = "labelConnecionOK";
+            labelConnecionOK.Size = new Size(219, 41);
+            labelConnecionOK.TabIndex = 16;
+            labelConnecionOK.Text = "Connection OK";
+            labelConnecionOK.Visible = false;
+            // 
             // textBoxChart
             // 
-            textBoxChart.Location = new Point(39, 227);
+            textBoxChart.Location = new Point(39, 223);
             textBoxChart.Margin = new Padding(2, 3, 2, 3);
             textBoxChart.Multiline = true;
             textBoxChart.Name = "textBoxChart";
-            textBoxChart.Size = new Size(252, 485);
+            textBoxChart.Size = new Size(255, 489);
             textBoxChart.TabIndex = 14;
             // 
             // disconnectButtonAddXY
             // 
             disconnectButtonAddXY.BackColor = Color.IndianRed;
-            disconnectButtonAddXY.Location = new Point(63, 137);
+            disconnectButtonAddXY.Location = new Point(63, 109);
             disconnectButtonAddXY.Margin = new Padding(2, 3, 2, 3);
             disconnectButtonAddXY.Name = "disconnectButtonAddXY";
             disconnectButtonAddXY.Size = new Size(189, 57);
@@ -1049,7 +1060,7 @@
             chart1.Text = "chart1";
             title1.Name = "Ligth Value";
             chart1.Titles.Add(title1);
-            
+            chart1.Click += chart1_Click;
             // 
             // menuStrip1
             // 
@@ -1090,14 +1101,6 @@
             // 
             timerRedaScaled.Interval = 5000;
             timerRedaScaled.Tick += timer1_Tick;
-            // 
-            // bindingSource1
-            // 
-            
-            // 
-            // bindingSourceInstrument
-            // 
-            
             // 
             // Form1
             // 
@@ -1172,7 +1175,6 @@
         private ComboBox MeasureTypeLabel;
         private ListBox TextBoxOptions;
         private GroupBox groupBox1;
-        private RadioButton radioButton3;
         private ComboBox SignalTypeLabel;
         private DateTimePicker dateTimePicker1Label;
         private CheckBox checkBox1Registerd;
@@ -1242,5 +1244,6 @@
         private Label label18;
         private RadioButton radioButtonInstrumentID;
         private Button testConnectionButton;
+        private Label labelConnecionOK;
     }
 }

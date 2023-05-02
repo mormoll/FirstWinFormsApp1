@@ -20,6 +20,7 @@ using static System.Windows.Forms.VisualStyles.VisualStyleElement.ToolBar;
 using System.Web;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
+using System.Security.Policy;
 
 namespace FirstWinFormsApp1
 {
@@ -38,7 +39,7 @@ namespace FirstWinFormsApp1
         readonly int[] numbers = new int[7] { 5, 3, 7, 25, 65, 32, 43 };
         string[] analogSignals = new string[] { "0-5VDC", "0-10VDC", "0-20mA", "4-20mA", "RTD" };
         string[] digitalSignals = new string[] { "5VDC", "10VDC0", "24VDC", "Relay" };
-        string[] fieldbusSigals = new string[] { "Modbus RTU", "ModbusTCP", "Profibus", "ProfiNet", "CANBus", "ErherCat", "RS48" };
+        string[] fieldbusSigals = new string[] { "Modbus RTU", "ModbusTCP", "Profibus", "ProfiNet", "CANBus", "EtherCat", "RS48" };
 
         string[] daysOfWeek = { "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday" };
 
@@ -192,7 +193,7 @@ namespace FirstWinFormsApp1
 
         private void CheckConnectionStatus(object sender, EventArgs e)
         {
-            
+
         }
 
 
@@ -548,10 +549,10 @@ namespace FirstWinFormsApp1
                                     + "Values(@lrv, @urv, @alarmH, @alarmL); SELECT SCOPE_IDENTITY();";
 
             string insertInstrumentQuery = "INSERT INTO InstrumentSet(InstrumentName, RegisterDate, "
-                                          + "SerialNo, Comments, SignaType_Signal_id, Location,"
-                                          + "MeasurementType_MeasuremntTypeID, AnalogRange_RangeId) "
-                                          + "VALUES (@InstrumentName, GETDATE(), @SerialNo, @Comment, "
-                                          + "@SignaType_Signal_id, @MeasurementType_MeasuremntTypeID, @RangeId);";
+                                            + "SerialNo, Comments, SignaType_Signal_id, Location,"
+                                            + "MeasurementType_MeasuremntTypeID, AnalogRange_RangeId, SerialPortNr) "
+                                            + "VALUES (@InstrumentName, GETDATE(), @serialNo, @comment, "
+                                            + "@SignaType_Signal_id, @Location, @MeasurementType_MeasuremntTypeID, @AnalogRange_RangeId, @SerialPortNr);";
 
             string lrv = textBoxLRV.Text;
             string urv = textBoxURV.Text;
@@ -563,6 +564,8 @@ namespace FirstWinFormsApp1
             string location = textBoxLocation.Text;
             int signalType = 2;
             int measurementType = 7;
+            string registerDate = DateTime.Now.ToString(); // current date and time
+            int serialPortNr = 3;
 
             //Insert Range Command
             sqlConnection.Open();
@@ -577,38 +580,24 @@ namespace FirstWinFormsApp1
 
             //Insert Instrument Command
             SqlCommand command2 = new SqlCommand(insertInstrumentQuery, sqlConnection);
-            command2.Parameters.AddWithValue("@instrumentName", instrumentName);
+            command2.Parameters.AddWithValue("@InstrumentName", instrumentName);
             command2.Parameters.AddWithValue("@serialNo", serialNo);
             command2.Parameters.AddWithValue("@Location", location);
             command2.Parameters.AddWithValue("@comment", comment);
             command2.Parameters.AddWithValue("@SignaType_Signal_id", signalType);
             command2.Parameters.AddWithValue("@MeasurementType_MeasuremntTypeID", measurementType);
-            command2.Parameters.AddWithValue("@RangeId", RangeId);
+            command2.Parameters.AddWithValue("@AnalogRange_RangeId", RangeId);
+            command2.Parameters.AddWithValue("@SerialPortNr", serialPortNr);
+
             command2.ExecuteNonQuery();
             sqlConnection.Close();
-
+            ClearForm();
+            MessageBox.Show("Data saved successfully!", "Confirmation", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            InstrumentSQLProcedure();
 
         }
-
-        private void LoadDataFromDigitalFieldbus(string savedData)
-        {
-            // parse the saved data
-            string[] data = savedData.Split(new string[] { "\n" }, StringSplitOptions.RemoveEmptyEntries);
-
-            // set the values of the appropriate controls on the form
-            comboBoxInstrumentName.Text = data[0];
-            SerialNumberLabel.Text = data[1];
-            dateTimePicker1Label.Value = Convert.ToDateTime(data[2]);
-            SignalTypeLabel.Text = data[3];
-            MeasureTypeLabel.Text = data[4];
-            TextBoxOptions.Text = data[5];
-            CommentsTextLabel.Text = data[6];
-            textBoxLRV.Text = "";
-            textBoxURV.Text = "";
-            textBoxUnit.Text = "";
-            textBoxAlarmHigh.Text = "";
-            textBoxAlarmLow.Text = "";
-        }
+        
+       
         private void saveDataToFile()
         {
             //string data = instrument.ToString() + "\r\n";
@@ -899,12 +888,14 @@ namespace FirstWinFormsApp1
             }
             else
             {
+                // Clear the existing chart data
+                chart1.Series[0].Points.Clear();
+
+                // Call timer1_Tick to get the first reading and add it to the chart
                 timer1_Tick(this, EventArgs.Empty);
+
+                // Start the timer that updates the chart
                 timerRedaScaled.Start();
-
-
-                // Clear the existing text in the textbox
-                textBoxChart.Clear();
 
                 // Create a new file with a unique name
                 string timestamp = DateTime.Now.ToString("yyyyMMddHHmmss");
@@ -933,6 +924,9 @@ namespace FirstWinFormsApp1
                         textBoxChart.AppendText(point.XValue.ToString("F2") + " " + point.YValues[0].ToString("F2") + Environment.NewLine);
                     }
                 };
+
+                // Show the radioButtonConnection control
+                labelConnecionOK.Visible = true;
             }
         }
 
@@ -1020,6 +1014,37 @@ namespace FirstWinFormsApp1
 
         private void timer1_Tick(object sender, EventArgs e)
         {
+            UpdateChartData();
+            //xTimeValue += 5;
+            //double yValue = 0.0;
+            //string received;
+
+            //try
+            //{
+            //    received = sendToBackEnd("readscaled");
+            //    string[] receivedParts = received.Split(";");
+            //    string receivedString = receivedParts[1].Remove(receivedParts[1].Length - 2);
+
+            //    yValue = Convert.ToDouble(receivedString, CultureInfo.InvariantCulture);
+
+            //    if (isFirstTick)
+            //    {
+            //        chart1.Series[0].Points.AddXY(xTimeValue - 5, yValue);
+            //        isFirstTick = false;
+            //    }
+            //    else
+            //    {
+            //        chart1.Series[0].Points.AddXY(xTimeValue, yValue);
+            //    }
+            //}
+            //catch (Exception ex)
+            //{
+            //    textBoxCommunication.AppendText("Error: " + ex.Message + "\r\n");
+            //}
+        }
+
+        private void UpdateChartData()
+        {
             xTimeValue += 5;
             double yValue = 0.0;
             string received;
@@ -1048,6 +1073,21 @@ namespace FirstWinFormsApp1
             }
         }
 
+        private void GetInitialReading()
+        {
+            try
+            {
+                string received = sendToBackEnd("readscaled");
+                string[] receivedParts = received.Split(";");
+                string receivedString = receivedParts[1].Remove(receivedParts[1].Length - 2);
+                double yValue = Convert.ToDouble(receivedString, CultureInfo.InvariantCulture);
+                chart1.Series[0].Points.AddXY(xTimeValue, yValue);
+            }
+            catch (Exception ex)
+            {
+                textBoxCommunication.AppendText("Error: " + ex.Message + "\r\n");
+            }
+        }
 
         private void buttonSummary_Click(object sender, EventArgs e)
         {
@@ -1244,8 +1284,9 @@ namespace FirstWinFormsApp1
             }
             if (radioButton2.Checked)
             {
-                //InstrumentSQL();
-                InstrumentSQLProcedure();
+                InstrumentSQL();
+                
+                
             }
 
 
@@ -1288,6 +1329,8 @@ namespace FirstWinFormsApp1
         private void disconnectButtonAddXY_Click(object sender, EventArgs e)
         {
             timerRedaScaled.Stop();
+            // Show the radioButtonConnection control
+            labelConnecionOK.Visible = false;
         }
 
         private void testButton_Click(object sender, EventArgs e)
@@ -1374,10 +1417,10 @@ namespace FirstWinFormsApp1
 
         private void radioButton2_CheckedChanged(object sender, EventArgs e)
         {
-            load_form_from_sql();
+            load_form_sql();
         }
 
-        private void load_form_from_sql()
+        private void load_form_sql()
         {
             // Define SQL queries to select all data from database tables.
             string sqlInstrument = "SELECT * FROM InstrumentSet " +
@@ -1437,66 +1480,73 @@ namespace FirstWinFormsApp1
             }
         }
 
-        /*
-             private void save_Instrument_to_sql() 
+        
+        private void save_Instrument_to_sql() 
              {
-                 // Create an SQL query to insert or update data in the database.
-                 string insertInstrumentQuery = "INSERT INTO InstrumentSet (SerialNo, InstrumentName, Comments, RegisterDate, Location, Lrv, UrV, Unit, AlarmHigh, AlarmLow, AnalogRange_RangeId, SignaType_Signal_Id, MeasurementType_MeasuremntTypeId) VALUES (@SerialNo, @InstrumentName, @Comments, @RegisterDate, @Location, @Lrv, @UrV, @Unit, @AlarmHigh, @AlarmLow, @AnalogRange_RangeId, @SignaType_Signal_Id, @MeasurementType_MeasuremntTypeId)";
-                 string updateInstrumentQuery = "UPDATE InstrumentSet SET SerialNo = @SerialNo, InstrumentName = @InstrumentName, Comments = @Comments, RegisterDate = @RegisterDate, Location = @Location, Lrv = @Lrv, UrV = @UrV, Unit = @Unit, AlarmHigh = @AlarmHigh, AlarmLow = @AlarmLow, AnalogRange_RangeId = @AnalogRange_RangeId, SignaType_Signal_Id = @SignaType_Signal_Id, MeasurementType_MeasuremntTypeId = @MeasurementType_MeasuremntTypeId WHERE Instrument_id = @Instrument_id";
+                
 
-                 // Create a SqlCommand object with the appropriate SQL query and SqlConnection object.
-                 SqlCommand command = new SqlCommand();
-                 command.Connection = connection;
-                 command.CommandType = CommandType.Text;
 
-                 // Add the required parameters to the SqlCommand object.
-                 command.Parameters.AddWithValue("@SerialNo", SerialNumberLabel.Text);
-                 command.Parameters.AddWithValue("@InstrumentName", comboBoxSenorName.Text);
-                 command.Parameters.AddWithValue("@Comments", CommentsTextLabel.Text);
-                 command.Parameters.AddWithValue("@RegisterDate", dateTimePicker1Label.Value);
-                 command.Parameters.AddWithValue("@Location", textBoxLocation.Text);
-                 command.Parameters.AddWithValue("@Lrv", textBoxLRV.Text);
-                 command.Parameters.AddWithValue("@UrV", textBoxURV.Text);
-                 command.Parameters.AddWithValue("@Unit", textBoxUnit.Text);
-                 command.Parameters.AddWithValue("@AlarmHigh", textBoxAlarmHigh.Text);
-                 command.Parameters.AddWithValue("@AlarmLow", textBoxAlarmLow.Text);
-                 command.Parameters.AddWithValue("@AnalogRange_RangeId", (int)bindingSourceInstrument["AnalogRange_RangeId"]);
-                 command.Parameters.AddWithValue("@SignaType_Signal_Id", (int)bindingSourceInstrument["SignaType_Signal_Id"]);
-                 command.Parameters.AddWithValue("@MeasurementType_MeasuremntTypeId", (int)bindingSourceInstrument["MeasurementType_MeasuremntTypeId"]);
+                 //// Create an SQL query to insert or update data in the database.
+                 //string insertInstrumentQuery = "INSERT INTO InstrumentSet (SerialNo, InstrumentName, Comments, RegisterDate, Location, Lrv, UrV, Unit, AlarmHigh, AlarmLow, AnalogRange_RangeId, SignaType_Signal_Id, MeasurementType_MeasuremntTypeId) VALUES (@SerialNo, @InstrumentName, @Comments, @RegisterDate, @Location, @Lrv, @UrV, @Unit, @AlarmHigh, @AlarmLow, @AnalogRange_RangeId, @SignaType_Signal_Id, @MeasurementType_MeasuremntTypeId)";
+                 //string updateInstrumentQuery = "UPDATE InstrumentSet SET SerialNo = @SerialNo, InstrumentName = @InstrumentName, Comments = @Comments, RegisterDate = @RegisterDate, Location = @Location, Lrv = @Lrv, UrV = @UrV, Unit = @Unit, AlarmHigh = @AlarmHigh, AlarmLow = @AlarmLow, AnalogRange_RangeId = @AnalogRange_RangeId, SignaType_Signal_Id = @SignaType_Signal_Id, MeasurementType_MeasuremntTypeId = @MeasurementType_MeasuremntTypeId WHERE Instrument_id = @Instrument_id";
 
-                 // If the Instrument_id is not null, it means that we are updating an existing instrument.
-                 // In this case, we need to add the Instrument_id parameter to the SqlCommand object.
-                 if (bindingSourceInstrument["Instrument_id"] != DBNull.Value)
-                 {
-                     command.CommandText = updateInstrumentQuery;
-                     command.Parameters.AddWithValue("@Instrument_id", (int)bindingSourceInstrument["Instrument_id"]);
-                 }
-                 else
-                 {
-                     // Otherwise, we are inserting a new instrument.
-                     command.CommandText = insertInstrumentQuery;
-                 }
+                 //// Create a SqlCommand object with the appropriate SQL query and SqlConnection object.
+                 //SqlCommand command = new SqlCommand();
+                 //command.Connection = connection;
+                 //command.CommandType = CommandType.Text;
 
-                 // Execute the command to insert or update the instrument in the database.
-                 try
-                 {
-                     connection.Open();
-                     int rowsAffected = command.ExecuteNonQuery();
-                     if (rowsAffected > 0)
-                     {
-                         MessageBox.Show("Changes saved successfully.");
-                     }
-                 }
-                 catch (Exception ex)
-                 {
-                     MessageBox.Show("Error: " + ex.Message);
-                 }
-                 finally
-                 {
-                     connection.Close();
-                 }
+                 //// Add the required parameters to the SqlCommand object.
+                 //command.Parameters.AddWithValue("@SerialNo", SerialNumberLabel.Text);
+                 //command.Parameters.AddWithValue("@InstrumentName", comboBoxSenorName.Text);
+                 //command.Parameters.AddWithValue("@Comments", CommentsTextLabel.Text);
+                 //command.Parameters.AddWithValue("@RegisterDate", dateTimePicker1Label.Value);
+                 //command.Parameters.AddWithValue("@Location", textBoxLocation.Text);
+                 //command.Parameters.AddWithValue("@Lrv", textBoxLRV.Text);
+                 //command.Parameters.AddWithValue("@UrV", textBoxURV.Text);
+                 //command.Parameters.AddWithValue("@Unit", textBoxUnit.Text);
+                 //command.Parameters.AddWithValue("@AlarmHigh", textBoxAlarmHigh.Text);
+                 //command.Parameters.AddWithValue("@AlarmLow", textBoxAlarmLow.Text);
+                 //command.Parameters.AddWithValue("@AnalogRange_RangeId", (int)bindingSourceInstrument["AnalogRange_RangeId"]);
+                 //command.Parameters.AddWithValue("@SignaType_Signal_Id", (int)bindingSourceInstrument["SignaType_Signal_Id"]);
+                 //command.Parameters.AddWithValue("@MeasurementType_MeasuremntTypeId", (int)bindingSourceInstrument["MeasurementType_MeasuremntTypeId"]);
+
+                 //// If the Instrument_id is not null, it means that we are updating an existing instrument.
+                 //// In this case, we need to add the Instrument_id parameter to the SqlCommand object.
+                 //if (bindingSourceInstrument["Instrument_id"] != DBNull.Value)
+                 //{
+                 //    command.CommandText = updateInstrumentQuery;
+                 //    command.Parameters.AddWithValue("@Instrument_id", (int)bindingSourceInstrument["Instrument_id"]);
+                 //}
+                 //else
+                 //{
+                 //    // Otherwise, we are inserting a new instrument.
+                 //    command.CommandText = insertInstrumentQuery;
+                 //}
+
+                 //// Execute the command to insert or update the instrument in the database.
+                 //try
+                 //{
+                 //    connection.Open();
+                 //    int rowsAffected = command.ExecuteNonQuery();
+                 //    if (rowsAffected > 0)
+                 //    {
+                 //        MessageBox.Show("Changes saved successfully.");
+                 //    }
+                 //}
+                 //catch (Exception ex)
+                 //{
+                 //    MessageBox.Show("Error: " + ex.Message);
+                 //}
+                 //finally
+                 //{
+                 //    connection.Close();
+                 //}
+
              }
-        */
+
+
+
+        
         private void radioButton1_CheckedChanged(object sender, EventArgs e)
         {
             ClearForm();
@@ -1639,6 +1689,16 @@ namespace FirstWinFormsApp1
             {
                 MessageBox.Show("Connection failed.");
             }
+        }
+
+        private void chart1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void comboBoxSenorName_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
         }
     }
 
