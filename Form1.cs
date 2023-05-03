@@ -40,7 +40,9 @@ namespace FirstWinFormsApp1
         string[] analogSignals = new string[] { "0-5VDC", "0-10VDC", "0-20mA", "4-20mA", "RTD" };
         string[] digitalSignals = new string[] { "5VDC", "10VDC0", "24VDC", "Relay" };
         string[] fieldbusSigals = new string[] { "Modbus RTU", "ModbusTCP", "Profibus", "ProfiNet", "CANBus", "EtherCat", "RS48" };
-
+        string[] MeasurementTypeId = new string[] { "1", "2", "3", "4" , "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16"};
+        string[] SignalTypeId = new string[] { "1", "2", "3"};
+        string[] MesurementTypeSet = new string[] { "0-5VDC", "0-10VDC", "0-20mA", "4-20mA", "RTD", "5VDC", "10VDC0", "24VDC", "Relay", "Modbus RTU", "ModbusTCP", "Profibus", "ProfiNet", "CANBus", "EtherCat", "RS48" };
         string[] daysOfWeek = { "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday" };
 
         //Variables
@@ -525,8 +527,8 @@ namespace FirstWinFormsApp1
                 cmd.Parameters.AddWithValue("@Location", textBoxLocation.Text);
                 cmd.Parameters.AddWithValue("SerialNo", SerialNumberLabel.Text);
                 cmd.Parameters.AddWithValue("@Comments", CommentsTextLabel.Text);
-                cmd.Parameters.AddWithValue("@SignaType_Signal_id", 2);
-                cmd.Parameters.AddWithValue("@MeasurementType_MeasuremntTypeId", 7);
+                cmd.Parameters.AddWithValue("@SignaType_Signal_id", SignalTypeLabel);
+                cmd.Parameters.AddWithValue("@MeasurementType_MeasuremntTypeId", MeasureTypeLabel);
                 cmd.Parameters.AddWithValue("@Lrv", textBoxLRV.Text);
                 cmd.Parameters.AddWithValue("@Urv", textBoxURV.Text);
                 cmd.Parameters.AddWithValue("@AlarmHigh", textBoxAlarmHigh.Text);
@@ -549,10 +551,10 @@ namespace FirstWinFormsApp1
                                     + "Values(@lrv, @urv, @alarmH, @alarmL); SELECT SCOPE_IDENTITY();";
 
             string insertInstrumentQuery = "INSERT INTO InstrumentSet(InstrumentName, RegisterDate, "
-                                            + "SerialNo, Comments, SignaType_Signal_id, Location,"
-                                            + "MeasurementType_MeasuremntTypeID, AnalogRange_RangeId, SerialPortNr) "
-                                            + "VALUES (@InstrumentName, GETDATE(), @serialNo, @comment, "
-                                            + "@SignaType_Signal_id, @Location, @MeasurementType_MeasuremntTypeID, @AnalogRange_RangeId, @SerialPortNr);";
+                                + "SerialNo, Comments, SignaType_Signal_id, Location,"
+                                + "MeasurementType_MeasuremntTypeID, AnalogRange_RangeId, SerialPortNr) "
+                                + "VALUES (@InstrumentName, GETDATE(), @serialNo, @comment, "
+                                + "@SignaType_Signal_id, @Location, @MeasurementType_MeasuremntTypeID, @AnalogRange_RangeId, @SerialPortNr);";
 
             string lrv = textBoxLRV.Text;
             string urv = textBoxURV.Text;
@@ -562,10 +564,85 @@ namespace FirstWinFormsApp1
             string serialNo = SerialNumberLabel.Text;
             string comment = CommentsTextLabel.Text;
             string location = textBoxLocation.Text;
-            int signalType = 2;
-            int measurementType = 7;
+            string signalType = SignalTypeLabel.SelectedItem.ToString();
+            string measurementTypeName = MeasureTypeLabel.SelectedItem.ToString(); // Get the measurement type name
             string registerDate = DateTime.Now.ToString(); // current date and time
             int serialPortNr = 3;
+
+            // Get the integer value for SignaType_Signal_id based on the selected value of the SignalTypeLabel combobox
+            int signalTypeId;
+            switch (signalType)
+            {
+                case "Analog":
+                    signalTypeId = 1;
+                    break;
+                case "Digital":
+                    signalTypeId = 2;
+                    break;
+                case "Fieldbus":
+                    signalTypeId = 3;
+                    break;
+                default:
+                    signalTypeId = 0;
+                    break;
+            }
+
+            // Get the integer value for MeasurementType_MeasuremntTypeID based on the selected value of the MeasureTypeLabel combobox
+            int measurementTypeId;
+            switch (measurementTypeName)
+            {
+                case "0-5VDC":
+                    measurementTypeId = 1;
+                    break;
+                case "0-10VDC":
+                    measurementTypeId = 2;
+                    break;
+                case "0-20mA":
+                    measurementTypeId = 3;
+                    break;
+                case "4-20mA":
+                    measurementTypeId = 4;
+                    break;
+                case "RTD":
+                    measurementTypeId = 5;
+                    break;
+                case "5VDC":
+                    measurementTypeId = 6;
+                    break;
+                case "10VDC":
+                    measurementTypeId = 7;
+                    break;
+                case "24VDC":
+                    measurementTypeId = 8;
+                    break;
+                case "Relay":
+                    measurementTypeId = 9;
+                    break;
+                case "Modus RTU":
+                    measurementTypeId = 10;
+                    break;
+                case "Modus TCP":
+                    measurementTypeId = 11;
+                    break;
+                case "ProfiBus":
+                    measurementTypeId = 12;
+                    break;
+                case "ProfiNet":
+                    measurementTypeId = 13;
+                    break;
+                case "CANBus":
+                    measurementTypeId = 14;
+                    break;
+                case "EtherCat":
+                    measurementTypeId = 15;
+                    break;
+                case "RS48":
+                    measurementTypeId = 16;
+                    break;
+                default:
+                    measurementTypeId = 0;
+                    break;
+            }
 
             //Insert Range Command
             sqlConnection.Open();
@@ -584,8 +661,8 @@ namespace FirstWinFormsApp1
             command2.Parameters.AddWithValue("@serialNo", serialNo);
             command2.Parameters.AddWithValue("@Location", location);
             command2.Parameters.AddWithValue("@comment", comment);
-            command2.Parameters.AddWithValue("@SignaType_Signal_id", signalType);
-            command2.Parameters.AddWithValue("@MeasurementType_MeasuremntTypeID", measurementType);
+            command2.Parameters.AddWithValue("@SignaType_Signal_id", signalTypeId);
+            command2.Parameters.AddWithValue("@MeasurementType_MeasuremntTypeID", measurementTypeId);
             command2.Parameters.AddWithValue("@AnalogRange_RangeId", RangeId);
             command2.Parameters.AddWithValue("@SerialPortNr", serialPortNr);
 
