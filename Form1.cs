@@ -527,8 +527,8 @@ namespace FirstWinFormsApp1
                 cmd.Parameters.AddWithValue("@Location", textBoxLocation.Text);
                 cmd.Parameters.AddWithValue("SerialNo", SerialNumberLabel.Text);
                 cmd.Parameters.AddWithValue("@Comments", CommentsTextLabel.Text);
-                cmd.Parameters.AddWithValue("@SignaType_Signal_id", SignalTypeLabel);
-                cmd.Parameters.AddWithValue("@MeasurementType_MeasuremntTypeId", MeasureTypeLabel);
+                cmd.Parameters.AddWithValue("@SignaType_Signal_id", SignalTypeLabel.SelectedValue);
+                cmd.Parameters.AddWithValue("@MeasurementType_MeasuremntTypeId", MeasureTypeLabel.SelectedValue);
                 cmd.Parameters.AddWithValue("@Lrv", textBoxLRV.Text);
                 cmd.Parameters.AddWithValue("@Urv", textBoxURV.Text);
                 cmd.Parameters.AddWithValue("@AlarmHigh", textBoxAlarmHigh.Text);
