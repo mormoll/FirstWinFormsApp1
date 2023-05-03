@@ -547,8 +547,8 @@ namespace FirstWinFormsApp1
         private void InstrumentSQL()
         {
             SqlConnection sqlConnection = new SqlConnection(connectionString);
-            string InsertRangeQuery = "INSERT INTO AnalogRangeSet (Lrv, Urv, AlarmHigh, AlarmLow)"
-                                    + "Values(@lrv, @urv, @alarmH, @alarmL); SELECT SCOPE_IDENTITY();";
+            string InsertRangeQuery = "INSERT INTO AnalogRangeSet (Lrv, Urv, AlarmHigh, AlarmLow, Unit)"
+                                    + "Values(@lrv, @urv, @alarmH, @alarmL, @unit ); SELECT SCOPE_IDENTITY();";
 
             string insertInstrumentQuery = "INSERT INTO InstrumentSet(InstrumentName, RegisterDate, "
                                 + "SerialNo, Comments, SignaType_Signal_id, Location,"
@@ -560,6 +560,7 @@ namespace FirstWinFormsApp1
             string urv = textBoxURV.Text;
             string alarmH = textBoxAlarmHigh.Text;
             string alarmL = textBoxAlarmLow.Text;
+            string unit = textBoxUnit.Text;
             string instrumentName = comboBoxSenorName.Text;
             string serialNo = SerialNumberLabel.Text;
             string comment = CommentsTextLabel.Text;
@@ -653,6 +654,7 @@ namespace FirstWinFormsApp1
             command.Parameters.AddWithValue("@urv", urv);
             command.Parameters.AddWithValue("@alarmH", alarmH);
             command.Parameters.AddWithValue("@alarmL", alarmL);
+            command.Parameters.AddWithValue("@unit", unit);
             int RangeId = Convert.ToInt32(command.ExecuteScalar());
 
             //Insert Instrument Command
