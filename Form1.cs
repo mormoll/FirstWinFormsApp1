@@ -113,7 +113,7 @@ namespace FirstWinFormsApp1
                 }
             }
             // Display pop-up message
-            DialogResult result = MessageBox.Show("Need to connect to BE", "Connection", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            DialogResult result = MessageBox.Show("Go to 'Connection' tab to connect to BE", "Connection", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
 
         }
@@ -126,10 +126,13 @@ namespace FirstWinFormsApp1
             comboBoxInstrumentName.Visible = false;
             comboBoxSenorName.Visible = false;
             textBoxLocation.Visible = false;
-            textLabelLocation.Visible = false;
+            comboBoxLocation.Visible = false;
             textBoxInstrumentID.Visible = false;
             radioButtonInstrumentID.Visible = false;
             buttonOpenFile.Visible = false;
+            sqlLabel.Visible = false;
+            saveToFileLabel.Visible = false;
+            instrumentIDLabel.Visible = false;
 
 
             //comboBoxLocation.Visible = false;
@@ -137,7 +140,7 @@ namespace FirstWinFormsApp1
             //textBoxLocation.Text = "-";
 
             connectionString = ConfigurationManager.ConnectionStrings["instrumentConfDB"].ConnectionString;
-
+            listBox_IpAddresses.Items.Add(DateTime.Now.ToString());
             IPAddress[] addresslist = Dns.GetHostAddresses(Dns.GetHostName());
             foreach (IPAddress address in addresslist)
             {
@@ -157,8 +160,11 @@ namespace FirstWinFormsApp1
 
             // Call the CheckConnectionStatus method once to initialize the label visibility
             CheckConnectionStatus(null, null);
+
+
         }
 
+        private bool isConnected = false;
         private bool IsConnectedToBackend()
         {
             try
@@ -186,10 +192,17 @@ namespace FirstWinFormsApp1
             //Reset from initial state
             toolStripStatusLabel1.Text = "Cleared";
 
+            //Clear data bindings
+            comboBoxSenorName.DataBindings.Clear();
+            comboBoxInstrumentName.DataBindings.Clear();
+            comboBoxLocation.DataBindings.Clear();
+            textBoxInstrumentID.DataBindings.Clear();
+            textBoxLocation.DataBindings.Clear();
+            radioButtonInstrumentID.DataBindings.Clear();
 
             textBoxRegister.AppendText("" + "\r\n");
 
-
+            //Reset other controls to initial state
             SerialNumberLabel.Text = "";
             comboBoxInstrumentName.Text = "";
             dateTimePicker1Label.Value = DateTime.Now;
@@ -538,6 +551,7 @@ namespace FirstWinFormsApp1
         }
         private void InstrumentSQL() //Saves to sql
         {
+            RegisterIndex++;
             SqlConnection sqlConnection = new SqlConnection(connectionString);
             string InsertRangeQuery = "INSERT INTO AnalogRangeSet (Lrv, Urv, AlarmHigh, AlarmLow, Unit)"
                                     + "Values(@lrv, @urv, @alarmH, @alarmL, @unit ); SELECT SCOPE_IDENTITY();";
@@ -568,12 +582,15 @@ namespace FirstWinFormsApp1
             {
                 case "Analog":
                     signalTypeId = 1;
+                    analogIndex++;
                     break;
                 case "Digital":
                     signalTypeId = 2;
+                    digitalIndex++;
                     break;
                 case "Fieldbus":
                     signalTypeId = 3;
+                    fieldbusIndex++;
                     break;
                 default:
                     signalTypeId = 0;
@@ -986,6 +1003,7 @@ namespace FirstWinFormsApp1
             }
         }
 
+
         private bool IsConnected()
         {
             try
@@ -1007,6 +1025,14 @@ namespace FirstWinFormsApp1
 
         private void button10_Click(object sender, EventArgs e)
         {
+            textBoxChart.Clear();
+
+            // Reset the X and Y axis values
+            chart1.Series[0].Points.Clear();
+            chart1.ChartAreas[0].AxisX.Minimum = Double.NaN;
+            chart1.ChartAreas[0].AxisX.Maximum = Double.NaN;
+
+
             if (!IsConnected())
             {
                 MessageBox.Show("BE is not connected.\r\n");
@@ -1026,7 +1052,7 @@ namespace FirstWinFormsApp1
                 // Allow the user to select a file name
                 using (SaveFileDialog saveFileDialog1 = new SaveFileDialog())
                 {
-                    saveFileDialog1.InitialDirectory = @"C:\Users\morte\OneDrive\Dokumenter\Instruments";
+                    saveFileDialog1.InitialDirectory = @"C:\Users\morte\OneDrive\Dokumenter\InstrumentCSV";
                     saveFileDialog1.Filter = "CSV files (*.csv)|*.csv|All files (*.*)|*.*";
                     saveFileDialog1.FilterIndex = 1;
                     saveFileDialog1.RestoreDirectory = true;
@@ -1569,7 +1595,9 @@ namespace FirstWinFormsApp1
                 {
                     if (!string.IsNullOrWhiteSpace(comPort))
                     {
+                        //listBox_IpAddresses.Items.Add("Available COM Ports:");
                         comboBoxComPort.Items.Add(comPort);
+                        listBox_IpAddresses.Items.Add(comPort);
                     }
                 }
             }
@@ -1756,18 +1784,23 @@ namespace FirstWinFormsApp1
 
         private void radioButton1_CheckedChanged(object sender, EventArgs e)
         {
-            ClearForm();
-
             if (radioButton1.Checked)
-
             {
+                comboBoxInstrumentName.DataBindings.Clear();
+                textBoxLocation.DataBindings.Clear();
+                comboBoxSenorName.DataBindings.Clear();
+                textBoxInstrumentID.DataBindings.Clear();
+                ClearForm();
                 comboBoxInstrumentName.Visible = true;
                 textBoxLocation.Visible = true;
-                textLabelLocation.Visible = true;
+                comboBoxLocation.Visible = false;
                 comboBoxSenorName.Visible = false;
                 textBoxInstrumentID.Visible = true;
                 radioButtonInstrumentID.Visible = true;
                 buttonOpenFile.Visible = true;
+                sqlLabel.Visible = false;
+                saveToFileLabel.Visible = true;
+                instrumentIDLabel.Visible = true;
             }
             else
             {
@@ -1777,21 +1810,24 @@ namespace FirstWinFormsApp1
 
         private void radioButton2_CheckedChanged_1(object sender, EventArgs e)
         {
-            ClearForm();
             if (radioButton2.Checked)
             {
-
+                comboBoxSenorName.DataBindings.Clear();
+                comboBoxInstrumentName.DataBindings.Clear();
+                comboBoxLocation.DataBindings.Clear();
+                ClearForm();
                 comboBoxSenorName.Visible = true;
                 comboBoxInstrumentName.Visible = false;
-                textBoxLocation.Visible = false;
-                textLabelLocation.Visible = false;
+                comboBoxLocation.Visible = true;
                 textBoxInstrumentID.Visible = false;
                 radioButtonInstrumentID.Visible = false;
                 buttonOpenFile.Visible = false;
+                sqlLabel.Visible = true;
+                saveToFileLabel.Visible = false;
+                instrumentIDLabel.Visible = false;
             }
             else
             {
-
                 comboBoxSenorName.Visible = false;
             }
         }
@@ -1902,16 +1938,26 @@ namespace FirstWinFormsApp1
         {
             if (IsConnected())
             {
+                isConnected = true;
                 MessageBox.Show("Connection successful.");
                 textBoxCommunication.AppendText("Connected to BE.\r\n");
                 label21.Visible = true;
                 label22.Visible = true;
                 label23.Visible = true;
                 label24.Visible = true;
+
+                // Print connected ComPort and TCPPort in listBox_IpAddresses
+                string connectedIP = textBoxIP.Text;
+                string connectedPort = textBoxPort.Text;
+                listBox_IpAddresses.Items.Add($"Connected to {connectedIP}");
+                listBox_IpAddresses.Items.Add($"Port: {connectedPort}");
+
             }
             else
             {
+                isConnected = false;
                 MessageBox.Show("Connection failed. Please check the IP address and port number and try again.");
+
             }
 
         }
@@ -1967,14 +2013,28 @@ namespace FirstWinFormsApp1
         private void timer1_Tick_1(object sender, EventArgs e)
         {
             // check the connection status
-            if (!IsConnected())
+            if (isConnected && !IsConnected())
             {
+                label21.Visible = false;
+                label22.Visible = false;
+                label23.Visible = false;
+                label24.Visible = false;
                 // display a message to the user
                 MessageBox.Show("Lost connection to backend!");
 
                 // stop the timer from checking the connection status
                 timer1.Stop();
             }
+        }
+
+        private void comboBoxComPort_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void textBoxChart_TextChanged(object sender, EventArgs e)
+        {
+
         }
     }
 
