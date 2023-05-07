@@ -39,7 +39,6 @@
             toolStrip1 = new ToolStrip();
             tabPage1 = new TabPage();
             label23 = new Label();
-            button1 = new Button();
             label16 = new Label();
             listBox_IpAddresses = new ListBox();
             tabPage2 = new TabPage();
@@ -186,7 +185,6 @@
             // tabPage1
             // 
             tabPage1.Controls.Add(label23);
-            tabPage1.Controls.Add(button1);
             tabPage1.Controls.Add(label16);
             tabPage1.Controls.Add(listBox_IpAddresses);
             tabPage1.Location = new Point(10, 58);
@@ -203,22 +201,12 @@
             label23.AutoSize = true;
             label23.Font = new Font("Segoe UI Black", 9F, FontStyle.Bold, GraphicsUnit.Point);
             label23.ForeColor = Color.GreenYellow;
-            label23.Location = new Point(30, 201);
+            label23.Location = new Point(5, 26);
             label23.Name = "label23";
             label23.Size = new Size(221, 41);
             label23.TabIndex = 25;
             label23.Text = "BE Connected";
             label23.Visible = false;
-            // 
-            // button1
-            // 
-            button1.Location = new Point(30, 115);
-            button1.Name = "button1";
-            button1.Size = new Size(188, 58);
-            button1.TabIndex = 3;
-            button1.Text = "LINQuery";
-            button1.UseVisualStyleBackColor = true;
-            button1.Click += button1_Click_1;
             // 
             // label16
             // 
@@ -341,7 +329,6 @@
             comboBoxComPort.Name = "comboBoxComPort";
             comboBoxComPort.Size = new Size(300, 49);
             comboBoxComPort.TabIndex = 10;
-            comboBoxComPort.SelectedIndexChanged += comboBoxComPort_SelectedIndexChanged;
             // 
             // label20
             // 
@@ -459,7 +446,6 @@
             textBoxIP.Name = "textBoxIP";
             textBoxIP.Size = new Size(378, 47);
             textBoxIP.TabIndex = 1;
-            textBoxIP.TextChanged += textBoxIP_TextChanged;
             // 
             // buttonSend
             // 
@@ -1026,8 +1012,8 @@
             // 
             // tabControl2
             // 
-            tabControl2.Controls.Add(Sensor_Data);
             tabControl2.Controls.Add(tabPage2);
+            tabControl2.Controls.Add(Sensor_Data);
             tabControl2.Controls.Add(tabPage1);
             tabControl2.Controls.Add(tabPage3);
             tabControl2.Location = new Point(0, 55);
@@ -1088,7 +1074,6 @@
             labelConnecionOK.TabIndex = 16;
             labelConnecionOK.Text = "Generating chart";
             labelConnecionOK.Visible = false;
-            labelConnecionOK.Click += labelConnecionOK_Click;
             // 
             // textBoxChart
             // 
@@ -1098,7 +1083,6 @@
             textBoxChart.Name = "textBoxChart";
             textBoxChart.Size = new Size(255, 489);
             textBoxChart.TabIndex = 14;
-            textBoxChart.TextChanged += textBoxChart_TextChanged;
             // 
             // disconnectButtonAddXY
             // 
@@ -1196,10 +1180,6 @@
             // 
             timerRedaScaled.Interval = 5000;
             timerRedaScaled.Tick += timer1_Tick;
-            // 
-            // bindingSource1
-            // 
-            bindingSource1.CurrentChanged += bindingSource1_CurrentChanged;
             // 
             // timer1
             // 
@@ -1338,7 +1318,6 @@
         private BindingSource bindingSourceInstrument;
         private RadioButton radioButton2;
         private RadioButton radioButton1;
-        private Button button1;
         private TextBox textBoxLocation;
         private Label textLabelLocation;
         private BindingSource bindingSourceAnalogRange;

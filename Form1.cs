@@ -57,13 +57,9 @@ namespace FirstWinFormsApp1
         int digitalIndex = 0;
         int fieldbusIndex = 0;
 
-        // Declare SerialPort as a static variable
-        //static SerialPort = serialPort;
 
         string fileNameInstrumentList = "instrumentList.csv";
-        //string[] ComPorts = System.IO.Ports.SerialPort.GetPortNames();
-        //Font boldFont = new Font("Calibri", 10, FontStyle.Bold);
-        //Font regularFont = new Font("Calibri"), 10, FontStyle.Regular);
+
 
 
         DateTime sessionStartTime;
@@ -113,7 +109,7 @@ namespace FirstWinFormsApp1
                 }
             }
             // Display pop-up message
-            DialogResult result = MessageBox.Show("Go to 'Connection' tab to connect to BE", "Connection", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            DialogResult result = MessageBox.Show("Go to 'Connection' tab to connect FE to BE", "Connection", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
 
         }
@@ -263,76 +259,6 @@ namespace FirstWinFormsApp1
             }
 
         }
-        /* private Boolean FormDataVerified()
-         {
-             //Sensor Name Check
-             if (SensorNameTextLabel.Text.Length == 0)
-             {
-                 SensorNameTextLabel.Focus();
-                 return false;
-             }
-
-             //Check Range
-             lrvValue = Convert.ToDouble(textBoxLRV.Text, CultureInfo.InvariantCulture);
-             urvValue = Convert.ToDouble(textBoxURV.Text, CultureInfo.InvariantCulture);
-             spanValue = urvValue - lrvValue;
-             if (spanValue > 0.0)
-             {
-                 return true;
-             }
-             else { return false; }
-         }*/
-
-        //private void button1_Click(object sender, EventArgs e)
-        //{
-        //    //Compare two inputs
-
-        //    bool textEqual = false;
-
-        //    if (checkBoxStayConnected.Checked)
-        //    {
-        //        textBoxCommunication.Text = textBoxIP.Text.Equals(textBoxPort.Text) ? "Strings are Equal" : "Strings are not equal";
-
-        //    }
-        //    else
-        //    {
-        //        textEqual = textBoxIP.Text.Equals(textBoxPort.Text, StringComparison.InvariantCultureIgnoreCase);
-        //    }
-
-
-
-        //    int stringCompareResult;
-
-        //    stringCompareResult = string.Compare(textBoxIP.Text, textBoxPort.Text, checkBoxStayConnected.Checked);
-
-        //    if (stringCompareResult > 0)
-        //    {
-        //        textBoxCommunication.AppendText(string.Format("{0} is after {1}", textBoxIP.Text, textBoxPort.Text));
-
-        //    }
-        //    else if (stringCompareResult < 0)
-        //    {
-        //        textBoxCommunication.AppendText(string.Format("{0} is before {1}", textBoxIP.Text, textBoxPort.Text));
-        //    }
-        //    else
-        //    {
-        //        textBoxCommunication.AppendText(string.Format("{0} is equal to {1}", textBoxIP.Text, textBoxPort.Text));
-        //    }
-
-        //    if (textBoxIP.Text.IndexOf(":") > 0)
-        //    {
-        //        string[] textSeperatePart = textBoxIP.Text.Split(";");
-
-        //        foreach (String part in textSeperatePart)
-        //        {
-        //            textBoxCommunication.AppendText(part + "\r+n");
-        //        }
-
-        //    }
-
-        //}
-
-
 
         private void RegisterNewSensor()
         {
@@ -684,40 +610,6 @@ namespace FirstWinFormsApp1
 
         }
 
-
-
-
-        private void saveDataToFile()
-        {
-            //string data = instrument.ToString() + "\r\n";
-            //string path = @"C:\Users\morte\OneDrive\Dokumenter\Instruments\" + comboBoxInstrumentName.Text + ".txt";
-            //File.AppendAllText(path, data);
-            /* string data = DateTime.Now.ToString() + "\r\n" +
-                 comboBoxInstrumentName.Text + "\r\n" +
-                 SerialNumberLabel.Text + "\r\n" +
-                 SignalTypeLabel.Text + "\r\n" +
-                 MeasureTypeLabel.Text + "\r\n" +
-                 TextBoxOptions.Text + "\r\n" +
-                 CommentsTextLabel.Text + "\r\n" +
-                 textBoxLRV.Text + "\r\n" +
-                 textBoxURV.Text + "\r\n" +
-                 textBoxUnit.Text + "\r\n" +
-                 textBoxAlarmLow.Text + "\r\n" +
-                 textBoxAlarmHigh.Text + "\r\n";
-
-             string fileName = comboBoxInstrumentName.Text + ".txt";
-             string folderPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "Instruments");
-             string path = Path.Combine(folderPath, fileName);
-
-             if (!Directory.Exists(folderPath))
-             {
-                 Directory.CreateDirectory(folderPath);
-             }
-
-             File.AppendAllText(path, data);
-            */
-        }
-
         private void button2_Click(object sender, EventArgs e)
         {
             if (textBoxRegister.TextLength > 0)
@@ -729,31 +621,6 @@ namespace FirstWinFormsApp1
             }
         }
 
-        /*  private void updatecomboBox_InstrumentList()
-          {
-              comboBoxInstrumentName.Items.Clear();
-              comboBoxInstrumentName.Items.AddRange(Instrument.ToString().ToArray());
-              comboBoxInstrumentName.DropDownHeight = comboBox_InstrumentList.ItemHeight * comboBox_InstrumentList.Items.Count;
-              comboBoxInstrumentName.DisplayMember = "SensorName";
-          }*/
-
-
-
-        /*  private bool NewSensorName()
-          {
-             bool newSensorName = true;
-             //check to see if instrument already is in the list.
-             instrumentList.ForEach(delegate (Instrument instr)
-             {
-                 if (instr.SensorName == SensorNameTextLabel.Text)
-                 {
-                     MessageBox.Show("Sensor Name already exist!");
-                     newSensorName = false;
-                     SensorNameTextLabel.Focus();
-                 }
-             });
-             return newSensorName;
-          }*/
 
         private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -1210,32 +1077,6 @@ namespace FirstWinFormsApp1
         private void timer1_Tick(object sender, EventArgs e)
         {
             UpdateChartData();
-            //xTimeValue += 5;
-            //double yValue = 0.0;
-            //string received;
-
-            //try
-            //{
-            //    received = sendToBackEnd("readscaled");
-            //    string[] receivedParts = received.Split(";");
-            //    string receivedString = receivedParts[1].Remove(receivedParts[1].Length - 2);
-
-            //    yValue = Convert.ToDouble(receivedString, CultureInfo.InvariantCulture);
-
-            //    if (isFirstTick)
-            //    {
-            //        chart1.Series[0].Points.AddXY(xTimeValue - 5, yValue);
-            //        isFirstTick = false;
-            //    }
-            //    else
-            //    {
-            //        chart1.Series[0].Points.AddXY(xTimeValue, yValue);
-            //    }
-            //}
-            //catch (Exception ex)
-            //{
-            //    textBoxCommunication.AppendText("Error: " + ex.Message + "\r\n");
-            //}
         }
 
         private void UpdateChartData()
@@ -1361,7 +1202,7 @@ namespace FirstWinFormsApp1
                     {
                         // clear the contents of the file
                         File.WriteAllText(filePath, "");
-                        
+
 
 
                         // save the data to the file
@@ -1558,34 +1399,6 @@ namespace FirstWinFormsApp1
         private void deleButton_Click(object sender, EventArgs e)
         {
             delete_From_file();
-            //// get the selected file name from the comboBoxInstrumentName control
-            //string selectedFileName = comboBoxInstrumentName.SelectedItem?.ToString();
-
-            //// construct the full file path using the directory path and the selected file name
-            //string filePath = Path.Combine(@"C:\Users\morte\OneDrive\Dokumenter\Instruments", selectedFileName + ".txt");
-
-            //// display a message box to confirm whether the user wants to delete the file
-            //DialogResult result = MessageBox.Show($"Are you sure you want to delete the file '{selectedFileName}.txt'?", "Confirm Delete", MessageBoxButtons.YesNo);
-            //if (result == DialogResult.Yes)
-            //{
-            //    try
-            //    {
-            //        if (File.Exists(filePath))
-            //        {
-            //            File.Delete(filePath);
-            //            MessageBox.Show("File deleted successfully.");
-            //            ClearForm();
-            //        }
-            //        else
-            //        {
-            //            MessageBox.Show("File not found.");
-            //        }
-            //    }
-            //    catch (IOException ex)
-            //    {
-            //        MessageBox.Show("An error occurred while deleting the file: " + ex.Message);
-            //    }
-            //}
 
         }
 
@@ -1650,7 +1463,7 @@ namespace FirstWinFormsApp1
 
             // Show the radioButtonConnection control
             labelConnecionOK.Visible = false;
-            MessageBox.Show("Measurment session stopped.\r\n");
+            MessageBox.Show("Measurment session stopped. File saved.\r\n");
         }
 
         private void testButton_Click(object sender, EventArgs e)
@@ -1941,27 +1754,6 @@ namespace FirstWinFormsApp1
             }
 
 
-            /*IEnumerable<string> analogSignalQuery = analogSignals
-                                .Where(analogSignal => analogSignal.StartsWith('0'))
-                                .OrderByDescending(analogSignal => analogSignal);
-                                
-                                
-
-            /*
-            IEnumerable<string> analogSignalQuery =
-                from analogSignal in analogSignals
-                where analogSignal.StartsWith('0')
-                orderby analogSignal descending
-                select analogSignal;
-            */
-            /*
-            foreach (string signal in analogSignalQuery)
-            {
-                listBox_IpAddresses.Items.Add(signal);
-            }
-            */
-
-
         }
         private void delete_From_file()
         {
@@ -2064,15 +1856,6 @@ namespace FirstWinFormsApp1
 
         }
 
-        private void measurementButton_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void textBoxIP_TextChanged(object sender, EventArgs e)
-        {
-
-        }
 
         private void diconnectButton_Click(object sender, EventArgs e)
         {
@@ -2087,20 +1870,7 @@ namespace FirstWinFormsApp1
 
         }
 
-        private void bindingSource1_CurrentChanged(object sender, EventArgs e)
-        {
 
-        }
-
-        private void labelConnecionOK_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void checkBoxStayConnected_CheckedChanged(object sender, EventArgs e)
-        {
-
-        }
 
         private void timer1_Tick_1(object sender, EventArgs e)
         {
@@ -2119,15 +1889,7 @@ namespace FirstWinFormsApp1
             }
         }
 
-        private void comboBoxComPort_SelectedIndexChanged(object sender, EventArgs e)
-        {
 
-        }
-
-        private void textBoxChart_TextChanged(object sender, EventArgs e)
-        {
-
-        }
     }
 
 }
