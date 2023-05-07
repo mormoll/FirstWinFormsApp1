@@ -1351,17 +1351,139 @@ namespace FirstWinFormsApp1
             // construct the full file path using the directory path and the selected file name
             string filePath = Path.Combine(@"C:\Users\morte\OneDrive\Dokumenter\Instruments", selectedFileName + ".txt");
 
-            // display a message box to confirm whether the user wants to delete the file
-            DialogResult result = MessageBox.Show($"Are you sure you want to delete the file '{selectedFileName}.txt'?", "Confirm Delete", MessageBoxButtons.YesNo);
+            // display a message box to confirm whether the user wants to clear the file
+            DialogResult result = MessageBox.Show($"Are you sure you want to change the contents of the file '{selectedFileName}.txt'?", "Confirm Clear", MessageBoxButtons.YesNo);
             if (result == DialogResult.Yes)
             {
                 try
                 {
                     if (File.Exists(filePath))
                     {
-                        // delete the file
-                        File.Delete(filePath);
-                        MessageBox.Show("File deleted successfully.");
+                        // clear the contents of the file
+                        File.WriteAllText(filePath, "");
+                        
+
+
+                        // save the data to the file
+                        string dateString = DateTime.Now.ToString("dd.MM.yyyy HH:mm:ss");
+                        if (DateTime.TryParseExact(dateString, "dd.MM.yyyy HH:mm:ss", CultureInfo.InvariantCulture, DateTimeStyles.None, out DateTime date))
+                        {
+                            string data = "";
+                            switch (SignalTypeLabel.Text)
+                            {
+                                case "Analog":
+
+
+                                    Instrument analogInstrument = new Instrument(
+                                        Convert.ToString(DateTime.Now) + "\n",
+                                        comboBoxInstrumentName.Text + "\r\n",
+                                        SerialNumberLabel.Text + "\r\n",
+                                        SignalTypeLabel.Text + "\r\n",
+                                        MeasureTypeLabel.Text + "\r\n",
+                                        textBoxInstrumentID.Text + "\r\n",
+                                        TextBoxOptions.Text + "\r\n",
+                                        CommentsTextLabel.Text + "\r\n",
+                                        Convert.ToDouble(textBoxLRV.Text),
+                                        Convert.ToDouble(textBoxURV.Text),
+                                        textBoxUnit.Text + "\r\n",
+                                        textBoxLocation.Text + "\r\n");
+
+                                    spanValue = urvValue - lrvValue;
+                                    instrumentList.Add(analogInstrument);
+                                    textBoxRegister.AppendText(analogInstrument.ToString());
+                                    textBoxRegister.AppendText("LRV Value: " + analogInstrument.LRV + "\r\n");
+                                    textBoxRegister.AppendText("URV Value: " + analogInstrument.URV + "\r\n");
+                                    textBoxRegister.AppendText("Span Value: " + spanValue + "\r\n");
+                                    textBoxRegister.AppendText("Alarm High: " + textBoxAlarmHigh.Text + "\r\n");
+                                    textBoxRegister.AppendText("Alarm Low: " + textBoxAlarmLow.Text + "\r\n");
+
+                                    data = comboBoxInstrumentName.Text + "\n" +
+                                           SerialNumberLabel.Text + "\n" +
+                                           dateString + "\n" +
+                                           textBoxLocation.Text + "\n" +
+                                           SignalTypeLabel.Text + "\n" +
+                                           MeasureTypeLabel.Text + "\n" +
+                                           textBoxInstrumentID.Text + "\n" +
+                                           TextBoxOptions.Text + "\n" +
+                                           CommentsTextLabel.Text + "\n" +
+                                           Convert.ToDouble(textBoxLRV.Text) + "\n" +
+                                           Convert.ToDouble(textBoxURV.Text) + "\n" +
+                                           textBoxUnit.Text + "\n" +
+                                           textBoxAlarmHigh.Text + "\n" +
+                                           textBoxAlarmLow.Text + "\n";
+                                    break;
+
+                                case "Digital":
+
+
+                                    Instrument digitalInstrument = new Instrument(
+                                        Convert.ToString(DateTime.Now) + "\r\n",
+                                        comboBoxInstrumentName.Text + "\r\n",
+                                        SerialNumberLabel.Text + "\r\n",
+                                        SignalTypeLabel.Text + "\r\n",
+                                        MeasureTypeLabel.Text + "\r\n",
+                                        textBoxInstrumentID.Text + "\r\n",
+                                        TextBoxOptions.Text + "\r\n",
+                                        CommentsTextLabel.Text + "\r\n",
+                                        lrvValue,
+                                        urvValue,
+                                        textBoxUnit.Text + "\r\n",
+                                        textBoxLocation.Text + "\r\n");
+
+                                    instrumentList.Add(digitalInstrument);
+                                    textBoxRegister.AppendText(digitalInstrument.ToString());
+
+                                    data = comboBoxInstrumentName.Text + "\n" +
+                                           SerialNumberLabel.Text + "\n" +
+                                           dateString + "\n" +
+                                           textBoxLocation.Text + "\n" +
+                                           SignalTypeLabel.Text + "\n" +
+                                           MeasureTypeLabel.Text + "\n" +
+                                           textBoxInstrumentID.Text + "\n" +
+                                           TextBoxOptions.Text + "\n" +
+                                           CommentsTextLabel.Text + "\n";
+                                    break;
+
+                                case "Fieldbus":
+
+
+                                    Instrument fieldbusInstrument = new Instrument(
+                                        Convert.ToString(DateTime.Now) + "\r\n",
+                                        comboBoxInstrumentName.Text + "\r\n",
+                                        SerialNumberLabel.Text + "\r\n",
+                                        SignalTypeLabel.Text + "\r\n",
+                                        MeasureTypeLabel.Text + "\r\n",
+                                        textBoxInstrumentID.Text + "\r\n",
+                                        TextBoxOptions.Text + "\r\n",
+                                        CommentsTextLabel.Text + "\r\n",
+                                        lrvValue,
+                                        urvValue,
+                                        textBoxUnit.Text + "\r\n",
+                                        textBoxLocation.Text + "\r\n");
+
+                                    instrumentList.Add(fieldbusInstrument);
+                                    textBoxRegister.AppendText(fieldbusInstrument.ToString());
+
+                                    data = comboBoxInstrumentName.Text + "\n" +
+                                           SerialNumberLabel.Text + "\n" +
+                                           dateString + "\n" +
+                                           textBoxLocation.Text + "\n" +
+                                           SignalTypeLabel.Text + "\n" +
+                                           MeasureTypeLabel.Text + "\n" +
+                                           textBoxInstrumentID.Text + "\n" +
+                                           TextBoxOptions.Text + "\n" +
+                                           CommentsTextLabel.Text + "\n";
+                                    break;
+                            }
+                            // write the data to the file
+                            File.WriteAllText(filePath, data);
+                            // show a message box to confirm that changes were saved
+                            MessageBox.Show("Changes saved.", "Save Confirmation", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        }
+                        else
+                        {
+                            MessageBox.Show("Invalid datetime format. Please enter a datetime in the format 'dd.MM.yyyy HH:mm:ss'.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        }
 
                         // reload the list of files in the directory
                         comboBoxInstrumentName.Items.Clear();
@@ -1385,37 +1507,7 @@ namespace FirstWinFormsApp1
                 }
                 catch (IOException ex)
                 {
-                    MessageBox.Show("An error occurred while deleting the file: " + ex.Message);
-                }
-            }
-            else
-            {
-                // save the data to the file
-                string dateString = DateTime.Now.ToString("dd.MM.yyyy HH:mm:ss");
-                if (DateTime.TryParseExact(dateString, "dd.MM.yyyy HH:mm:ss", CultureInfo.InvariantCulture, DateTimeStyles.None, out DateTime date))
-                {
-                    string data =
-                                  comboBoxInstrumentName.Text + "\n" +
-                                  SerialNumberLabel.Text + "\n" +
-                                  dateString + "\n" +
-                                  textBoxLocation.Text + "\n" +
-                                  SignalTypeLabel.Text + "\n" +
-                                  MeasureTypeLabel.Text + "\n" +
-                                  TextBoxOptions.Text + "\n" +
-                                  CommentsTextLabel.Text + "\n" +
-                                  Convert.ToDouble(textBoxLRV.Text) + "\n" +
-                                  Convert.ToDouble(textBoxURV.Text) + "\n" +
-                                  textBoxUnit.Text + "\n" +
-                                  textBoxAlarmHigh.Text + "\n" +
-                                  textBoxAlarmLow.Text + "\n";
-
-                    string path = @"C:\Users\morte\OneDrive\Dokumenter\Instruments\" + comboBoxInstrumentName.Text + ".txt";
-                    File.AppendAllText(path, data);
-                    MessageBox.Show("Data saved successfully.");
-                }
-                else
-                {
-                    MessageBox.Show("Invalid datetime format. Please enter a datetime in the format 'dd.MM.yyyy HH:mm:ss'.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("An error occurred while clearing the file: " + ex.Message);
                 }
             }
         }
