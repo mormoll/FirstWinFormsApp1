@@ -29,19 +29,23 @@
         private void InitializeComponent()
         {
             components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.Title title1 = new System.Windows.Forms.DataVisualization.Charting.Title();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea2 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend2 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series2 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.Title title2 = new System.Windows.Forms.DataVisualization.Charting.Title();
             printDialog1 = new PrintDialog();
             statusStrip1 = new StatusStrip();
             toolStripStatusLabel1 = new ToolStripStatusLabel();
             toolStrip1 = new ToolStrip();
             tabPage1 = new TabPage();
+            label23 = new Label();
             button1 = new Button();
             label16 = new Label();
             listBox_IpAddresses = new ListBox();
             tabPage2 = new TabPage();
+            label21 = new Label();
+            label19 = new Label();
+            diconnectButton = new Button();
             testConnectionButton = new Button();
             testButton = new Button();
             comboBoxBaudRate = new ComboBox();
@@ -55,17 +59,18 @@
             textBoxSend = new TextBox();
             label13 = new Label();
             label12 = new Label();
-            checkBoxStayConnected = new CheckBox();
             textBoxCommunication = new TextBox();
             textBoxPort = new TextBox();
             textBoxIP = new TextBox();
             buttonSend = new Button();
             Sensor_Data = new TabPage();
+            label22 = new Label();
+            comboBoxLocation = new ComboBox();
             radioButtonInstrumentID = new RadioButton();
             textBoxInstrumentID = new TextBox();
             label18 = new Label();
             textBoxLocation = new TextBox();
-            Location = new Label();
+            textLabelLocation = new Label();
             panel1 = new Panel();
             radioButton2 = new RadioButton();
             radioButton1 = new RadioButton();
@@ -75,7 +80,6 @@
             registerNewButton = new Button();
             deleButton = new Button();
             saveChangesButton = new Button();
-            saveFileButton = new Button();
             comboBoxInstrumentName = new ComboBox();
             buttonOpenFile = new Button();
             panelRange = new Panel();
@@ -109,6 +113,7 @@
             label1 = new Label();
             tabControl2 = new TabControl();
             tabPage3 = new TabPage();
+            label24 = new Label();
             groupBox2 = new GroupBox();
             labelConnecionOK = new Label();
             textBoxChart = new TextBox();
@@ -126,6 +131,7 @@
             bindingSourceAnalogRange = new BindingSource(components);
             bindingSourceMeasurementType = new BindingSource(components);
             bindingSourceSignalType = new BindingSource(components);
+            timer1 = new System.Windows.Forms.Timer(components);
             statusStrip1.SuspendLayout();
             tabPage1.SuspendLayout();
             tabPage2.SuspendLayout();
@@ -152,10 +158,10 @@
             // 
             statusStrip1.ImageScalingSize = new Size(40, 40);
             statusStrip1.Items.AddRange(new ToolStripItem[] { toolStripStatusLabel1 });
-            statusStrip1.Location = new Point(0, 1099);
+            statusStrip1.Location = new Point(0, 1387);
             statusStrip1.Name = "statusStrip1";
             statusStrip1.Padding = new Padding(0, 0, 15, 0);
-            statusStrip1.Size = new Size(2381, 54);
+            statusStrip1.Size = new Size(2415, 54);
             statusStrip1.TabIndex = 2;
             statusStrip1.Text = "statusStrip1";
             // 
@@ -171,12 +177,13 @@
             toolStrip1.Location = new Point(0, 45);
             toolStrip1.Name = "toolStrip1";
             toolStrip1.Padding = new Padding(0);
-            toolStrip1.Size = new Size(2381, 25);
+            toolStrip1.Size = new Size(2415, 25);
             toolStrip1.TabIndex = 4;
             toolStrip1.Text = "toolStrip1";
             // 
             // tabPage1
             // 
+            tabPage1.Controls.Add(label23);
             tabPage1.Controls.Add(button1);
             tabPage1.Controls.Add(label16);
             tabPage1.Controls.Add(listBox_IpAddresses);
@@ -184,10 +191,22 @@
             tabPage1.Margin = new Padding(2, 3, 2, 3);
             tabPage1.Name = "tabPage1";
             tabPage1.Padding = new Padding(2, 3, 2, 3);
-            tabPage1.Size = new Size(2328, 998);
+            tabPage1.Size = new Size(2328, 1027);
             tabPage1.TabIndex = 2;
             tabPage1.Text = "Lists";
             tabPage1.UseVisualStyleBackColor = true;
+            // 
+            // label23
+            // 
+            label23.AutoSize = true;
+            label23.Font = new Font("Segoe UI Black", 9F, FontStyle.Bold, GraphicsUnit.Point);
+            label23.ForeColor = Color.GreenYellow;
+            label23.Location = new Point(30, 201);
+            label23.Name = "label23";
+            label23.Size = new Size(221, 41);
+            label23.TabIndex = 25;
+            label23.Text = "BE Connected";
+            label23.Visible = false;
             // 
             // button1
             // 
@@ -221,6 +240,9 @@
             // 
             // tabPage2
             // 
+            tabPage2.Controls.Add(label21);
+            tabPage2.Controls.Add(label19);
+            tabPage2.Controls.Add(diconnectButton);
             tabPage2.Controls.Add(testConnectionButton);
             tabPage2.Controls.Add(testButton);
             tabPage2.Controls.Add(comboBoxBaudRate);
@@ -234,7 +256,6 @@
             tabPage2.Controls.Add(textBoxSend);
             tabPage2.Controls.Add(label13);
             tabPage2.Controls.Add(label12);
-            tabPage2.Controls.Add(checkBoxStayConnected);
             tabPage2.Controls.Add(textBoxCommunication);
             tabPage2.Controls.Add(textBoxPort);
             tabPage2.Controls.Add(textBoxIP);
@@ -243,18 +264,49 @@
             tabPage2.Margin = new Padding(2, 3, 2, 3);
             tabPage2.Name = "tabPage2";
             tabPage2.Padding = new Padding(2, 3, 2, 3);
-            tabPage2.Size = new Size(2328, 998);
+            tabPage2.Size = new Size(2328, 1027);
             tabPage2.TabIndex = 1;
             tabPage2.Text = "Connection";
             tabPage2.UseVisualStyleBackColor = true;
+            // 
+            // label21
+            // 
+            label21.AutoSize = true;
+            label21.Font = new Font("Segoe UI Black", 9F, FontStyle.Bold, GraphicsUnit.Point);
+            label21.ForeColor = Color.GreenYellow;
+            label21.Location = new Point(499, 198);
+            label21.Name = "label21";
+            label21.Size = new Size(221, 41);
+            label21.TabIndex = 24;
+            label21.Text = "BE Connected";
+            label21.Visible = false;
+            // 
+            // label19
+            // 
+            label19.AutoSize = true;
+            label19.Location = new Point(166, -65);
+            label19.Name = "label19";
+            label19.Size = new Size(113, 41);
+            label19.TabIndex = 23;
+            label19.Text = "label19";
+            // 
+            // diconnectButton
+            // 
+            diconnectButton.Location = new Point(279, 189);
+            diconnectButton.Name = "diconnectButton";
+            diconnectButton.Size = new Size(188, 58);
+            diconnectButton.TabIndex = 22;
+            diconnectButton.Text = "Disconnect";
+            diconnectButton.UseVisualStyleBackColor = true;
+            diconnectButton.Click += diconnectButton_Click;
             // 
             // testConnectionButton
             // 
             testConnectionButton.Location = new Point(66, 189);
             testConnectionButton.Name = "testConnectionButton";
-            testConnectionButton.Size = new Size(302, 58);
+            testConnectionButton.Size = new Size(172, 58);
             testConnectionButton.TabIndex = 21;
-            testConnectionButton.Text = "Test Connection";
+            testConnectionButton.Text = "Connect";
             testConnectionButton.UseVisualStyleBackColor = true;
             testConnectionButton.Click += testConnectionButton_Click;
             // 
@@ -380,17 +432,6 @@
             label12.TabIndex = 6;
             label12.Text = "IP Address";
             // 
-            // checkBoxStayConnected
-            // 
-            checkBoxStayConnected.AutoSize = true;
-            checkBoxStayConnected.Location = new Point(19, 918);
-            checkBoxStayConnected.Margin = new Padding(2, 3, 2, 3);
-            checkBoxStayConnected.Name = "checkBoxStayConnected";
-            checkBoxStayConnected.Size = new Size(264, 45);
-            checkBoxStayConnected.TabIndex = 5;
-            checkBoxStayConnected.Text = "Stay Connected";
-            checkBoxStayConnected.UseVisualStyleBackColor = true;
-            // 
             // textBoxCommunication
             // 
             textBoxCommunication.Location = new Point(770, 36);
@@ -415,6 +456,7 @@
             textBoxIP.Name = "textBoxIP";
             textBoxIP.Size = new Size(378, 47);
             textBoxIP.TabIndex = 1;
+            textBoxIP.TextChanged += textBoxIP_TextChanged;
             // 
             // buttonSend
             // 
@@ -430,18 +472,19 @@
             // Sensor_Data
             // 
             Sensor_Data.BackColor = Color.WhiteSmoke;
+            Sensor_Data.Controls.Add(label22);
+            Sensor_Data.Controls.Add(comboBoxLocation);
             Sensor_Data.Controls.Add(radioButtonInstrumentID);
             Sensor_Data.Controls.Add(textBoxInstrumentID);
             Sensor_Data.Controls.Add(label18);
             Sensor_Data.Controls.Add(textBoxLocation);
-            Sensor_Data.Controls.Add(Location);
+            Sensor_Data.Controls.Add(textLabelLocation);
             Sensor_Data.Controls.Add(panel1);
             Sensor_Data.Controls.Add(comboBoxSenorName);
             Sensor_Data.Controls.Add(clearButton);
             Sensor_Data.Controls.Add(registerNewButton);
             Sensor_Data.Controls.Add(deleButton);
             Sensor_Data.Controls.Add(saveChangesButton);
-            Sensor_Data.Controls.Add(saveFileButton);
             Sensor_Data.Controls.Add(comboBoxInstrumentName);
             Sensor_Data.Controls.Add(buttonOpenFile);
             Sensor_Data.Controls.Add(panelRange);
@@ -467,9 +510,29 @@
             Sensor_Data.Margin = new Padding(2, 3, 2, 3);
             Sensor_Data.Name = "Sensor_Data";
             Sensor_Data.Padding = new Padding(2, 3, 2, 3);
-            Sensor_Data.Size = new Size(2328, 998);
+            Sensor_Data.Size = new Size(2328, 1027);
             Sensor_Data.TabIndex = 0;
-            Sensor_Data.Text = "Sensor Data";
+            Sensor_Data.Text = "Configuration";
+            // 
+            // label22
+            // 
+            label22.AutoSize = true;
+            label22.Font = new Font("Segoe UI Black", 9F, FontStyle.Bold, GraphicsUnit.Point);
+            label22.ForeColor = Color.GreenYellow;
+            label22.Location = new Point(29, 246);
+            label22.Name = "label22";
+            label22.Size = new Size(221, 41);
+            label22.TabIndex = 39;
+            label22.Text = "BE Connected";
+            label22.Visible = false;
+            // 
+            // comboBoxLocation
+            // 
+            comboBoxLocation.FormattingEnabled = true;
+            comboBoxLocation.Location = new Point(709, 423);
+            comboBoxLocation.Name = "comboBoxLocation";
+            comboBoxLocation.Size = new Size(492, 49);
+            comboBoxLocation.TabIndex = 38;
             // 
             // radioButtonInstrumentID
             // 
@@ -502,18 +565,19 @@
             // textBoxLocation
             // 
             textBoxLocation.Location = new Point(707, 423);
+            textBoxLocation.Multiline = true;
             textBoxLocation.Name = "textBoxLocation";
             textBoxLocation.Size = new Size(494, 47);
             textBoxLocation.TabIndex = 34;
             // 
-            // Location
+            // textLabelLocation
             // 
-            Location.AutoSize = true;
-            Location.Location = new Point(422, 426);
-            Location.Name = "Location";
-            Location.Size = new Size(131, 41);
-            Location.TabIndex = 33;
-            Location.Text = "Location";
+            textLabelLocation.AutoSize = true;
+            textLabelLocation.Location = new Point(422, 426);
+            textLabelLocation.Name = "textLabelLocation";
+            textLabelLocation.Size = new Size(131, 41);
+            textLabelLocation.TabIndex = 33;
+            textLabelLocation.Text = "Location";
             // 
             // panel1
             // 
@@ -566,7 +630,7 @@
             // comboBoxSenorName
             // 
             comboBoxSenorName.FormattingEnabled = true;
-            comboBoxSenorName.Location = new Point(707, 44);
+            comboBoxSenorName.Location = new Point(705, 3);
             comboBoxSenorName.Margin = new Padding(2, 3, 2, 3);
             comboBoxSenorName.Name = "comboBoxSenorName";
             comboBoxSenorName.Size = new Size(492, 49);
@@ -617,17 +681,6 @@
             saveChangesButton.Text = "Save Changes";
             saveChangesButton.UseVisualStyleBackColor = true;
             saveChangesButton.Click += saveChangesButton_Click;
-            // 
-            // saveFileButton
-            // 
-            saveFileButton.Location = new Point(15, 391);
-            saveFileButton.Margin = new Padding(2, 3, 2, 3);
-            saveFileButton.Name = "saveFileButton";
-            saveFileButton.Size = new Size(335, 57);
-            saveFileButton.TabIndex = 17;
-            saveFileButton.Text = "Save File";
-            saveFileButton.UseVisualStyleBackColor = true;
-            saveFileButton.Click += button2_Click_1;
             // 
             // comboBoxInstrumentName
             // 
@@ -954,21 +1007,34 @@
             tabControl2.Margin = new Padding(2, 3, 2, 3);
             tabControl2.Name = "tabControl2";
             tabControl2.SelectedIndex = 0;
-            tabControl2.Size = new Size(2348, 1066);
+            tabControl2.Size = new Size(2348, 1095);
             tabControl2.TabIndex = 0;
             // 
             // tabPage3
             // 
+            tabPage3.Controls.Add(label24);
             tabPage3.Controls.Add(groupBox2);
             tabPage3.Controls.Add(chart1);
             tabPage3.Location = new Point(10, 58);
             tabPage3.Margin = new Padding(2, 3, 2, 3);
             tabPage3.Name = "tabPage3";
             tabPage3.Padding = new Padding(2, 3, 2, 3);
-            tabPage3.Size = new Size(2328, 998);
+            tabPage3.Size = new Size(2328, 1027);
             tabPage3.TabIndex = 3;
             tabPage3.Text = "Chart";
             tabPage3.UseVisualStyleBackColor = true;
+            // 
+            // label24
+            // 
+            label24.AutoSize = true;
+            label24.Font = new Font("Segoe UI Black", 9F, FontStyle.Bold, GraphicsUnit.Point);
+            label24.ForeColor = Color.GreenYellow;
+            label24.Location = new Point(2021, 17);
+            label24.Name = "label24";
+            label24.Size = new Size(221, 41);
+            label24.TabIndex = 25;
+            label24.Text = "BE Connected";
+            label24.Visible = false;
             // 
             // groupBox2
             // 
@@ -991,10 +1057,11 @@
             labelConnecionOK.ForeColor = Color.ForestGreen;
             labelConnecionOK.Location = new Point(50, 179);
             labelConnecionOK.Name = "labelConnecionOK";
-            labelConnecionOK.Size = new Size(219, 41);
+            labelConnecionOK.Size = new Size(239, 41);
             labelConnecionOK.TabIndex = 16;
-            labelConnecionOK.Text = "Connection OK";
+            labelConnecionOK.Text = "Generating chart";
             labelConnecionOK.Visible = false;
+            labelConnecionOK.Click += labelConnecionOK_Click;
             // 
             // textBoxChart
             // 
@@ -1033,33 +1100,33 @@
             // 
             chart1.BackColor = Color.WhiteSmoke;
             chart1.BorderlineDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.Solid;
-            chartArea1.AxisX.Title = "Seconds";
-            chartArea1.AxisX.TitleFont = new Font("Microsoft Sans Serif", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            chartArea1.AxisY.TextOrientation = System.Windows.Forms.DataVisualization.Charting.TextOrientation.Horizontal;
-            chartArea1.AxisY.Title = "Lux";
-            chartArea1.AxisY.TitleFont = new Font("Microsoft Sans Serif", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            chartArea1.CursorX.IntervalOffset = 5D;
-            chartArea1.Name = "ChartArea1";
-            chart1.ChartAreas.Add(chartArea1);
+            chartArea2.AxisX.Title = "Seconds";
+            chartArea2.AxisX.TitleFont = new Font("Microsoft Sans Serif", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            chartArea2.AxisY.TextOrientation = System.Windows.Forms.DataVisualization.Charting.TextOrientation.Horizontal;
+            chartArea2.AxisY.Title = "Lux";
+            chartArea2.AxisY.TitleFont = new Font("Microsoft Sans Serif", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            chartArea2.CursorX.IntervalOffset = 5D;
+            chartArea2.Name = "ChartArea1";
+            chart1.ChartAreas.Add(chartArea2);
             chart1.Dock = DockStyle.Fill;
-            legend1.Name = "Legend1";
-            chart1.Legends.Add(legend1);
+            legend2.Name = "Legend1";
+            chart1.Legends.Add(legend2);
             chart1.Location = new Point(2, 3);
             chart1.Margin = new Padding(2, 3, 2, 3);
             chart1.Name = "chart1";
-            series1.BorderWidth = 3;
-            series1.ChartArea = "ChartArea1";
-            series1.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
-            series1.Color = Color.Red;
-            series1.Legend = "Legend1";
-            series1.Name = "Live Uppdate";
-            series1.YValuesPerPoint = 2;
-            chart1.Series.Add(series1);
-            chart1.Size = new Size(2324, 992);
+            series2.BorderWidth = 3;
+            series2.ChartArea = "ChartArea1";
+            series2.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
+            series2.Color = Color.Red;
+            series2.Legend = "Legend1";
+            series2.Name = "Live Uppdate";
+            series2.YValuesPerPoint = 2;
+            chart1.Series.Add(series2);
+            chart1.Size = new Size(2324, 1021);
             chart1.TabIndex = 0;
             chart1.Text = "chart1";
-            title1.Name = "Ligth Value";
-            chart1.Titles.Add(title1);
+            title2.Name = "Ligth Value";
+            chart1.Titles.Add(title2);
             chart1.Click += chart1_Click;
             // 
             // menuStrip1
@@ -1069,7 +1136,7 @@
             menuStrip1.Location = new Point(0, 0);
             menuStrip1.Name = "menuStrip1";
             menuStrip1.Padding = new Padding(5, 0, 0, 0);
-            menuStrip1.Size = new Size(2381, 45);
+            menuStrip1.Size = new Size(2415, 45);
             menuStrip1.TabIndex = 6;
             menuStrip1.Text = "menuStrip1";
             // 
@@ -1102,11 +1169,20 @@
             timerRedaScaled.Interval = 5000;
             timerRedaScaled.Tick += timer1_Tick;
             // 
+            // bindingSource1
+            // 
+            bindingSource1.CurrentChanged += bindingSource1_CurrentChanged;
+            // 
+            // timer1
+            // 
+            timer1.Interval = 5000;
+            timer1.Tick += timer1_Tick_1;
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(17F, 41F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(2381, 1153);
+            ClientSize = new Size(2415, 1441);
             Controls.Add(tabControl2);
             Controls.Add(toolStrip1);
             Controls.Add(statusStrip1);
@@ -1134,6 +1210,7 @@
             panelRange.PerformLayout();
             tabControl2.ResumeLayout(false);
             tabPage3.ResumeLayout(false);
+            tabPage3.PerformLayout();
             groupBox2.ResumeLayout(false);
             groupBox2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)chart1).EndInit();
@@ -1157,7 +1234,6 @@
         private ToolStripStatusLabel toolStripStatusLabel1;
         private TabPage tabPage1;
         private TabPage tabPage2;
-        private CheckBox checkBoxStayConnected;
         private TextBox textBoxCommunication;
         private TextBox textBoxPort;
         private TextBox textBoxIP;
@@ -1199,7 +1275,6 @@
         private ToolStripMenuItem aboutToolStripMenuItem;
         private ComboBox comboBoxInstrumentName;
         private OpenFileDialog openFileDialog1;
-        private Button saveFileButton;
         private TextBox textBoxSend;
         private Label label15;
         private Label label14;
@@ -1236,7 +1311,7 @@
         private RadioButton radioButton1;
         private Button button1;
         private TextBox textBoxLocation;
-        private Label Location;
+        private Label textLabelLocation;
         private BindingSource bindingSourceAnalogRange;
         private BindingSource bindingSourceMeasurementType;
         private BindingSource bindingSourceSignalType;
@@ -1245,5 +1320,13 @@
         private RadioButton radioButtonInstrumentID;
         private Button testConnectionButton;
         private Label labelConnecionOK;
+        private ComboBox comboBoxLocation;
+        private Button diconnectButton;
+        private Label label21;
+        private Label label19;
+        private Label label22;
+        private Label label23;
+        private Label label24;
+        private System.Windows.Forms.Timer timer1;
     }
 }

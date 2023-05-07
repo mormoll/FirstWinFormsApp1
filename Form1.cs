@@ -40,8 +40,8 @@ namespace FirstWinFormsApp1
         string[] analogSignals = new string[] { "0-5VDC", "0-10VDC", "0-20mA", "4-20mA", "RTD" };
         string[] digitalSignals = new string[] { "5VDC", "10VDC0", "24VDC", "Relay" };
         string[] fieldbusSigals = new string[] { "Modbus RTU", "ModbusTCP", "Profibus", "ProfiNet", "CANBus", "EtherCat", "RS48" };
-        string[] MeasurementTypeId = new string[] { "1", "2", "3", "4" , "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16"};
-        string[] SignalTypeId = new string[] { "1", "2", "3"};
+        string[] MeasurementTypeId = new string[] { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16" };
+        string[] SignalTypeId = new string[] { "1", "2", "3" };
         string[] MesurementTypeSet = new string[] { "0-5VDC", "0-10VDC", "0-20mA", "4-20mA", "RTD", "5VDC", "10VDC0", "24VDC", "Relay", "Modbus RTU", "ModbusTCP", "Profibus", "ProfiNet", "CANBus", "EtherCat", "RS48" };
         string[] daysOfWeek = { "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday" };
 
@@ -89,34 +89,11 @@ namespace FirstWinFormsApp1
 
             // Load instrumentList.csv file
             string instrumentListFile = "instrumentList.csv";
-            //if (File.Exists(instrumentListFile))
-            //{
-            //    string[] instrumentListLines = File.ReadAllLines(instrumentListFile);
-            //    foreach (string instrumentLine in instrumentListLines)
-            //    {
-            //        string[] instrumentLineParts = instrumentLine.Split(';');
-
-            //        Instrument instrument = new Instrument(instrumentLineParts[0],
-            //                                               instrumentLineParts[1],
-            //                                               instrumentLineParts[2],
-            //                                               instrumentLineParts[3],
-            //                                               instrumentLineParts[4],
-            //                                               instrumentLineParts[5],
-            //                                               instrumentLineParts[6],
-            //                                               Convert.ToDouble(instrumentLineParts[7], CultureInfo.InvariantCulture),
-            //                                               Convert.ToDouble(instrumentLineParts[8], CultureInfo.InvariantCulture),
-            //                                               instrumentLineParts[9]);
-
-            //        instrumentList.Add(instrument);
-            //        comboBoxInstrumentName.Items.Add(instrumentLineParts[1]);
-
-            //        textBoxRegister.Text = instrument.ToString();
-            //    }
-            //}
 
             try
             {
-                ImportToComboBox(comboBoxSenorName, "InstrumentSet", "InstrumentName");
+                //ImportToComboBox(comboBoxSenorName, "InstrumentSet", "InstrumentName");
+                ImportToComboBox(comboBoxLocation, "InstrumentSet", "Location");
             }
             catch (Exception ex)
             {
@@ -125,14 +102,7 @@ namespace FirstWinFormsApp1
 
             // Reload previous sensor names
             string sensorNamesFile = "instrumentList.csv";
-            //if (File.Exists(sensorNamesFile))
-            //{
-            //    string[] sensorNames = File.ReadAllLines(sensorNamesFile);
-            //    foreach (string sensorName in sensorNames)
-            //    {
-            //        comboBoxInstrumentName.Items.Add(sensorName);
-            //    }
-            //}
+
 
             // Save instrument list to file
             using (var outputFile = new StreamWriter(instrumentListFile))
@@ -142,6 +112,10 @@ namespace FirstWinFormsApp1
                     outputFile.WriteLine(instrument.ToString());
                 }
             }
+            // Display pop-up message
+            DialogResult result = MessageBox.Show("Need to connect to BE", "Connection", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+
         }
         public Form1()
         {
@@ -151,6 +125,14 @@ namespace FirstWinFormsApp1
             InitializeComponent();
             comboBoxInstrumentName.Visible = false;
             comboBoxSenorName.Visible = false;
+            textBoxLocation.Visible = false;
+            textLabelLocation.Visible = false;
+            textBoxInstrumentID.Visible = false;
+            radioButtonInstrumentID.Visible = false;
+            buttonOpenFile.Visible = false;
+
+
+            //comboBoxLocation.Visible = false;
             // Set initial value of textBoxLocation to a hyphen (-)
             //textBoxLocation.Text = "-";
 
@@ -159,17 +141,17 @@ namespace FirstWinFormsApp1
             IPAddress[] addresslist = Dns.GetHostAddresses(Dns.GetHostName());
             foreach (IPAddress address in addresslist)
             {
-                listBox_IpAddresses.Items.Add(address.ToString());
+                //listBox_IpAddresses.Items.Add(address.ToString());
 
                 if (address.AddressFamily == AddressFamily.InterNetwork)
                 {
                     listBox_IpAddresses.Items.Add(address.ToString());
-
+                    Dns.GetHostAddresses(Dns.GetHostName());
                 }
             }
             // Create and start the timer for checking the connection
             connectionTimer = new System.Windows.Forms.Timer();
-            connectionTimer.Interval = 5000; // 5 seconds
+            connectionTimer.Interval = 1000; // 1 seconds
             connectionTimer.Tick += new EventHandler(CheckConnectionStatus);
             connectionTimer.Start();
 
@@ -225,9 +207,17 @@ namespace FirstWinFormsApp1
             comboBoxSenorName.Text = "";
             textBoxLocation.Text = "";
             textBoxInstrumentID.Text = "";
+            MeasureTypeLabel.Text = "";
+            comboBoxLocation.Text = "";
 
         }
 
+        private void ClearFormBE()
+        {
+            textBoxIP.Text = "";
+            textBoxPort.Text = "";
+
+        }
         private void TextboxRegisterText()
         {
             toolStripStatusLabel1.Text = "OK";
@@ -280,74 +270,54 @@ namespace FirstWinFormsApp1
              else { return false; }
          }*/
 
-        private void button1_Click(object sender, EventArgs e)
-        {
-            //Compare two inputs
+        //private void button1_Click(object sender, EventArgs e)
+        //{
+        //    //Compare two inputs
 
-            bool textEqual = false;
+        //    bool textEqual = false;
 
-            if (checkBoxStayConnected.Checked)
-            {
-                textBoxCommunication.Text = textBoxIP.Text.Equals(textBoxPort.Text) ? "Strings are Equal" : "Strings are not equal";
+        //    if (checkBoxStayConnected.Checked)
+        //    {
+        //        textBoxCommunication.Text = textBoxIP.Text.Equals(textBoxPort.Text) ? "Strings are Equal" : "Strings are not equal";
 
-            }
-            else
-            {
-                textEqual = textBoxIP.Text.Equals(textBoxPort.Text, StringComparison.InvariantCultureIgnoreCase);
-            }
-
-
-
-            int stringCompareResult;
-
-            stringCompareResult = string.Compare(textBoxIP.Text, textBoxPort.Text, checkBoxStayConnected.Checked);
-
-            if (stringCompareResult > 0)
-            {
-                textBoxCommunication.AppendText(string.Format("{0} is after {1}", textBoxIP.Text, textBoxPort.Text));
-
-            }
-            else if (stringCompareResult < 0)
-            {
-                textBoxCommunication.AppendText(string.Format("{0} is before {1}", textBoxIP.Text, textBoxPort.Text));
-            }
-            else
-            {
-                textBoxCommunication.AppendText(string.Format("{0} is equal to {1}", textBoxIP.Text, textBoxPort.Text));
-            }
-
-            if (textBoxIP.Text.IndexOf(":") > 0)
-            {
-                string[] textSeperatePart = textBoxIP.Text.Split(";");
-
-                foreach (String part in textSeperatePart)
-                {
-                    textBoxCommunication.AppendText(part + "\r+n");
-                }
-
-            }
-
-
-            //if (textBox1input1.Text.Equals(textBox2input2.Text,StringComparison.InvariantCultureIgnoreCase))
-            //{
-            // textBoxResult.Text = "String are equal";
-
-
-            // }
-            //else
-            // {
-            //     textBoxResult.Text = "Strings are not equal";
-            //}
+        //    }
+        //    else
+        //    {
+        //        textEqual = textBoxIP.Text.Equals(textBoxPort.Text, StringComparison.InvariantCultureIgnoreCase);
+        //    }
 
 
 
+        //    int stringCompareResult;
 
-            //Int64 testIntLong = Convert.ToInt64(textBox1input1.Text);
+        //    stringCompareResult = string.Compare(textBoxIP.Text, textBoxPort.Text, checkBoxStayConnected.Checked);
 
-            //int testInt = (int)testIntLong;
+        //    if (stringCompareResult > 0)
+        //    {
+        //        textBoxCommunication.AppendText(string.Format("{0} is after {1}", textBoxIP.Text, textBoxPort.Text));
 
-            //textBoxResult.AppendText("" + testInt);
-        }
+        //    }
+        //    else if (stringCompareResult < 0)
+        //    {
+        //        textBoxCommunication.AppendText(string.Format("{0} is before {1}", textBoxIP.Text, textBoxPort.Text));
+        //    }
+        //    else
+        //    {
+        //        textBoxCommunication.AppendText(string.Format("{0} is equal to {1}", textBoxIP.Text, textBoxPort.Text));
+        //    }
+
+        //    if (textBoxIP.Text.IndexOf(":") > 0)
+        //    {
+        //        string[] textSeperatePart = textBoxIP.Text.Split(";");
+
+        //        foreach (String part in textSeperatePart)
+        //        {
+        //            textBoxCommunication.AppendText(part + "\r+n");
+        //        }
+
+        //    }
+
+        //}
 
 
 
@@ -523,9 +493,9 @@ namespace FirstWinFormsApp1
                 SqlCommand cmd = new SqlCommand("InsertNewInstrumentWithRange", sqlConnection);
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.AddWithValue("@InstrumentName", comboBoxSenorName.Text);
+                cmd.Parameters.AddWithValue("@Location", comboBoxLocation.Text);
                 cmd.Parameters.AddWithValue("@RegisterDate", DateTime.Now);
-                cmd.Parameters.AddWithValue("@Location", textBoxLocation.Text);
-                cmd.Parameters.AddWithValue("SerialNo", SerialNumberLabel.Text);
+                cmd.Parameters.AddWithValue("@SerialNo", SerialNumberLabel.Text);
                 cmd.Parameters.AddWithValue("@Comments", CommentsTextLabel.Text);
                 cmd.Parameters.AddWithValue("@SignaType_Signal_id", SignalTypeLabel.SelectedValue);
                 cmd.Parameters.AddWithValue("@MeasurementType_MeasuremntTypeId", MeasureTypeLabel.SelectedValue);
@@ -535,16 +505,38 @@ namespace FirstWinFormsApp1
                 cmd.Parameters.AddWithValue("@AlarmLow", textBoxAlarmLow.Text);
 
                 sqlConnection.Open();
-                cmd.ExecuteNonQuery();
+                SqlDataReader reader = cmd.ExecuteReader();
+                if (reader.Read())
+                {
+                    textBoxInstrumentID.Text = reader["Instrument_id"].ToString();
+                    comboBoxSenorName.Text = reader["InstrumentName"].ToString();
+                    // Read other columns here...
+                }
+                reader.Close();
+                // Clear existing items in comboBoxSenorName
+                comboBoxSenorName.Items.Clear();
+
+                // Populate comboBoxSenorName based on the selected value of comboBoxLocation
+                string query = "SELECT InstrumentName FROM InstrumentSet WHERE InstrumentName = @InstrumentName";
+                SqlCommand command = new SqlCommand(query, sqlConnection);
+                command.Parameters.AddWithValue("@Location", comboBoxLocation.Text);
+                SqlDataReader dataReader = command.ExecuteReader();
+                while (dataReader.Read())
+                {
+                    comboBoxSenorName.Items.Add(dataReader["InstrumentName"]);
+                }
+                dataReader.Close();
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
             }
-
-
+            finally
+            {
+                sqlConnection.Close();
+            }
         }
-        private void InstrumentSQL()
+        private void InstrumentSQL() //Saves to sql
         {
             SqlConnection sqlConnection = new SqlConnection(connectionString);
             string InsertRangeQuery = "INSERT INTO AnalogRangeSet (Lrv, Urv, AlarmHigh, AlarmLow, Unit)"
@@ -564,7 +556,7 @@ namespace FirstWinFormsApp1
             string instrumentName = comboBoxSenorName.Text;
             string serialNo = SerialNumberLabel.Text;
             string comment = CommentsTextLabel.Text;
-            string location = textBoxLocation.Text;
+            string location = comboBoxLocation.Text;
             string signalType = SignalTypeLabel.SelectedItem.ToString();
             string measurementTypeName = MeasureTypeLabel.SelectedItem.ToString(); // Get the measurement type name
             string registerDate = DateTime.Now.ToString(); // current date and time
@@ -641,7 +633,7 @@ namespace FirstWinFormsApp1
                     measurementTypeId = 16;
                     break;
                 default:
-                    measurementTypeId = 0;
+                    measurementTypeId = -1;
                     break;
             }
 
@@ -672,11 +664,12 @@ namespace FirstWinFormsApp1
             sqlConnection.Close();
             ClearForm();
             MessageBox.Show("Data saved successfully!", "Confirmation", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            InstrumentSQLProcedure();
 
         }
-        
-       
+
+
+
+
         private void saveDataToFile()
         {
             //string data = instrument.ToString() + "\r\n";
@@ -765,21 +758,72 @@ namespace FirstWinFormsApp1
 
         private void buttonOpenFile_Click(object sender, EventArgs e)
         {
-            var inputFile = new StreamReader("register.csv");
-            textBoxRegister.Text = inputFile.ReadToEnd();
-            inputFile.Close();
-        }
+            OpenFileDialog openFileDialog = new OpenFileDialog();
+            openFileDialog.InitialDirectory = @"C:\Users\morte\OneDrive\Dokumenter\Instruments";
+            openFileDialog.Filter = "Text files (*.txt)|*.txt|All files (*.*)|*.*";
+            openFileDialog.FilterIndex = 1;
+            openFileDialog.Multiselect = false;
 
-        private void button2_Click_1(object sender, EventArgs e)
-        {
-            if (textBoxRegister.TextLength > 0)
+            // if the user selects a file, load its data into the appropriate textboxes
+            if (openFileDialog.ShowDialog() == DialogResult.OK)
             {
-                StreamWriter outputFile = new StreamWriter("register.csv");
-                outputFile.Write(textBoxRegister.Text);
-                outputFile.Close();
-            }
+                // read the contents of the file
+                string fileContents = File.ReadAllText(openFileDialog.FileName);
 
+                // parse the data in the file
+                string[] data = fileContents.Split(new string[] { "\n" }, StringSplitOptions.RemoveEmptyEntries);
+
+                // check if file has 14 lines of data
+                if (data.Length == 14)
+                {
+                    // set the values of the appropriate textboxes on the form
+                    comboBoxInstrumentName.Text = data[0];
+                    SerialNumberLabel.Text = data[1];
+                    dateTimePicker1Label.Value = Convert.ToDateTime(data[2]);
+                    textBoxLocation.Text = data[3];
+                    SignalTypeLabel.Text = data[4];
+                    MeasureTypeLabel.Text = data[5];
+                    textBoxInstrumentID.Text = data[6];
+                    TextBoxOptions.Text = data[7];
+                    CommentsTextLabel.Text = data[8];
+                    textBoxLRV.Text = data[9];
+                    textBoxURV.Text = data[10];
+                    textBoxUnit.Text = data[11];
+                    textBoxAlarmHigh.Text = data[12];
+                    textBoxAlarmLow.Text = data[13];
+                }
+                // check if file has 9 lines of data
+                else if (data.Length == 9)
+                {
+                    // set the values of the appropriate textboxes on the form
+                    comboBoxInstrumentName.Text = data[0];
+                    SerialNumberLabel.Text = data[1];
+                    dateTimePicker1Label.Value = Convert.ToDateTime(data[2]);
+                    textBoxLocation.Text = data[3];
+                    SignalTypeLabel.Text = data[4];
+                    MeasureTypeLabel.Text = data[5];
+                    textBoxInstrumentID.Text = data[6];
+                    TextBoxOptions.Text = data[7];
+                    CommentsTextLabel.Text = data[8];
+                    // clear the values of the unused textboxes on the form
+                    textBoxLRV.Text = "";
+                    textBoxURV.Text = "";
+                    textBoxUnit.Text = "";
+                    textBoxAlarmHigh.Text = "";
+                    textBoxAlarmLow.Text = "";
+                }
+                else
+                {
+                    // handle the case where the file has an unexpected number of lines
+                    // for example, clear all the textboxes on the form
+                    ClearForm();
+                    MessageBox.Show("The selected file has an unexpected number of lines. It should have either 9 or 14 lines of data.");
+                    return;
+                }
+            }
         }
+
+
 
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
         {
@@ -959,14 +1003,44 @@ namespace FirstWinFormsApp1
             }
         }
 
+
+
         private void button10_Click(object sender, EventArgs e)
         {
+            if (!IsConnected())
+            {
+                MessageBox.Show("BE is not connected.\r\n");
+                return;
+            }
             if (timerRedaScaled.Enabled)
             {
                 timerRedaScaled.Stop();
             }
             else
             {
+                // Create a new file with a unique name
+                string timestamp = DateTime.Now.ToString("yyyyMMddHHmmss");
+                string fileId = Guid.NewGuid().ToString().Substring(0, 8);
+                string fileName = $"output_{timestamp}_{fileId}.csv";
+
+                // Allow the user to select a file name
+                using (SaveFileDialog saveFileDialog1 = new SaveFileDialog())
+                {
+                    saveFileDialog1.InitialDirectory = @"C:\Users\morte\OneDrive\Dokumenter\Instruments";
+                    saveFileDialog1.Filter = "CSV files (*.csv)|*.csv|All files (*.*)|*.*";
+                    saveFileDialog1.FilterIndex = 1;
+                    saveFileDialog1.RestoreDirectory = true;
+
+                    if (saveFileDialog1.ShowDialog() == DialogResult.OK)
+                    {
+                        fileName = saveFileDialog1.FileName;
+                    }
+                    else
+                    {
+                        return;
+                    }
+                }
+
                 // Clear the existing chart data
                 chart1.Series[0].Points.Clear();
 
@@ -975,15 +1049,6 @@ namespace FirstWinFormsApp1
 
                 // Start the timer that updates the chart
                 timerRedaScaled.Start();
-
-                // Create a new file with a unique name
-                string timestamp = DateTime.Now.ToString("yyyyMMddHHmmss");
-                string fileId = Guid.NewGuid().ToString().Substring(0, 8);
-                string fileName = $"output_{timestamp}_{fileId}.txt";
-                using (StreamWriter writer = new StreamWriter(fileName))
-                {
-                    writer.WriteLine("This is a new file created at " + DateTime.Now.ToString());
-                }
 
                 // Write the X and Y values to the output file and textbox every time the timer elapses
                 timerRedaScaled.Tick += (s, ev) =>
@@ -1013,6 +1078,12 @@ namespace FirstWinFormsApp1
 
         private void buttonReadConfiguration_Click(object sender, EventArgs e)
         {
+            if (!IsConnected())
+            {
+                textBoxCommunication.AppendText("BE is not connected.\r\n");
+                return;
+            }
+
             string[] sensorConf;
             string received;
             received = sendToBackEnd("readconf");
@@ -1022,6 +1093,12 @@ namespace FirstWinFormsApp1
 
         private void buttonReadState_Click(object sender, EventArgs e)
         {
+            if (!IsConnected())
+            {
+                textBoxCommunication.AppendText("BE is not connected.\r\n");
+                return;
+            }
+
             string[] sensorState;
             string received;
             received = sendToBackEnd("readstatus");
@@ -1032,11 +1109,18 @@ namespace FirstWinFormsApp1
 
         private void buttonReadScaled_Click(object sender, EventArgs e)
         {
+            if (!IsConnected())
+            {
+                textBoxCommunication.AppendText("BE is not connected.\r\n");
+                return;
+            }
+
             string[] sensorScaled;
             string received;
             received = sendToBackEnd("readscaled");
             sensorScaled = received.Split(",");
             textBoxCommunication.AppendText(received + "\r\n");
+
         }
         public static class Prompt
         {
@@ -1068,6 +1152,12 @@ namespace FirstWinFormsApp1
         }
         private void button6_Click(object sender, EventArgs e)
         {
+            if (!IsConnected())
+            {
+                textBoxCommunication.AppendText("BE is not connected.\r\n");
+                return;
+            }
+
             string password = Prompt.ShowDialog("Enter Password", "Password");
 
             if (password != "password")
@@ -1124,7 +1214,7 @@ namespace FirstWinFormsApp1
 
         private void UpdateChartData()
         {
-            xTimeValue += 5;
+            xTimeValue += 1;
             double yValue = 0.0;
             string received;
 
@@ -1132,19 +1222,35 @@ namespace FirstWinFormsApp1
             {
                 received = sendToBackEnd("readscaled");
                 string[] receivedParts = received.Split(";");
+                if (receivedParts.Length < 2)
+                {
+                    throw new Exception("Received message has an invalid format");
+                }
                 string receivedString = receivedParts[1].Remove(receivedParts[1].Length - 2);
 
                 yValue = Convert.ToDouble(receivedString, CultureInfo.InvariantCulture);
 
                 if (isFirstTick)
                 {
-                    chart1.Series[0].Points.AddXY(xTimeValue - 5, yValue);
+                    chart1.Series[0].Points.AddXY(xTimeValue - 0, yValue);
                     isFirstTick = false;
                 }
                 else
                 {
                     chart1.Series[0].Points.AddXY(xTimeValue, yValue);
                 }
+            }
+            catch (SocketException ex)
+            {
+                textBoxCommunication.AppendText("Socket exception: " + ex.Message + "\r\n");
+            }
+            catch (FormatException ex)
+            {
+                textBoxCommunication.AppendText("Format exception: " + ex.Message + "\r\n");
+            }
+            catch (IndexOutOfRangeException ex)
+            {
+                textBoxCommunication.AppendText("Index out of range exception: " + ex.Message + "\r\n");
             }
             catch (Exception ex)
             {
@@ -1290,6 +1396,16 @@ namespace FirstWinFormsApp1
 
         private void buttonSend_Click(object sender, EventArgs e)
         {
+            if (!IsConnected())
+            {
+                textBoxCommunication.AppendText("BE is not connected.\r\n");
+                return;
+            }
+            if (string.IsNullOrEmpty(textBoxSend.Text))
+            {
+                MessageBox.Show("Cannot send empty message.\r\n");
+                return;
+            }
             try
             {
                 IPEndPoint endPoint = new IPEndPoint(IPAddress.Parse(textBoxIP.Text),
@@ -1364,8 +1480,8 @@ namespace FirstWinFormsApp1
             if (radioButton2.Checked)
             {
                 InstrumentSQL();
-                
-                
+
+
             }
 
 
@@ -1407,13 +1523,25 @@ namespace FirstWinFormsApp1
         }
         private void disconnectButtonAddXY_Click(object sender, EventArgs e)
         {
+            if (!IsConnected())
+            {
+                MessageBox.Show("BE is not connected.\r\n");
+                return;
+            }
             timerRedaScaled.Stop();
+
             // Show the radioButtonConnection control
             labelConnecionOK.Visible = false;
+            MessageBox.Show("Measurment session stopped.\r\n");
         }
 
         private void testButton_Click(object sender, EventArgs e)
         {
+            if (!IsConnected())
+            {
+                textBoxCommunication.AppendText("BE is not connected.\r\n");
+                return;
+            }
 
             IPEndPoint endPoint = new IPEndPoint(IPAddress.Parse(textBoxIP.Text),
             Convert.ToInt32(textBoxPort.Text));
@@ -1543,7 +1671,7 @@ namespace FirstWinFormsApp1
                 SerialNumberLabel.DataBindings.Add(new Binding("Text", bindingSourceInstrument, "SerialNo"));
                 CommentsTextLabel.DataBindings.Add(new Binding("Text", bindingSourceInstrument, "Comments"));
                 dateTimePicker1Label.DataBindings.Add(new Binding("Value", bindingSourceInstrument, "RegisterDate"));
-                textBoxLocation.DataBindings.Add(new Binding("Text", bindingSourceInstrument, "Location"));
+                comboBoxLocation.DataBindings.Add(new Binding("Text", bindingSourceInstrument, "Location"));
                 textBoxLRV.DataBindings.Add(new Binding("Text", bindingSourceInstrument, "Lrv"));
                 textBoxURV.DataBindings.Add(new Binding("Text", bindingSourceInstrument, "Urv"));
                 textBoxUnit.DataBindings.Add(new Binding("Text", bindingSourceInstrument, "Unit"));
@@ -1559,73 +1687,73 @@ namespace FirstWinFormsApp1
             }
         }
 
-        
-        private void save_Instrument_to_sql() 
-             {
-                
 
-
-                 //// Create an SQL query to insert or update data in the database.
-                 //string insertInstrumentQuery = "INSERT INTO InstrumentSet (SerialNo, InstrumentName, Comments, RegisterDate, Location, Lrv, UrV, Unit, AlarmHigh, AlarmLow, AnalogRange_RangeId, SignaType_Signal_Id, MeasurementType_MeasuremntTypeId) VALUES (@SerialNo, @InstrumentName, @Comments, @RegisterDate, @Location, @Lrv, @UrV, @Unit, @AlarmHigh, @AlarmLow, @AnalogRange_RangeId, @SignaType_Signal_Id, @MeasurementType_MeasuremntTypeId)";
-                 //string updateInstrumentQuery = "UPDATE InstrumentSet SET SerialNo = @SerialNo, InstrumentName = @InstrumentName, Comments = @Comments, RegisterDate = @RegisterDate, Location = @Location, Lrv = @Lrv, UrV = @UrV, Unit = @Unit, AlarmHigh = @AlarmHigh, AlarmLow = @AlarmLow, AnalogRange_RangeId = @AnalogRange_RangeId, SignaType_Signal_Id = @SignaType_Signal_Id, MeasurementType_MeasuremntTypeId = @MeasurementType_MeasuremntTypeId WHERE Instrument_id = @Instrument_id";
-
-                 //// Create a SqlCommand object with the appropriate SQL query and SqlConnection object.
-                 //SqlCommand command = new SqlCommand();
-                 //command.Connection = connection;
-                 //command.CommandType = CommandType.Text;
-
-                 //// Add the required parameters to the SqlCommand object.
-                 //command.Parameters.AddWithValue("@SerialNo", SerialNumberLabel.Text);
-                 //command.Parameters.AddWithValue("@InstrumentName", comboBoxSenorName.Text);
-                 //command.Parameters.AddWithValue("@Comments", CommentsTextLabel.Text);
-                 //command.Parameters.AddWithValue("@RegisterDate", dateTimePicker1Label.Value);
-                 //command.Parameters.AddWithValue("@Location", textBoxLocation.Text);
-                 //command.Parameters.AddWithValue("@Lrv", textBoxLRV.Text);
-                 //command.Parameters.AddWithValue("@UrV", textBoxURV.Text);
-                 //command.Parameters.AddWithValue("@Unit", textBoxUnit.Text);
-                 //command.Parameters.AddWithValue("@AlarmHigh", textBoxAlarmHigh.Text);
-                 //command.Parameters.AddWithValue("@AlarmLow", textBoxAlarmLow.Text);
-                 //command.Parameters.AddWithValue("@AnalogRange_RangeId", (int)bindingSourceInstrument["AnalogRange_RangeId"]);
-                 //command.Parameters.AddWithValue("@SignaType_Signal_Id", (int)bindingSourceInstrument["SignaType_Signal_Id"]);
-                 //command.Parameters.AddWithValue("@MeasurementType_MeasuremntTypeId", (int)bindingSourceInstrument["MeasurementType_MeasuremntTypeId"]);
-
-                 //// If the Instrument_id is not null, it means that we are updating an existing instrument.
-                 //// In this case, we need to add the Instrument_id parameter to the SqlCommand object.
-                 //if (bindingSourceInstrument["Instrument_id"] != DBNull.Value)
-                 //{
-                 //    command.CommandText = updateInstrumentQuery;
-                 //    command.Parameters.AddWithValue("@Instrument_id", (int)bindingSourceInstrument["Instrument_id"]);
-                 //}
-                 //else
-                 //{
-                 //    // Otherwise, we are inserting a new instrument.
-                 //    command.CommandText = insertInstrumentQuery;
-                 //}
-
-                 //// Execute the command to insert or update the instrument in the database.
-                 //try
-                 //{
-                 //    connection.Open();
-                 //    int rowsAffected = command.ExecuteNonQuery();
-                 //    if (rowsAffected > 0)
-                 //    {
-                 //        MessageBox.Show("Changes saved successfully.");
-                 //    }
-                 //}
-                 //catch (Exception ex)
-                 //{
-                 //    MessageBox.Show("Error: " + ex.Message);
-                 //}
-                 //finally
-                 //{
-                 //    connection.Close();
-                 //}
-
-             }
+        private void save_Instrument_to_sql()
+        {
 
 
 
-        
+            //// Create an SQL query to insert or update data in the database.
+            //string insertInstrumentQuery = "INSERT INTO InstrumentSet (SerialNo, InstrumentName, Comments, RegisterDate, Location, Lrv, UrV, Unit, AlarmHigh, AlarmLow, AnalogRange_RangeId, SignaType_Signal_Id, MeasurementType_MeasuremntTypeId) VALUES (@SerialNo, @InstrumentName, @Comments, @RegisterDate, @Location, @Lrv, @UrV, @Unit, @AlarmHigh, @AlarmLow, @AnalogRange_RangeId, @SignaType_Signal_Id, @MeasurementType_MeasuremntTypeId)";
+            //string updateInstrumentQuery = "UPDATE InstrumentSet SET SerialNo = @SerialNo, InstrumentName = @InstrumentName, Comments = @Comments, RegisterDate = @RegisterDate, Location = @Location, Lrv = @Lrv, UrV = @UrV, Unit = @Unit, AlarmHigh = @AlarmHigh, AlarmLow = @AlarmLow, AnalogRange_RangeId = @AnalogRange_RangeId, SignaType_Signal_Id = @SignaType_Signal_Id, MeasurementType_MeasuremntTypeId = @MeasurementType_MeasuremntTypeId WHERE Instrument_id = @Instrument_id";
+
+            //// Create a SqlCommand object with the appropriate SQL query and SqlConnection object.
+            //SqlCommand command = new SqlCommand();
+            //command.Connection = connection;
+            //command.CommandType = CommandType.Text;
+
+            //// Add the required parameters to the SqlCommand object.
+            //command.Parameters.AddWithValue("@SerialNo", SerialNumberLabel.Text);
+            //command.Parameters.AddWithValue("@InstrumentName", comboBoxSenorName.Text);
+            //command.Parameters.AddWithValue("@Comments", CommentsTextLabel.Text);
+            //command.Parameters.AddWithValue("@RegisterDate", dateTimePicker1Label.Value);
+            //command.Parameters.AddWithValue("@Location", textBoxLocation.Text);
+            //command.Parameters.AddWithValue("@Lrv", textBoxLRV.Text);
+            //command.Parameters.AddWithValue("@UrV", textBoxURV.Text);
+            //command.Parameters.AddWithValue("@Unit", textBoxUnit.Text);
+            //command.Parameters.AddWithValue("@AlarmHigh", textBoxAlarmHigh.Text);
+            //command.Parameters.AddWithValue("@AlarmLow", textBoxAlarmLow.Text);
+            //command.Parameters.AddWithValue("@AnalogRange_RangeId", (int)bindingSourceInstrument["AnalogRange_RangeId"]);
+            //command.Parameters.AddWithValue("@SignaType_Signal_Id", (int)bindingSourceInstrument["SignaType_Signal_Id"]);
+            //command.Parameters.AddWithValue("@MeasurementType_MeasuremntTypeId", (int)bindingSourceInstrument["MeasurementType_MeasuremntTypeId"]);
+
+            //// If the Instrument_id is not null, it means that we are updating an existing instrument.
+            //// In this case, we need to add the Instrument_id parameter to the SqlCommand object.
+            //if (bindingSourceInstrument["Instrument_id"] != DBNull.Value)
+            //{
+            //    command.CommandText = updateInstrumentQuery;
+            //    command.Parameters.AddWithValue("@Instrument_id", (int)bindingSourceInstrument["Instrument_id"]);
+            //}
+            //else
+            //{
+            //    // Otherwise, we are inserting a new instrument.
+            //    command.CommandText = insertInstrumentQuery;
+            //}
+
+            //// Execute the command to insert or update the instrument in the database.
+            //try
+            //{
+            //    connection.Open();
+            //    int rowsAffected = command.ExecuteNonQuery();
+            //    if (rowsAffected > 0)
+            //    {
+            //        MessageBox.Show("Changes saved successfully.");
+            //    }
+            //}
+            //catch (Exception ex)
+            //{
+            //    MessageBox.Show("Error: " + ex.Message);
+            //}
+            //finally
+            //{
+            //    connection.Close();
+            //}
+
+        }
+
+
+
+
         private void radioButton1_CheckedChanged(object sender, EventArgs e)
         {
             ClearForm();
@@ -1634,7 +1762,12 @@ namespace FirstWinFormsApp1
 
             {
                 comboBoxInstrumentName.Visible = true;
+                textBoxLocation.Visible = true;
+                textLabelLocation.Visible = true;
                 comboBoxSenorName.Visible = false;
+                textBoxInstrumentID.Visible = true;
+                radioButtonInstrumentID.Visible = true;
+                buttonOpenFile.Visible = true;
             }
             else
             {
@@ -1647,11 +1780,18 @@ namespace FirstWinFormsApp1
             ClearForm();
             if (radioButton2.Checked)
             {
+
                 comboBoxSenorName.Visible = true;
                 comboBoxInstrumentName.Visible = false;
+                textBoxLocation.Visible = false;
+                textLabelLocation.Visible = false;
+                textBoxInstrumentID.Visible = false;
+                radioButtonInstrumentID.Visible = false;
+                buttonOpenFile.Visible = false;
             }
             else
             {
+
                 comboBoxSenorName.Visible = false;
             }
         }
@@ -1763,11 +1903,17 @@ namespace FirstWinFormsApp1
             if (IsConnected())
             {
                 MessageBox.Show("Connection successful.");
+                textBoxCommunication.AppendText("Connected to BE.\r\n");
+                label21.Visible = true;
+                label22.Visible = true;
+                label23.Visible = true;
+                label24.Visible = true;
             }
             else
             {
-                MessageBox.Show("Connection failed.");
+                MessageBox.Show("Connection failed. Please check the IP address and port number and try again.");
             }
+
         }
 
         private void chart1_Click(object sender, EventArgs e)
@@ -1778,6 +1924,57 @@ namespace FirstWinFormsApp1
         private void comboBoxSenorName_SelectedIndexChanged(object sender, EventArgs e)
         {
 
+        }
+
+        private void measurementButton_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void textBoxIP_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void diconnectButton_Click(object sender, EventArgs e)
+        {
+            ClearFormBE();
+            label21.Visible = false;
+            label22.Visible = false;
+            label23.Visible = false;
+            label24.Visible = false;
+            MessageBox.Show("Disconnected from BE.");
+            textBoxCommunication.AppendText("Disconnected from BE.\r\n");
+
+
+        }
+
+        private void bindingSource1_CurrentChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void labelConnecionOK_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void checkBoxStayConnected_CheckedChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void timer1_Tick_1(object sender, EventArgs e)
+        {
+            // check the connection status
+            if (!IsConnected())
+            {
+                // display a message to the user
+                MessageBox.Show("Lost connection to backend!");
+
+                // stop the timer from checking the connection status
+                timer1.Stop();
+            }
         }
     }
 
