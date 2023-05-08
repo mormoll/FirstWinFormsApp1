@@ -530,11 +530,11 @@
             // label22
             // 
             label22.AutoSize = true;
-            label22.Font = new Font("Segoe UI Black", 15F, FontStyle.Bold, GraphicsUnit.Point);
-            label22.ForeColor = Color.DarkGreen;
-            label22.Location = new Point(1807, 945);
+            label22.Font = new Font("Segoe UI Black", 10F, FontStyle.Bold, GraphicsUnit.Point);
+            label22.ForeColor = Color.YellowGreen;
+            label22.Location = new Point(1761, 132);
             label22.Name = "label22";
-            label22.Size = new Size(365, 67);
+            label22.Size = new Size(247, 46);
             label22.TabIndex = 39;
             label22.Text = "BE Connected";
             label22.Visible = false;
