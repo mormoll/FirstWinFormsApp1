@@ -29,10 +29,10 @@
         private void InitializeComponent()
         {
             components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.Title title1 = new System.Windows.Forms.DataVisualization.Charting.Title();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea2 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend2 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series2 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.Title title2 = new System.Windows.Forms.DataVisualization.Charting.Title();
             printDialog1 = new PrintDialog();
             statusStrip1 = new StatusStrip();
             toolStripStatusLabel1 = new ToolStripStatusLabel();
@@ -1112,33 +1112,33 @@
             // 
             chart1.BackColor = Color.WhiteSmoke;
             chart1.BorderlineDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.Solid;
-            chartArea1.AxisX.Title = "Seconds";
-            chartArea1.AxisX.TitleFont = new Font("Microsoft Sans Serif", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            chartArea1.AxisY.TextOrientation = System.Windows.Forms.DataVisualization.Charting.TextOrientation.Horizontal;
-            chartArea1.AxisY.Title = "Lux";
-            chartArea1.AxisY.TitleFont = new Font("Microsoft Sans Serif", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            chartArea1.CursorX.IntervalOffset = 5D;
-            chartArea1.Name = "ChartArea1";
-            chart1.ChartAreas.Add(chartArea1);
+            chartArea2.AxisX.Title = "Seconds";
+            chartArea2.AxisX.TitleFont = new Font("Microsoft Sans Serif", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            chartArea2.AxisY.TextOrientation = System.Windows.Forms.DataVisualization.Charting.TextOrientation.Horizontal;
+            chartArea2.AxisY.Title = "Lux";
+            chartArea2.AxisY.TitleFont = new Font("Microsoft Sans Serif", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            chartArea2.CursorX.IntervalOffset = 5D;
+            chartArea2.Name = "ChartArea1";
+            chart1.ChartAreas.Add(chartArea2);
             chart1.Dock = DockStyle.Fill;
-            legend1.Name = "Legend1";
-            chart1.Legends.Add(legend1);
+            legend2.Name = "Legend1";
+            chart1.Legends.Add(legend2);
             chart1.Location = new Point(2, 3);
             chart1.Margin = new Padding(2, 3, 2, 3);
             chart1.Name = "chart1";
-            series1.BorderWidth = 3;
-            series1.ChartArea = "ChartArea1";
-            series1.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
-            series1.Color = Color.Red;
-            series1.Legend = "Legend1";
-            series1.Name = "Live Uppdate";
-            series1.YValuesPerPoint = 2;
-            chart1.Series.Add(series1);
+            series2.BorderWidth = 3;
+            series2.ChartArea = "ChartArea1";
+            series2.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
+            series2.Color = Color.Red;
+            series2.Legend = "Legend1";
+            series2.Name = "Live Uppdate";
+            series2.YValuesPerPoint = 2;
+            chart1.Series.Add(series2);
             chart1.Size = new Size(2324, 1059);
             chart1.TabIndex = 0;
             chart1.Text = "chart1";
-            title1.Name = "Ligth Value";
-            chart1.Titles.Add(title1);
+            title2.Name = "Ligth Value";
+            chart1.Titles.Add(title2);
             chart1.Click += chart1_Click;
             // 
             // menuStrip1
@@ -1180,6 +1180,10 @@
             // 
             timerRedaScaled.Interval = 5000;
             timerRedaScaled.Tick += timer1_Tick;
+            // 
+            // bindingSource1
+            // 
+            bindingSource1.CurrentChanged += bindingSource1_CurrentChanged;
             // 
             // timer1
             // 
